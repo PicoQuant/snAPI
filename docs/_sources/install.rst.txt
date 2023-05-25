@@ -4,6 +4,8 @@
 Installation
 ============
 
+Python
+------
 
 To install the package, follow these steps:
 
@@ -35,6 +37,9 @@ This should output the version number of Python that you have installed.
 
 This will install or upgrade `pip` to the latest version.
 
+snAPI
+-----
+
 7. Download the package from the source repository: https://github.com/picoquant/snapi
 
 8. Finally, you can install your package using `pip`. Navigate to the directory where your package is located, and type the following command:
@@ -43,6 +48,8 @@ This will install or upgrade `pip` to the latest version.
 
     pip install snAPI-x.y.z-cp311-cp311-win_amd64.whl
 
+Dependencies
+------------
 This will install your package and its dependencies.
 
 
