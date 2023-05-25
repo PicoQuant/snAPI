@@ -40,7 +40,7 @@ This will install or upgrade `pip` to the latest version.
 snAPI
 -----
 
-7. Download the package from the source repository: https://github.com/picoquant/snapi
+7. Download the package [https://github.com/PicoQuant/snAPI/blob/63222a6f86063b19a36aae331cd813b4e4509b57/dist/snAPI-0.1.4-cp311-cp311-win_amd64.whl] from the source repository: https://github.com/picoquant/snapi
 
 8. Finally, you can install your package using `pip`. Navigate to the directory where your package is located, and type the following command:
 
