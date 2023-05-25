@@ -53,7 +53,7 @@ Dependencies
 This will install your package and its dependencies.
 
 
-9. Download the multiharp library from the source repository: https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
+9. Download the MultiHarp library: https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
 
 10. Unzip the library to a folder on your computer.
 
