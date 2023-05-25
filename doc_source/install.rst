@@ -48,6 +48,8 @@ snAPI
 
     pip install snAPI-x.y.z-cp311-cp311-win_amd64.whl
 
+Dependencies
+------------
 This will install your package and its dependencies.
 
 
