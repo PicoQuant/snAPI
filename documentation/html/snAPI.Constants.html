@@ -1,0 +1,644 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>snAPI.Constants module &#8212; snAPI  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'snAPI.Constants';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="snAPI.Main module" href="snAPI.Main.html" />
+    <link rel="prev" title="snAPI package" href="snAPI.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo-dark.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="snAPI.html">
+                        snAPI package
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://PicoQuant.com">
+                    PicoQuant
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="snAPI.html">
+                        snAPI package
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://PicoQuant.com">
+                    PicoQuant
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">snAPI.Constants module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snAPI.Main.html">snAPI.Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snAPI.Utils.html">snAPI.Utils module</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="snAPI.html" class="nav-link">snAPI package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">snAPI.Constants module</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="module-snAPI_Constants">
+<span id="snapi-constants-module"></span><h1>snAPI.Constants module<a class="headerlink" href="#module-snAPI_Constants" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_DeviceType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">DeviceType</span></span><a class="headerlink" href="#snAPI_Constants_DeviceType" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>The MultiHarp devices can use their internal crystal clock but alternatively they can be synchronized
+to an external reference clock. The latter is important when clock drift between multiple instruments in
+an experiment must be avoided. The constants defined here specify the reference clock to use.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_DeviceType_Undefined">
+<span class="sig-name descname"><span class="pre">Undefined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#snAPI_Constants_DeviceType_Undefined" title="Permalink to this definition">#</a></dt>
+<dd><p>This is for internal use only.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_DeviceType_HW">
+<span class="sig-name descname"><span class="pre">HW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_DeviceType_HW" title="Permalink to this definition">#</a></dt>
+<dd><p>This is a real device, for instance a MultiHarp.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_DeviceType_File">
+<span class="sig-name descname"><span class="pre">File</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_DeviceType_File" title="Permalink to this definition">#</a></dt>
+<dd><p>This is a file device. That means a ptu File that is opened as a device.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">MeasMode</span></span><a class="headerlink" href="#snAPI_Constants_MeasMode" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>The PicoQuant TCSPC devices support different measurement modes.
+The constants defined here specify the measurement mode the device gets initialized for with <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
+<p>In histogram mode, the photon arrival time data is instantly processed to calculate the time differences
+between sync events and events on the input channels. These get then accumulated in a set of histograms,
+one for each input channel. This is typically used for classic fluorescence lifetime measurements with
+TCSPC and requires very little data processing effort by the user. As opposed to this, the time tagging
+modes T2 and T3 are designed to stream the raw photon arrival time data to the host PC where the data
+can be processed and analyzed with ultimate flexibility for a huge range of more advanced applications.
+This processing can be carried out “on the fly” while the measurement is running, alternatively the data
+can be streamed to a file or PC memory and be processed later. The snAPI library supports both approaches.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasMode_Histogram">
+<span class="sig-name descname"><span class="pre">Histogram</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_Histogram" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>Histogram Mode</strong></p>
+<p>For the measurement class <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram" title="snAPI.Main.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a> it is useful to initialize the device in Histogram mode.
+For devices that support hardware histogramming this will enable higher count rates than software processing
+of the raw stream of time tags.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In histogram  mode no data is written to disc because the raw data stream is processed internally and
+does not get transmitted to the API.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasMode_T2">
+<span class="sig-name descname"><span class="pre">T2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_T2" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>T2 mode</strong></p>
+<img alt="_images/T2_mode.jpg" class="p-2" src="_images/T2_mode.jpg" />
+<p>In T2 mode all timing inputs and the sync input are functionally identical. There is no dedication
+of the sync input channel to a sync signal from a laser. It may be left unconnected or can be used
+for an additional detector signal. Usually all regular inputs are used to connect photon detectors.
+The events from all channels are recorded independently and treated equally. In each case an event
+record is generated that contains information about the channel it came from and the arrival time
+of the event with respect to the overall measurement start. The timing is recorded with the highest
+resolution the hardware supports.
+Dead-times exist only within each channel but not across the channels.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasMode_T3">
+<span class="sig-name descname"><span class="pre">T3</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_T3" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>T3 Mode</strong></p>
+<img alt="_images/T3_mode.jpg" class="p-2" src="_images/T3_mode.jpg" />
+<p>In T3 mode the sync input is dedicated to a periodic sync signal, typically from a laser. As far as
+the experimental setup is concerned, this is similar to histogram mode. The main objective is to
+allow high sync rates which could not be handled in T2 mode due to deadtime and USB bandwith limits.
+Accommodating the high sync rates in T3 mode is achieved as follows:
+First, a sync divider is employed (as in histogram mode).
+This reduces the sync rate so that the channel dead-time is no longer a problem. The remaining
+problem is that even with the divider the sync rate may still be too high for collecting all
+individual sync events like ordinary T2 mode events. Considering that sync events are not of primary
+interest, the solution is to record them only if they arrive in the context of a photon event on any
+of the input channels. The event record is then composed of two timing figures:</p>
+<ul class="simple">
+<li><p>the start stop timing difference between the photon event and the last sync event, and</p></li>
+<li><p>the arrival time of the event pair on the overall experiment time scale (the time tag).</p></li>
+</ul>
+<p>The latter is obtained by simply counting sync pulses. From the T3 mode event records it is therefore
+possible to precisely determine which sync period a photon event belongs to. Since the sync period
+is also known precisely, this furthermore allows to reconstruct the arrival time of the photon with
+respect to the overall experiment time.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">RefSource</span></span><a class="headerlink" href="#snAPI_Constants_RefSource" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>The MultiHarp devices can use their internal crystal clock but alternatively they can be synchronized
+to an external reference clock. The latter is important when clock drift between multiple instruments in
+an experiment must be avoided. The constants defined here specify the reference clock to use.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Internal">
+<span class="sig-name descname"><span class="pre">Internal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Internal" title="Permalink to this definition">#</a></dt>
+<dd><div class="line-block">
+<div class="line"><strong>Internal clock</strong></div>
+<div class="line">This is the default and normally what most users would select when only one device is being used.</div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_External_10MHZ">
+<span class="sig-name descname"><span class="pre">External_10MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_External_10MHZ" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>10MHz external clock</strong>
+This is for use with an industry standard 10MHz reference such as an atomic clock or another MultiHarp.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Master_Generic">
+<span class="sig-name descname"><span class="pre">Wr_Master_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Master_Generic" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>White Rabbit master with generic partner</strong></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Slave_Generic">
+<span class="sig-name descname"><span class="pre">Wr_Slave_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Slave_Generic" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>White Rabbit slave with generic partner</strong></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Grandm_Generic">
+<span class="sig-name descname"><span class="pre">Wr_Grandm_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Grandm_Generic" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>White Rabbit grand master with generic partner</strong></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Extn_GPS_PPS">
+<span class="sig-name descname"><span class="pre">Extn_GPS_PPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Extn_GPS_PPS" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>10 MHz + PPS from GPS</strong></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Extn_GPS_PPS_UART">
+<span class="sig-name descname"><span class="pre">Extn_GPS_PPS_UART</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Extn_GPS_PPS_UART" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>10 MHz + PPS + time via UART from GPS</strong></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Master_Mharp">
+<span class="sig-name descname"><span class="pre">Wr_Master_Mharp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Master_Mharp" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>White Rabbit master with MultiHarp as partner</strong></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Salve_Mharp">
+<span class="sig-name descname"><span class="pre">Wr_Salve_Mharp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Salve_Mharp" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>White Rabbit slave with MultiHarp as partner</strong></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Grandm_Mharp">
+<span class="sig-name descname"><span class="pre">Wr_Grandm_Mharp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Grandm_Mharp" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>White Rabbit grand master with MultiHarp as partner</strong></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="snAPI.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">snAPI package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="snAPI.Main.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">snAPI.Main module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType"><code class="docutils literal notranslate"><span class="pre">DeviceType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_Undefined"><code class="docutils literal notranslate"><span class="pre">DeviceType.Undefined</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_HW"><code class="docutils literal notranslate"><span class="pre">DeviceType.HW</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_File"><code class="docutils literal notranslate"><span class="pre">DeviceType.File</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasMode"><code class="docutils literal notranslate"><span class="pre">MeasMode</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasMode_Histogram"><code class="docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasMode_T2"><code class="docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasMode_T3"><code class="docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource"><code class="docutils literal notranslate"><span class="pre">RefSource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Internal"><code class="docutils literal notranslate"><span class="pre">RefSource.Internal</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_External_10MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_10MHZ</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Master_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Generic</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Slave_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Generic</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Grandm_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Grandm_Generic</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Extn_GPS_PPS"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Extn_GPS_PPS_UART"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS_UART</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Master_Mharp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Mharp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Salve_Mharp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Salve_Mharp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Grandm_Mharp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Grandm_Mharp</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Picoquant.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.4dev0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,971 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; snAPI  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo-dark.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="introduction.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="snAPI.html">
+                        snAPI package
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://PicoQuant.com">
+                    PicoQuant
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="introduction.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="snAPI.html">
+                        snAPI package
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://PicoQuant.com">
+                    PicoQuant
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#Y"><strong>Y</strong></a>
+ 
+</div>
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BBla">BBla (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BBlu">BBlu (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BCya">BCya (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BGre">BGre (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BIBla">BIBla (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BIBlu">BIBlu (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BICya">BICya (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BIGre">BIGre (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BIPur">BIPur (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BIRed">BIRed (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BIWhi">BIWhi (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BIYel">BIYel (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.Bla">Bla (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.Blu">Blu (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BPur">BPur (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BRed">BRed (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BWhi">BWhi (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.BYel">BYel (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.channel">channel() (snAPI.Main.Raw method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Correlation.clearMeasure">clearMeasure() (snAPI.Main.Correlation method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Histogram.clearMeasure">(snAPI.Main.Histogram method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.TimeTrace.clearMeasure">(snAPI.Main.TimeTrace method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.closeDevice">closeDevice() (snAPI.Main.snAPI method)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color">Color (class in snAPI.Utils)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Correlation">Correlation (class in snAPI.Main)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.correlation">correlation (snAPI.Main.snAPI attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.Cya">Cya (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device">Device (class in snAPI.Main)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.device">device (snAPI.Main.snAPI attribute)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.deviceConfig">deviceConfig (snAPI.Main.snAPI attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.deviceIDs">deviceIDs (snAPI.Main.snAPI attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.DeviceType">DeviceType (class in snAPI.Constants)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.dTime_T3">dTime_T3() (snAPI.Main.Raw method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Filter.enableMain">enableMain() (snAPI.Main.Filter method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Filter.enableRow">enableRow() (snAPI.Main.Filter method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.exitAPI">exitAPI() (snAPI.Main.snAPI method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.External_10MHZ">External_10MHZ (snAPI.Constants.RefSource attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.Extn_GPS_PPS">Extn_GPS_PPS (snAPI.Constants.RefSource attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.Extn_GPS_PPS_UART">Extn_GPS_PPS_UART (snAPI.Constants.RefSource attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.DeviceType.File">File (snAPI.Constants.DeviceType attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Filter">Filter (class in snAPI.Main)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.filter">filter (snAPI.Main.snAPI attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.getBlock">getBlock() (snAPI.Main.Raw method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Unfold.getBlock">(snAPI.Main.Unfold method)</a>
+</li>
+      </ul></li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Unfold.getChannels">getChannels() (snAPI.Main.Unfold method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.getCountRates">getCountRates() (snAPI.Main.snAPI method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Histogram.getData">getData() (snAPI.Main.Histogram method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Raw.getData">(snAPI.Main.Raw method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.TimeTrace.getData">(snAPI.Main.TimeTrace method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.Unfold.getData">(snAPI.Main.Unfold method)</a>
+</li>
+      </ul></li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.getDevice">getDevice() (snAPI.Main.snAPI method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.getDeviceConfig">getDeviceConfig() (snAPI.Main.snAPI method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.getDeviceIDs">getDeviceIDs() (snAPI.Main.snAPI method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Correlation.getFCSdata">getFCSdata() (snAPI.Main.Correlation method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.getFileDevice">getFileDevice() (snAPI.Main.snAPI method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Correlation.getG2data">getG2data() (snAPI.Main.Correlation method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Filter.getMainRates">getMainRates() (snAPI.Main.Filter method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Filter.getRowRates">getRowRates() (snAPI.Main.Filter method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Unfold.getTimes">getTimes() (snAPI.Main.Unfold method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Unfold.getTimesByChannel">getTimesByChannel() (snAPI.Main.Unfold method)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.Gre">Gre (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Histogram">Histogram (class in snAPI.Main)</a>
+
+      <ul>
+        <li><a href="snAPI.Constants.html#snAPI.Constants.MeasMode.Histogram">(snAPI.Constants.MeasMode attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.histogram">histogram (snAPI.Main.snAPI attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.DeviceType.HW">HW (snAPI.Constants.DeviceType attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.IBla">IBla (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.IBlu">IBlu (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.ICya">ICya (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.IGre">IGre (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.initAPI">initAPI() (snAPI.Main.snAPI method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.initDevice">initDevice() (snAPI.Main.snAPI method)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.Internal">Internal (snAPI.Constants.RefSource attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.IPur">IPur (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.IRed">IRed (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Correlation.isFinished">isFinished() (snAPI.Main.Correlation method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Histogram.isFinished">(snAPI.Main.Histogram method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.Raw.isFinished">(snAPI.Main.Raw method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.TimeTrace.isFinished">(snAPI.Main.TimeTrace method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.Unfold.isFinished">(snAPI.Main.Unfold method)</a>
+</li>
+      </ul></li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.isMarker">isMarker() (snAPI.Main.Raw method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Unfold.isMarker">(snAPI.Main.Unfold method)</a>
+</li>
+      </ul></li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.isSpecial">isSpecial() (snAPI.Main.Raw method)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.IWhi">IWhi (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.IYel">IYel (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.loadIniConfig">loadIniConfig() (snAPI.Main.snAPI method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.logPrint">logPrint() (snAPI.Main.snAPI method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.markers">markers() (snAPI.Main.Raw method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Unfold.markers">(snAPI.Main.Unfold method)</a>
+</li>
+      </ul></li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.MeasMode">MeasMode (class in snAPI.Constants)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Correlation.measure">measure() (snAPI.Main.Correlation method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Histogram.measure">(snAPI.Main.Histogram method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.Raw.measure">(snAPI.Main.Raw method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.TimeTrace.measure">(snAPI.Main.TimeTrace method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.Unfold.measure">(snAPI.Main.Unfold method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="snAPI.Constants.html#module-snAPI.Constants">snAPI.Constants</a>
+</li>
+        <li><a href="snAPI.Main.html#module-snAPI.Main">snAPI.Main</a>
+</li>
+        <li><a href="snAPI.Utils.html#module-snAPI.Utils">snAPI.Utils</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.nSync_T3">nSync_T3() (snAPI.Main.Raw method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.numRead">numRead() (snAPI.Main.Raw method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Unfold.numRead">(snAPI.Main.Unfold method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_Bla">On_Bla (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_Blu">On_Blu (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_Cya">On_Cya (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_Gre">On_Gre (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_IBla">On_IBla (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_IBlu">On_IBlu (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_ICya">On_ICya (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_IGre">On_IGre (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_IPur">On_IPur (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_IRed">On_IRed (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_IWhi">On_IWhi (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_IYel">On_IYel (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_Pur">On_Pur (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_Red">On_Red (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_Whi">On_Whi (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.On_Yel">On_Yel (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.Pur">Pur (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw">Raw (class in snAPI.Main)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.raw">raw (snAPI.Main.snAPI attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.Red">Red (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource">RefSource (class in snAPI.Constants)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.Rst">Rst (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setBinning">setBinning() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Histogram.setBinWidth">setBinWidth() (snAPI.Main.Histogram method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Correlation.setFCSparameters">setFCSparameters() (snAPI.Main.Correlation method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Correlation.setG2parameters">setG2parameters() (snAPI.Main.Correlation method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setHistoLength">setHistoLength() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.TimeTrace.setHistorySize">setHistorySize() (snAPI.Main.TimeTrace method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.setIniConfig">setIniConfig() (snAPI.Main.snAPI method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setInputChannelEnable">setInputChannelEnable() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setInputChannelOffset">setInputChannelOffset() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setInputDeadTime">setInputDeadTime() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setInputEdgeTrg">setInputEdgeTrg() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setInputHysteresis">setInputHysteresis() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Filter.setMainChannels">setMainChannels() (snAPI.Main.Filter method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Filter.setMainParams">setMainParams() (snAPI.Main.Filter method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setMarkerEdges">setMarkerEdges() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setMarkerEnable">setMarkerEnable() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setMarkerHoldoffTime">setMarkerHoldoffTime() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.TimeTrace.setNumBins">setNumBins() (snAPI.Main.TimeTrace method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setOffset">setOffset() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setOflCompression">setOflCompression() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.setPTUFilePath">setPTUFilePath() (snAPI.Main.snAPI method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Histogram.setRefChannel">setRefChannel() (snAPI.Main.Histogram method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Filter.setRowParams">setRowParams() (snAPI.Main.Filter method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setStopOverflow">setStopOverflow() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setSyncChannelEnable">setSyncChannelEnable() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setSyncChannelOffset">setSyncChannelOffset() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setSyncDeadTime">setSyncDeadTime() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setSyncDiv">setSyncDiv() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setSyncEdgeTrg">setSyncEdgeTrg() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Filter.setTestMode">setTestMode() (snAPI.Main.Filter method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Device.setTriggerOutput">setTriggerOutput() (snAPI.Main.Device method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI">snAPI (class in snAPI.Main)</a>
+</li>
+      <li>
+    snAPI.Constants
+
+      <ul>
+        <li><a href="snAPI.Constants.html#module-snAPI.Constants">module</a>
+</li>
+      </ul></li>
+      <li>
+    snAPI.Main
+
+      <ul>
+        <li><a href="snAPI.Main.html#module-snAPI.Main">module</a>
+</li>
+      </ul></li>
+      <li>
+    snAPI.Utils
+
+      <ul>
+        <li><a href="snAPI.Utils.html#module-snAPI.Utils">module</a>
+</li>
+      </ul></li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.startBlock">startBlock() (snAPI.Main.Raw method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Unfold.startBlock">(snAPI.Main.Unfold method)</a>
+</li>
+      </ul></li>
+      <li><a href="snAPI.Main.html#snAPI.Main.Correlation.stopMeasure">stopMeasure() (snAPI.Main.Correlation method)</a>
+
+      <ul>
+        <li><a href="snAPI.Main.html#snAPI.Main.Histogram.stopMeasure">(snAPI.Main.Histogram method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.Raw.stopMeasure">(snAPI.Main.Raw method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.TimeTrace.stopMeasure">(snAPI.Main.TimeTrace method)</a>
+</li>
+        <li><a href="snAPI.Main.html#snAPI.Main.Unfold.stopMeasure">(snAPI.Main.Unfold method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2">T2 (snAPI.Constants.MeasMode attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3">T3 (snAPI.Constants.MeasMode attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Raw.timeTag_T2">timeTag_T2() (snAPI.Main.Raw method)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.TimeTrace">TimeTrace (class in snAPI.Main)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.timeTrace">timeTrace (snAPI.Main.snAPI attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.UBla">UBla (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.UBlu">UBlu (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.UCya">UCya (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.UGre">UGre (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.DeviceType.Undefined">Undefined (snAPI.Constants.DeviceType attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Main.html#snAPI.Main.Unfold">Unfold (class in snAPI.Main)</a>
+</li>
+      <li><a href="snAPI.Main.html#snAPI.Main.snAPI.unfold">unfold (snAPI.Main.snAPI attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.UPur">UPur (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.URed">URed (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.UWhi">UWhi (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.UYel">UYel (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.Whi">Whi (snAPI.Utils.Color attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Grandm_Generic">Wr_Grandm_Generic (snAPI.Constants.RefSource attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Grandm_Mharp">Wr_Grandm_Mharp (snAPI.Constants.RefSource attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Master_Generic">Wr_Master_Generic (snAPI.Constants.RefSource attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Master_Mharp">Wr_Master_Mharp (snAPI.Constants.RefSource attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Salve_Mharp">Wr_Salve_Mharp (snAPI.Constants.RefSource attribute)</a>
+</li>
+      <li><a href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Slave_Generic">Wr_Slave_Generic (snAPI.Constants.RefSource attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Y">Y</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snAPI.Utils.html#snAPI.Utils.Color.Yel">Yel (snAPI.Utils.Color attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Picoquant.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.4dev0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
