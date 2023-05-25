@@ -59,8 +59,8 @@ This will install your package and its dependencies.
 
 11. Open an explorer window and navigate to the folder containing the unzipped library installer.
 
-12. Run the `setup.exe`.
+12. Run the `setup.exe` "in MultiHarp150_160_V3_1\MHLib v3.1.0.0\Windows\installation\".
 
-13. Once the installation is complete, verify that the package is installed by running the command `import snAPI` in a Python interpreter.
+13. Once the installation is complete, verify that the package is installed by running the command `import snAPI` in a Python interpreter. If no error message is shown, the installation was successful.
 
 14. To enable colors output in terminal execute `EnableTerminalColors.reg` and restart the terminal.
