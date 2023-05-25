@@ -4,6 +4,8 @@
 Installation
 ============
 
+Python
+------
 
 To install the package, follow these steps:
 
@@ -34,6 +36,9 @@ This should output the version number of Python that you have installed.
     python -m ensurepip --upgrade
 
 This will install or upgrade `pip` to the latest version.
+
+snAPI
+-----
 
 7. Download the package from the source repository: https://github.com/picoquant/snapi
 
