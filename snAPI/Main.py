@@ -1,3 +1,5 @@
+# Torsten Krause, PicoQuant GmbH, 2023
+
 import ctypes as ct
 import json
 import os
@@ -395,7 +397,7 @@ Returns
 
 This function sets the path to the ptu file, if the measurement supports writing the `Raw` data stream to file.
 If no special path is set the file will be written to the data path defined in the ini file
-that was called with initAPi. The default file name ist default.ptu.
+that was called with :meth:`initAPi`. The default file name ist default.ptu.
 
 Parameters
 ----------
@@ -3131,7 +3133,7 @@ Example
 -------
 ::
 
-    # sets a history size of 1s
+    # sets a history size of 10s
     sn.timeTrace.setHistorySize(10)
     
         """
@@ -3179,6 +3181,7 @@ Example
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.parent.logPrint( "measure is not supported for TimeTrace class in MeasMode:", 
                 MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return False
             
         numChans = self.parent.deviceConfig["NumChans"] + 1
         self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)()
@@ -3497,7 +3500,8 @@ Example
         
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "measurement is not supported for TimeTrace class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return False
             
         if self.isFcs:
             self.numBins = self.numIntervals * self.intervalLength

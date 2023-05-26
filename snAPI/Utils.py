@@ -1,3 +1,5 @@
+# Torsten Krause, PicoQuant GmbH, 2023
+
 class Color:
     Rst ='\033[0m'
 

@@ -40,26 +40,26 @@ This will install or upgrade `pip` to the latest version.
 snAPI
 -----
 
-7. Download the package from the source repository: https://github.com/picoquant/snapi
+7. Download the latest release from `github.com/picoQuant/snAPI/releases <https://github.com/picoQuant/snapi/releases>`_ from the repository: https://github.com/picoquant/snapi
 
-8. Finally, you can install your package using `pip`. Navigate to the directory where your package is located, and type the following command:
+8. Finally, you can unpack the files and install your package using `pip`. Navigate to the directory where your package is located, and type the following command:
 
 ::
 
-    pip install snAPI-x.y.z-cp311-cp311-win_amd64.whl
+    pip install .\dist\snAPI-x.y.z-cp311-cp311-win_amd64.whl
 
 Dependencies
 ------------
 This will install your package and its dependencies.
 
 
-9. Download the multiharp library from the source repository: https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
+9. Download the MultiHarp library: https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
 
 10. Unzip the library to a folder on your computer.
 
 11. Open an explorer window and navigate to the folder containing the unzipped library installer.
 
-12. Run the `setup.exe` "in MultiHarp150_160_V3_1\MHLib v3.1.0.0\Windows\installation\".
+12. Run the `setup.exe` in "MultiHarp150_160_V3_1\\MHLib v3.1.0.0\\Windows\\installation\\".
 
 13. Once the installation is complete, verify that the package is installed by running the command `import snAPI` in a Python interpreter. If no error message is shown, the installation was successful.
 

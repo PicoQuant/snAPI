@@ -40,13 +40,13 @@ This will install or upgrade `pip` to the latest version.
 snAPI
 -----
 
-7. Download the package `snAPI-0.1.4-cp311-cp311-win_amd64.whl <https://github.com/PicoQuant/snAPI/blob/63222a6f86063b19a36aae331cd813b4e4509b57/dist/snAPI-0.1.4-cp311-cp311-win_amd64.whl>`_ from the repository: https://github.com/picoquant/snapi
+7. Download the latest release from `github.com/picoQuant/snAPI/releases <https://github.com/picoQuant/snapi/releases>`_ from the repository: https://github.com/picoquant/snapi
 
-8. Finally, you can install your package using `pip`. Navigate to the directory where your package is located, and type the following command:
+8. Finally, you can unpack the files and install your package using `pip`. Navigate to the directory where your package is located, and type the following command:
 
 ::
 
-    pip install snAPI-x.y.z-cp311-cp311-win_amd64.whl
+    pip install .\dist\snAPI-x.y.z-cp311-cp311-win_amd64.whl
 
 Dependencies
 ------------

@@ -10,10 +10,10 @@ if(__name__ == "__main__"):
     sn.getDevice()
     #sn.getFileDevice(r"E:\Data\PicoQuant\HH400-PMT-cw-1MHz.ptu")
     #sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
-    #sn.getFileDevice(r"E:\Data\PicoQuant\test2.ptu")
+    #sn.getFileDevice(r"E:\Data\PicoQuant\11_1.ptu")
     sn.initDevice(MeasMode.T3)
     sn.timeTrace.setNumBins(10000)
-    sn.timeTrace.setHistorySize(10)
+    sn.timeTrace.setHistorySize(66)
     sn.timeTrace.measure(100000, False, True)
 
     while True:

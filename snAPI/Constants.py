@@ -1,3 +1,5 @@
+# Torsten Krause, PicoQuant GmbH, 2023
+
 from enum import Enum, IntFlag, auto
 
 class DeviceType(Enum):

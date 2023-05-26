@@ -693,7 +693,7 @@ If the current device is a file device it closes the file.</p>
 <span class="sig-name descname"><span class="pre">setPTUFilePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_snAPI_setPTUFilePath" title="Permalink to this definition">#</a></dt>
 <dd><p>This function sets the path to the ptu file, if the measurement supports writing the <cite>Raw</cite> data stream to file.
 If no special path is set the file will be written to the data path defined in the ini file
-that was called with initAPi. The default file name ist default.ptu.</p>
+that was called with <code class="xref py py-meth docutils literal notranslate"><span class="pre">initAPi()</span></code>. The default file name ist default.ptu.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – absolute path to the ptu file destination</p>
@@ -3114,7 +3114,7 @@ longer than it took to record it.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets a history size of 1s</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets a history size of 10s</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setHistorySize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>

@@ -15,7 +15,7 @@ if(__name__ == "__main__"):
                 
     sn = snAPI()
     sn.getDevice()
-    #sn.getFileDevice(r"E:\Data\PicoQuant\HH400-PMT-cw-1MHz.ptu")
+    sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
     #sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
     #sn.getFileDevice(r"E:\Data\PicoQuant\11_1.ptu")
     sn.initDevice(MeasMode.T2)
@@ -45,8 +45,8 @@ if(__name__ == "__main__"):
         #plt.plot(bins, data[3], linewidth=2.0, label='chan3')
         #plt.plot(bins, data[4], linewidth=2.0, label='chan4')
         plt.xlabel('Time [ps]')
-        plt.xlim(0, 27000) #set the scale range of the time scale to the region of interest
-        plt.yscale('log')
+        #plt.xlim(0, 27000) #set the scale range of the time scale to the region of interest
+        #plt.yscale('log')
         plt.ylabel('Counts')
         #plt.ylim(50, 1e6)
         plt.legend()

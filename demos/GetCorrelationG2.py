@@ -15,11 +15,12 @@ if(__name__ == "__main__"):
     sn.initDevice(MeasMode.T3)
     #sn.device.setInputDeadTime(-1,1000)
     
+    # set filter window to 1ns
     sn.filter.setRowParams(0, 1000, 1, False, [0,1], [])
     sn.filter.enableRow(0,True)
     
-    #sn.correlation.setG2parameters(1, 2, 1000, 5)
-    #sn.correlation.measure(100000)
+    sn.correlation.setG2parameters(1, 2, 1000, 5)
+    sn.correlation.measure(100000)
     
     plt.ion()
     while True:
