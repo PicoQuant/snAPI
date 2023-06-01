@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 matplotlib = "*"
+snapi = {path = "./dist/snAPI-0.1.5-cp311-cp311-win_amd64.whl"}
 
 [dev-packages]
 
