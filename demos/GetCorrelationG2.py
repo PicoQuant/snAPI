@@ -12,7 +12,7 @@ if(__name__ == "__main__"):
     #sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
     #sn.getFileDevice(r"E:\Data\PicoQuant\PMT-cw-1MHz.ptu")
     #sn.getFileDevice(r"E:\Data\PicoQuant\HH400-PMT-cw-1MHz.ptu")
-    sn.initDevice(MeasMode.T3)
+    sn.initDevice(MeasMode.T2)
     #sn.device.setInputDeadTime(-1,1000)
     
     # set filter window to 1ns
