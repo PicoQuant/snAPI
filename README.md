@@ -2,7 +2,7 @@
 This is an alpha pre-release version of snAPI, intended solely for test purposes. Please note that it is not suitable for production environments or critical systems. Use it at your own discretion.
 
 ## About snAPI
-snAPI is an experimental API designed for testing and exploration purposes. It provides a set of functionalities and endpoints that allow users to interact with simulated data and perform various test scenarios.
+snAPI is an experimental API designed for testing and exploration purposes. It provides a set of functionalities and measurement classes that allow users to interact with MultiHarp and their ptu files.
 
 ## Getting Started
 To get started with snAPI, follow the [Install](https://picoquant.github.io/snAPI/install.html) section of the online documentation.
