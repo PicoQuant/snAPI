@@ -10,7 +10,7 @@ To get started with snAPI, follow the [Install](https://picoquant.github.io/snAP
 ## Reporting Bugs
 If you encounter any bugs or issues while using snAPI, we appreciate your feedback. Please help us improve by reporting any problems you encounter. To report a bug, follow these steps:
 
-1. Go to the [Issues](https://github.com/your-username/snAPI/issues) section of this repository.
+1. Go to the [Issues](https://github.com/PicoQuant/snAPI/issues) section of this repository.
 
 2. Click on the "New Issue" button.
 
