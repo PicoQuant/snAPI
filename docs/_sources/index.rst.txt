@@ -14,6 +14,7 @@ Welcome to snAPI's documentation!
    introduction
    install
    snAPI
+   tttr data format
 
 Indices and tables
 ==================

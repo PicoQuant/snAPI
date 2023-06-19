@@ -156,12 +156,27 @@
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+                        TTTR Record Format
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
                 <li class="nav-item">
                   <a class="nav-link nav-external" href="https://PicoQuant.com">
                     PicoQuant
                   </a>
                 </li>
                 
+                </div>
+            </div>
+            
   </ul>
 </nav></div>
       
@@ -260,12 +275,27 @@ document.write(`
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+                        TTTR Record Format
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
                 <li class="nav-item">
                   <a class="nav-link nav-external" href="https://PicoQuant.com">
                     PicoQuant
                   </a>
                 </li>
                 
+                </div>
+            </div>
+            
   </ul>
 </nav></div>
         
@@ -387,8 +417,109 @@ the opened file devices and will be filled after calling <a class="reference int
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Main_snAPI_deviceConfig">
 <span class="sig-name descname"><span class="pre">deviceConfig</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#snAPI_Main_snAPI_deviceConfig" title="Permalink to this definition">#</a></dt>
-<dd><p>The device config contains all information about the initialized device.
-To update it it is necessary to call <a class="reference internal" href="#snAPI_Main_snAPI_getDeviceConfig" title="snAPI.Main.snAPI.getDeviceConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDeviceConfig()</span></code></a>.</p>
+<dd><p>The device config contains all information about the initialized device. To update it it is necessary to call <a class="reference internal" href="#snAPI_Main_snAPI_getDeviceConfig" title="snAPI.Main.snAPI.getDeviceConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDeviceConfig()</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The deviceConfig can not directly written. It is only for checking the current state. To change the configuration, you have to call
+the device functions or write the config with <a class="reference internal" href="#snAPI_Main_snAPI_loadIniConfig" title="snAPI.Main.snAPI.loadIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">loadIniConfig()</span></code></a> or <a class="reference internal" href="#snAPI_Main_snAPI_setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setIniConfig()</span></code></a>.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is an example of a device config</span>
+
+<span class="p">{</span>
+<span class="s2">&quot;DeviceType&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;FileDevicePath&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="s2">&quot;1045483&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiHarp 150 4P&quot;</span><span class="p">,</span>
+<span class="s2">&quot;PartNo&quot;</span><span class="p">:</span> <span class="s2">&quot;930043&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="s2">&quot;BaseResolution&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
+<span class="s2">&quot;Resolution&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
+<span class="s2">&quot;BinSteps&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+<span class="s2">&quot;NumChans&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<span class="s2">&quot;NumMods&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="s2">&quot;SyncDivider&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;TrigLvlSync&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
+<span class="s2">&quot;TrigEdgeSync&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;SyncChannelOffset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;SyncChannelEnable&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;SyncDeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+<span class="s2">&quot;HystCode&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;StopCount&quot;</span><span class="p">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+<span class="s2">&quot;Binning&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;Offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;lengthCode&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+<span class="s2">&quot;NumBins&quot;</span><span class="p">:</span> <span class="mi">65536</span><span class="p">,</span>
+<span class="s2">&quot;MeasCtrl&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;StartEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;StopEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;TrigOutput&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;HoldoffTime&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;HoldTime&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;MarkerEdges&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span>
+<span class="p">],</span>
+<span class="s2">&quot;MarkerEna&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span>
+<span class="p">],</span>
+<span class="s2">&quot;ModsCfg&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;ModelCode&quot;</span><span class="p">:</span> <span class="mi">1010</span><span class="p">,</span>
+    <span class="s2">&quot;VersionCode&quot;</span><span class="p">:</span> <span class="mi">16843029</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;ModelCode&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s2">&quot;VersionCode&quot;</span><span class="p">:</span> <span class="mi">17694997</span>
+    <span class="p">}</span>
+<span class="p">],</span>
+<span class="s2">&quot;ChansCfg&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">120</span><span class="p">,</span>
+    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
+    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
+    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
+    <span class="p">}</span>
+<span class="p">],</span>
+<span class="s2">&quot;MeasMode&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;RefSource&quot;</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py attribute">
@@ -433,6 +564,12 @@ To update it it is necessary to call <a class="reference internal" href="#snAPI_
 <dd><p>This is the object to <a class="reference internal" href="#snAPI_Main_Correlation" title="snAPI.Main.Correlation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Correlation</span></code></a>.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Main_snAPI_manipulators">
+<span class="sig-name descname"><span class="pre">manipulators</span></span><a class="headerlink" href="#snAPI_Main_snAPI_manipulators" title="Permalink to this definition">#</a></dt>
+<dd><p>This is the object to <a class="reference internal" href="#snAPI_Main_Manipulators" title="snAPI.Main.Manipulators"><code class="xref py py-class docutils literal notranslate"><span class="pre">Manipulators</span></code></a>.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_snAPI_logPrint">
 <span class="sig-name descname"><span class="pre">logPrint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_snAPI_logPrint" title="Permalink to this definition">#</a></dt>
@@ -440,7 +577,7 @@ To update it it is necessary to call <a class="reference internal" href="#snAPI_
 The generated log file entry will be marked with an “EXT” (External).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">initApi()</span></code> for information about the logfile destination and configuration!</p>
+<p>See <a class="reference internal" href="#snAPI_Main_snAPI_initAPI" title="snAPI.Main.snAPI.initAPI"><code class="xref py py-meth docutils literal notranslate"><span class="pre">initAPI()</span></code></a> for information about the logfile destination and configuration!</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -487,7 +624,7 @@ or change the data path.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span><span class="o">.</span><span class="n">initApi</span><span class="p">(</span><span class="s2">&quot;system.ini&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span><span class="o">.</span><span class="n">initAPI</span><span class="p">(</span><span class="s2">&quot;system.ini&quot;</span><span class="p">)</span>
 
 <span class="c1"># This is an example of an system ini file</span>
 
@@ -707,7 +844,7 @@ that was called with <code class="xref py py-meth docutils literal notranslate">
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setPTUFilePath</span><span class="p">(</span><span class="s2">&quot;C:\Data\PicoQuant\default.ptu&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span><span class="o">.</span><span class="n">setPTUFilePath</span><span class="p">(</span><span class="s2">&quot;C:\Data\PicoQuant\default.ptu&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -735,7 +872,7 @@ settings. As seen in the example, only the parameters to change have to set ther
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">loadIniConfig</span><span class="p">(</span><span class="s2">&quot;C:\Data\PicoQuant\Configs\device.ini&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span><span class="o">.</span><span class="n">loadIniConfig</span><span class="p">(</span><span class="s2">&quot;C:\Data\PicoQuant\Configs\device.ini&quot;</span><span class="p">)</span>
 
 <span class="c1"># This is an example for a device ini file</span>
 <span class="p">[</span><span class="n">Device</span><span class="p">]</span>
@@ -803,6 +940,11 @@ to use the separator ‘n’ to be able to pass it as a single-line string.</p>
 <span class="sig-name descname"><span class="pre">getDeviceConfig</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_snAPI_getDeviceConfig" title="Permalink to this definition">#</a></dt>
 <dd><p>This command reads the device configuration stored by th API and returns it to
 <a class="reference internal" href="#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">snAPI.deviceConfig</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Normally you have not to to call this function to refresh the deviceConfig. The deviceConfig should always be
+up to date. However, under certain circumstances the device configuration could be updated manually.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>none</strong> – </p>
@@ -816,99 +958,9 @@ to use the separator ‘n’ to be able to pass it as a single-line string.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is an example of a device config</span>
-<span class="p">{</span>
-<span class="s2">&quot;DeviceType&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;FileDevicePath&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="s2">&quot;1045483&quot;</span><span class="p">,</span>
-<span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiHarp 150 4P&quot;</span><span class="p">,</span>
-<span class="s2">&quot;PartNo&quot;</span><span class="p">:</span> <span class="s2">&quot;930043&quot;</span><span class="p">,</span>
-<span class="s2">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
-<span class="s2">&quot;BaseResolution&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
-<span class="s2">&quot;Resolution&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
-<span class="s2">&quot;BinSteps&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
-<span class="s2">&quot;NumChans&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-<span class="s2">&quot;NumMods&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-<span class="s2">&quot;SyncDivider&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="s2">&quot;TrigLvlSync&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
-<span class="s2">&quot;TrigEdgeSync&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="s2">&quot;SyncChannelOffset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;SyncChannelEnable&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="s2">&quot;SyncDeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
-<span class="s2">&quot;HystCode&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;StopCount&quot;</span><span class="p">:</span> <span class="mi">4294967295</span><span class="p">,</span>
-<span class="s2">&quot;Binning&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="s2">&quot;Offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;lengthCode&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-<span class="s2">&quot;NumBins&quot;</span><span class="p">:</span> <span class="mi">65536</span><span class="p">,</span>
-<span class="s2">&quot;MeasCtrl&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;StartEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="s2">&quot;StopEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="s2">&quot;TrigOutput&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;HoldoffTime&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;HoldTime&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;MarkerEdges&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="mi">0</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">,</span>
-    <span class="mi">0</span>
-<span class="p">],</span>
-<span class="s2">&quot;MarkerEna&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="mi">0</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">,</span>
-    <span class="mi">0</span>
-<span class="p">],</span>
-<span class="s2">&quot;ModsCfg&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s2">&quot;ModelCode&quot;</span><span class="p">:</span> <span class="mi">1010</span><span class="p">,</span>
-    <span class="s2">&quot;VersionCode&quot;</span><span class="p">:</span> <span class="mi">16843029</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;ModelCode&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
-    <span class="s2">&quot;VersionCode&quot;</span><span class="p">:</span> <span class="mi">17694997</span>
-    <span class="p">}</span>
-<span class="p">],</span>
-<span class="s2">&quot;ChansCfg&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">120</span><span class="p">,</span>
-    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
-    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
-    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
-    <span class="p">}</span>
-<span class="p">],</span>
-<span class="s2">&quot;MeasMode&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s2">&quot;RefSource&quot;</span><span class="p">:</span> <span class="mi">0</span>
-<span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># reads the device config from the API</span>
+
+<span class="n">sn</span><span class="o">.</span><span class="n">getDeviceConfig</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -935,6 +987,28 @@ The first element is the sync rate then will follow the count rates from the cha
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cntRs</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">getCountRates</span><span class="p">()</span>
 <span class="n">syncrate</span> <span class="o">=</span> <span class="n">cntRs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">chan1rate</span> <span class="o">=</span> <span class="n">cntRs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_snAPI_getNumAllChannels">
+<span class="sig-name descname"><span class="pre">getNumAllChannels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_snAPI_getNumAllChannels" title="Permalink to this definition">#</a></dt>
+<dd><p>It returns the number of channels the device has plus the number of channels for the <code class="xref py py-class docutils literal notranslate"><span class="pre">Manipulator</span></code> and one for the sync channel.
+It describes the number of channels a measurement returns and is used for memory allocation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>none</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>numAllChannels</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>number of all channels</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">numChans</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">getNumAllChannels</span><span class="p">();</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1058,7 +1132,7 @@ To enable or disable the other channels use <a class="reference internal" href="
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># enables the sync channel</span>
-<span class="n">setSyncChannelEnable</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setSyncChannelEnable</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1755,44 +1829,38 @@ pass the filter, provided the filter is enabled. The channel settings are irrele
 The Main Filter receives its input from the Row Filters. If the Row Filters are enabled, the overall filtering result
 therefore depends on the combined action of both filters. Only the Main Filter can act on all channels of the Harp device
 including the sync channel.</p>
-<section id="note">
-<h2>Note:<a class="headerlink" href="#note" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>The settings for the sync channel Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and will be ignored in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filters are early data reduction,
 so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with different time ranges.</p>
 </div>
-<dl class="field-list">
-<dt class="field-odd">param row<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
 <div class="line">index of the row of input channels, counts bottom to top</div>
 </div>
-</dd>
-<dt class="field-even">type row<span class="colon">:</span></dt>
-<dd class="field-even"><p>int [0..8]</p>
-</dd>
-<dt class="field-odd">param useChans<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
+</p></li>
+<li><p><strong>useChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..7</em><em>]</em>) – <div class="line-block">
 <div class="line">List of channels to use</div>
 </div>
-</dd>
-<dt class="field-even">type useChans<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[int] [0..7]</p>
-</dd>
-<dt class="field-odd">param passChans<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
+</p></li>
+<li><p><strong>passChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..7</em><em>]</em>) – <div class="line-block">
 <div class="line">List of channels to pass</div>
 </div>
+</p></li>
+</ul>
 </dd>
-<dt class="field-even">type passChans<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[int] [0..7]</p>
-</dd>
-<dt class="field-odd">returns<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
 <li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
 <li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
 </ul>
+</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -1800,16 +1868,6 @@ so as to not overload the Main Filter, and the possible need for more complex fi
 <span class="n">sn</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">setRowParams</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">])</span>
 </pre></div>
 </div>
-</section>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>row</strong> (<em>int</em>) – </p></li>
-<li><p><strong>useChans</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – </p></li>
-<li><p><strong>passChans</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – </p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1972,6 +2030,7 @@ It is recommended to use the <a class="reference internal" href="#snAPI_Main_Unf
 <div class="line-block">
 <div class="line">To fully understand the TTTR format please read the MultiHarp manual and/or</div>
 <div class="line"><a class="reference external" href="https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf">Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences</a></div>
+<div class="line"><a class="reference internal" href="tttr%20data%20format.html#tcspc-specific-record-formats"><span class="std std-ref">TCSPC specific record formats</span></a></div>
 </div>
 </div>
 <dl class="py method">
@@ -1999,8 +2058,8 @@ means that this part of data is lost! You may reduce the count rate!</p>
 acquisition time [ms]
 will be ignored if device is a FileDevice</p></li>
 <li><p><strong>size</strong> (<em>int number</em><em> of </em><em>records</em><em> (</em><em>default: 128 million records = 1GB</em><em>)</em>) – memory size for the data array</p></li>
-<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>Default: True</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
-<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>Default: False</em><em>)</em>) – Save data to ptu file</p></li>
+<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
+<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -2044,7 +2103,7 @@ means that dis part of data is lost! You may reduce the count rate!</p>
 <li><p><strong>acqTime</strong> (<em>int</em><em> (</em><em>default: 1s</em><em>)</em>) – acquisition time [ms]
 will be ignored if device is a FileDevice</p></li>
 <li><p><strong>size</strong> (<em>int number</em><em> of </em><em>records</em><em> (</em><em>default: 128 million records = 1GB</em><em>)</em>) – maximum memory size for the block</p></li>
-<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>Default: False</em><em>)</em>) – Save data to ptu file</p></li>
+<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -2110,7 +2169,7 @@ will be ignored if device is a FileDevice</p></li>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>Default: None</em><em>)</em>) – number of data records to read (Default: all data available)</p>
+<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>default: None</em><em>)</em>) – number of data records to read (default: all data available)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><cite>Raw</cite> data</p>
@@ -2447,8 +2506,8 @@ The data can be accessed with <a class="reference internal" href="#snAPI_Main_Un
 acquisition time [ms]
 will be ignored if device is a FileDevice</p></li>
 <li><p><strong>size</strong> (<em>int number</em><em> of </em><em>records</em><em> (</em><em>default: 128 million records = 1GB</em><em>)</em>) – memory size for the data array</p></li>
-<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>Default: True</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
-<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>Default: False</em><em>)</em>) – Save data to ptu file</p></li>
+<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
+<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -2493,7 +2552,7 @@ means that part of data is lost! You may reduce the count rate!</p>
 acquisition time [ms]
 will be ignored if device is a FileDevice</p></li>
 <li><p><strong>size</strong> (<em>int number</em><em> of </em><em>records</em><em> (</em><em>default: 128 million records = 1GB</em><em>)</em>) – maximum memory size for the block</p></li>
-<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>Default: False</em><em>)</em>) – Save data to ptu file</p></li>
+<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -2565,7 +2624,7 @@ will be ignored if device is a FileDevice</p></li>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>Default: None</em><em>)</em>) – number of data to read (Default: all data available)</p>
+<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>default: None</em><em>)</em>) – number of data to read (default: all data available)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
@@ -2606,7 +2665,7 @@ channel information.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>Default: None</em><em>)</em>) – number of data to read (Default: all data available)</p>
+<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>default: None</em><em>)</em>) – number of data to read (default: all data available)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
@@ -2646,7 +2705,7 @@ channel information.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>Default: None</em><em>)</em>) – number of data records to read (Default: all data available)</p>
+<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>default: None</em><em>)</em>) – number of data records to read (default: all data available)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>channels</strong> – <cite>Unfold</cite> data array of timetags</p>
@@ -2745,7 +2804,7 @@ reasons and is much faster than a direct implementation in python would be.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>channel</strong> (<em>int</em>) – channel number starting at 0 for the sync channel and 1 for channel 1</p></li>
-<li><p><strong>size</strong> (<em>int</em><em> (</em><em>Default: None</em><em>)</em>) – number of data records to process (Default: all data available)</p></li>
+<li><p><strong>size</strong> (<em>int</em><em> (</em><em>default: None</em><em>)</em>) – number of data records to process (default: all data available)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -2882,7 +2941,7 @@ refChannel itself and all other channels including the sync channel is created.<
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># creates a histogram in :obj:`.MeasMode.T2` with bin width of 5ps</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># creates a histogram T2 mode with bin width of 5ps</span>
 <span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T2</span><span class="p">)</span>
@@ -2918,8 +2977,8 @@ means that part of data is lost! You may reduce the count rate!</p>
 acquisition time [ms]
 will be ignored if device is a FileDevice</p></li>
 <li><p><strong>size</strong> (<em>int number</em><em> of </em><em>records</em><em> (</em><em>default: 128 million records = 1GB</em><em>)</em>) – memory size for the data array</p></li>
-<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>Default: True</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
-<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>Default: False</em><em>)</em>) – Save data to ptu file</p></li>
+<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
+<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -3133,8 +3192,8 @@ with <a class="reference internal" href="#snAPI_Main_TimeTrace_getData" title="s
 <li><p><strong>acqTime</strong> (<em>int</em><em> (</em><em>default: 1s</em><em>)</em>) – 0: means it will run until <a class="reference internal" href="#snAPI_Main_TimeTrace_stopMeasure" title="snAPI.Main.TimeTrace.stopMeasure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stopMeasure()</span></code></a>
 acquisition time [ms]
 will be ignored if device is a FileDevice</p></li>
-<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>Default: False</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
-<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>Default: False</em><em>)</em>) – Save data to ptu file</p></li>
+<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
+<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -3295,12 +3354,12 @@ cross calculation is calculated.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The g(2) correlation is normalized with following factor:</p>
+</div>
 <div class="math notranslate nohighlight" id="equation-g2factor">
 <span class="eqno">(1)<a class="headerlink" href="#equation-g2factor" title="Permalink to this equation">#</a></span>\[\frac{\Delta t}{binWidth \cdot N_1 \cdot N_2}\]</div>
 <p>The <span class="math notranslate nohighlight">\(\Delta t\)</span> term represents the total measurement time of calculating the correlation,
 and <span class="math notranslate nohighlight">\(N_1\)</span> and <span class="math notranslate nohighlight">\(N_2\)</span> represent the total number of events in the two detection channels
 in this time.</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -3330,6 +3389,7 @@ cross calculation is calculated.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The FCS correlation is calculated using the multiple tau algorithm with lag times according to:</p>
+</div>
 <div class="math notranslate nohighlight" id="equation-multitau">
 <span class="eqno">(2)<a class="headerlink" href="#equation-multitau" title="Permalink to this equation">#</a></span>\[\tau_k = \tau_0 \cdot 2^{\left\lfloor \frac{k}{p} \right\rfloor} \cdot \left(1 + (k \bmod p) \right)\]</div>
 <p>where:</p>
@@ -3340,7 +3400,6 @@ cross calculation is calculated.</p>
 <li><p><span class="math notranslate nohighlight">\(\lfloor \cdot \rfloor\)</span> denotes the floor function, which rounds a number down to the nearest integer</p></li>
 <li><p><span class="math notranslate nohighlight">\(\bmod\)</span> is the modulus operator, which gives the remainder when dividing one number by another.</p></li>
 </ul>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -3374,8 +3433,8 @@ The data can be accessed with <code class="xref py py-meth docutils literal notr
 <li><p><strong>acqTime</strong> (<em>int</em><em> (</em><em>default: 1s</em><em>)</em>) – 0: means it will run until <a class="reference internal" href="#snAPI_Main_Correlation_stopMeasure" title="snAPI.Main.Correlation.stopMeasure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stopMeasure()</span></code></a>
 acquisition time [ms]
 will be ignored if device is a FileDevice</p></li>
-<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>Default: False</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
-<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>Default: False</em><em>)</em>) – Save data to ptu file</p></li>
+<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
+<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -3579,6 +3638,350 @@ afterwards. Check out the example below for a possible implementation.</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">Manipulators</span></span><a class="headerlink" href="#snAPI_Main_Manipulators" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the manipulators class. It is used to modify the unfold data stream that is created in snAPI.
+With it it is possible to modify existing channel records and/or create or delete new ones that fit in the data stream.</p>
+<img alt="_images/snAPI_Flow.png" class="p-2" src="_images/snAPI_Flow.png" />
+<p>Flow chart of the integration of the manipulators.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators_config">
+<span class="sig-name descname"><span class="pre">config</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#snAPI_Main_Manipulators_config" title="Permalink to this definition">#</a></dt>
+<dd><p>Stores a list of the defined manipulators and can manually read with <a class="reference internal" href="#snAPI_Main_Manipulators_getConfig" title="snAPI.Main.Manipulators.getConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getConfig()</span></code></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Manipulator.config can not directly written. It is only for checking the current state. To change the configuration, you have to call
+the certain functions.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># example of a manipulator config</span>
+
+<span class="p">{</span>
+<span class="s2">&quot;ManisCfg&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;Herald&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Channel&quot;</span><span class="p">:</span> <span class="mi">5</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Channel&quot;</span><span class="p">:</span> <span class="mi">6</span>
+        <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;Coincidence&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Channel&quot;</span><span class="p">:</span> <span class="mi">7</span>
+        <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;Delay&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Channel&quot;</span><span class="p">:</span> <span class="mi">8</span>
+        <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;Coincidence&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Channels&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Channel&quot;</span><span class="p">:</span> <span class="mi">9</span>
+        <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators_getConfig">
+<span class="sig-name descname"><span class="pre">getConfig</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_getConfig" title="Permalink to this definition">#</a></dt>
+<dd><p>This command reads the manipulator configuration stored by th API and returns it to
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">snAPI.Manipulators.config</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Normally you have not to to call this function to refresh the manipulator.config. It should always be
+up to date. However, under certain circumstances the manipulator.config could be updated manually.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>none</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># reads the manipulator config from the API</span>
+
+<span class="n">sn</span><span class="o">.</span><span class="n">manipulator</span><span class="o">.</span><span class="n">getConfig</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators_clearAll">
+<span class="sig-name descname"><span class="pre">clearAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_clearAll" title="Permalink to this definition">#</a></dt>
+<dd><p>This clears all manipulators.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is not allowed to clear the manipulators while acquisition is running!</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators_coincidence">
+<span class="sig-name descname"><span class="pre">coincidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepChannels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_coincidence" title="Permalink to this definition">#</a></dt>
+<dd><p>This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window size.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If only the coincidence channel is needed for further investigations set <cite>keepChannels</cite> to False.
+This will reduce the data stream and therefore the processor load and memory consumption.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chans</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – channel indices that build a coincidence</p></li>
+<li><p><strong>windowTime</strong> (<em>int</em>) – window size [ps]</p></li>
+<li><p><strong>keepChannels</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – <div class="line-block">
+<div class="line">True: the coincidence channel is be integrated in the data stream as additional channel</div>
+<div class="line">False: only the coincidence channel is in the data stream</div>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the channel index of the coincidence</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<img alt="_images/coincidence.png" class="p-2" src="_images/coincidence.png" />
+<p>plot of the example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># plots a timetrace of channel 1 and 2 and their coincidence within a window time of 1ns</span>
+
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getFileDevice</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Data\PicoQuant\default_1.ptu&quot;</span><span class="p">)</span>
+
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setNumBins</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setHistorySize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">ci</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">coincidence</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">isFinished</span><span class="p">()</span>
+    <span class="n">counts</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">counts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;chan1&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">counts</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;chan2&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">counts</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;coincidence 1&amp;2-1ns&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts[Cts/s]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;TimeTrace&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">finished</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators_merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepChannels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_merge" title="Permalink to this definition">#</a></dt>
+<dd><p>This creates a merge manipulator. You only have to define which channels should be merged.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are only the merged channel is needed for further investigations set <cite>keepChannels</cite> to False. This will reduce the data stream and
+therefore the processor load and memory consumption.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chans</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – channel indices to be merged</p></li>
+<li><p><strong>keepChannels</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – <div class="line-block">
+<div class="line">True: the merged channel is be integrated in the data stream as additional channel</div>
+<div class="line">False: only the merged channel is in the data stream</div>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the merged channel index</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># the example looks like a coincidence example except the configuration of the manipulator</span>
+<span class="c1"># this would merge the channels 1 and 2</span>
+
+<span class="n">cm</span> <span class="o">=</span> <span class="n">merge</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators_delay">
+<span class="sig-name descname"><span class="pre">delay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepSourceChannel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_delay" title="Permalink to this definition">#</a></dt>
+<dd><p>This implements a delay manipulator, that gives you the ability to add a delay to the given channel.
+Its generally better to use <code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code> because it does the same but in hardware and therefore
+it don’t uses any resources of the PC. But if you data of a ptu file it is the only way to do it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If don’t need the original channel anymore set <cite>keepSourceChannel</cite> to False. This will reduce the data stream and
+therefore the processor load and memory consumption.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> (<em>int</em>) – index o that build a coincidence</p></li>
+<li><p><strong>delayTime</strong> (<em>int</em>) – window size [ps]</p></li>
+<li><p><strong>keepSourceChannel</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – <div class="line-block">
+<div class="line">True: the delayed channel is be integrated in the data stream as additional channel</div>
+<div class="line">False: the source channel will be delayed</div>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the index of the channel to be delayed</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<img alt="_images/delay.png" class="p-2" src="_images/delay.png" />
+<p>plot of following example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># creates a delay of channel 1 with 1ms and stores it in cd</span>
+
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T2</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setNumBins</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setHistorySize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">cd</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000000000</span><span class="p">)</span>
+
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">isFinished</span><span class="p">()</span>
+    <span class="n">counts</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">counts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;chan1&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">counts</span><span class="p">[</span><span class="n">cd</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;delay 1ms&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts[Cts/s]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;TimeTrace&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">finished</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators_herald">
+<span class="sig-name descname"><span class="pre">herald</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">herald</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gateChans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gateTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepChannels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_herald" title="Permalink to this definition">#</a></dt>
+<dd><p>This manipulator creates a heralded gate filter. You have to define which channel contains the herald events and which
+channels have to been filtered. Therefor it is been necessary to set the delay time and the gate time of the following gate.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If only the gated channels are needed for further investigations set <cite>keepChannels</cite> to False.
+This will reduce the data stream size and therefore the processor load and memory consumption.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>herald</strong> (<em>int</em>) – the channel that contains the herald events</p></li>
+<li><p><strong>chans</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – channel numbers that should be gated</p></li>
+<li><p><strong>delayTime</strong> (<em>(</em><em>default: 0ps</em><em>)</em>) – time between the herald event and the start of the gate</p></li>
+<li><p><strong>gateTime</strong> (<em>int</em><em> (</em><em>default: 1ns</em><em>)</em>) – size of the gate [ps]</p></li>
+<li><p><strong>keepChannels</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – <div class="line-block">
+<div class="line">True: the gate channels are to be integrated in the data stream as additional channels</div>
+<div class="line">False: the gate channels are directly filtered</div>
+</div>
+</p></li>
+<li><p><strong>gateChans</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the channel indices of the gated channels</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<img alt="_images/herald.png" class="p-2" src="_images/herald.png" />
+<p>plot of following example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets a herald on sync channel that cuts of a window from 66ns to 76ns from channel 2</span>
+
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T2</span><span class="p">)</span>
+<span class="n">waitFinished</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">hChans</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">herald</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">66000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">setRefChannel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">setBinWidth</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">isFinished</span><span class="p">()</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;chan2&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">hChans</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;heralded&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ps]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">67000</span><span class="p">,</span> <span class="mi">73000</span><span class="p">)</span> <span class="c1">#set the scale range of the time scale to the region of interest</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Histogram&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">waitFinished</span> <span class="ow">or</span> <span class="n">finished</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -3638,6 +4041,7 @@ afterwards. Check out the example below for a possible implementation.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_histogram"><code class="docutils literal notranslate"><span class="pre">snAPI.histogram</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_timeTrace"><code class="docutils literal notranslate"><span class="pre">snAPI.timeTrace</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_correlation"><code class="docutils literal notranslate"><span class="pre">snAPI.correlation</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_manipulators"><code class="docutils literal notranslate"><span class="pre">snAPI.manipulators</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_logPrint"><code class="docutils literal notranslate"><span class="pre">snAPI.logPrint()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_initAPI"><code class="docutils literal notranslate"><span class="pre">snAPI.initAPI()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_exitAPI"><code class="docutils literal notranslate"><span class="pre">snAPI.exitAPI()</span></code></a></li>
@@ -3651,6 +4055,7 @@ afterwards. Check out the example below for a possible implementation.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_setIniConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.setIniConfig()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_getDeviceConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.getDeviceConfig()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_getCountRates"><code class="docutils literal notranslate"><span class="pre">snAPI.getCountRates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_getNumAllChannels"><code class="docutils literal notranslate"><span class="pre">snAPI.getNumAllChannels()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device"><code class="docutils literal notranslate"><span class="pre">Device</span></code></a><ul class="nav section-nav flex-column">
@@ -3747,6 +4152,16 @@ afterwards. Check out the example below for a possible implementation.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Correlation_stopMeasure"><code class="docutils literal notranslate"><span class="pre">Correlation.stopMeasure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Correlation_clearMeasure"><code class="docutils literal notranslate"><span class="pre">Correlation.clearMeasure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Correlation_isFinished"><code class="docutils literal notranslate"><span class="pre">Correlation.isFinished()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators"><code class="docutils literal notranslate"><span class="pre">Manipulators</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_config"><code class="docutils literal notranslate"><span class="pre">Manipulators.config</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_getConfig"><code class="docutils literal notranslate"><span class="pre">Manipulators.getConfig()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_clearAll"><code class="docutils literal notranslate"><span class="pre">Manipulators.clearAll()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_coincidence"><code class="docutils literal notranslate"><span class="pre">Manipulators.coincidence()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_merge"><code class="docutils literal notranslate"><span class="pre">Manipulators.merge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_delay"><code class="docutils literal notranslate"><span class="pre">Manipulators.delay()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_herald"><code class="docutils literal notranslate"><span class="pre">Manipulators.herald()</span></code></a></li>
 </ul>
 </li>
 </ul>

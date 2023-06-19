@@ -63,4 +63,19 @@ This will install your package and its dependencies.
 
 13. Once the installation is complete, verify that the package is installed by running the command `import snAPI` in a Python interpreter. If no error message is shown, the installation was successful.
 
-14. To enable colors output in terminal execute `EnableTerminalColors.reg` and restart the terminal.
+Additional Features
+-------------------
+
+14. Colored Log is default on Windows 11 but on Windows 10 you have to enable it manually in terminal by executing the included registry key `EnableTerminalColors.reg` and restart the terminal.
+
+.. image:: _static/Log.png
+    :class: p-2
+    
+Example cutout of a colored log.
+
+15. To get the full power of coding we suggest to use snAPI with VSCode.
+
+.. image:: _static/VSCode.png
+    :class: p-2
+    
+VSCode will show the documentation on mouse hover.

@@ -10,11 +10,20 @@ if(__name__ == "__main__"):
     sn.getDevice()
     #sn.getFileDevice(r"E:\Data\PicoQuant\HH400-PMT-cw-1MHz.ptu")
     #sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
-    #sn.getFileDevice(r"E:\Data\PicoQuant\11_1.ptu")
-    sn.initDevice(MeasMode.T3)
+    sn.getFileDevice(r"C:\Data\PicoQuant\default.ptu")
+    sn.initDevice(MeasMode.T2)
     sn.timeTrace.setNumBins(10000)
-    sn.timeTrace.setHistorySize(66)
-    sn.timeTrace.measure(100000, False, True)
+    sn.timeTrace.setHistorySize(10)
+    sn.setPTUFilePath(r"test_the_best")
+    
+    keepChannels = True
+    
+    hChans = sn.manipulators.herald(0, [1,2], 66000, 10000, keepChannels)
+    ci = sn.manipulators.coincidence([hChans[0], hChans[1]], 1000, keepChannels)
+    cd = sn.manipulators.delay(ci, 1000000000, keepChannels)
+    cm = sn.manipulators.merge([hChans[0], hChans[1]], keepChannels)
+    
+    sn.timeTrace.measure(10000, False, False)
 
     while True:
         finished = sn.timeTrace.isFinished()
@@ -23,8 +32,12 @@ if(__name__ == "__main__"):
         plt.plot(times, counts[0], linewidth=2.0, label='sync')
         plt.plot(times, counts[1], linewidth=2.0, label='chan1')
         plt.plot(times, counts[2], linewidth=2.0, label='chan2')
-        #plt.plot(times, data[3], linewidth=2.0, label='chan3')
-        #plt.plot(times, data[4], linewidth=2.0, label='chan4')
+        plt.plot(times, counts[hChans[0]], linewidth=2.0, label='hChan1')
+        plt.plot(times, counts[hChans[1]], linewidth=2.0, label='hChan2')
+        plt.plot(times, counts[ci], linewidth=2.0, label='coinc 1&2-1ns')
+        plt.plot(times, counts[cd], linewidth=2.0, label='delay 1ms')
+        plt.plot(times, counts[cm], linewidth=2.0, label='merged h1&h2')
+
         plt.xlabel('Time [s]')
         plt.ylabel('Counts[Cts/s]')
         plt.legend()
@@ -33,5 +46,6 @@ if(__name__ == "__main__"):
         
         if finished:
             break
-            
+    
     plt.show(block=True)
+    sn.manipulators.clear()

@@ -7,8 +7,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Python Module Index &#8212; snAPI  documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>TTTR Record Format &#8212; snAPI  documentation</title>
   
   
   
@@ -39,14 +40,12 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/design-tabs.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'py-modindex';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tttr data format';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-
+    <link rel="prev" title="snAPI.Utils module" href="snAPI.Utils.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-
   </head>
   
   
@@ -155,8 +154,8 @@
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         TTTR Record Format
                       </a>
                     </li>
@@ -224,6 +223,10 @@ document.write(`
   
 
   
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
 </div>
 
     </nav>
@@ -270,8 +273,8 @@ document.write(`
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         TTTR Record Format
                       </a>
                     </li>
@@ -330,7 +333,33 @@ document.write(`
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article"></div>
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">TTTR Record Format</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
               
               
               
@@ -338,39 +367,123 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-
-   <h1>Python Module Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-s"><strong>s</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-s"><td></td><td>
-       <strong>s</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <code class="xref">snAPI</code></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="snAPI.Constants.html#module-snAPI.Constants"><code class="xref">snAPI.Constants</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="snAPI.Main.html#module-snAPI.Main"><code class="xref">snAPI.Main</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="snAPI.Utils.html#module-snAPI.Utils"><code class="xref">snAPI.Utils</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+  <section id="tttr-record-format">
+<h1>TTTR Record Format<a class="headerlink" href="#tttr-record-format" title="Permalink to this heading">#</a></h1>
+<section id="basic-record-format">
+<h2>Basic record format<a class="headerlink" href="#basic-record-format" title="Permalink to this heading">#</a></h2>
+<p>This page describes the format of the TTTR data named as raw data in ptu files.</p>
+<p>Due to performance reasons the TTTR data are saved exactly as received from TCSPC device, hence the format of the TTTR records depends on the kind of TCSPC device and the type of measurement. The record format used in a particular file is denoted in the mandatory tag TTResultFormat_TTTRRecType.</p>
+<p>Even though the record formats differ, the formal algorithms for the calculations on them don’t: To get the global arrival time of a photon or a marker in seconds, count the overflows until the current position and multiply with the overflow period, then add the timetag (for T2) or nSync (for T3) and multiply with the MeasDesc_GlobalResolution.</p>
+<p>The arrival time since the last sync event in T3 measurements is denoted in dTime. To get the time in seconds multiply dTime with MeasDesc_Resolution.</p>
+<section id="images">
+<h3>Images<a class="headerlink" href="#images" title="Permalink to this heading">#</a></h3>
+<p>(all Formats)
+To reconstruct the image one needs marker defined as a line start, line stop and frame trigger. The corresponding header entries are ImgHdr_LineStart, ImgHdr_LineStop and ImgHdr_Frame. The line start and line stop markers mark the real start and stop of image line, a frame marker define a change of the frame.</p>
+<p>The default setting is a linear movement of the scanner between line start and line stop marker, the length of one pixel in this case is given by the length of line (arrival time of line stop marker - arrival time of line start marker) divided by the number of pixels in the line.
+Some scanner have a sinusoidal movement, such files have the header entry ImgHdr_SinCorrection which defines the percentage of a sinus curve is covered by the line and must be used to calculate the length of every pixel.
+The number of pixels in a line is defined by ImgHdr_PixX. The number of lines is given by ImgHdr_PixY. Attention, in some images one will find a different number of lines than defined by PixY (less or more, even different in every frame), so do not trust this value.
+Notice 1: The markers are bit coded in the TTTR records (see below), multiple markers can appear at once; Especially the frame marker often overlay with a line start or line stop marker.
+Notice 2: The marker positions in MicroTime200 images are different than before in the SymPhoTime 32. When a MicroTime200 image is converted for the new software the markers are relocated to match the real line start, line stop position.</p>
+</section>
+</section>
+<section id="tcspc-specific-record-formats">
+<h2>TCSPC specific record formats<a class="headerlink" href="#tcspc-specific-record-formats" title="Permalink to this heading">#</a></h2>
+<p>Currently the following formats are defined:</p>
+<div class="line-block">
+<div class="line">PicoHarp T3: 0x00010303</div>
+<div class="line">PicoHarp T2: 0x00010203</div>
+<div class="line">HydraHarp V1.x T3: 0x00010304</div>
+<div class="line">HydraHarp V1.x T2: 0x00010204</div>
+<div class="line">HydraHarp V2.x T3: 0x01010304</div>
+<div class="line">HydraHarp V2.x T2: 0x01010204</div>
+<div class="line">TimeHarp 260N T2: 0x00010205</div>
+<div class="line">TimeHarp 260N T3: 0x00010305</div>
+<div class="line">TimeHarp 260P T2: 0x00010206</div>
+<div class="line">TimeHarp 260P T3: 0x00010306</div>
+<div class="line">MultiHarp T2: 0x00010207</div>
+<div class="line">MultiHarp T3: 0x00010307</div>
+</div>
+<section id="picoharp-t2-format-not-supported">
+<h3>PicoHarp T2 Format (not supported)<a class="headerlink" href="#picoharp-t2-format-not-supported" title="Permalink to this heading">#</a></h3>
+<div class="line-block">
+<div class="line">RecType: 0x00010203</div>
+<div class="line">Overflow period: 210698240 (0xC8F0000)</div>
+<div class="line">Record Size: 32 Bit = 4 Byte</div>
+</div>
+<p>The bit allocation in the record is, starting from the MSB:</p>
+<ul class="simple">
+<li><p>channel: 4</p></li>
+<li><p>timetag: 28</p></li>
+</ul>
+<p>The channel code 15 (0xF) marks a special record.
+Special records can be overflows or external markers. To differentiate this, the lower 4 bits of timetag must be checked.</p>
+<p>If they are all zero, the record marks an overflow.
+If they are &gt;=1 the individual bits are external markers.</p>
+</section>
+<section id="picoharp-t3-format-not-supported">
+<h3>PicoHarp T3 Format (not supported)<a class="headerlink" href="#picoharp-t3-format-not-supported" title="Permalink to this heading">#</a></h3>
+<div class="line-block">
+<div class="line">RecType: 0x00010303</div>
+<div class="line">Overflow period: 65536 (0x10000)</div>
+<div class="line">Record Size: 32 Bit = 4 Byte</div>
+</div>
+<p>The bit allocation in the record is, starting from the MSB:</p>
+<ul class="simple">
+<li><p>channel: 4</p></li>
+<li><p>dTime: 12</p></li>
+<li><p>nSync: 16</p></li>
+</ul>
+<p>The channel code 15 (0xF) marks a special record.
+Special records can be overflows or external markers. To differentiate this, dTime must be checked.</p>
+<p>If it is zero, the record marks an overflow.
+If it is &gt;=1 the individual bits are external markers.</p>
+</section>
+<section id="hydraharp-multiharp-and-timeharp260-t2-format">
+<h3>HydraHarp, MultiHarp and TimeHarp260 T2 Format<a class="headerlink" href="#hydraharp-multiharp-and-timeharp260-t2-format" title="Permalink to this heading">#</a></h3>
+<div class="line-block">
+<div class="line">RecType: 0x00010204 (not supported)</div>
+<div class="line">Overflow period: 33552000  (0x1FFF680)</div>
+<div class="line">Record Size: 32 Bit = 4 Byte</div>
+</div>
+<div class="line-block">
+<div class="line">RecTypes:     0x01010204, 0x01010205, 0x01010206, 0x01010207</div>
+<div class="line">Overflow period: 33554432 (0x2000000)</div>
+<div class="line">Record Size: 32 Bit = 4 Byte</div>
+</div>
+<p>The bit allocation in the record is, starting from the MSB:</p>
+<ul class="simple">
+<li><p>special: 1</p></li>
+<li><p>channel: 6</p></li>
+<li><p>timetag: 25</p></li>
+</ul>
+<p>If the special bit is clear, it’s a regular event record.
+If the special bit is set, the following interpretation of the channel code is given:</p>
+<p>channel code 63 (0x3F) identifies a timetag overflow, increment the overflow timetag accumulator. For HydraHarp V1 (0x00010204) it always means one overflow. For all other types the number of overflows can be read from timetag value.
+channel code 0 (0x00) identifies a sync event,
+channel codes from 1 to 15 (4 bit = 4 marker) identify markers, the individual bits are external markers.</p>
+</section>
+<section id="hydraharp-multiharp-and-timeharp260-t3-format">
+<h3>HydraHarp, MultiHarp and TimeHarp260 T3 Format<a class="headerlink" href="#hydraharp-multiharp-and-timeharp260-t3-format" title="Permalink to this heading">#</a></h3>
+<div class="line-block">
+<div class="line">RecType: 0x00010304, 0x01010304, 0x00010305, 0x00010306, 0x00010307</div>
+<div class="line">Overflow period: 1024</div>
+<div class="line">Record Size: 32 Bit = 4 Byte</div>
+</div>
+<p>The bit allocation in the record is, starting from the MSB:</p>
+<ul class="simple">
+<li><p>special: 1</p></li>
+<li><p>channel: 6</p></li>
+<li><p>dTime: 15</p></li>
+<li><p>nSync: 10</p></li>
+</ul>
+<p>If the special bit is clear, it’s a regular event record.
+If the special bit is set, the following interpretation of the channel code is given:
+channel code 63 (0x3F) identifies a sync count overflow, increment the sync count overflow accumulator.
+For HydraHarp V1 (0x00010304) it means always one overflow. For all other types the number of overflows can be read from nSync value.
+channel codes from 1 to 15 (4 bit = 4 marker) identify markers, the individual bits are external markers.</p>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -383,6 +496,15 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="snAPI.Utils.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">snAPI.Utils module</p>
+      </div>
+    </a>
 </div></div>
   
 </div>
@@ -392,6 +514,30 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-record-format">Basic record format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#images">Images</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tcspc-specific-record-formats">TCSPC specific record formats</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#picoharp-t2-format-not-supported">PicoHarp T2 Format (not supported)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#picoharp-t3-format-not-supported">PicoHarp T3 Format (not supported)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydraharp-multiharp-and-timeharp260-t2-format">HydraHarp, MultiHarp and TimeHarp260 T2 Format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydraharp-multiharp-and-timeharp260-t3-format">HydraHarp, MultiHarp and TimeHarp260 T3 Format</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -15,9 +15,8 @@ if(__name__ == "__main__"):
                 
     sn = snAPI()
     sn.getDevice()
-    sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
     #sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
-    #sn.getFileDevice(r"E:\Data\PicoQuant\11_1.ptu")
+    sn.getFileDevice(r"C:\Data\PicoQuant\default.ptu")
     sn.initDevice(MeasMode.T2)
     #sn.device.setInputDeadTime(-1,1000)
     waitFinished = False
@@ -25,10 +24,12 @@ if(__name__ == "__main__"):
     
     #sn.filter.setRowParams(0, 1000, 1, False, [0,1], [])
     #sn.filter.enableRow(0,True)
-    
+    hChans = sn.manipulators.herald(0, [1,2], 66000, 10000, True)
+    #cm = sn.manipulators.merge([1,2],True)
+    #hChans = [1,2]
     sn.histogram.setRefChannel(0)
     sn.histogram.setBinWidth(5)
-    sn.histogram.measure(100000, False)
+    sn.histogram.measure(10000, False)
     #refreshTimer = RepeatTimer(1, sn.histogram.clearMeasure).start()
     
     while True:
@@ -42,8 +43,9 @@ if(__name__ == "__main__"):
         #plt.plot(bins, data[0], linewidth=2.0, label='sync')
         plt.plot(bins, data[1], linewidth=2.0, label='chan1')
         plt.plot(bins, data[2], linewidth=2.0, label='chan2')
-        #plt.plot(bins, data[3], linewidth=2.0, label='chan3')
-        #plt.plot(bins, data[4], linewidth=2.0, label='chan4')
+        plt.plot(bins, data[hChans[0]], linewidth=2.0, label='h1')
+        plt.plot(bins, data[hChans[1]], linewidth=2.0, label='h2')
+        #plt.plot(bins, data[cm], linewidth=2.0, label='merge 1&2')
         plt.xlabel('Time [ps]')
         #plt.xlim(0, 27000) #set the scale range of the time scale to the region of interest
         #plt.yscale('log')

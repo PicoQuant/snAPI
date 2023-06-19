@@ -41,12 +41,116 @@ Example
     "the snAPI.dll"
 
     deviceIDs = [] 
-    """This list contains the IDs serial numbers of the connected devices or the file names of
-the opened file devices and will be filled after calling :meth:`getDeviceIDs()`."""
+    """
+This list contains the IDs serial numbers of the connected devices or the file names of
+the opened file devices and will be filled after calling :meth:`getDeviceIDs()`.
+    """
 
     deviceConfig = ()
-    """The device config contains all information about the initialized device.
-To update it it is necessary to call :meth:`getDeviceConfig`."""
+    """
+The device config contains all information about the initialized device.
+To update it it is necessary to call :meth:`getDeviceConfig`.
+
+Example
+-------
+::
+    
+    # This is an example of a device config
+    
+    {
+    "DeviceType": 0,
+    "FileDevicePath": "",
+    "ID": "1045483",
+    "Index": 0,
+    "Model": "MultiHarp 150 4P",
+    "PartNo": "930043",
+    "Version": "1.0",
+    "BaseResolution": 5.0,
+    "Resolution": 5.0,
+    "BinSteps": 24,
+    "NumChans": 4,
+    "NumMods": 2,
+    "SyncDivider": 1,
+    "TrigLvlSync": -50,
+    "TrigEdgeSync": 1,
+    "SyncChannelOffset": 0,
+    "SyncChannelEnable": 1,
+    "SyncDeadTime": 800,
+    "HystCode": 0,
+    "StopCount": 4294967295,
+    "Binning": 1,
+    "Offset": 0,
+    "lengthCode": 6,
+    "NumBins": 65536,
+    "MeasCtrl": 0,
+    "StartEdge": 1,
+    "StopEdge": 1,
+    "TrigOutput": 0,
+    "HoldoffTime": 0,
+    "HoldTime": 0,
+    "MarkerEdges": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "MarkerEna": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "ModsCfg": [
+        {
+        "Index": 0,
+        "ModelCode": 1010,
+        "VersionCode": 16843029
+        },
+        {
+        "Index": 1,
+        "ModelCode": 1000,
+        "VersionCode": 17694997
+        }
+    ],
+    "ChansCfg": [
+        {
+        "Index": 0,
+        "TrigLvl": 0,
+        "TrigEdge": 1,
+        "ChanOffs": 0,
+        "ChanEna": 1,
+        "DeadTime": 800
+        },
+        {
+        "Index": 1,
+        "TrigLvl": -120,
+        "TrigEdge": 1,
+        "ChanOffs": 0,
+        "ChanEna": 1,
+        "DeadTime": 800
+        },
+        {
+        "Index": 2,
+        "TrigLvl": -50,
+        "TrigEdge": 1,
+        "ChanOffs": 0,
+        "ChanEna": 1,
+        "DeadTime": 800
+        },
+        {
+        "Index": 3,
+        "TrigLvl": -50,
+        "TrigEdge": 1,
+        "ChanOffs": 0,
+        "ChanEna": 1,
+        "DeadTime": 800
+        }
+    ],
+    "MeasMode": 0,
+    "RefSource": 0
+    }
+    
+"""
 
 
     def __new__(cls, *args, **kwargs):
@@ -70,6 +174,8 @@ To update it it is necessary to call :meth:`getDeviceConfig`."""
         """This is the object to :class:`TimeTrace`."""
         self.correlation = Correlation(self)
         """This is the object to :class:`Correlation`."""
+        self.manipulators = Manipulators(self)
+        """This is the object to :class:`Manipulators`."""
         self.initAPI(systemIni)
         
 
@@ -523,6 +629,11 @@ Example
 This command reads the device configuration stored by th API and returns it to
 :obj:`snAPI.deviceConfig`.
 
+Note
+----
+    Normally you have not to to call this function to refresh the deviceConfig. The deviceConfig should always be
+    up to date. However, under certain circumstances the device configuration could be updated manually.
+
 Parameters
 ----------
     none
@@ -536,99 +647,10 @@ Example
 -------
 ::
     
-    # This is an example of a device config
-    {
-    "DeviceType": 0,
-    "FileDevicePath": "",
-    "ID": "1045483",
-    "Index": 0,
-    "Model": "MultiHarp 150 4P",
-    "PartNo": "930043",
-    "Version": "1.0",
-    "BaseResolution": 5.0,
-    "Resolution": 5.0,
-    "BinSteps": 24,
-    "NumChans": 4,
-    "NumMods": 2,
-    "SyncDivider": 1,
-    "TrigLvlSync": -50,
-    "TrigEdgeSync": 1,
-    "SyncChannelOffset": 0,
-    "SyncChannelEnable": 1,
-    "SyncDeadTime": 800,
-    "HystCode": 0,
-    "StopCount": 4294967295,
-    "Binning": 1,
-    "Offset": 0,
-    "lengthCode": 6,
-    "NumBins": 65536,
-    "MeasCtrl": 0,
-    "StartEdge": 1,
-    "StopEdge": 1,
-    "TrigOutput": 0,
-    "HoldoffTime": 0,
-    "HoldTime": 0,
-    "MarkerEdges": [
-        0,
-        0,
-        0,
-        0
-    ],
-    "MarkerEna": [
-        0,
-        0,
-        0,
-        0
-    ],
-    "ModsCfg": [
-        {
-        "Index": 0,
-        "ModelCode": 1010,
-        "VersionCode": 16843029
-        },
-        {
-        "Index": 1,
-        "ModelCode": 1000,
-        "VersionCode": 17694997
-        }
-    ],
-    "ChansCfg": [
-        {
-        "Index": 0,
-        "TrigLvl": 0,
-        "TrigEdge": 1,
-        "ChanOffs": 0,
-        "ChanEna": 1,
-        "DeadTime": 800
-        },
-        {
-        "Index": 1,
-        "TrigLvl": -120,
-        "TrigEdge": 1,
-        "ChanOffs": 0,
-        "ChanEna": 1,
-        "DeadTime": 800
-        },
-        {
-        "Index": 2,
-        "TrigLvl": -50,
-        "TrigEdge": 1,
-        "ChanOffs": 0,
-        "ChanEna": 1,
-        "DeadTime": 800
-        },
-        {
-        "Index": 3,
-        "TrigLvl": -50,
-        "TrigEdge": 1,
-        "ChanOffs": 0,
-        "ChanEna": 1,
-        "DeadTime": 800
-        }
-    ],
-    "MeasMode": 0,
-    "RefSource": 0
-    }
+    # reads the device config from the API 
+    
+    getDeviceConfig()
+    
         """
         conf = (ct.c_char * 65535)()
         ok = self.dll.getDeviceConfig(conf)
@@ -711,13 +733,35 @@ Example
         countRates = ct.ARRAY(ct.c_int, 64)()
         ok = self.dll.getCountRates(syncRate, countRates)
         a = np.array(countRates)
-        a = np.resize(a, self.deviceConfig["NumChans"])
+        a = np.resize(a, self.getNumAllChannels())
         a = np.insert(a, 0, syncRate.contents.value)
         return a
-    
 
-    # low Level
+
+    def getNumAllChannels(self,):
+        """
+It returns the number of channels the device has plus the number of channels for the :class:`Manipulator` and one for the sync channel.
+It describes the number of channels a measurement returns and is used for memory allocation.
+
+Parameters
+----------
+    none
     
+Returns
+-------
+    numAllChannels: number of all channels
+    
+Example
+-------
+::
+    
+    numChans = sn.getNumAllChannels();
+    
+        """
+        return self.dll.getNumAllChans()
+
+
+
 class Device():
     """This is the low level device configuration class."""
     
@@ -755,7 +799,7 @@ Example
         if ok:= self.parent.dll.SyncDivider(syncDiv):
             self.parent.deviceConfig["SyncDivider"] = syncDiv
         return ok
-    
+
 
     def setSyncEdgeTrg(self, trigLvlSync: typing.Optional[int] = -50, trigEdgeSync: typing.Optional[int] = 1):
         """
@@ -860,8 +904,8 @@ For the dead time of the other channels use :meth:`setInputDeadTime`.
 
 Note
 ----
-When an extended dead-time is set then it will also affect the count rate meter readings.
-The extended deadtime will be rounded to the nearest multiple of the device's base resolution.
+    When an extended dead-time is set then it will also affect the count rate meter readings.
+    The extended deadtime will be rounded to the nearest multiple of the device's base resolution.
 
 Parameters
 ----------
@@ -894,7 +938,7 @@ a higher input hysteresis.
 
 Note
 ----
-This setting affects sync and all channels simultaneously.
+    This setting affects sync and all channels simultaneously.
 
 Parameters
 ----------
@@ -927,7 +971,7 @@ The maximum value that could be count is 4294967295 what is equivalent to the 32
 
 Note
 ----
-This is for :obj:`.MeasMode.Histogram` only!
+    This is for :obj:`.MeasMode.Histogram` only!
 
 Parameters
 ----------
@@ -1054,7 +1098,7 @@ through TTL signals at the control port or through White Rabbit.
 
 Note
 ----
-White Rabbit modes are not fully supported at the moment. 
+    White Rabbit modes are not fully supported at the moment. 
 
 Parameters
 ----------
@@ -1123,7 +1167,7 @@ This can be used to change the active edge on which the external TTL signals con
 
 Note
 ----
-Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
+    Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
 
 Parameters
 ----------
@@ -1158,7 +1202,7 @@ This can be used to enable or disable the external TTL marker inputs.
 
 Note
 ----
-Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
+    Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
 
 Parameters
 ----------
@@ -1194,8 +1238,8 @@ marker within the hold-off time will be suppressed.
 
 Note
 ----
-Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
-The actual hold-off time is only approximated to about ±20ns.
+    Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
+    The actual hold-off time is only approximated to about ±20ns.
 
 Parameters
 ----------
@@ -1234,7 +1278,7 @@ switch overflow compression off by setting holdtime 0.
 
 Note
 ----
-Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
+    Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
 
 Parameters
 ----------
@@ -1266,8 +1310,8 @@ For the input edge trigger of the sync channel use :meth:`setSyncEdgeTrg`.
 
 Note
 ----
-The maximum input channel index must be less than deviceConfig["numChans"].
-The hardware uses a 10 bit DAC that can resolve the level value only in steps of about 2.34 mV.
+    The maximum input channel index must be less than deviceConfig["numChans"].
+    The hardware uses a 10 bit DAC that can resolve the level value only in steps of about 2.34 mV.
 
 Parameters
 ----------
@@ -1312,7 +1356,7 @@ For the input channel offset of the sync channel use :meth:`setSyncChannelOffset
 
 Note
 ----
-The maximum input channel index must be less than deviceConfig["numChans"].
+    The maximum input channel index must be less than deviceConfig["numChans"].
 
 Parameters
 ----------
@@ -1351,7 +1395,7 @@ To enable the sync channel use :meth:`setSyncChannelEnable`.
 
 Note
 ----
-The maximum input channel index must be less than deviceConfig["numChans"].
+    The maximum input channel index must be less than deviceConfig["numChans"].
 
 Parameters
 ----------
@@ -1393,8 +1437,8 @@ For the dead time of the sync channel use :meth:`setSyncDeadTime`.
 
 Note
 ----
-When an extended dead-time is set then it will also affect the count rate meter readings.
-The the extended deadtime will rounded to the nearest step of the device base resolution.
+    When an extended dead-time is set then it will also affect the count rate meter readings.
+    The the extended deadtime will rounded to the nearest step of the device base resolution.
 
 Parameters
 ----------
@@ -1455,10 +1499,10 @@ the filter is enabled.
 
 Note
 ----
-As outlined earlier, the Row Filters and Main Filter form a daisychain and the overall filtering result depends
-on their combined action. It is usually sufficient and easier to use the Main Filter alone. The only reasons for
-using the Row Filter(s) are early data reduction, so as to not overload the Main Filter, and the possible need
-for more complex filters, e.g. with different time ranges.
+    As outlined earlier, the Row Filters and Main Filter form a daisychain and the overall filtering result depends
+    on their combined action. It is usually sufficient and easier to use the Main Filter alone. The only reasons for
+    using the Row Filter(s) are early data reduction, so as to not overload the Main Filter, and the possible need
+    for more complex filters, e.g. with different time ranges.
     """
     
 
@@ -1484,9 +1528,9 @@ the sync channel.
 
 Note
 ----
-It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filter(s)
-are early data reduction, so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with
-different time ranges
+    It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filter(s)
+    are early data reduction, so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with
+    different time ranges
     
 Parameters
 ----------
@@ -1574,8 +1618,8 @@ result therefore depends on the combined action of both filters.
 
 Note
 ----
-It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filters are early data reduction,
-so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with different time ranges.
+    It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filters are early data reduction,
+    so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with different time ranges.
     
 Parameters
 ----------
@@ -1620,8 +1664,8 @@ The settings for the sync channel Only meaningful in :obj:`.MeasMode.T2` and wil
 
 Note
 ----
-It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filters are early data reduction,
-so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with different time ranges.
+    It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filters are early data reduction,
+    so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with different time ranges.
 
 Parameters
 ----------
@@ -1663,10 +1707,10 @@ filtered out according to the parameters set with :meth:`setMainParams` and :met
 
 Note
 ----
-The Main Filter only receives event data that passes the Row Filters (if they are enabled). The overall filtering result
-therefore depends on the combined action of both filters. It is usually sufficient and easier to use the Main Filter alone. The
-only reasons for using the Row Filters are early data reduction, so as to not overload the Main Filter, and the possible need
-for more complex filters, e.g. with different time ranges.
+    The Main Filter only receives event data that passes the Row Filters (if they are enabled). The overall filtering result
+    therefore depends on the combined action of both filters. It is usually sufficient and easier to use the Main Filter alone. The
+    only reasons for using the Row Filters are early data reduction, so as to not overload the Main Filter, and the possible need
+    for more complex filters, e.g. with different time ranges.
 
 Parameters
 ----------
@@ -1834,6 +1878,7 @@ There are special functions to decode the :obj:`.MeasMode.T2`and :obj:`.MeasMode
 .. seealso ::
     | To fully understand the TTTR format please read the MultiHarp manual and/or
     | `Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences <https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf>`_
+    | :ref:`TCSPC specific record formats <TCSPC specific record formats>`
 
     """
 
@@ -1871,9 +1916,9 @@ Parameters
         will be ignored if device is a FileDevice
     size: int number of records (default: 128 million records = 1GB)
         memory size for the data array
-    waitFinished: bool (Default: True)
+    waitFinished: bool (default: True)
         True: block execution until finished (will be False on acqTime = 0)
-    savePTU: bool (Default: False)
+    savePTU: bool (default: False)
         Save data to ptu file
 
 Returns
@@ -1920,7 +1965,7 @@ Parameters
         will be ignored if device is a FileDevice
     size: int number of records (default: 128 million records = 1GB)
         maximum memory size for the block
-    savePTU: bool (Default: False)
+    savePTU: bool (default: False)
         Save data to ptu file
 
 Returns
@@ -1994,8 +2039,8 @@ Note
 
 Parameters
 ----------
-    numRead: int (Default: None)
-        number of data records to read (Default: all data available)
+    numRead: int (default: None)
+        number of data records to read (default: all data available)
         
 Returns
 -------
@@ -2361,9 +2406,9 @@ Parameters
         will be ignored if device is a FileDevice
     size: int number of records (default: 128 million records = 1GB)
         memory size for the data array
-    waitFinished: bool (Default: True)
+    waitFinished: bool (default: True)
         True: block execution until finished (will be False on acqTime = 0)
-    savePTU: bool (Default: False)
+    savePTU: bool (default: False)
         Save data to ptu file
 
 Returns
@@ -2413,7 +2458,7 @@ Parameters
         will be ignored if device is a FileDevice
     size: int number of records (default: 128 million records = 1GB)
         maximum memory size for the block
-    savePTU: bool (Default: False)
+    savePTU: bool (default: False)
         Save data to ptu file
 
 Returns
@@ -2493,8 +2538,8 @@ Note
 
 Parameters
 ----------
-    numRead: int (Default: None)
-        number of data to read (Default: all data available)
+    numRead: int (default: None)
+        number of data to read (default: all data available)
         
 Returns
 -------
@@ -2537,8 +2582,8 @@ Note
 
 Parameters
 ----------
-    numRead: int (Default: None)
-        number of data to read (Default: all data available)
+    numRead: int (default: None)
+        number of data to read (default: all data available)
         
 Returns
 -------
@@ -2578,8 +2623,8 @@ Note
 
 Parameters
 ----------
-    numRead: int (Default: None)
-        number of data records to read (Default: all data available)
+    numRead: int (default: None)
+        number of data records to read (default: all data available)
 Returns
 -------
         channels: 1DArray[int]
@@ -2682,8 +2727,8 @@ Parameters
 ----------
     channel: int
         channel number starting at 0 for the sync channel and 1 for channel 1 
-    size: int (Default: None)
-        number of data records to process (Default: all data available)
+    size: int (default: None)
+        number of data records to process (default: all data available)
 
 Returns
 -------
@@ -2896,9 +2941,9 @@ Parameters
         will be ignored if device is a FileDevice
     size: int number of records (default: 128 million records = 1GB)
         memory size for the data array
-    waitFinished: bool (Default: True)
+    waitFinished: bool (default: True)
         True: block execution until finished (will be False on acqTime = 0)
-    savePTU: bool (Default: False)
+    savePTU: bool (default: False)
         Save data to ptu file
 
 Returns
@@ -2919,7 +2964,7 @@ Example
     
         """
         self.numBins = self.parent.deviceConfig["NumBins"]
-        numChans = max(65, self.parent.deviceConfig["NumChans"] + 1)
+        numChans = self.parent.getNumAllChannels()
         self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)()
         
         l = self.parent.deviceConfig["NumBins"]
@@ -2971,7 +3016,7 @@ Example
     
         """
         self.numBins = self.parent.deviceConfig["NumBins"]
-        numChans = self.parent.deviceConfig["NumChans"] + 1
+        numChans = self.parent.getNumAllChannels()
         dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(numChans, self.numBins),
             strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))
         return dataOut, self.bins
@@ -3155,9 +3200,9 @@ Parameters
         0: means it will run until :meth:`stopMeasure`
         acquisition time [ms]
         will be ignored if device is a FileDevice
-    waitFinished: bool (Default: False)
+    waitFinished: bool (default: False)
         True: block execution until finished (will be False on acqTime = 0)
-    savePTU: bool (Default: False)
+    savePTU: bool (default: False)
         Save data to ptu file
 
 Returns
@@ -3183,7 +3228,7 @@ Example
                 MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
             
-        numChans = self.parent.deviceConfig["NumChans"] + 1
+        numChans = self.parent.getNumAllChannels()
         self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)()
         return self.parent.dll.getTimeTrace(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.t0), self.finished)
     
@@ -3232,7 +3277,7 @@ Example
     
         """
         
-        numChans = self.parent.deviceConfig["NumChans"] + 1
+        numChans = self.parent.getNumAllChannels()
         dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(numChans, self.numBins),
             strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))
         dataOut = np.multiply(dataOut, self.numBins/self.historySize)
@@ -3356,7 +3401,7 @@ cross calculation is calculated.
 
 Note
 ----
-The g(2) correlation is normalized with following factor:
+    The g(2) correlation is normalized with following factor:
 
 .. math::
     :label: g2factor
@@ -3408,7 +3453,7 @@ cross calculation is calculated.
 
 Note
 ----
-The FCS correlation is calculated using the multiple tau algorithm with lag times according to:
+    The FCS correlation is calculated using the multiple tau algorithm with lag times according to:
 
 .. math::
     :label: multiTau
@@ -3469,9 +3514,9 @@ Parameters
         0: means it will run until :meth:`stopMeasure`
         acquisition time [ms]
         will be ignored if device is a FileDevice
-    waitFinished: bool (Default: False)
+    waitFinished: bool (default: False)
         True: block execution until finished (will be False on acqTime = 0)
-    savePTU: bool (Default: False)
+    savePTU: bool (default: False)
         Save data to ptu file
 
 Returns
@@ -3688,5 +3733,182 @@ Example
     
         """
         return self.finished.contents.value
+
+
+
+class Manipulators():
+    """
+This is the manipulators class. It is used to modify the unfold data stream that is created in snAPI. 
+With it it is possible to modify existing channel records and/or create or delete new ones that fit in the data stream.
+
+.. image:: _static/snAPI_Flow.png
+    :class: p-2
+    
+Flow chart of the integration of the manipulators.
+
+    """
     
 
+    def __init__(self, parent):
+        self.parent = parent
+
+
+    def clear(self):
+        """
+This clears all manipulators.    
+        """    
+    
+        self.parent.dll.clearManis()
+
+
+    def coincidence(self, chans: typing.List[int], windowTime: typing.Optional[int] = 1000, keepChannels: typing.Optional[bool] = True):
+        """
+This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window
+size.
+
+Note
+----
+    If you are only the coincidence channel is needed for further investigations set `keepChannels` to False. This will reduce the data stream and 
+    therefore the processor load and memory consumption.
+
+Parameters
+----------
+    chans: List[int]
+        channel indices that build a coincidence
+    windowTime: int 
+        window size [ps]
+    keepChannels: bool (default: True)
+        | True: the coincidence channel is be integrated in the data stream as additional channel 
+        | False: only the coincidence channel is in the data stream
+
+Returns
+-------
+    int: 
+        the channel index of the coincidence
+
+Example
+-------
+::
+
+    # TODO
+    
+        """
+
+        length = len(chans)
+        channels = (ct.c_int * length)()
+        for i in range(length):
+            channels[i] = chans[i]
+        return self.parent.dll.addMCoincidence(ct.pointer(channels), length, windowTime, keepChannels)
+    
+    
+    def merge(self, chans: typing.List[int], keepChannels: typing.Optional[bool] = True):
+        """
+This creates a merge manipulator. You only have to define which channels should be merged.
+
+Note
+----
+    If you are only the merged channel is needed for further investigations set `keepChannels` to False. This will reduce the data stream and 
+    therefore the processor load and memory consumption.
+
+Parameters
+----------
+    chans: List[int]
+        channel indices to be merged
+    keepChannels: bool (default: True)
+        | True: the merged channel is be integrated in the data stream as additional channel 
+        | False: only the merged channel is in the data stream
+
+Returns
+-------
+    int: 
+        the merged channel index
+
+Example
+-------
+::
+
+    # TODO
+    
+        """
+
+        length = len(chans)
+        channels = (ct.c_int * length)()
+        for i in range(length):
+            channels[i] = chans[i]
+        return self.parent.dll.addMMerge(ct.pointer(channels), length, keepChannels)
+    
+    
+    def delay(self, channel: int, delayTime: int, keepSourceChannel: typing.Optional[bool] = True):
+        """
+This implements a delay manipulator, that gives you the ability to add or remove a delay to the given channels.
+
+Note
+----
+    If don't need the original channel anymore set `keepSourceChannel` to False. This will reduce the data stream and 
+    therefore the processor load and memory consumption.
+    
+Parameters
+----------
+    channel: int
+        channel numbers that build a coincidence
+    delayTime: int 
+        window size [ps]
+    keepSourceChannel: bool (default: True)
+        | True: the delayed channel is be integrated in the data stream as additional channel 
+        | False: the source channel will be delayed
+
+Returns
+-------
+    int: 
+        the index of the channel to be delayed
+
+Example
+-------
+::
+
+    # TODO
+    
+        """
+
+        return self.parent.dll.addMDelay(channel, delayTime, keepSourceChannel)
+
+
+    def herald(self, herald:int, chans: typing.List[int], delayTime: typing.Optional[int] = 1000, windowTime: typing.Optional[int] = 1000, keepChannels: typing.Optional[bool] = True):
+        """
+This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window
+size.
+
+Note
+----
+    If you are only the coincidence channel is needed for further investigations set `keepChannels` to False. This will reduce the data stream and 
+    therefore the processor load and memory consumption.
+
+Parameters
+----------
+    chans: List[int]
+        channel numbers that build a coincidence
+    windowTime: int 
+        window size [ps]
+    keepChannels: bool (default: True)
+        | True: the coincidence channel is be integrated in the data stream as additional channel 
+        | False: only the coincidence channel is in the data stream
+
+Returns
+-------
+    int: 
+        the channel index of the coincidence
+
+Example
+-------
+::
+
+    # TODO
+    
+        """
+
+        length = len(chans)
+        channels = (ct.c_int * length)()
+        for i in range(length):
+            channels[i] = chans[i]
+        hChan = self.parent.dll.addMHerald(herald, ct.pointer(channels), len(channels), delayTime, windowTime, keepChannels)
+        return list(range(hChan, hChan + len(channels))) if keepChannels else chans
