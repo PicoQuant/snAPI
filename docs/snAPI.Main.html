@@ -96,7 +96,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
   
@@ -120,7 +121,6 @@
 </a></div>
     
   </div>
-  
   
   <div class="col-lg-9 navbar-header-items">
     
@@ -162,21 +162,13 @@
                       </a>
                     </li>
                 
-            <div class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    More
-                </button>
-                <div class="dropdown-menu">
-                    
+
                 <li class="nav-item">
                   <a class="nav-link nav-external" href="https://PicoQuant.com">
                     PicoQuant
                   </a>
                 </li>
                 
-                </div>
-            </div>
-            
   </ul>
 </nav></div>
       
@@ -281,21 +273,13 @@ document.write(`
                       </a>
                     </li>
                 
-            <div class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    More
-                </button>
-                <div class="dropdown-menu">
-                    
+
                 <li class="nav-item">
                   <a class="nav-link nav-external" href="https://PicoQuant.com">
                     PicoQuant
                   </a>
                 </li>
                 
-                </div>
-            </div>
-            
   </ul>
 </nav></div>
         
@@ -707,8 +691,8 @@ From now on all functions will act on this device until another device is acquir
 <li><p><strong>none</strong> – takes the first available device</p></li>
 <li><p><strong>str</strong> – <dl class="simple">
 <dt>identifier of device</dt><dd><ul>
-<li><p>If the DeviceType is <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType_HW" title="snAPI.Constants.DeviceType.HW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceType.HW</span></code></a> it is the serial number</p></li>
-<li><p>If the DeviceType is <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType_File" title="snAPI.Constants.DeviceType.File"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceType.File</span></code></a> it is the file name</p></li>
+<li><p>If the DeviceType is <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.DeviceType.HW" title="snAPI.Constants.DeviceType.HW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceType.HW</span></code></a> it is the serial number</p></li>
+<li><p>If the DeviceType is <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.DeviceType.File" title="snAPI.Constants.DeviceType.File"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceType.File</span></code></a> it is the file name</p></li>
 </ul>
 </dd>
 </dl>
@@ -773,13 +757,13 @@ After that it is possible to do some measurements on the device.</p>
 <dd class="field-odd"><p>path of the ptu file (default: MeasMode.T2)</p>
 </dd>
 <dt class="field-even">type measMode<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode" title="snAPI.Constants.MeasMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.MeasMode</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode" title="snAPI.Constants.MeasMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.MeasMode</span></code></a></p>
 </dd>
 <dt class="field-odd">param refSrc<span class="colon">:</span></dt>
 <dd class="field-odd"><p>(default: RefSource.Internal)</p>
 </dd>
 <dt class="field-even">type refSrc<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource" title="snAPI.Constants.RefSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.RefSource</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.RefSource" title="snAPI.Constants.RefSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.RefSource</span></code></a></p>
 </dd>
 <dt class="field-odd">returns<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -796,8 +780,8 @@ After that it is possible to do some measurements on the device.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>measMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode" title="snAPI.Constants.MeasMode"><em>MeasMode</em></a><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>refSrc</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource" title="snAPI.Constants.RefSource"><em>RefSource</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>measMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode" title="snAPI.Constants.MeasMode"><em>MeasMode</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>refSrc</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.RefSource" title="snAPI.Constants.RefSource"><em>RefSource</em></a><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -1111,8 +1095,8 @@ the cable delay on the sync input. Actual resolution is the device’s base reso
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setSyncChannelEnable">
 <span class="sig-name descname"><span class="pre">setSyncChannelEnable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syncChannelEnable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setSyncChannelEnable" title="Permalink to this definition">#</a></dt>
-<dd><p>This enables or disables the sync channel. This is really only useful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.
-Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> need an active sync signal.
+<dd><p>This enables or disables the sync channel. This is really only useful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.
+Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> need an active sync signal.
 To enable or disable the other channels use <a class="reference internal" href="#snAPI_Main_Device_setInputChannelEnable" title="snAPI.Main.Device.setInputChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelEnable()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1211,7 +1195,7 @@ a higher input hysteresis.</p>
 The maximum value that could be count is 4294967295 what is equivalent to the 32 bit storage.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This is for <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a> only!</p>
+<p>This is for <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a> only!</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1236,7 +1220,7 @@ The maximum value that could be count is 4294967295 what is equivalent to the 32
 <dt class="sig sig-object py" id="snAPI_Main_Device_setBinning">
 <span class="sig-name descname"><span class="pre">setBinning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setBinning" title="Permalink to this definition">#</a></dt>
 <dd><p>This sets the with of the time bins.
-Binning only applies in Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>. The binning code steps correspond to repeated doubling.</p>
+Binning only applies in Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>. The binning code steps correspond to repeated doubling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>binning</strong> (<em>int</em><em> | </em><em>None</em>) – <div class="line-block">
@@ -1263,7 +1247,7 @@ Binning only applies in Histogram and <a class="reference internal" href="snAPI.
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setOffset">
 <span class="sig-name descname"><span class="pre">setOffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setOffset" title="Permalink to this definition">#</a></dt>
-<dd><p>This offset only applies in Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>. It affects only the difference between stop
+<dd><p>This offset only applies in Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>. It affects only the difference between stop
 and start before it is put into the T3 record or is used to increment the corresponding histogram bin.
 It is intended for situations where the range of the histogram is not long enough to look at “late” data.
 By means of the offset the “window of view” is shifted to a later range.
@@ -1295,10 +1279,10 @@ This is not the same as changing or compensating cable delays. If the latter is 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setHistoLength">
 <span class="sig-name descname"><span class="pre">setHistoLength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lengthCode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setHistoLength" title="Permalink to this definition">#</a></dt>
-<dd><p>This function sets the number of bins of the collected histograms in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a>.
+<dd><p>This function sets the number of bins of the collected histograms in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a>.
 The histogram length obtained with its maximum of 65536 which is also the default after
 initialization.
-In <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> the number of bins is fixed 65536 and in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> it is 32768.</p>
+In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> the number of bins is fixed 65536 and in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> it is 32768.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>lengthCode</strong> (<em>int</em>) – number of bins 0..6 can be calculated as <span class="math notranslate nohighlight">\(2^{(10 + \mathrm{lengthCode})}\)</span>
@@ -1356,7 +1340,7 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_Meas
 <dd><p>This can be used to change the active edge on which the external TTL signals connected to the marker inputs are triggering.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
+<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1392,7 +1376,7 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_Meas
 <dd><p>This can be used to enable or disable the external TTL marker inputs.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
+<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1429,7 +1413,7 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_Meas
 marker within the hold-off time will be suppressed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.
+<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.
 The actual hold-off time is only approximated to about ±20ns.</p>
 </div>
 <dl class="field-list simple">
@@ -1465,7 +1449,7 @@ be transferred. This may be the case merely due to dark counts, so the stutter w
 switch overflow compression off by setting holdtime 0.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
+<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1831,7 +1815,7 @@ therefore depends on the combined action of both filters. Only the Main Filter c
 including the sync channel.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The settings for the sync channel Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and will be ignored in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
+<p>The settings for the sync channel Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and will be ignored in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1995,18 +1979,18 @@ contains the sync rate and the rates of the input channels.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This is the <cite>Raw</cite> measurement class.</p>
 <p>This <cite>Raw</cite> measure class is made to directly access to the TTTR (Time Tagged Time-Resolved) data.
-The format depends on the <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode" title="snAPI.Constants.MeasMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeasMode</span></code></a> in the <a class="reference internal" href="#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice()</span></code></a> function.</p>
-<p>Each <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> event record consists of 32 bits. There are 6 bits for the channel number and 25 bits
+The format depends on the <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode" title="snAPI.Constants.MeasMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeasMode</span></code></a> in the <a class="reference internal" href="#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice()</span></code></a> function.</p>
+<p>Each <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> event record consists of 32 bits. There are 6 bits for the channel number and 25 bits
 for the time tag. If the time tag overflows, a special overflow marker record is inserted in the
 data stream, so that upon processing of the data stream a theoretically infinite time span can be
 recovered at full resolution.</p>
-<p>Each <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> event record consists of 32 bits. There are 6 bits for the channel number, 15 bits
+<p>Each <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> event record consists of 32 bits. There are 6 bits for the channel number, 15 bits
 for the start stop time and 10 bits for the sync counter. If the counter overflows, a special
 overflow marker record is inserted in the data stream, so that upon processing of the data stream
 a theoretically infinite time span can be recovered. The 15 bits for the start stop time cover a
 time span of 32768 times the chosen resolution. If the time difference between photon and the last
 sync event is larger than this span the photon event cannot be recorded. This is the same as in
-<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a>, where the number of time bins is larger but also finite. However, by choosing a
+<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a>, where the number of time bins is larger but also finite. However, by choosing a
 suitable sync rate and a compatible resolution, it should be possible to reasonably accommodate
 all relevant experiment scenarios.</p>
 <div class="admonition note">
@@ -2466,8 +2450,8 @@ markers.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This is the <cite>Unfold</cite> measurement class.</p>
 <p>This measurement class is provided to conveniently access the TTTR (Time Tagged Time-Resolved) data.
-The format does not depend on the <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode" title="snAPI.Constants.MeasMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeasMode</span></code></a> in the <a class="reference internal" href="#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice()</span></code></a> function,
-but in the <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>, the sync records are removed in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> to increase the
+The format does not depend on the <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode" title="snAPI.Constants.MeasMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeasMode</span></code></a> in the <a class="reference internal" href="#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice()</span></code></a> function,
+but in the <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>, the sync records are removed in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> to increase the
 throughput on the usb bus.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2889,8 +2873,8 @@ reasons and is much faster than a direct implementation in python would be.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">Histogram</span></span><a class="headerlink" href="#snAPI_Main_Histogram" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This measurement class provides you with histograms of time differences between the channels.
-While the device’s internal histogramming and <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> always calculate the
-differences between the sync and the other channels, in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> you
+While the device’s internal histogramming and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> always calculate the
+differences between the sync and the other channels, in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> you
 can change the reference channel and a histogram of the time differences between this refChannel and the
 refChannel itself and all other channels including the sync channel is created.</p>
 <img alt="_images/Histogram.png" class="p-2" src="_images/Histogram.png" />
@@ -2901,7 +2885,7 @@ refChannel itself and all other channels including the sync channel is created.<
 <dd><p>This function sets the reference channel for which the time differences for the histograms are to be built.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.</p>
+<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2930,7 +2914,7 @@ refChannel itself and all other channels including the sync channel is created.<
 <dd><p>This function sets the reference channel for which the time differences for the histograms are to be build.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.</p>
+<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3122,7 +3106,7 @@ afterwards. Check out the example below for a possible implementation.</p>
 measurement setup.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
+<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
 </div>
 <img alt="_images/TimeTrace.png" class="p-2" src="_images/TimeTrace.png" />
 <p>sample of a <cite>TimeTrace</cite> measurement drawn with matplotlib</p>
@@ -3989,11 +3973,10 @@ This will reduce the data stream size and therefore the processor load and memor
               
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="snAPI.Constants.html"
@@ -4013,10 +3996,7 @@ This will reduce the data stream size and therefore the processor load and memor
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>

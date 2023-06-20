@@ -95,7 +95,8 @@
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
   
@@ -119,7 +120,6 @@
 </a></div>
     
   </div>
-  
   
   <div class="col-lg-9 navbar-header-items">
     
@@ -151,6 +151,13 @@
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="snAPI.html">
                         snAPI package
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+                        TTTR Record Format
                       </a>
                     </li>
                 
@@ -255,6 +262,13 @@ document.write(`
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="snAPI.html">
                         snAPI package
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+                        TTTR Record Format
                       </a>
                     </li>
                 
@@ -388,7 +402,7 @@ an experiment must be avoided. The constants defined here specify the reference 
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">MeasMode</span></span><a class="headerlink" href="#snAPI_Constants_MeasMode" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>The PicoQuant TCSPC devices support different measurement modes.
-The constants defined here specify the measurement mode the device gets initialized for with <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
+The constants defined here specify the measurement mode the device gets initialized for with <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
 <p>In histogram mode, the photon arrival time data is instantly processed to calculate the time differences
 between sync events and events on the input channels. These get then accumulated in a set of histograms,
 one for each input channel. This is typically used for classic fluorescence lifetime measurements with
@@ -401,7 +415,7 @@ can be streamed to a file or PC memory and be processed later. The snAPI library
 <dt class="sig sig-object py" id="snAPI_Constants_MeasMode_Histogram">
 <span class="sig-name descname"><span class="pre">Histogram</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_Histogram" title="Permalink to this definition">#</a></dt>
 <dd><p><strong>Histogram Mode</strong></p>
-<p>For the measurement class <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram" title="snAPI.Main.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a> it is useful to initialize the device in Histogram mode.
+<p>For the measurement class <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram" title="snAPI.Main.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a> it is useful to initialize the device in Histogram mode.
 For devices that support hardware histogramming this will enable higher count rates than software processing
 of the raw stream of time tags.</p>
 <div class="admonition note">
@@ -533,11 +547,10 @@ This is for use with an industry standard 10MHz reference such as an atomic cloc
               
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="snAPI.html"
@@ -557,10 +570,7 @@ This is for use with an industry standard 10MHz reference such as an atomic cloc
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>

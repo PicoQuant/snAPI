@@ -41,43 +41,6 @@ Currently the following formats are defined:
 | MultiHarp T2: 0x00010207
 | MultiHarp T3: 0x00010307
 
-PicoHarp T2 Format (not supported)
-""""""""""""""""""""""""""""""""""
-
-| RecType: 0x00010203
-| Overflow period: 210698240 (0xC8F0000)
-| Record Size: 32 Bit = 4 Byte
-
-The bit allocation in the record is, starting from the MSB:
-
-- channel: 4
-- timetag: 28
-
-The channel code 15 (0xF) marks a special record.
-Special records can be overflows or external markers. To differentiate this, the lower 4 bits of timetag must be checked.
-
-If they are all zero, the record marks an overflow.
-If they are >=1 the individual bits are external markers.
-
-PicoHarp T3 Format (not supported)
-""""""""""""""""""""""""""""""""""
-
-| RecType: 0x00010303
-| Overflow period: 65536 (0x10000)
-| Record Size: 32 Bit = 4 Byte
-
-The bit allocation in the record is, starting from the MSB:
-
-- channel: 4
-- dTime: 12
-- nSync: 16
-
-The channel code 15 (0xF) marks a special record.
-Special records can be overflows or external markers. To differentiate this, dTime must be checked.
-
-If it is zero, the record marks an overflow.
-If it is >=1 the individual bits are external markers.
-
 HydraHarp, MultiHarp and TimeHarp260 T2 Format
 """"""""""""""""""""""""""""""""""""""""""""""
 
@@ -121,3 +84,40 @@ If the special bit is set, the following interpretation of the channel code is g
 channel code 63 (0x3F) identifies a sync count overflow, increment the sync count overflow accumulator.
 For HydraHarp V1 (0x00010304) it means always one overflow. For all other types the number of overflows can be read from nSync value.
 channel codes from 1 to 15 (4 bit = 4 marker) identify markers, the individual bits are external markers.
+
+PicoHarp T2 Format (not supported)
+""""""""""""""""""""""""""""""""""
+
+| RecType: 0x00010203
+| Overflow period: 210698240 (0xC8F0000)
+| Record Size: 32 Bit = 4 Byte
+
+The bit allocation in the record is, starting from the MSB:
+
+- channel: 4
+- timetag: 28
+
+The channel code 15 (0xF) marks a special record.
+Special records can be overflows or external markers. To differentiate this, the lower 4 bits of timetag must be checked.
+
+If they are all zero, the record marks an overflow.
+If they are >=1 the individual bits are external markers.
+
+PicoHarp T3 Format (not supported)
+""""""""""""""""""""""""""""""""""
+
+| RecType: 0x00010303
+| Overflow period: 65536 (0x10000)
+| Record Size: 32 Bit = 4 Byte
+
+The bit allocation in the record is, starting from the MSB:
+
+- channel: 4
+- dTime: 12
+- nSync: 16
+
+The channel code 15 (0xF) marks a special record.
+Special records can be overflows or external markers. To differentiate this, dTime must be checked.
+
+If it is zero, the record marks an overflow.
+If it is >=1 the individual bits are external markers.

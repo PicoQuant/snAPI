@@ -409,7 +409,7 @@ const Search = {
       let anchor = match[3];
       if (anchor === "") anchor = fullname;
       else if (anchor === "-") anchor = objNames[match[1]][1] + "-" + fullname;
-
+      anchor = anchor.replaceAll(".", "_");
       const descr = objName + _(", in ") + title;
 
       // add custom score for some objects according to scorer

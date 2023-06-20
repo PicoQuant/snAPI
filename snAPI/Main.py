@@ -36,25 +36,32 @@ Example
     sn = snAPI()
         
     """
-    print(os.path)
     dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), '.\snAPI64.dll')))
-    "the snAPI.dll"
+    """
+the snAPI.dll
+
+    """
 
     deviceIDs = [] 
     """
 This list contains the IDs serial numbers of the connected devices or the file names of
 the opened file devices and will be filled after calling :meth:`getDeviceIDs()`.
+
     """
 
     deviceConfig = ()
     """
-The device config contains all information about the initialized device.
-To update it it is necessary to call :meth:`getDeviceConfig`.
+The device config contains all information about the initialized device. To update it it is necessary to call :meth:`getDeviceConfig`.
+
+Note
+----
+The deviceConfig can not directly written. It is only for checking the current state. To change the configuration, you have to call
+the device functions or write the config with :meth:`loadIniConfig` or :meth:`setIniConfig`.
 
 Example
 -------
 ::
-    
+
     # This is an example of a device config
     
     {
@@ -150,8 +157,7 @@ Example
     "RefSource": 0
     }
     
-"""
-
+    """
 
     def __new__(cls, *args, **kwargs):
         return super().__new__(cls)
@@ -190,7 +196,7 @@ The generated log file entry will be marked with an "EXT" (External).
 
 Note
 ----
-    See :meth:`initApi` for information about the logfile destination and configuration!
+    See :meth:`initAPI` for information about the logfile destination and configuration!
     
 Parameters
 ----------
@@ -248,7 +254,7 @@ Example
 -------
 ::
 
-    sn.initApi("system.ini")
+    sn.initAPI("system.ini")
     
     # This is an example of an system ini file
     
@@ -276,7 +282,7 @@ Example
     
         """
         SBuf = systemIni.encode('utf-8')
-        ok = self.dll.initApi(SBuf)
+        ok = self.dll.initAPI(SBuf)
         self.getDeviceConfig()
         return ok
 
@@ -494,6 +500,7 @@ Parameters
 Returns
 -------
     none
+    
     """
         self.dll.closeDevice(allDevices)
 
@@ -519,7 +526,7 @@ Example
 -------
 ::
 
-    setPTUFilePath("C:\Data\PicoQuant\default.ptu")
+    sn.setPTUFilePath("C:\Data\PicoQuant\default.ptu")
     
     """
         self.logPrint("set PTU file path ", path)
@@ -551,7 +558,7 @@ Example
 -------
 ::
 
-    loadIniConfig("C:\Data\PicoQuant\Configs\device.ini")
+    sn.loadIniConfig("C:\Data\PicoQuant\Configs\device.ini")
     
     # This is an example for a device ini file
     [Device]
@@ -649,7 +656,7 @@ Example
     
     # reads the device config from the API 
     
-    getDeviceConfig()
+    sn.getDeviceConfig()
     
         """
         conf = (ct.c_char * 65535)()
@@ -680,6 +687,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.dll.stopMeasure()
         
@@ -701,6 +709,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.dll.clearMeasure()
 
@@ -887,7 +896,7 @@ Example
 ::
     
     # enables the sync channel
-    setSyncChannelEnable(1)
+    sn.device.setSyncChannelEnable(1)
     
         """
         if ok:= self.parent.dll.setSyncChannelEnable(syncChannelEnable):
@@ -1135,7 +1144,7 @@ This can be used to set the period of the programmable trigger output. The perio
 
 Warning
 -------
-Observe laser safety when using this feature for triggering a laser 
+    Observe laser safety when using this feature for triggering a laser 
 
 Parameters
 ----------
@@ -1503,6 +1512,7 @@ Note
     on their combined action. It is usually sufficient and easier to use the Main Filter alone. The only reasons for
     using the Row Filter(s) are early data reduction, so as to not overload the Main Filter, and the possible need
     for more complex filters, e.g. with different time ranges.
+    
     """
     
 
@@ -1658,8 +1668,8 @@ The Main Filter receives its input from the Row Filters. If the Row Filters are 
 therefore depends on the combined action of both filters. Only the Main Filter can act on all channels of the Harp device
 including the sync channel.
 
-Note:
------
+Note
+----
 The settings for the sync channel Only meaningful in :obj:`.MeasMode.T2` and will be ignored in :obj:`.MeasMode.T3`.
 
 Note
@@ -2149,6 +2159,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.parent._stopMeasure()
     
@@ -2714,6 +2725,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.parent._stopMeasure()
     
@@ -2899,7 +2911,7 @@ Example
 -------
 ::
 
-    # creates a histogram in :obj:`.MeasMode.T2` with bin width of 5ps
+    # creates a histogram T2 mode with bin width of 5ps
     sn = snAPI()
     sn.getDevice()
     sn.initDevice(MeasMode.T2)
@@ -3034,6 +3046,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.parent._stopMeasure()
     
@@ -3051,6 +3064,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.parent._clearMeasure()
     
@@ -3342,6 +3356,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.parent._stopMeasure()
         
@@ -3359,6 +3374,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.parent._clearMeasure()
 
@@ -3656,8 +3672,6 @@ Example
     plt.show(block=True)    
     
         """
-        # dataOut = np.reshape(self.data, (2, self.numBins))
-        # dont copy the data:
         return np.lib.stride_tricks.as_strided(self.data, shape=(2, self.numBins),
             strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_))), self.bins
 
@@ -3674,6 +3688,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.parent._stopMeasure()
     
@@ -3691,6 +3706,7 @@ Parameters
 Returns
 -------
     none
+    
         """
         self.parent._clearMeasure()
 
@@ -3736,7 +3752,7 @@ Example
 
 
 
-class Manipulators():
+class Manipulators():    
     """
 This is the manipulators class. It is used to modify the unfold data stream that is created in snAPI. 
 With it it is possible to modify existing channel records and/or create or delete new ones that fit in the data stream.
@@ -3748,28 +3764,130 @@ Flow chart of the integration of the manipulators.
 
     """
     
-
-    def __init__(self, parent):
-        self.parent = parent
-
-
-    def clear(self):
-        """
-This clears all manipulators.    
-        """    
-    
-        self.parent.dll.clearManis()
-
-
-    def coincidence(self, chans: typing.List[int], windowTime: typing.Optional[int] = 1000, keepChannels: typing.Optional[bool] = True):
-        """
-This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window
-size.
+    config = []
+    """
+Stores a list of the defined manipulators and can manually read with :meth:`getConfig`
 
 Note
 ----
-    If you are only the coincidence channel is needed for further investigations set `keepChannels` to False. This will reduce the data stream and 
-    therefore the processor load and memory consumption.
+The Manipulator.config can not directly written. It is only for checking the current state. To change the configuration, you have to call
+the certain functions.
+
+Example
+-------
+::
+
+    # example of a manipulator config
+
+    {
+    "ManisCfg": [
+        {
+        "Index": 0,
+        "Type": "Herald",
+        "Channels": [
+            {
+                "Channel": 5
+            },
+            {
+                "Channel": 6
+            }
+            ]
+        },
+        {
+            "Index": 1,
+            "Type": "Coincidence",
+            "Channels": [
+            {
+                "Channel": 7
+            }
+            ]
+        },
+        {
+            "Index": 2,
+            "Type": "Delay",
+            "Channels": [
+            {
+                "Channel": 8
+            }
+            ]
+        },
+        {
+            "Index": 3,
+            "Type": "Coincidence",
+            "Channels": [
+            {
+                "Channel": 9
+            }
+            ]
+        }
+    ]
+    }
+"""
+    
+
+    def __init__(self, parent):
+        self.parent = parent
+        self.config = []
+
+    def getConfig(self):
+        """
+This command reads the manipulator configuration stored by th API and returns it to
+:obj:`snAPI.Manipulators.config`.
+
+Note
+----
+    Normally you have not to to call this function to refresh the manipulator.config. It should always be
+    up to date. However, under certain circumstances the manipulator.config could be updated manually.
+
+Parameters
+----------
+    none
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+        
+Example
+-------
+::
+    
+    # reads the manipulator config from the API 
+    
+    sn.manipulator.getConfig()
+    
+        """
+        conf = (ct.c_char * 65535)()
+        ok = self.parent.dll.getManisConfig(conf)
+        conf = str(conf, "utf-8").replace('\x00','')
+        if ok:
+            self.config = json.loads(conf)
+            return True
+        else:
+            self.parent.logPrint(conf)
+            return False
+
+    def clearAll(self):
+        """
+This clears all manipulators.
+
+Warning
+-------
+    It is not allowed to clear the manipulators while acquisition is running!
+
+        """
+    
+        self.parent.dll.clearManis()
+        self.getConfig()
+
+    def coincidence(self, chans: typing.List[int], windowTime: typing.Optional[int] = 1000, keepChannels: typing.Optional[bool] = True):
+        """
+This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window size.
+
+Note
+----
+    If only the coincidence channel is needed for further investigations set `keepChannels` to False.
+    This will reduce the data stream and therefore the processor load and memory consumption.
 
 Parameters
 ----------
@@ -3788,9 +3906,44 @@ Returns
 
 Example
 -------
+
+.. image:: _static/coincidence.png
+    :class: p-2
+    
+plot of the example
+
 ::
 
-    # TODO
+    # plots a timetrace of channel 1 and 2 and their coincidence within a window time of 1ns 
+    
+    sn = snAPI()
+    sn.getFileDevice(r"C:\Data\PicoQuant\default_1.ptu")
+
+    sn.timeTrace.setNumBins(10000)
+    sn.timeTrace.setHistorySize(10)
+
+    ci = sn.manipulators.coincidence([1, 2], 1000)
+    
+    sn.timeTrace.measure(10000, False, False)
+
+    while True:
+        finished = sn.timeTrace.isFinished()
+        counts, times = sn.timeTrace.getData() 
+        plt.clf()
+        plt.plot(times, counts[1], linewidth=2.0, label='chan1')
+        plt.plot(times, counts[2], linewidth=2.0, label='chan2')
+        plt.plot(times, counts[ci], linewidth=2.0, label='coincidence 1&2-1ns')
+
+        plt.xlabel('Time [s]')
+        plt.ylabel('Counts[Cts/s]')
+        plt.legend()
+        plt.title("TimeTrace")
+        plt.pause(0.1)
+        
+        if finished:
+            break
+    
+    plt.show(block=True)
     
         """
 
@@ -3798,7 +3951,9 @@ Example
         channels = (ct.c_int * length)()
         for i in range(length):
             channels[i] = chans[i]
-        return self.parent.dll.addMCoincidence(ct.pointer(channels), length, windowTime, keepChannels)
+        chanOut = self.parent.dll.addMCoincidence(ct.pointer(channels), length, windowTime, keepChannels)
+        self.getConfig()
+        return chanOut
     
     
     def merge(self, chans: typing.List[int], keepChannels: typing.Optional[bool] = True):
@@ -3827,7 +3982,10 @@ Example
 -------
 ::
 
-    # TODO
+    # the example looks like a coincidence example except the configuration of the manipulator
+    # this would merge the channels 1 and 2
+    
+    cm = merge([1,2])
     
         """
 
@@ -3835,12 +3993,16 @@ Example
         channels = (ct.c_int * length)()
         for i in range(length):
             channels[i] = chans[i]
-        return self.parent.dll.addMMerge(ct.pointer(channels), length, keepChannels)
+        chanOut = self.parent.dll.addMMerge(ct.pointer(channels), length, keepChannels)
+        self.getConfig()
+        return chanOut
     
     
     def delay(self, channel: int, delayTime: int, keepSourceChannel: typing.Optional[bool] = True):
         """
-This implements a delay manipulator, that gives you the ability to add or remove a delay to the given channels.
+This implements a delay manipulator, that gives you the ability to add a delay to the given channel.
+Its generally better to use :meth:`setInputChannelOffset` because it does the same but in hardware and therefore
+it don't uses any resources of the PC. But if you data of a ptu file it is the only way to do it.
 
 Note
 ----
@@ -3850,7 +4012,7 @@ Note
 Parameters
 ----------
     channel: int
-        channel numbers that build a coincidence
+        index o that build a coincidence
     delayTime: int 
         window size [ps]
     keepSourceChannel: bool (default: True)
@@ -3864,51 +4026,126 @@ Returns
 
 Example
 -------
+
+.. image:: _static/delay.png
+    :class: p-2
+    
+plot of following example
+
 ::
 
-    # TODO
+    # creates a delay of channel 1 with 1ms and stores it in cd
+    
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T2)
+    sn.timeTrace.setNumBins(10000)
+    sn.timeTrace.setHistorySize(10)
+
+    cd = sn.manipulators.delay(1, 1000000000)
+    
+    sn.timeTrace.measure(10000, False, False)
+    
+    while True:
+        finished = sn.timeTrace.isFinished()
+        counts, times = sn.timeTrace.getData() 
+        plt.clf()
+        plt.plot(times, counts[1], linewidth=2.0, label='chan1')
+        plt.plot(times, counts[cd], linewidth=2.0, label='delay 1ms')
+
+        plt.xlabel('Time [s]')
+        plt.ylabel('Counts[Cts/s]')
+        plt.legend()
+        plt.title("TimeTrace")
+        plt.pause(0.1)
+        
+        if finished:
+            break
+    
+    plt.show(block=True)
     
         """
 
-        return self.parent.dll.addMDelay(channel, delayTime, keepSourceChannel)
+        chanOut = self.parent.dll.addMDelay(channel, delayTime, keepSourceChannel)
+        self.getConfig()
+        return chanOut
 
 
-    def herald(self, herald:int, chans: typing.List[int], delayTime: typing.Optional[int] = 1000, windowTime: typing.Optional[int] = 1000, keepChannels: typing.Optional[bool] = True):
+    def herald(self, herald:int, gateChans: typing.List[int], delayTime: typing.Optional[int] = 0, gateTime: typing.Optional[int] = 1000, keepChannels: typing.Optional[bool] = True):
         """
-This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window
-size.
+This manipulator creates a heralded gate filter. You have to define which channel contains the herald events and which
+channels have to been filtered. Therefor it is been necessary to set the delay time and the gate time of the following gate.
 
 Note
 ----
-    If you are only the coincidence channel is needed for further investigations set `keepChannels` to False. This will reduce the data stream and 
-    therefore the processor load and memory consumption.
+    If only the gated channels are needed for further investigations set `keepChannels` to False.
+    This will reduce the data stream size and therefore the processor load and memory consumption.
 
 Parameters
 ----------
+    herald:
+        the channel that contains the herald events
     chans: List[int]
-        channel numbers that build a coincidence
-    windowTime: int 
-        window size [ps]
+        channel numbers that should be gated
+    delayTime: (default: 0ps)
+        time between the herald event and the start of the gate
+    gateTime: int (default: 1ns)
+        size of the gate [ps]
     keepChannels: bool (default: True)
-        | True: the coincidence channel is be integrated in the data stream as additional channel 
-        | False: only the coincidence channel is in the data stream
+        | True: the gate channels are to be integrated in the data stream as additional channels
+        | False: the gate channels are directly filtered
 
 Returns
 -------
     int: 
-        the channel index of the coincidence
+        the channel indices of the gated channels
 
 Example
 -------
+
+.. image:: _static/herald.png
+    :class: p-2
+    
+plot of following example
+
 ::
 
-    # TODO
+    # sets a herald on sync channel that cuts of a window from 66ns to 76ns from channel 2
+    
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T2)
+    waitFinished = False
+    hChans = sn.manipulators.herald(0, [2], 66000, 10000, True)
+    sn.histogram.setRefChannel(0)
+    sn.histogram.setBinWidth(5)
+    sn.histogram.measure(10000, False)
+    
+    while True:
+        finished = sn.histogram.isFinished()
+        data, bins = sn.histogram.getData()
+        
+        plt.clf()
+        plt.plot(bins, data[2], linewidth=2.0, label='chan2')
+        plt.plot(bins, data[hChans[0]], linewidth=2.0, label='heralded')
+        plt.xlabel('Time [ps]')
+        plt.xlim(67000, 73000) #set the scale range of the time scale to the region of interest
+        plt.ylabel('Counts')
+        plt.yscale('log')
+        plt.legend()
+        plt.title("Histogram")
+        
+        if waitFinished or finished:
+            break
+        
+    plt.show(block=True)
     
         """
 
-        length = len(chans)
+        length = len(gateChans)
         channels = (ct.c_int * length)()
         for i in range(length):
-            channels[i] = chans[i]
-        hChan = self.parent.dll.addMHerald(herald, ct.pointer(channels), len(channels), delayTime, windowTime, keepChannels)
-        return list(range(hChan, hChan + len(channels))) if keepChannels else chans
+            channels[i] = gateChans[i]
+        hChan = self.parent.dll.addMHerald(herald, ct.pointer(channels), len(channels), delayTime, gateTime, keepChannels)
+        self.getConfig()
+        return list(range(hChan, hChan + len(channels))) if keepChannels else gateChans
