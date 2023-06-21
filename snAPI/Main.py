@@ -2977,7 +2977,7 @@ Example
         """
         self.numBins = self.parent.deviceConfig["NumBins"]
         numChans = self.parent.getNumAllChannels()
-        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)()
+        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         
         l = self.parent.deviceConfig["NumBins"]
         self.bins = range(l)
@@ -3066,6 +3066,8 @@ Returns
     none
     
         """
+        numChans = self.parent.getNumAllChannels()
+        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         self.parent._clearMeasure()
     
 
@@ -3237,13 +3239,14 @@ Example
     sn.timeTrace.setHistorySize(10)
     
         """
+        numChans = self.parent.getNumAllChannels()
+        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
+        
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.parent.logPrint( "measure is not supported for TimeTrace class in MeasMode:", 
                 MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
-            
-        numChans = self.parent.getNumAllChannels()
-        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)()
+        
         return self.parent.dll.getTimeTrace(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.t0), self.finished)
     
 
@@ -3376,6 +3379,8 @@ Returns
     none
     
         """
+        numChans = self.parent.getNumAllChannels()
+        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         self.parent._clearMeasure()
 
 
@@ -3560,18 +3565,18 @@ Example
         break
         
         """
+        if self.isFcs:
+            self.numBins = self.numIntervals * self.intervalLength
+            self.data = ct.ARRAY(ct.c_double, 2 * self.numBins)(0)
+        else:
+            self.numBins = 2 * self.intervalLength
+            self.data = ct.ARRAY(ct.c_double, self.numBins)(0)
+            
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
-            
-        if self.isFcs:
-            self.numBins = self.numIntervals * self.intervalLength
-            self.data = ct.ARRAY(ct.c_double, 2 * self.numBins)()
-        else:
-            self.numBins = 2 * self.intervalLength
-            self.data = ct.ARRAY(ct.c_double, self.numBins)()
         
-        self.bins = ct.ARRAY(ct.c_double, self.numBins)()
+        self.bins = ct.ARRAY(ct.c_double, self.numBins)(0)
         return self.parent.dll.getCorrelation(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.bins), self.finished)
 
 
@@ -3708,6 +3713,12 @@ Returns
     none
     
         """
+        if self.isFcs:
+            self.numBins = self.numIntervals * self.intervalLength
+            self.data = ct.ARRAY(ct.c_double, 2 * self.numBins)(0)
+        else:
+            self.numBins = 2 * self.intervalLength
+            self.data = ct.ARRAY(ct.c_double, self.numBins)(0)
         self.parent._clearMeasure()
 
 
@@ -3998,7 +4009,7 @@ Example
         return chanOut
     
     
-    def delay(self, channel: int, delayTime: int, keepSourceChannel: typing.Optional[bool] = True):
+    def delay(self, channel: int, delayTime: float, keepSourceChannel: typing.Optional[bool] = True):
         """
 This implements a delay manipulator, that gives you the ability to add a delay to the given channel.
 Its generally better to use :meth:`setInputChannelOffset` because it does the same but in hardware and therefore
@@ -4066,6 +4077,7 @@ plot of following example
     
         """
 
+        self.parent.dll.addMDelay.argtypes = [ct.c_int, ct.c_double, ct.c_bool]
         chanOut = self.parent.dll.addMDelay(channel, delayTime, keepSourceChannel)
         self.getConfig()
         return chanOut
