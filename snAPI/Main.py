@@ -2842,6 +2842,14 @@ refChannel itself and all other channels including the sync channel is created.
     :class: p-2
     
 sample of a `Histogram` measurement drawn with matplotlib
+
+Caution
+-------
+To calculate the histogram in :obj:`.MeasMode.T3` it is necessary to store dTimes (different time between the
+sync- and the channel events) in the times array of the internal unfold data stream, because the sync events
+are removed. Therefore the :class:`Manipulators` may work different than with absolute times stored in the unfold
+data stream. They may only be correct in between there sync periods. If you need the default behaviour you have
+to use the :obj:`.MeasMode.T3` instead.
     
     """
     
@@ -2967,7 +2975,7 @@ Example
 -------
 ::
 
-    # calculates `Histogram` data for 1 sec in :obj:`.MeasMode.T2` 
+    # calculates `Histogram` data for 1 sec in MeasMode.T2 
     sn = snAPI()
     sn.getDevice()
     sn.initDevice(MeasMode.T2)
@@ -3250,13 +3258,14 @@ Example
         return self.parent.dll.getTimeTrace(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.t0), self.finished)
     
 
-    def getData(self):
+    def getData(self, normalized: typing.Optional[bool] = True):
         """
 This function returns the data of the time trace measurement. The data is optimized for display in a chart and therefore held in a FIFO buffer.
 
 Parameters
 ----------
-    none
+    normalized: bool (default: True)
+        The counts will be normalized by its bin width, otherwise you get the absolute number of count per bin
     
 Returns
 -------
@@ -3297,7 +3306,8 @@ Example
         numChans = self.parent.getNumAllChannels()
         dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(numChans, self.numBins),
             strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))
-        dataOut = np.multiply(dataOut, self.numBins/self.historySize)
+        if normalized:
+            dataOut = np.multiply(dataOut, self.numBins/self.historySize)
         
         t0 = (self.t0.value / self.numBins * self.historySize) - self.historySize
         times = range(self.numBins)
@@ -4092,6 +4102,13 @@ Note
 ----
     If only the gated channels are needed for further investigations set `keepChannels` to False.
     This will reduce the data stream size and therefore the processor load and memory consumption.
+    
+Caution
+-------
+To calculate the histogram in :obj:`.MeasMode.T3` it is necessary to store dTimes (different time between the
+sync- and the channel events) in the times array of the internal unfold data stream, because the sync events
+are removed. Therefore the herald manipulator only works as gate with the sync channel as herald. The delayTime and gateTime
+parameters do work with the dTimes and not absolute times.
 
 Parameters
 ----------
