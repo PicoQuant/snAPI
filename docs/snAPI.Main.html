@@ -2025,6 +2025,12 @@ You must define the size of the buffer raw.data. If waitFinished is set True the
 until the measurement is completed. If you wish to avoid blocking you can pass waitFinished False
 and proceed with other code. In order to check later if the measurement is completed you can use
 the <a class="reference internal" href="#snAPI_Main_Raw_isFinished" title="snAPI.Main.Raw.isFinished"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isFinished()</span></code></a> function. The data can be accessed with <a class="reference internal" href="#snAPI_Main_Raw_getData" title="snAPI.Main.Raw.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The <cite>Raw Buffer overrun - clearing!</cite> warning or <cite>Raw Buffer full - waiting!</cite> info means, that data cant be stored
+in the allocated memory <cite>size</cite>. Increase the memory <cite>size</cite>, use the non blocking measure or the <a class="reference internal" href="#snAPI_Main_Raw_startBlock" title="snAPI.Main.Raw.startBlock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">startBlock()</span></code></a>
+and <code class="xref py py-meth docutils literal notranslate"><span class="pre">readBlock()</span></code>!</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you want to write the data to disc only, set the size to zero.</p>
@@ -2483,6 +2489,12 @@ updates on the fly, and you can access the execution status with the <a class="r
 If you wish to avoid blocking you can pass waitFinished False and proceed with other code. In order
 to check later if the measurement is completed you can use the <a class="reference internal" href="#snAPI_Main_Unfold_isFinished" title="snAPI.Main.Unfold.isFinished"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isFinished()</span></code></a> function.
 The data can be accessed with <a class="reference internal" href="#snAPI_Main_Unfold_getData" title="snAPI.Main.Unfold.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The <cite>Unfold buffer overrun - clearing!</cite> warning or <cite>Unfold Buffer full - waiting!</cite> info means, that data cant be stored
+in the allocated memory <cite>size</cite>. Increase the memory <cite>size</cite>, use the non blocking measure or the <a class="reference internal" href="#snAPI_Main_Unfold_startBlock" title="snAPI.Main.Unfold.startBlock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">startBlock()</span></code></a>
+and <code class="xref py py-meth docutils literal notranslate"><span class="pre">readBlock()</span></code>!</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

@@ -1907,6 +1907,12 @@ until the measurement is completed. If you wish to avoid blocking you can pass w
 and proceed with other code. In order to check later if the measurement is completed you can use
 the :meth:`isFinished` function. The data can be accessed with :meth:`getData`.
 
+Caution
+-------
+The `Raw Buffer overrun - clearing!` warning or `Raw Buffer full - waiting!` info means, that data cant be stored
+in the allocated memory `size`. Increase the memory `size`, use the non blocking measure or the :meth:`startBlock`
+and :meth:`readBlock`!
+
 Note
 ----
     If you want to write the data to disc only, set the size to zero.
@@ -1953,6 +1959,9 @@ Example
     
         """
         self.data = ct.ARRAY(ct.c_uint32, size)()
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "measurement is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return False
         return self.parent.dll.rawMeasure(acqTime, waitFinished, savePTU, ct.byref(self.data), self.idx, ct.c_uint64(size), self.finished)
     
 
@@ -2001,6 +2010,9 @@ Example
         """
         self.storeData = ct.ARRAY(ct.c_uint32, size)()
         self.data = ct.ARRAY(ct.c_uint32, size)()
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "startBlock is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return False
         return self.parent.dll.rawStartBlock(acqTime, savePTU, ct.byref(self.storeData), ct.c_uint64(size), self.finished)
     
 
@@ -2034,8 +2046,12 @@ Example
     
         """
         size = ct.pointer(ct.c_uint64(0))
-        self.parent.dll.rawGetBlock(ct.byref(self.data), size)
-        self.idx.contents.value = size.contents.value
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "startBlock is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.idx.contents.value = 0
+        else:
+            self.parent.dll.rawGetBlock(ct.byref(self.data), size)
+            self.idx.contents.value = size.contents.value
         return self.getData()
     
 
@@ -2075,7 +2091,10 @@ Example
         """
         if not numRead:
             numRead = self.numRead()
-
+            
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "getData is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return []
         return np.lib.stride_tricks.as_strided(self.data, shape=(1, numRead),
             strides=(ct.sizeof(self.data._type_) * numRead, ct.sizeof(self.data._type_)))[0]
     
@@ -2408,6 +2427,12 @@ updates on the fly, and you can access the execution status with the :meth:`isFi
 If you wish to avoid blocking you can pass waitFinished False and proceed with other code. In order
 to check later if the measurement is completed you can use the :meth:`isFinished` function.
 The data can be accessed with :meth:`getData`.
+
+Caution
+-------
+The `Unfold buffer overrun - clearing!` warning or `Unfold Buffer full - waiting!` info means, that data cant be stored
+in the allocated memory `size`. Increase the memory `size`, use the non blocking measure or the :meth:`startBlock`
+and :meth:`readBlock`!
     
 Parameters
 ----------
@@ -2446,6 +2471,9 @@ Example
         self.times = ct.ARRAY(ct.c_uint64, size)()
         self.channels = ct.ARRAY(ct.c_uint8, size)()
         self.idx = ct.pointer(ct.c_uint64(0))
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "measurement is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return False
         return self.parent.dll.ufMeasure(acqTime, waitFinished, savePTU, ct.byref(self.times), ct.byref(self.channels), self.idx, ct.c_uint64(size), self.finished)
     
 
@@ -2497,6 +2525,9 @@ Example
         self.storeChannels = ct.ARRAY(ct.c_uint8, size)()
         self.times = ct.ARRAY(ct.c_uint64, size)()
         self.channels = ct.ARRAY(ct.c_uint8, size)()
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "startBlock is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return False
         return self.parent.dll.ufStartBlock(acqTime, savePTU, ct.byref(self.storeTimes), ct.byref(self.storeChannels), ct.c_uint64(size), self.finished)
     
 
@@ -2533,8 +2564,12 @@ Example
     
         """
         size = ct.pointer(ct.c_uint64(0))
-        self.parent.dll.ufGetBlock(ct.byref(self.times), ct.byref(self.channels), size)
-        self.idx.contents.value = size.contents.value
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "startBlock is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.idx.contents.value = 0
+        else:
+            self.parent.dll.ufGetBlock(ct.byref(self.times), ct.byref(self.channels), size)
+            self.idx.contents.value = size.contents.value
         return self.getData()
     
 
@@ -3575,6 +3610,7 @@ Example
         break
         
         """
+        
         if self.isFcs:
             self.numBins = self.numIntervals * self.intervalLength
             self.data = ct.ARRAY(ct.c_double, 2 * self.numBins)(0)
@@ -3582,11 +3618,11 @@ Example
             self.numBins = 2 * self.intervalLength
             self.data = ct.ARRAY(ct.c_double, self.numBins)(0)
             
+        self.bins = ct.ARRAY(ct.c_double, self.numBins)(0) 
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         
-        self.bins = ct.ARRAY(ct.c_double, self.numBins)(0)
         return self.parent.dll.getCorrelation(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.bins), self.finished)
 
 
