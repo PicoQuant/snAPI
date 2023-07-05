@@ -3351,7 +3351,7 @@ multi-tau algorithm uses pseudo-logarithmically increasing bin widths.</p>
 <p>sample of a g(2) <cite>Correlation</cite> measurement drawn with matplotlib</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Correlation_setG2parameters">
-<span class="sig-name descname"><span class="pre">setG2parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clickChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numBins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binWidth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Correlation_setG2parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setG2parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clickChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binWidth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Correlation_setG2parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>This function sets the the parameters for the g(2) correlation. If the startChannel is the same as the
 clickChannel an autocorrelation is calculated and if the channels are different a
 cross calculation is calculated.</p>
@@ -3369,7 +3369,7 @@ in this time.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>startChannel</strong> (<em>int</em><em> (</em><em>0 is sync channel</em><em>)</em>) – start channel</p></li>
 <li><p><strong>clickChannel</strong> (<em>int</em><em> (</em><em>0 is sync channel</em><em>)</em>) – click channel</p></li>
-<li><p><strong>numBins</strong> (<em>int</em><em> (</em><em>default: 10000</em><em>)</em>) – number of bins</p></li>
+<li><p><strong>windowSize</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em>) – size of the correlation window</p></li>
 <li><p><strong>binWidth</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em>) – width of bins</p></li>
 </ul>
 </dd>
@@ -3378,15 +3378,15 @@ in this time.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets thew number of bins to 10000</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the window size to 5000ps with a bin width of 5ps (that means 1000 bins will be calculated)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Correlation_setFCSparameters">
-<span class="sig-name descname"><span class="pre">setFCSparameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clickChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numIntervals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intervalLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Correlation_setFCSparameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setFCSparameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clickChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Correlation_setFCSparameters" title="Permalink to this definition">#</a></dt>
 <dd><p>This function sets the the parameters for the FCS correlation. If the startChannel is the same as the
 clickChannel an autocorrelation is calculated and if the channels are different a
 cross calculation is calculated.</p>
@@ -3409,8 +3409,8 @@ cross calculation is calculated.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>startChannel</strong> (<em>int</em><em> (</em><em>0 is sync channel</em><em>)</em>) – start channel</p></li>
 <li><p><strong>clickChannel</strong> (<em>int</em><em> (</em><em>0 is sync channel</em><em>)</em>) – click channel</p></li>
-<li><p><strong>numIntervals</strong> (<em>int</em><em> (</em><em>default: 10</em><em>)</em>) – number of intervals</p></li>
-<li><p><strong>intervalLength</strong> (<em>int</em><em> (</em><em>default: 8</em><em>)</em>) – num of bins</p></li>
+<li><p><strong>windowSize</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em>) – size of the correlation window</p></li>
+<li><p><strong>startTime</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em>) – width of bins None: T2: BaseResolution, T3: Resolution</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -3418,8 +3418,8 @@ cross calculation is calculated.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets thew number of bins to 10000</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the window size to 1s with a startTime of 50000ps</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mf">1e12</span><span class="p">,</span> <span class="mf">5e4</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

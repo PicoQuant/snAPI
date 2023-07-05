@@ -8,19 +8,22 @@ import time
 if(__name__ == "__main__"):
 
     sn = snAPI()
-    sn.getDevice()
-    #sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
-    #sn.getFileDevice(r"E:\Data\PicoQuant\PMT-cw-1MHz.ptu")
-    #sn.getFileDevice(r"E:\Data\PicoQuant\HH400-PMT-cw-1MHz.ptu")
+    #sn.getDevice()
+    sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
+    #sn.getFileDevice(r"e:\Data\PicoQuant\cell01_55pct_1.ptu")
+    #sn.getFileDevice(r"e:\Data\PicoQuant\Correaltion_T3.ptu")
+    #sn.getFileDevice(r"e:\Data\PicoQuant\Datasets Metrologia 56 025004\Metrologia_g2_SPS1550_INRIM-PTB-NPL\20171023_INRIM-NPL\acq_NPL\g2_1550nm_NPL\acq002_001.ptu")
     sn.initDevice(MeasMode.T2)
     #sn.device.setInputDeadTime(-1,1000)
     
     # set filter window to 1ns
-    sn.filter.setRowParams(0, 1000, 1, False, [0,1], [])
-    sn.filter.enableRow(0,True)
+    #sn.filter.setRowParams(0, 1000, 1, False, [0,1], [])
+    #sn.filter.enableRow(0,True)
+    #sn.manipulators.coincidence([1,2], 200000)
     
-    sn.correlation.setG2parameters(1, 2, 1000, 5)
-    sn.correlation.measure(100000)
+    #sn.setPTUFilePath("test.ptu")
+    sn.correlation.setG2parameters(1, 2, 200000, 200)
+    sn.correlation.measure(10000,savePTU=True)
     
     plt.ion()
     while True:
@@ -36,7 +39,7 @@ if(__name__ == "__main__"):
         plt.legend()
         plt.title("g(2)")
         plt.pause(0.1)
-        sn.correlation.clearMeasure()
+        #sn.correlation.clearMeasure()
         
         if sn.correlation.isFinished():
             break

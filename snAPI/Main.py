@@ -3459,7 +3459,7 @@ sample of a g(2) `Correlation` measurement drawn with matplotlib
         self.finished = ct.pointer(ct.c_bool(False))
         
 
-    def setG2parameters(self, startChannel: int, clickChannel: int, numBins: int, binWidth: int):
+    def setG2parameters(self, startChannel: int, clickChannel: int, windowSize: float, binWidth: float):
         """
 This function sets the the parameters for the g(2) correlation. If the startChannel is the same as the
 clickChannel an autocorrelation is calculated and if the channels are different a
@@ -3484,8 +3484,8 @@ Parameters
         start channel
     clickChannel: int (0 is sync channel)
         click channel
-    numBins: int (default: 10000)
-        number of bins
+    windowSize: int [ps]
+        size of the correlation window
     binWidth: int [ps]
         width of bins 
 
@@ -3497,21 +3497,22 @@ Example
 -------
 ::
 
-    # sets thew number of bins to 10000
-    sn.correlation.setG2parameters(1, 2 ,1000, 200)
+    # sets the window size to 5000ps with a bin width of 5ps (that means 1000 bins will be calculated)
+    sn.correlation.setG2parameters(1, 2 , 5000, 5)
     
         """
         self.startChannel = startChannel
         self.clickChannel = clickChannel
-        self.numIntervals = 1
-        self.intervalLength = numBins
+        self.windowSize = windowSize
         self.binWidth = binWidth
+        self.intervalLength = int(windowSize / binWidth)
         self.isFcs = False
         
-        self.parent.dll.setCorrelationParams(startChannel, clickChannel, False, 1, numBins, binWidth)
+        self.parent.dll.setG2Params.argtypes = [ct.c_int, ct.c_int, ct.c_double, ct.c_double]
+        self.parent.dll.setG2Params(startChannel, clickChannel, windowSize, binWidth)
     
 
-    def setFCSparameters(self, startChannel: int, clickChannel: int, numIntervals: typing.Optional[int] = 10, intervalLength: typing.Optional[int] = 8):
+    def setFCSparameters(self, startChannel: int, clickChannel: int, windowSize: typing.Optional[float] = 1e12, startTime: typing.Optional[int] = None):
         """
 This function sets the the parameters for the FCS correlation. If the startChannel is the same as the
 clickChannel an autocorrelation is calculated and if the channels are different a
@@ -3541,10 +3542,10 @@ Parameters
         start channel
     clickChannel: int (0 is sync channel)
         click channel
-    numIntervals: int (default: 10)
-        number of intervals
-    intervalLength: int (default: 8)
-        num of bins 
+    windowSize: int [ps]
+        size of the correlation window
+    startTime: int [ps]
+        width of bins None: T2: BaseResolution, T3: Resolution
 
 Returns
 -------
@@ -3554,18 +3555,29 @@ Example
 -------
 ::
 
-    # sets thew number of bins to 10000
-    sn.correlation.setG2parameters(1, 2 ,1000, 200)
+    # sets the window size to 1s with a startTime of 50000ps
+    sn.correlation.setG2parameters(1, 2 , 1e12, 5e4)
     
         """
+        if startTime is None:
+            if self.parent.deviceConfig["MeasMode"] == MeasMode.T2.value:
+                startTime = self.parent.deviceConfig["BaseResolution"]
+            elif self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value:
+                startTime = self.parent.deviceConfig["Resolution"]
+            
         self.startChannel = startChannel
         self.clickChannel = clickChannel
-        self.numIntervals = numIntervals
-        self.intervalLength = intervalLength
-        self.isFcs = intervalLength
+        self.windowSize = windowSize
+        self.startTime = startTime
+        self.isFcs = True
+        pNumIntervals = ct.pointer(ct.c_int(0))
+        pIntervalLength = ct.pointer(ct.c_int(0))
         
-        self.parent.dll.setCorrelationParams(startChannel, clickChannel, True, numIntervals, intervalLength, 0)
-    
+        self.parent.dll.setFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.POINTER(ct.c_int), ct.c_double, ct.c_double]
+        self.parent.dll.setFCSParams(startChannel, clickChannel, pNumIntervals, pIntervalLength, windowSize, startTime)
+        self.numIntervals = pNumIntervals.contents.value
+        self.intervalLength = pIntervalLength.contents.value
+        
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
         """
@@ -3724,7 +3736,7 @@ Example
     
         """
         return np.lib.stride_tricks.as_strided(self.data, shape=(2, self.numBins),
-            strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_))), self.bins
+            strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))[:, 4:], self.bins[4:]
 
 
     def stopMeasure(self):

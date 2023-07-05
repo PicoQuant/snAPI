@@ -4,12 +4,12 @@ if(__name__ == "__main__"):
 
     sn = snAPI()
     sn.getDevice()
-    #sn.getFileDevice(r"E:\Data\PicoQuant\HH400-PMT-cw-1MHz.ptu")
+    sn.getFileDevice(r"E:\Data\PicoQuant\cell01_55pct_1.ptu")
     sn.initDevice(MeasMode.T2)
-    sn.raw.measure(1000,1024*1024*1024, True, True)
+    sn.raw.measure(100,1024*1024*1024, True, False)
     data = sn.raw.getData(25)
     sn.logPrint("from raw data")
-    sn.logPrint("channel |   timetag")
+    sn.logPrint("channel  |  timetag")
     sn.logPrint("-------------------")
     for i in range(25):
         time = sn.raw.timeTag_T2(data[i])
