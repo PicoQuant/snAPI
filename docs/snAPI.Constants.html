@@ -371,10 +371,35 @@ document.write(`
   <section id="module-snAPI_Constants">
 <span id="snapi-constants-module"></span><h1>snAPI.Constants module<a class="headerlink" href="#module-snAPI_Constants" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_LibType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">LibType</span></span><a class="headerlink" href="#snAPI_Constants_LibType" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>snAPI provides different library types / devices families. This has to be defined at crating the snAPI instance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LibType_Undefined">
+<span class="sig-name descname"><span class="pre">Undefined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#snAPI_Constants_LibType_Undefined" title="Permalink to this definition">#</a></dt>
+<dd><p>This is for internal use only.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LibType_MH">
+<span class="sig-name descname"><span class="pre">MH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_LibType_MH" title="Permalink to this definition">#</a></dt>
+<dd><p>This selects the library for MultiHarp 150/160 (MH150/160) devices.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LibType_HH">
+<span class="sig-name descname"><span class="pre">HH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_LibType_HH" title="Permalink to this definition">#</a></dt>
+<dd><p>This selects the library for the HydraHarp 400 (HH400) devices.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="snAPI_Constants_DeviceType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">DeviceType</span></span><a class="headerlink" href="#snAPI_Constants_DeviceType" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>The MultiHarp devices can use their internal crystal clock but alternatively they can be synchronized
+<p>The Harp devices can use their internal crystal clock but alternatively they can be synchronized
 to an external reference clock. The latter is important when clock drift between multiple instruments in
 an experiment must be avoided. The constants defined here specify the reference clock to use.</p>
 <dl class="py attribute">
@@ -392,7 +417,7 @@ an experiment must be avoided. The constants defined here specify the reference 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_DeviceType_File">
 <span class="sig-name descname"><span class="pre">File</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_DeviceType_File" title="Permalink to this definition">#</a></dt>
-<dd><p>This is a file device. That means a ptu File that is opened as a device.</p>
+<dd><p>This is a file device. That means a ptu file treated as a device.</p>
 </dd></dl>
 
 </dd></dl>
@@ -471,13 +496,14 @@ respect to the overall experiment time.</p>
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">RefSource</span></span><a class="headerlink" href="#snAPI_Constants_RefSource" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>The MultiHarp devices can use their internal crystal clock but alternatively they can be synchronized
+<p>The Harp devices can use their internal crystal clock but alternatively they can be synchronized
 to an external reference clock. The latter is important when clock drift between multiple instruments in
 an experiment must be avoided. The constants defined here specify the reference clock to use.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Internal">
 <span class="sig-name descname"><span class="pre">Internal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Internal" title="Permalink to this definition">#</a></dt>
-<dd><div class="line-block">
+<dd><p>Supported devices [MH150/160]</p>
+<div class="line-block">
 <div class="line"><strong>Internal clock</strong></div>
 <div class="line">This is the default and normally what most users would select when only one device is being used.</div>
 </div>
@@ -486,56 +512,67 @@ an experiment must be avoided. The constants defined here specify the reference 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_External_10MHZ">
 <span class="sig-name descname"><span class="pre">External_10MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_External_10MHZ" title="Permalink to this definition">#</a></dt>
-<dd><p><strong>10MHz external clock</strong>
-This is for use with an industry standard 10MHz reference such as an atomic clock or another MultiHarp.</p>
+<dd><p>Supported devices [MH150/160 | HH400]</p>
+<div class="line-block">
+<div class="line"><strong>(10MHz) external clock</strong></div>
+<div class="line">This is for use with an industry standard 10MHz reference such as an atomic clock or another Harp.</div>
+</div>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Master_Generic">
 <span class="sig-name descname"><span class="pre">Wr_Master_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Master_Generic" title="Permalink to this definition">#</a></dt>
-<dd><p><strong>White Rabbit master with generic partner</strong></p>
+<dd><p>Supported devices [MH150/160]</p>
+<p><strong>White Rabbit master with generic partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Slave_Generic">
 <span class="sig-name descname"><span class="pre">Wr_Slave_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Slave_Generic" title="Permalink to this definition">#</a></dt>
-<dd><p><strong>White Rabbit slave with generic partner</strong></p>
+<dd><p>Supported devices [MH150/160]</p>
+<p><strong>White Rabbit slave with generic partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Grandm_Generic">
 <span class="sig-name descname"><span class="pre">Wr_Grandm_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Grandm_Generic" title="Permalink to this definition">#</a></dt>
-<dd><p><strong>White Rabbit grand master with generic partner</strong></p>
+<dd><p>Supported devices [MH150/160]</p>
+<p><strong>White Rabbit grand master with generic partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Extn_GPS_PPS">
 <span class="sig-name descname"><span class="pre">Extn_GPS_PPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Extn_GPS_PPS" title="Permalink to this definition">#</a></dt>
-<dd><p><strong>10 MHz + PPS from GPS</strong></p>
+<dd><p>Supported devices [MH150/160]</p>
+<p><strong>10 MHz + PPS from GPS</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Extn_GPS_PPS_UART">
 <span class="sig-name descname"><span class="pre">Extn_GPS_PPS_UART</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Extn_GPS_PPS_UART" title="Permalink to this definition">#</a></dt>
-<dd><p><strong>10 MHz + PPS + time via UART from GPS</strong></p>
+<dd><p>Supported devices [MH150/160]</p>
+<p><strong>10 MHz + PPS + time via UART from GPS</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Master_Mharp">
 <span class="sig-name descname"><span class="pre">Wr_Master_Mharp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Master_Mharp" title="Permalink to this definition">#</a></dt>
-<dd><p><strong>White Rabbit master with MultiHarp as partner</strong></p>
+<dd><p>Supported devices [MH150/160]</p>
+<p><strong>White Rabbit master with the Harp as partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Salve_Mharp">
 <span class="sig-name descname"><span class="pre">Wr_Salve_Mharp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Salve_Mharp" title="Permalink to this definition">#</a></dt>
-<dd><p><strong>White Rabbit slave with MultiHarp as partner</strong></p>
+<dd><p>Supported devices [MH150/160]</p>
+<p><strong>White Rabbit slave with the Harp as partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Grandm_Mharp">
 <span class="sig-name descname"><span class="pre">Wr_Grandm_Mharp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Grandm_Mharp" title="Permalink to this definition">#</a></dt>
-<dd><p><strong>White Rabbit grand master with MultiHarp as partner</strong></p>
+<dd><p>Supported devices [MH150/160]</p>
+<p><strong>White Rabbit grand master with the Harp as partner</strong></p>
 </dd></dl>
 
 </dd></dl>
@@ -585,6 +622,12 @@ This is for use with an industry standard 10MHz reference such as an atomic cloc
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType"><code class="docutils literal notranslate"><span class="pre">LibType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_Undefined"><code class="docutils literal notranslate"><span class="pre">LibType.Undefined</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_MH"><code class="docutils literal notranslate"><span class="pre">LibType.MH</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_HH"><code class="docutils literal notranslate"><span class="pre">LibType.HH</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType"><code class="docutils literal notranslate"><span class="pre">DeviceType</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_Undefined"><code class="docutils literal notranslate"><span class="pre">DeviceType.Undefined</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_HW"><code class="docutils literal notranslate"><span class="pre">DeviceType.HW</span></code></a></li>

@@ -163,7 +163,7 @@ Example
         return super().__new__(cls)
     
 
-    def __init__(self, systemIni: str | None = None):
+    def __init__(self, systemIni: str | None = None, libType: LibType | None = LibType.MH):
         if systemIni is None:
             systemIni = "\\".join(inspect.getfile(snAPI).split("\\")[:-1])+'\\system.ini'
         self.device = Device(self)
@@ -182,7 +182,7 @@ Example
         """This is the object to :class:`Correlation`."""
         self.manipulators = Manipulators(self)
         """This is the object to :class:`Manipulators`."""
-        self.initAPI(systemIni)
+        self.initAPI(systemIni, libType)
         
 
     def __del__(self,):
@@ -234,7 +234,7 @@ Example
             self.dll.logExternal(f"{summarized_kwargs}".encode('utf-8'))
         
 
-    def initAPI(self, systemIni: typing.Optional[str] = "system.ini"):
+    def initAPI(self, systemIni: typing.Optional[str] = "system.ini", libType: typing.Optional[LibType] = LibType.MH):
         """
 This function is called by acquiring the snAPI object initializes the API. 
 It loads a system ini file where it is possible to set flags for logging
@@ -282,7 +282,7 @@ Example
     
         """
         SBuf = systemIni.encode('utf-8')
-        ok = self.dll.initAPI(SBuf)
+        ok = self.dll.initAPI(SBuf, libType.value)
         self.getDeviceConfig()
         return ok
 
@@ -772,7 +772,12 @@ Example
 
 
 class Device():
-    """This is the low level device configuration class."""
+    """
+This is the low level device configuration class. Which functions and parameters you can use
+depends on the device you want to use. Therefore the right library must be chosen at creating
+the snAPI object. 
+
+    """
     
 
     def __init__(self, parent):
@@ -781,7 +786,8 @@ class Device():
 
     def setSyncDiv(self, syncDiv: typing.Optional[int] = 1):
         """
-
+    Supported devices: [MH150/160 | HH400]
+    
 The sync divider must be used to keep the effective sync rate at values < 78 MHz.
 It should only be used with sync sources of stable period. Using a larger divider
 than strictly necessary does not do great harm but it may result in slightly
@@ -791,7 +797,9 @@ Parameters
 ----------
     syncDiv: int
         | sync rate divider 
-        | 1(default), 2, 4, 8, 16
+        | 1(default)
+        | MH150/160: [1, 2, 4, 8, 16]
+        | HH400: [1, 2, 4, 8, 16]
     
 Returns
 -------
@@ -805,13 +813,15 @@ Example
     sn.device.setSyncDiv(1)
     
         """
-        if ok:= self.parent.dll.SyncDivider(syncDiv):
+        if ok:= self.parent.dll.setSyncDiv(syncDiv):
             self.parent.deviceConfig["SyncDivider"] = syncDiv
         return ok
 
 
     def setSyncEdgeTrg(self, trigLvlSync: typing.Optional[int] = -50, trigEdgeSync: typing.Optional[int] = 1):
         """
+    Supported devices: [MH150/160]
+    
 The function sets the trigger level and edge of the sync channel.
 The hardware uses a 10 bit DAC that can resolve the level value only
 in steps of about 2.34 mV
@@ -820,9 +830,11 @@ For the input edge trigger of the input channels use :meth:`setInputEdgeTrg`.
 Parameters
 ----------
     trigLvlSync: int
-        trigger level [mV] (default:-50mV)
+        | trigger level [mV] 
+        | (default:-50mV)
+        | MH150/160: [-1200..1200]
     trigEdgeSync: int
-        trigger edge 
+        | trigger edge 
         | 0: falling
         | 1: rising (default)
     
@@ -845,16 +857,54 @@ Example
         return ok
 
 
+    def setSyncCFD(self, discrLvlSync: typing.Optional[int] = 50, zeroXLvlSync: typing.Optional[int] = 20):
+        """
+    Supported devices: [HH400]
+    
+The function sets the CFD (Constant Fraction Discriminators) of the sync channel.
+For the input CFD of the input channels use :meth:`setInputCFD`.
+    
+Parameters
+----------
+    discrLvlSync: int
+        | level [mV] (default:50mV)
+        | HH400: [0..1000]
+    zeroXLvlSync: int
+        | trigger edge 
+        | HH400: [0..40]
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # sets the sync trigger to -50mV on rising edge
+    sn.device.setSyncEdgeTrg(-50,1)
+    
+        """
+        if ok:= self.parent.dll.setSyncEdgeTrg(trigLvlSync, trigEdgeSync):
+            self.parent.deviceConfig["TrigLvlSync"] = trigLvlSync
+            self.parent.deviceConfig["TrigEdgeSync"] = trigEdgeSync
+        return ok
+    
+    
     def setSyncChannelOffset(self, syncChannelOffset: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160]
+    
 This sets a virtual delay time to the sync pulse. This is equivalent to changing
 the cable delay on the sync input. Actual resolution is the device's base resolution.
     
 Parameters
 ----------
     syncChannelOffset: int
-        | sync timing offset 
-        | -99999..99999ps (0: default)
+        | sync timing offset [ps]
+        | (0: default)
+        | MH150/160: [-99999..99999]
     
 Returns
 -------
@@ -876,6 +926,8 @@ Example
 
     def setSyncChannelEnable(self, syncChannelEnable: typing.Optional[int] = 1):
         """
+    Supported devices: [MH150/160]
+    
 This enables or disables the sync channel. This is really only useful in :obj:`.MeasMode.T2`.
 Histogram and :obj:`.MeasMode.T3` need an active sync signal.
 To enable or disable the other channels use :meth:`setInputChannelEnable`.
@@ -906,6 +958,8 @@ Example
 
     def setSyncDeadTime(self, syncDeadTime: typing.Optional[int] = 800):
         """
+    Supported devices: [MH150/160] 
+    
 This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
 new dead-time. It only suppresses events occurring within the extended dead-time from further processing.
@@ -919,8 +973,9 @@ Note
 Parameters
 ----------
     syncDeadTime:
-        | extended dead-time in [ps]
-        | 801..160000, <=800: disabled (default)
+        | extended dead-time [ps]
+        | 800 (default)
+        | MH150/160: [801..160000], <=800: disabled
     
 Returns
 -------
@@ -942,6 +997,8 @@ Example
 
     def setInputHysteresis(self, hystCode: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160] 
+    
 This is intended for the suppression of noise or pulse shape artifacts of some detectors by setting
 a higher input hysteresis.
 
@@ -975,6 +1032,8 @@ Example
 
     def setStopOverflow(self, stopCount: typing.Optional[int] = 4294967295):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This setting determines if a measurement will stop if any channel reaches the maximum set by stopcount.
 The maximum value that could be count is 4294967295 what is equivalent to the 32 bit storage.
 
@@ -1007,13 +1066,17 @@ Example
 
     def setBinning(self, binning: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This sets the with of the time bins.
 Binning only applies in Histogram and :obj:`.MeasMode.T3`. The binning code steps correspond to repeated doubling.
     
 Parameters
 ----------
     binning:
-        | 0: 1*br (default), 1: 2*br, 2: 4*br, ..,24: 16777216*br 
+        | 0: 1*br (default),
+        | MH150/160: [1: 2*br, 2: 4*br, .., 24: 16777216*br]
+        | HH400: [1: 2*br, 2: 4*br, .., 26: 67108864*br]
         | (br stands for base resolution)
     
 Returns
@@ -1036,6 +1099,8 @@ Example
 
     def setOffset(self, offset: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This offset only applies in Histogram and :obj:`.MeasMode.T3`. It affects only the difference between stop
 and start before it is put into the T3 record or is used to increment the corresponding histogram bin.
 It is intended for situations where the range of the histogram is not long enough to look at “late” data.
@@ -1046,8 +1111,10 @@ This is not the same as changing or compensating cable delays. If the latter is 
 Parameters
 ----------
     offset:
-        | histogram time offset 
-        | -99999..99999ns (0: default)
+        | histogram time offset [ns]
+        | (0: default)
+        | MH150/160: [-100000000..100000000]
+        | HH400: [-500000..500000]
     
 Returns
 -------
@@ -1069,6 +1136,8 @@ Example
 
     def setHistoLength(self, lengthCode: typing.Optional[int] = 6):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This function sets the number of bins of the collected histograms in :obj:`.MeasMode.Histogram`.
 The histogram length obtained with its maximum of 65536 which is also the default after
 initialization.
@@ -1077,8 +1146,9 @@ In :obj:`.MeasMode.T2` the number of bins is fixed 65536 and in :obj:`.MeasMode.
 Parameters
 ----------
     lengthCode: int
-        number of bins 0..6 can be calculated as :math:`2^{(10 + \\mathrm{lengthCode})}`
-        (default: 65536 bins = lengthCode 6)
+        | number of bins that can be calculated as :math:`2^{(10 + \\mathrm{lengthCode})}`
+        | MH150/160: [0..6] (default: 65536 bins = lengthCode 6)
+        | HH400: [0..5] (default: 32768 bins = lengthCode 5)
     
 Returns
 -------
@@ -1101,6 +1171,8 @@ Example
 
     def setMeasControl(self, measCtrl: typing.Optional[MeasControl] = MeasControl.SingleShotCTC, startEdge: typing.Optional[int] = 0, stopEdge: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This sets the measurement control mode and for other than the default it must be called before starting a measurement.
 The default is 0: CTC controlled acquisition time. The modes 1..5 allow hardware triggered measurements
 through TTL signals at the control port or through White Rabbit. 
@@ -1140,6 +1212,8 @@ Example
 
     def setTriggerOutput(self, trigOutput: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160] 
+    
 This can be used to set the period of the programmable trigger output. The period 0 switches it off.
 
 Warning
@@ -1148,9 +1222,9 @@ Warning
 
 Parameters
 ----------
-    trigOutput: int
-        | 0: switch output off (default)
-        | 1..16777215: in units of 100ns
+    trigOutput: int [units of 100ns]
+    | 0: switch output off (default)
+    | MH150/160: [0..16777215]
     
 Returns
 -------
@@ -1172,6 +1246,8 @@ Example
 
     def setMarkerEdges(self, edge1: typing.Optional[int] = 0, edge2: typing.Optional[int] = 0, edge3: typing.Optional[int] = 0, edge4: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This can be used to change the active edge on which the external TTL signals connected to the marker inputs are triggering.
 
 Note
@@ -1207,6 +1283,8 @@ Example
 
     def setMarkerEnable(self, ena1: typing.Optional[int] = 0, ena2: typing.Optional[int] = 0, ena3: typing.Optional[int] = 0, ena4: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This can be used to enable or disable the external TTL marker inputs.
 
 Note
@@ -1242,6 +1320,8 @@ Example
 
     def setMarkerHoldoffTime(self, holdofftime: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This setting is not normally required but it can be used to deal with glitches on the marker lines. Markers following a previous
 marker within the hold-off time will be suppressed.
 
@@ -1252,8 +1332,10 @@ Note
 
 Parameters
 ----------
-    holdofftime: int
-        0 (default) .. 25500ns
+    holdofftime: int [ns]
+        | (0: default)
+        | MH150/160: [0.. 25500]
+        | HH400: [0.. 524296]
     
 Returns
 -------
@@ -1275,6 +1357,8 @@ Example
 
     def setOflCompression(self, holdtime: typing.Optional[int] = 2):
         """
+    Supported devices: [MH150/160] 
+    
 This setting is normally not required but it can be useful when data rates are very low and there are more overflows than
 photons. The hardware then will count overflows and only transfer them to the FiFo when holdtime has elapsed. The default
 value is 2 ms. If you are implementing a real-time preview and data rates are very low you may observe “stutter” when
@@ -1314,6 +1398,8 @@ Example
 
     def setInputEdgeTrg(self, channel: typing.Optional[int] = -1, trigLvl: typing.Optional[int] = -50, trigEdge: typing.Optional[int] = 1):
         """
+    Supported devices: [MH150/160] 
+    
 This sets the input trigger. It has to be configured the trigger level and the trigger edge.
 For the input edge trigger of the sync channel use :meth:`setSyncEdgeTrg`.
 
@@ -1325,10 +1411,11 @@ Note
 Parameters
 ----------
     channel: int
-        0 .. [numChannels]-1
-        -1: all channels (default)
+        | 0 .. [numChannels]-1
+        | -1: all channels (default)
     trigLvl: int [mV]
-        -1200..1200 (default: -50mV)
+        | (default: -50mV)
+        | MH150/160: [-1200..1200]
     trigEdge: int
         | 0: falling
         | 1: rising (default)
@@ -1360,6 +1447,8 @@ Example
 
     def setInputChannelOffset(self, channel: typing.Optional[int] = -1, chanOffs: typing.Optional[int] = 0):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This is equivalent to changing the cable delay on the chosen input. Actual offset resolution is the device base resolution.
 For the input channel offset of the sync channel use :meth:`setSyncChannelOffset`.
 
@@ -1370,10 +1459,12 @@ Note
 Parameters
 ----------
     channel: int
-        0 .. [numChannels]-1
-        -1: all channels (default)
+        | 0 .. [numChannels]-1
+        | -1: all channels (default)
     chanOffs: int channel timing offset [ps]
-        -99999..99999 (default: 0ps)
+        | (default: 0)
+        | MH150/160 [-99999..99999] 
+        | HH400 [-99999..99999] 
     
 Returns
 -------
@@ -1399,6 +1490,8 @@ Example
 
     def setInputChannelEnable(self, channel: typing.Optional[int] = -1, chanEna: typing.Optional[int] = 1):
         """
+    Supported devices: [MH150/160 | HH400] 
+    
 This function enables or disables the input channels.
 To enable the sync channel use :meth:`setSyncChannelEnable`.
 
@@ -1439,6 +1532,8 @@ Example
 
     def setInputDeadTime(self, channel: typing.Optional[int] = -1, deadTime: typing.Optional[int] = 800):
         """
+    Supported devices: [MH150/160] 
+    
 This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
 new dead-time. It only suppresses events occurring within the extended dead-time from further processing.
@@ -1455,8 +1550,9 @@ Parameters
         0 .. [numChannels]-1
         -1: all channels (default)
     deadTime:
-        | extended dead-time in [ps]
-        | 801..160000, <=800: disabled (default)
+        | extended dead-time [ps]
+        | (default: 800)
+        | [800..160000] (<=800: disabled)
     
 Returns
 -------
@@ -1522,6 +1618,8 @@ Note
 
     def setRowParams(self, row: int, timeRange: int, matchCount: int, inverse: bool, useChans:typing.List[int], passChans:typing.List[int]):
         """
+    Supported devices: [MH150/160] 
+    
 This sets the parameters for one Row Filter implemented in the local FPGA processing that row of input channels. Each
 Row Filter can act only on the input channels within its own row and never on the sync channel. The parameter `timeRange` determines
 the time window the filter is acting on. The parameter `matchCount` specifies how many other events must fall into the
@@ -1585,6 +1683,8 @@ Example
 
     def enableRow(self, row: int, enable: bool):
         """
+    Supported devices: [MH150/160] 
+    
 When the filter is disabled all events will pass. This is the default after initialization. When it is enabled, events may be
 filtered out according to the parameters set with :meth:`setRowParams`.
     
@@ -1614,6 +1714,8 @@ Example
 
     def setMainParams(self, timeRange: int, matchCount: int, inverse: bool):
         """
+    Supported devices: [MH150/160] 
+    
 This sets the parameters for the Main Filter implemented in the main FPGA processing the aggregated events arriving from
 the row FPGAs. The Main Filter can therefore act on all channels of the Harp device including the sync channel. The
 value `timeRange` determines the time window the filter is acting on. The parameter `matchCount` specifies how many other
@@ -1659,6 +1761,8 @@ Example
 
     def setMainChannels(self, row: int, useChans:typing.List[int], passChans:typing.List[int]):
         """
+    Supported devices: [MH150/160] 
+    
 This selects the Main Filter channels for one row of input channels. Doing this row by row is to address the fact that the various
 device models have different numbers of rows. The list `useChans` is used to to indicate if a channel is to be
 used by the filter. The list `passChans` is used to to indicate if a channel is to be passed through the filter unconditionally,
@@ -1712,6 +1816,8 @@ Example
 
     def enableMain(self, enable: typing.Optional[bool] = True):
         """
+    Supported devices: [MH150/160] 
+    
 When the filter is disabled all events will pass. This is the default after initialization. When it is enabled, events may be
 filtered out according to the parameters set with :meth:`setMainParams` and :meth:`setMainParams`.
 
@@ -1748,6 +1854,8 @@ Example
     
     def setTestMode(self, testMode: typing.Optional[bool] = True):
         """
+    Supported devices: [MH150/160] 
+    
 One important purpose of the event filters is to reduce USB load. When the input data rates are higher than the USB bandwith,
 there will at some point be a FiFo overrun. It may under such conditions be difficult to empirically optimize the filter settings.
 Setting filter test mode disables all data transfers into the FiFo so that a test measurement can be run without interruption
@@ -1782,6 +1890,8 @@ Example
     
     def getRowRates(self):
         """
+    Supported devices: [MH150/160] 
+    
 This call retrieves the count rates after the Row Filter before entering the FiFO. A measurement must be running to obtain
 valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The returning list
 contains the sync rate and the rates of the input channels.
@@ -1817,6 +1927,8 @@ Example
     
     def getMainRates(self):
         """
+    Supported devices: [MH150/160] 
+    
 This call retrieves the count rates after the Main Filter before entering the FiFO. A measurement must be running to obtain
 valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The returning list
 contains the sync rate and the rates of the input channels.

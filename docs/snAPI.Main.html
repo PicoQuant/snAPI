@@ -588,16 +588,19 @@ The generated log file entry will be marked with an “EXT” (External).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_snAPI_initAPI">
-<span class="sig-name descname"><span class="pre">initAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">systemIni</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'system.ini'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_snAPI_initAPI" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">initAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">systemIni</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'system.ini'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LibType.MH</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_snAPI_initAPI" title="Permalink to this definition">#</a></dt>
 <dd><p>This function is called by acquiring the snAPI object initializes the API.
 It loads a system ini file where it is possible to set flags for logging
 or change the data path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>systemIni</strong> (<em>str</em>) – <div class="line-block">
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>systemIni</strong> (<em>str</em>) – <div class="line-block">
 <div class="line">path to the system.ini file [default: “snAPI/system.ini”]</div>
 </div>
-</p>
+</p></li>
+<li><p><strong>libType</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.LibType" title="snAPI.Constants.LibType"><em>LibType</em></a><em> | </em><em>None</em>) – </p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -1003,11 +1006,16 @@ It describes the number of channels a measurement returns and is used for memory
 <dt class="sig sig-object py" id="snAPI_Main_Device">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">Device</span></span><a class="headerlink" href="#snAPI_Main_Device" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This is the low level device configuration class.</p>
+<p>This is the low level device configuration class. Which functions and parameters you can use
+depends on the device you want to use. Therefore the right library must be chosen at creating
+the snAPI object.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setSyncDiv">
 <span class="sig-name descname"><span class="pre">setSyncDiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syncDiv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setSyncDiv" title="Permalink to this definition">#</a></dt>
-<dd><p>The sync divider must be used to keep the effective sync rate at values &lt; 78 MHz.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>The sync divider must be used to keep the effective sync rate at values &lt; 78 MHz.
 It should only be used with sync sources of stable period. Using a larger divider
 than strictly necessary does not do great harm but it may result in slightly
 larger timing jitter.</p>
@@ -1015,7 +1023,9 @@ larger timing jitter.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>syncDiv</strong> (<em>int</em>) – <div class="line-block">
 <div class="line">sync rate divider</div>
-<div class="line">1(default), 2, 4, 8, 16</div>
+<div class="line">1(default)</div>
+<div class="line">MH150/160: [1, 2, 4, 8, 16]</div>
+<div class="line">HH400: [1, 2, 4, 8, 16]</div>
 </div>
 </p>
 </dd>
@@ -1036,17 +1046,66 @@ larger timing jitter.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setSyncEdgeTrg">
 <span class="sig-name descname"><span class="pre">setSyncEdgeTrg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trigLvlSync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigEdgeSync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setSyncEdgeTrg" title="Permalink to this definition">#</a></dt>
-<dd><p>The function sets the trigger level and edge of the sync channel.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>The function sets the trigger level and edge of the sync channel.
 The hardware uses a 10 bit DAC that can resolve the level value only
 in steps of about 2.34 mV
 For the input edge trigger of the input channels use <a class="reference internal" href="#snAPI_Main_Device_setInputEdgeTrg" title="snAPI.Main.Device.setInputEdgeTrg"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputEdgeTrg()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>trigLvlSync</strong> (<em>int</em>) – trigger level [mV] (default:-50mV)</p></li>
-<li><p><strong>trigEdgeSync</strong> (<em>int</em>) – trigger edge
-| 0: falling
-| 1: rising (default)</p></li>
+<li><p><strong>trigLvlSync</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">trigger level [mV]</div>
+<div class="line">(default:-50mV)</div>
+<div class="line">MH150/160: [-1200..1200]</div>
+</div>
+</p></li>
+<li><p><strong>trigEdgeSync</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">trigger edge</div>
+<div class="line">0: falling</div>
+<div class="line">1: rising (default)</div>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the sync trigger to -50mV on rising edge</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setSyncEdgeTrg</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Device_setSyncCFD">
+<span class="sig-name descname"><span class="pre">setSyncCFD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">discrLvlSync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zeroXLvlSync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setSyncCFD" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [HH400]</p>
+</div></blockquote>
+<p>The function sets the CFD (Constant Fraction Discriminators) of the sync channel.
+For the input CFD of the input channels use <code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputCFD()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>discrLvlSync</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">level [mV] (default:50mV)</div>
+<div class="line">HH400: [0..1000]</div>
+</div>
+</p></li>
+<li><p><strong>zeroXLvlSync</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">trigger edge</div>
+<div class="line">HH400: [0..40]</div>
+</div>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1067,13 +1126,17 @@ For the input edge trigger of the input channels use <a class="reference interna
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setSyncChannelOffset">
 <span class="sig-name descname"><span class="pre">setSyncChannelOffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syncChannelOffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setSyncChannelOffset" title="Permalink to this definition">#</a></dt>
-<dd><p>This sets a virtual delay time to the sync pulse. This is equivalent to changing
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This sets a virtual delay time to the sync pulse. This is equivalent to changing
 the cable delay on the sync input. Actual resolution is the device’s base resolution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>syncChannelOffset</strong> (<em>int</em>) – <div class="line-block">
-<div class="line">sync timing offset</div>
-<div class="line">-99999..99999ps (0: default)</div>
+<div class="line">sync timing offset [ps]</div>
+<div class="line">(0: default)</div>
+<div class="line">MH150/160: [-99999..99999]</div>
 </div>
 </p>
 </dd>
@@ -1095,7 +1158,10 @@ the cable delay on the sync input. Actual resolution is the device’s base reso
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setSyncChannelEnable">
 <span class="sig-name descname"><span class="pre">setSyncChannelEnable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syncChannelEnable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setSyncChannelEnable" title="Permalink to this definition">#</a></dt>
-<dd><p>This enables or disables the sync channel. This is really only useful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This enables or disables the sync channel. This is really only useful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.
 Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> need an active sync signal.
 To enable or disable the other channels use <a class="reference internal" href="#snAPI_Main_Device_setInputChannelEnable" title="snAPI.Main.Device.setInputChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelEnable()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1124,7 +1190,10 @@ To enable or disable the other channels use <a class="reference internal" href="
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setSyncDeadTime">
 <span class="sig-name descname"><span class="pre">setSyncDeadTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syncDeadTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">800</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setSyncDeadTime" title="Permalink to this definition">#</a></dt>
-<dd><p>This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
 new dead-time. It only suppresses events occurring within the extended dead-time from further processing.
 For the dead time of the other channels use <a class="reference internal" href="#snAPI_Main_Device_setInputDeadTime" title="snAPI.Main.Device.setInputDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputDeadTime()</span></code></a>.</p>
@@ -1136,8 +1205,9 @@ The extended deadtime will be rounded to the nearest multiple of the device’s 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>syncDeadTime</strong> (<em>int</em><em> | </em><em>None</em>) – <div class="line-block">
-<div class="line">extended dead-time in [ps]</div>
-<div class="line">801..160000, &lt;=800: disabled (default)</div>
+<div class="line">extended dead-time [ps]</div>
+<div class="line">800 (default)</div>
+<div class="line">MH150/160: [801..160000], &lt;=800: disabled</div>
 </div>
 </p>
 </dd>
@@ -1159,7 +1229,10 @@ The extended deadtime will be rounded to the nearest multiple of the device’s 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setInputHysteresis">
 <span class="sig-name descname"><span class="pre">setInputHysteresis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hystCode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setInputHysteresis" title="Permalink to this definition">#</a></dt>
-<dd><p>This is intended for the suppression of noise or pulse shape artifacts of some detectors by setting
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is intended for the suppression of noise or pulse shape artifacts of some detectors by setting
 a higher input hysteresis.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1191,7 +1264,10 @@ a higher input hysteresis.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setStopOverflow">
 <span class="sig-name descname"><span class="pre">setStopOverflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stopCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4294967295</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setStopOverflow" title="Permalink to this definition">#</a></dt>
-<dd><p>This setting determines if a measurement will stop if any channel reaches the maximum set by stopcount.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>This setting determines if a measurement will stop if any channel reaches the maximum set by stopcount.
 The maximum value that could be count is 4294967295 what is equivalent to the 32 bit storage.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1219,12 +1295,17 @@ The maximum value that could be count is 4294967295 what is equivalent to the 32
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setBinning">
 <span class="sig-name descname"><span class="pre">setBinning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setBinning" title="Permalink to this definition">#</a></dt>
-<dd><p>This sets the with of the time bins.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>This sets the with of the time bins.
 Binning only applies in Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>. The binning code steps correspond to repeated doubling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>binning</strong> (<em>int</em><em> | </em><em>None</em>) – <div class="line-block">
-<div class="line">0: 1*br (default), 1: 2*br, 2: 4*br, ..,24: 16777216*br</div>
+<div class="line">0: 1*br (default),</div>
+<div class="line">MH150/160: [1: 2*br, 2: 4*br, .., 24: 16777216*br]</div>
+<div class="line">HH400: [1: 2*br, 2: 4*br, .., 26: 67108864*br]</div>
 <div class="line">(br stands for base resolution)</div>
 </div>
 </p>
@@ -1247,7 +1328,10 @@ Binning only applies in Histogram and <a class="reference internal" href="snAPI.
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setOffset">
 <span class="sig-name descname"><span class="pre">setOffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setOffset" title="Permalink to this definition">#</a></dt>
-<dd><p>This offset only applies in Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>. It affects only the difference between stop
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>This offset only applies in Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>. It affects only the difference between stop
 and start before it is put into the T3 record or is used to increment the corresponding histogram bin.
 It is intended for situations where the range of the histogram is not long enough to look at “late” data.
 By means of the offset the “window of view” is shifted to a later range.
@@ -1256,8 +1340,10 @@ This is not the same as changing or compensating cable delays. If the latter is 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>offset</strong> (<em>int</em><em> | </em><em>None</em>) – <div class="line-block">
-<div class="line">histogram time offset</div>
-<div class="line">-99999..99999ns (0: default)</div>
+<div class="line">histogram time offset [ns]</div>
+<div class="line">(0: default)</div>
+<div class="line">MH150/160: [-100000000..100000000]</div>
+<div class="line">HH400: [-500000..500000]</div>
 </div>
 </p>
 </dd>
@@ -1279,14 +1365,21 @@ This is not the same as changing or compensating cable delays. If the latter is 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setHistoLength">
 <span class="sig-name descname"><span class="pre">setHistoLength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lengthCode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setHistoLength" title="Permalink to this definition">#</a></dt>
-<dd><p>This function sets the number of bins of the collected histograms in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a>.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>This function sets the number of bins of the collected histograms in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a>.
 The histogram length obtained with its maximum of 65536 which is also the default after
 initialization.
 In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> the number of bins is fixed 65536 and in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> it is 32768.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lengthCode</strong> (<em>int</em>) – number of bins 0..6 can be calculated as <span class="math notranslate nohighlight">\(2^{(10 + \mathrm{lengthCode})}\)</span>
-(default: 65536 bins = lengthCode 6)</p>
+<dd class="field-odd"><p><strong>lengthCode</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">number of bins that can be calculated as <span class="math notranslate nohighlight">\(2^{(10 + \mathrm{lengthCode})}\)</span></div>
+<div class="line">MH150/160: [0..6] (default: 65536 bins = lengthCode 6)</div>
+<div class="line">HH400: [0..5] (default: 32768 bins = lengthCode 5)</div>
+</div>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -1306,18 +1399,21 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.Meas
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setTriggerOutput">
 <span class="sig-name descname"><span class="pre">setTriggerOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trigOutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setTriggerOutput" title="Permalink to this definition">#</a></dt>
-<dd><p>This can be used to set the period of the programmable trigger output. The period 0 switches it off.</p>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This can be used to set the period of the programmable trigger output. The period 0 switches it off.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Observe laser safety when using this feature for triggering a laser</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>trigOutput</strong> (<em>int</em>) – <div class="line-block">
-<div class="line">0: switch output off (default)</div>
-<div class="line">1..16777215: in units of 100ns</div>
-</div>
-</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trigOutput</strong> (<em>int</em><em> [</em><em>units</em><em> of </em><em>100ns</em><em>]</em>) – </p></li>
+<li><p><strong>0</strong> (<em>|</em>) – </p></li>
+<li><p><strong>MH150/160</strong> (<em>|</em>) – </p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -1337,7 +1433,10 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.Meas
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setMarkerEdges">
 <span class="sig-name descname"><span class="pre">setMarkerEdges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge4</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setMarkerEdges" title="Permalink to this definition">#</a></dt>
-<dd><p>This can be used to change the active edge on which the external TTL signals connected to the marker inputs are triggering.</p>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>This can be used to change the active edge on which the external TTL signals connected to the marker inputs are triggering.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
@@ -1373,7 +1472,10 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.Meas
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setMarkerEnable">
 <span class="sig-name descname"><span class="pre">setMarkerEnable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ena1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ena2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ena3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ena4</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setMarkerEnable" title="Permalink to this definition">#</a></dt>
-<dd><p>This can be used to enable or disable the external TTL marker inputs.</p>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>This can be used to enable or disable the external TTL marker inputs.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
@@ -1409,7 +1511,10 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.Meas
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setMarkerHoldoffTime">
 <span class="sig-name descname"><span class="pre">setMarkerHoldoffTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">holdofftime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setMarkerHoldoffTime" title="Permalink to this definition">#</a></dt>
-<dd><p>This setting is not normally required but it can be used to deal with glitches on the marker lines. Markers following a previous
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>This setting is not normally required but it can be used to deal with glitches on the marker lines. Markers following a previous
 marker within the hold-off time will be suppressed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1418,7 +1523,12 @@ The actual hold-off time is only approximated to about ±20ns.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>holdofftime</strong> (<em>int</em>) – 0 (default) .. 25500ns</p>
+<dd class="field-odd"><p><strong>holdofftime</strong> (<em>int</em><em> [</em><em>ns</em><em>]</em>) – <div class="line-block">
+<div class="line">(0: default)</div>
+<div class="line">MH150/160: [0.. 25500]</div>
+<div class="line">HH400: [0.. 524296]</div>
+</div>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -1438,7 +1548,10 @@ The actual hold-off time is only approximated to about ±20ns.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setOflCompression">
 <span class="sig-name descname"><span class="pre">setOflCompression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">holdtime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setOflCompression" title="Permalink to this definition">#</a></dt>
-<dd><p>This setting is normally not required but it can be useful when data rates are very low and there are more overflows than
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This setting is normally not required but it can be useful when data rates are very low and there are more overflows than
 photons. The hardware then will count overflows and only transfer them to the FiFo when holdtime has elapsed. The default
 value is 2 ms. If you are implementing a real-time preview and data rates are very low you may observe “stutter” when
 holdtime is chosen too large because then there is nothing coming out of the FiFo for longer times. Indeed this is
@@ -1473,7 +1586,10 @@ switch overflow compression off by setting holdtime 0.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setInputEdgeTrg">
 <span class="sig-name descname"><span class="pre">setInputEdgeTrg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigLvl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setInputEdgeTrg" title="Permalink to this definition">#</a></dt>
-<dd><p>This sets the input trigger. It has to be configured the trigger level and the trigger edge.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This sets the input trigger. It has to be configured the trigger level and the trigger edge.
 For the input edge trigger of the sync channel use <a class="reference internal" href="#snAPI_Main_Device_setSyncEdgeTrg" title="snAPI.Main.Device.setSyncEdgeTrg"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncEdgeTrg()</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1483,9 +1599,16 @@ The hardware uses a 10 bit DAC that can resolve the level value only in steps of
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>channel</strong> (<em>int</em>) – 0 .. [numChannels]-1
--1: all channels (default)</p></li>
-<li><p><strong>trigLvl</strong> (<em>int</em><em> [</em><em>mV</em><em>]</em>) – -1200..1200 (default: -50mV)</p></li>
+<li><p><strong>channel</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">0 .. [numChannels]-1</div>
+<div class="line">-1: all channels (default)</div>
+</div>
+</p></li>
+<li><p><strong>trigLvl</strong> (<em>int</em><em> [</em><em>mV</em><em>]</em>) – <div class="line-block">
+<div class="line">(default: -50mV)</div>
+<div class="line">MH150/160: [-1200..1200]</div>
+</div>
+</p></li>
 <li><p><strong>trigEdge</strong> (<em>int</em>) – <div class="line-block">
 <div class="line">0: falling</div>
 <div class="line">1: rising (default)</div>
@@ -1511,7 +1634,10 @@ The hardware uses a 10 bit DAC that can resolve the level value only in steps of
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setInputChannelOffset">
 <span class="sig-name descname"><span class="pre">setInputChannelOffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chanOffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setInputChannelOffset" title="Permalink to this definition">#</a></dt>
-<dd><p>This is equivalent to changing the cable delay on the chosen input. Actual offset resolution is the device base resolution.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>This is equivalent to changing the cable delay on the chosen input. Actual offset resolution is the device base resolution.
 For the input channel offset of the sync channel use <a class="reference internal" href="#snAPI_Main_Device_setSyncChannelOffset" title="snAPI.Main.Device.setSyncChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelOffset()</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1520,9 +1646,17 @@ For the input channel offset of the sync channel use <a class="reference interna
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>channel</strong> (<em>int</em>) – 0 .. [numChannels]-1
--1: all channels (default)</p></li>
-<li><p><strong>chanOffs</strong> (<em>int channel timing offset</em><em> [</em><em>ps</em><em>]</em>) – -99999..99999 (default: 0ps)</p></li>
+<li><p><strong>channel</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">0 .. [numChannels]-1</div>
+<div class="line">-1: all channels (default)</div>
+</div>
+</p></li>
+<li><p><strong>chanOffs</strong> (<em>int channel timing offset</em><em> [</em><em>ps</em><em>]</em>) – <div class="line-block">
+<div class="line">(default: 0)</div>
+<div class="line">MH150/160 [-99999..99999]</div>
+<div class="line">HH400 [-99999..99999]</div>
+</div>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1543,7 +1677,10 @@ For the input channel offset of the sync channel use <a class="reference interna
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setInputChannelEnable">
 <span class="sig-name descname"><span class="pre">setInputChannelEnable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chanEna</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setInputChannelEnable" title="Permalink to this definition">#</a></dt>
-<dd><p>This function enables or disables the input channels.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400]</p>
+</div></blockquote>
+<p>This function enables or disables the input channels.
 To enable the sync channel use <a class="reference internal" href="#snAPI_Main_Device_setSyncChannelEnable" title="snAPI.Main.Device.setSyncChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelEnable()</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1579,7 +1716,10 @@ To enable the sync channel use <a class="reference internal" href="#snAPI_Main_D
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Device_setInputDeadTime">
 <span class="sig-name descname"><span class="pre">setInputDeadTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deadTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">800</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setInputDeadTime" title="Permalink to this definition">#</a></dt>
-<dd><p>This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
 new dead-time. It only suppresses events occurring within the extended dead-time from further processing.
 For the dead time of the sync channel use <a class="reference internal" href="#snAPI_Main_Device_setSyncDeadTime" title="snAPI.Main.Device.setSyncDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncDeadTime()</span></code></a>.</p>
@@ -1594,8 +1734,9 @@ The the extended deadtime will rounded to the nearest step of the device base re
 <li><p><strong>channel</strong> (<em>int</em>) – 0 .. [numChannels]-1
 -1: all channels (default)</p></li>
 <li><p><strong>deadTime</strong> (<em>int</em><em> | </em><em>None</em>) – <div class="line-block">
-<div class="line">extended dead-time in [ps]</div>
-<div class="line">801..160000, &lt;=800: disabled (default)</div>
+<div class="line">extended dead-time [ps]</div>
+<div class="line">(default: 800)</div>
+<div class="line">[800..160000] (&lt;=800: disabled)</div>
 </div>
 </p></li>
 </ul>
@@ -1653,7 +1794,10 @@ for more complex filters, e.g. with different time ranges.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Filter_setRowParams">
 <span class="sig-name descname"><span class="pre">setRowParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeRange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useChans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passChans</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Filter_setRowParams" title="Permalink to this definition">#</a></dt>
-<dd><p>This sets the parameters for one Row Filter implemented in the local FPGA processing that row of input channels. Each
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This sets the parameters for one Row Filter implemented in the local FPGA processing that row of input channels. Each
 Row Filter can act only on the input channels within its own row and never on the sync channel. The parameter <cite>timeRange</cite> determines
 the time window the filter is acting on. The parameter <cite>matchCount</cite> specifies how many other events must fall into the
 chosen time window for the filter condition to act on the event at hand. The parameter inverse inverts the filter action, i.e.
@@ -1720,7 +1864,10 @@ different time ranges</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Filter_enableRow">
 <span class="sig-name descname"><span class="pre">enableRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Filter_enableRow" title="Permalink to this definition">#</a></dt>
-<dd><p>When the filter is disabled all events will pass. This is the default after initialization. When it is enabled, events may be
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>When the filter is disabled all events will pass. This is the default after initialization. When it is enabled, events may be
 filtered out according to the parameters set with <a class="reference internal" href="#snAPI_Main_Filter_setRowParams" title="snAPI.Main.Filter.setRowParams"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setRowParams()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1753,7 +1900,10 @@ filtered out according to the parameters set with <a class="reference internal" 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Filter_setMainParams">
 <span class="sig-name descname"><span class="pre">setMainParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeRange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Filter_setMainParams" title="Permalink to this definition">#</a></dt>
-<dd><p>This sets the parameters for the Main Filter implemented in the main FPGA processing the aggregated events arriving from
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This sets the parameters for the Main Filter implemented in the main FPGA processing the aggregated events arriving from
 the row FPGAs. The Main Filter can therefore act on all channels of the Harp device including the sync channel. The
 value <cite>timeRange</cite> determines the time window the filter is acting on. The parameter <cite>matchCount</cite> specifies how many other
 events must fall into the chosen time window for the filter condition to act on the event at hand. The parameter inverse inverts
@@ -1805,7 +1955,10 @@ so as to not overload the Main Filter, and the possible need for more complex fi
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Filter_setMainChannels">
 <span class="sig-name descname"><span class="pre">setMainChannels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useChans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passChans</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Filter_setMainChannels" title="Permalink to this definition">#</a></dt>
-<dd><p>This selects the Main Filter channels for one row of input channels. Doing this row by row is to address the fact that the various
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This selects the Main Filter channels for one row of input channels. Doing this row by row is to address the fact that the various
 device models have different numbers of rows. The list <cite>useChans</cite> is used to to indicate if a channel is to be
 used by the filter. The list <cite>passChans</cite> is used to to indicate if a channel is to be passed through the filter unconditionally,
 whether it is marked as ‘use’ or not. The events on a channel that is marked neither as ‘use’ nor as ‘pass’ will not
@@ -1857,7 +2010,10 @@ so as to not overload the Main Filter, and the possible need for more complex fi
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Filter_enableMain">
 <span class="sig-name descname"><span class="pre">enableMain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Filter_enableMain" title="Permalink to this definition">#</a></dt>
-<dd><p>When the filter is disabled all events will pass. This is the default after initialization. When it is enabled, events may be
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>When the filter is disabled all events will pass. This is the default after initialization. When it is enabled, events may be
 filtered out according to the parameters set with <a class="reference internal" href="#snAPI_Main_Filter_setMainParams" title="snAPI.Main.Filter.setMainParams"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setMainParams()</span></code></a> and <a class="reference internal" href="#snAPI_Main_Filter_setMainParams" title="snAPI.Main.Filter.setMainParams"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setMainParams()</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1891,7 +2047,10 @@ for more complex filters, e.g. with different time ranges.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Filter_setTestMode">
 <span class="sig-name descname"><span class="pre">setTestMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">testMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Filter_setTestMode" title="Permalink to this definition">#</a></dt>
-<dd><p>One important purpose of the event filters is to reduce USB load. When the input data rates are higher than the USB bandwith,
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>One important purpose of the event filters is to reduce USB load. When the input data rates are higher than the USB bandwith,
 there will at some point be a FiFo overrun. It may under such conditions be difficult to empirically optimize the filter settings.
 Setting filter test mode disables all data transfers into the FiFo so that a test measurement can be run without interruption
 by a FiFo overrun. The library routines <a class="reference internal" href="#snAPI_Main_Filter_getRowRates" title="snAPI.Main.Filter.getRowRates"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getRowRates()</span></code></a> and <a class="reference internal" href="#snAPI_Main_Filter_getMainRates" title="snAPI.Main.Filter.getMainRates"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getMainRates()</span></code></a> can then be used to monitor the count rates
@@ -1924,7 +2083,10 @@ to perform the regular measurement.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Filter_getRowRates">
 <span class="sig-name descname"><span class="pre">getRowRates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Filter_getRowRates" title="Permalink to this definition">#</a></dt>
-<dd><p>This call retrieves the count rates after the Row Filter before entering the FiFO. A measurement must be running to obtain
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This call retrieves the count rates after the Row Filter before entering the FiFO. A measurement must be running to obtain
 valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The returning list
 contains the sync rate and the rates of the input channels.</p>
 <dl class="field-list simple">
@@ -1949,7 +2111,10 @@ contains the sync rate and the rates of the input channels.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Filter_getMainRates">
 <span class="sig-name descname"><span class="pre">getMainRates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Filter_getMainRates" title="Permalink to this definition">#</a></dt>
-<dd><p>This call retrieves the count rates after the Main Filter before entering the FiFO. A measurement must be running to obtain
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This call retrieves the count rates after the Main Filter before entering the FiFO. A measurement must be running to obtain
 valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The returning list
 contains the sync rate and the rates of the input channels.</p>
 <dl class="field-list simple">
@@ -4068,6 +4233,7 @@ parameters do work with the dTimes and not absolute times.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device"><code class="docutils literal notranslate"><span class="pre">Device</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setSyncDiv"><code class="docutils literal notranslate"><span class="pre">Device.setSyncDiv()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setSyncEdgeTrg"><code class="docutils literal notranslate"><span class="pre">Device.setSyncEdgeTrg()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setSyncCFD"><code class="docutils literal notranslate"><span class="pre">Device.setSyncCFD()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setSyncChannelOffset"><code class="docutils literal notranslate"><span class="pre">Device.setSyncChannelOffset()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setSyncChannelEnable"><code class="docutils literal notranslate"><span class="pre">Device.setSyncChannelEnable()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setSyncDeadTime"><code class="docutils literal notranslate"><span class="pre">Device.setSyncDeadTime()</span></code></a></li>
