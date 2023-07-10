@@ -596,7 +596,7 @@ or change the data path.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>systemIni</strong> (<em>str</em>) – <div class="line-block">
-<div class="line">path to the system.ini file [default: “snAPI/system.ini”]</div>
+<div class="line">path to the system.ini file (default: “system.ini”)</div>
 </div>
 </p></li>
 <li><p><strong>libType</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.LibType" title="snAPI.Constants.LibType"><em>LibType</em></a><em> | </em><em>None</em>) – </p></li>
@@ -1092,7 +1092,7 @@ For the input edge trigger of the input channels use <a class="reference interna
 <div><p>Supported devices: [HH400]</p>
 </div></blockquote>
 <p>The function sets the CFD (Constant Fraction Discriminators) of the sync channel.
-For the input CFD of the input channels use <code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputCFD()</span></code>.</p>
+For the input CFD of the input channels use <a class="reference internal" href="#snAPI_Main_Device_setInputCFD" title="snAPI.Main.Device.setInputCFD"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputCFD()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1117,8 +1117,8 @@ For the input CFD of the input channels use <code class="xref py py-meth docutil
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the sync trigger to -50mV on rising edge</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setSyncEdgeTrg</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the sync CFD to a discriminator level of 100mV and the zero cross level to 30mV</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setSyncCFD</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1163,7 +1163,7 @@ the cable delay on the sync input. Actual resolution is the device’s base reso
 </div></blockquote>
 <p>This enables or disables the sync channel. This is really only useful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.
 Histogram and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> need an active sync signal.
-To enable or disable the other channels use <a class="reference internal" href="#snAPI_Main_Device_setInputChannelEnable" title="snAPI.Main.Device.setInputChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelEnable()</span></code></a>.</p>
+To enable or disable the other channels use <a class="reference internal" href="#snAPI_Main_setInputChannelEnable" title="snAPI.Main.setInputChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelEnable()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>syncChannelEnable</strong> (<em>int</em>) – <div class="line-block">
@@ -1196,7 +1196,7 @@ To enable or disable the other channels use <a class="reference internal" href="
 <p>This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
 new dead-time. It only suppresses events occurring within the extended dead-time from further processing.
-For the dead time of the other channels use <a class="reference internal" href="#snAPI_Main_Device_setInputDeadTime" title="snAPI.Main.Device.setInputDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputDeadTime()</span></code></a>.</p>
+For the dead time of the other channels use <a class="reference internal" href="#snAPI_Main_setInputDeadTime" title="snAPI.Main.setInputDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputDeadTime()</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When an extended dead-time is set then it will also affect the count rate meter readings.
@@ -1336,7 +1336,7 @@ and start before it is put into the T3 record or is used to increment the corres
 It is intended for situations where the range of the histogram is not long enough to look at “late” data.
 By means of the offset the “window of view” is shifted to a later range.
 This is not the same as changing or compensating cable delays. If the latter is desired please use
-<a class="reference internal" href="#snAPI_Main_Device_setSyncChannelOffset" title="snAPI.Main.Device.setSyncChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelOffset()</span></code></a> and/or <a class="reference internal" href="#snAPI_Main_Device_setInputChannelOffset" title="snAPI.Main.Device.setInputChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code></a>.</p>
+<a class="reference internal" href="#snAPI_Main_Device_setSyncChannelOffset" title="snAPI.Main.Device.setSyncChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelOffset()</span></code></a> and/or <a class="reference internal" href="#snAPI_Main_setInputChannelOffset" title="snAPI.Main.setInputChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>offset</strong> (<em>int</em><em> | </em><em>None</em>) – <div class="line-block">
@@ -1632,13 +1632,60 @@ The hardware uses a 10 bit DAC that can resolve the level value only in steps of
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="snAPI_Main_Device_setInputChannelOffset">
-<span class="sig-name descname"><span class="pre">setInputChannelOffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chanOffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setInputChannelOffset" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI_Main_Device_setInputCFD">
+<span class="sig-name descname"><span class="pre">setInputCFD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discrLvl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zeroxLvl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setInputCFD" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [HH400]</p>
+</div></blockquote>
+<p>The function sets the CFD (Constant Fraction Discriminators) of the sync channel.
+For the input CFD of the input channels use <a class="reference internal" href="#snAPI_Main_Device_setSyncCFD" title="snAPI.Main.Device.setSyncCFD"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncCFD()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">0 .. [numChannels]-1</div>
+<div class="line">-1: all channels (default)</div>
+</div>
+</p></li>
+<li><p><strong>discrLvlSync</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">level [mV] (default:50mV)</div>
+<div class="line">HH400: [0..1000]</div>
+</div>
+</p></li>
+<li><p><strong>zeroXLvlSync</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">zero cross level [mV]</div>
+<div class="line">HH400: [0..40]</div>
+</div>
+</p></li>
+<li><p><strong>discrLvl</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>zeroxLvl</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the input of channel 1 to a discriminator level of 100mV on zero cross level of 30mV</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setInputEdgeTrg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="snAPI_Main_setInputChannelOffset">
+<span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">setInputChannelOffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chanOffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_setInputChannelOffset" title="Permalink to this definition">#</a></dt>
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160 | HH400]</p>
 </div></blockquote>
 <p>This is equivalent to changing the cable delay on the chosen input. Actual offset resolution is the device base resolution.
-For the input channel offset of the sync channel use <a class="reference internal" href="#snAPI_Main_Device_setSyncChannelOffset" title="snAPI.Main.Device.setSyncChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelOffset()</span></code></a>.</p>
+For the input channel offset of the sync channel use <code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelOffset()</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The maximum input channel index must be less than deviceConfig[“numChans”].</p>
@@ -1674,14 +1721,14 @@ For the input channel offset of the sync channel use <a class="reference interna
 </div>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="snAPI_Main_Device_setInputChannelEnable">
-<span class="sig-name descname"><span class="pre">setInputChannelEnable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chanEna</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setInputChannelEnable" title="Permalink to this definition">#</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="snAPI_Main_setInputChannelEnable">
+<span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">setInputChannelEnable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chanEna</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_setInputChannelEnable" title="Permalink to this definition">#</a></dt>
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160 | HH400]</p>
 </div></blockquote>
 <p>This function enables or disables the input channels.
-To enable the sync channel use <a class="reference internal" href="#snAPI_Main_Device_setSyncChannelEnable" title="snAPI.Main.Device.setSyncChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelEnable()</span></code></a>.</p>
+To enable the sync channel use <code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelEnable()</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The maximum input channel index must be less than deviceConfig[“numChans”].</p>
@@ -1713,16 +1760,16 @@ To enable the sync channel use <a class="reference internal" href="#snAPI_Main_D
 </div>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="snAPI_Main_Device_setInputDeadTime">
-<span class="sig-name descname"><span class="pre">setInputDeadTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deadTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">800</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setInputDeadTime" title="Permalink to this definition">#</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="snAPI_Main_setInputDeadTime">
+<span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">setInputDeadTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deadTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">800</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_setInputDeadTime" title="Permalink to this definition">#</a></dt>
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
 <p>This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
 new dead-time. It only suppresses events occurring within the extended dead-time from further processing.
-For the dead time of the sync channel use <a class="reference internal" href="#snAPI_Main_Device_setSyncDeadTime" title="snAPI.Main.Device.setSyncDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncDeadTime()</span></code></a>.</p>
+For the dead time of the sync channel use <code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncDeadTime()</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When an extended dead-time is set then it will also affect the count rate meter readings.
@@ -1754,8 +1801,6 @@ The the extended deadtime will rounded to the nearest step of the device base re
 <span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setInputDeadTime</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -2204,7 +2249,7 @@ and <code class="xref py py-meth docutils literal notranslate"><span class="pre"
 <p class="admonition-title">Warning</p>
 <p>If the colleted data exceeds the buffer size a warning will be added to the log:
 ‘WRN RawStore buffer overrun - clearing!’ and de internal buffer will be cleared. That
-means that this part of data is lost! You may reduce the count rate!</p>
+means that this part of data is lost! You should reduce the count rate!</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2250,7 +2295,7 @@ to define the maximum size of the available block buffer. The data can be access
 <p class="admonition-title">Warning</p>
 <p>If the colleted data exceeds the maximum block size a warning will be added to the log:
 ‘WRN RawStore buffer overrun - clearing!’ and de internal buffer will be cleared. That
-means that dis part of data is lost! You may reduce the count rate!</p>
+means that this part of data is lost! You should reduce the count rate!</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2704,7 +2749,7 @@ to define the maximum size of the available block buffer. The data can be access
 <p class="admonition-title">Warning</p>
 <p>If the colleted data exceeds the maximum block size a warning will be added to the log:
 ‘WRN UfStore buffer overrun - clearing!’ and de internal buffer will be cleared. This
-means that part of data is lost! You may reduce the count rate!</p>
+means that this part of data is lost! You should reduce the count rate!</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3137,7 +3182,7 @@ If you wish to obtain updates on the fly the data can be accessed with <a class=
 <p class="admonition-title">Warning</p>
 <p>If the colleted data exceeds the buffer size a warning will be added to the log:
 ‘WRN UfStore buffer overrun - clearing!’ and de internal buffer will be cleared. This
-means that part of data is lost! You may reduce the count rate!</p>
+means that this part of data is lost! You should reduce the count rate!</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3301,7 +3346,7 @@ measurement setup.</p>
 <dd><p>This function sets the number of bins to collect the counts in.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The bin with can calculated as <span class="math notranslate nohighlight">\(binWith = historySize / numBins\)</span>.</p>
+<p>The bin with can calculated as <span class="math notranslate nohighlight">\(binWidth = historySize / numBins\)</span>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3331,7 +3376,7 @@ longer than it took to record it.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The bin with can calculated as <span class="math notranslate nohighlight">\(binWith = historySize / numBins\)</span>.</p>
+<p>The bin with can calculated as <span class="math notranslate nohighlight">\(binWidth = historySize / numBins\)</span>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3515,8 +3560,8 @@ multi-tau algorithm uses pseudo-logarithmically increasing bin widths.</p>
 <img alt="_images/G2_Correlation.png" class="p-2" src="_images/G2_Correlation.png" />
 <p>sample of a g(2) <cite>Correlation</cite> measurement drawn with matplotlib</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="snAPI_Main_Correlation_setG2parameters">
-<span class="sig-name descname"><span class="pre">setG2parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clickChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binWidth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Correlation_setG2parameters" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI_Main_Correlation_setG2Parameters">
+<span class="sig-name descname"><span class="pre">setG2Parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clickChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binWidth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Correlation_setG2Parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>This function sets the the parameters for the g(2) correlation. If the startChannel is the same as the
 clickChannel an autocorrelation is calculated and if the channels are different a
 cross calculation is calculated.</p>
@@ -3544,7 +3589,7 @@ in this time.</p>
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the window size to 5000ps with a bin width of 5ps (that means 1000 bins will be calculated)</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2Parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -3584,7 +3629,7 @@ cross calculation is calculated.</p>
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the window size to 1s with a startTime of 50000ps</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mf">1e12</span><span class="p">,</span> <span class="mf">5e4</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2Parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mf">1e12</span><span class="p">,</span> <span class="mf">5e4</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -3620,7 +3665,7 @@ will be ignored if device is a FileDevice</p></li>
 <span class="n">sn</span><span class="o">.</span><span class="n">getDeviceIDs</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">getFileDevice</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;E:\Data\PicoQuant\CW_Shelved.ptu&quot;</span><span class="p">)</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2Parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -3660,7 +3705,7 @@ will be ignored if device is a FileDevice</p></li>
 <span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">getFileDevice</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;E:\Data\PicoQuant\CW_Shelved.ptu&quot;</span><span class="p">)</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2Parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -4019,7 +4064,7 @@ therefore the processor load and memory consumption.</p>
 <dt class="sig sig-object py" id="snAPI_Main_Manipulators_delay">
 <span class="sig-name descname"><span class="pre">delay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepSourceChannel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_delay" title="Permalink to this definition">#</a></dt>
 <dd><p>This implements a delay manipulator, that gives you the ability to add a delay to the given channel.
-Its generally better to use <code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code> because it does the same but in hardware and therefore
+Its generally better to use <a class="reference internal" href="#snAPI_Main_setInputChannelOffset" title="snAPI.Main.setInputChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code></a> because it does the same but in hardware and therefore
 it don’t uses any resources of the PC. But if you data of a ptu file it is the only way to do it.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4248,11 +4293,12 @@ parameters do work with the dTimes and not absolute times.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setMarkerHoldoffTime"><code class="docutils literal notranslate"><span class="pre">Device.setMarkerHoldoffTime()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setOflCompression"><code class="docutils literal notranslate"><span class="pre">Device.setOflCompression()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setInputEdgeTrg"><code class="docutils literal notranslate"><span class="pre">Device.setInputEdgeTrg()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setInputChannelOffset"><code class="docutils literal notranslate"><span class="pre">Device.setInputChannelOffset()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setInputChannelEnable"><code class="docutils literal notranslate"><span class="pre">Device.setInputChannelEnable()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setInputDeadTime"><code class="docutils literal notranslate"><span class="pre">Device.setInputDeadTime()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setInputCFD"><code class="docutils literal notranslate"><span class="pre">Device.setInputCFD()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_setInputChannelOffset"><code class="docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_setInputChannelEnable"><code class="docutils literal notranslate"><span class="pre">setInputChannelEnable()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_setInputDeadTime"><code class="docutils literal notranslate"><span class="pre">setInputDeadTime()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Filter_setRowParams"><code class="docutils literal notranslate"><span class="pre">Filter.setRowParams()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Filter_enableRow"><code class="docutils literal notranslate"><span class="pre">Filter.enableRow()</span></code></a></li>
@@ -4317,7 +4363,7 @@ parameters do work with the dTimes and not absolute times.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Correlation"><code class="docutils literal notranslate"><span class="pre">Correlation</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Correlation_setG2parameters"><code class="docutils literal notranslate"><span class="pre">Correlation.setG2parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Correlation_setG2Parameters"><code class="docutils literal notranslate"><span class="pre">Correlation.setG2Parameters()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Correlation_setFCSparameters"><code class="docutils literal notranslate"><span class="pre">Correlation.setFCSparameters()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Correlation_measure"><code class="docutils literal notranslate"><span class="pre">Correlation.measure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Correlation_getG2data"><code class="docutils literal notranslate"><span class="pre">Correlation.getG2data()</span></code></a></li>

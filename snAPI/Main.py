@@ -243,7 +243,7 @@ or change the data path.
 Parameters
 ----------
     systemIni: str
-        | path to the system.ini file [default: "snAPI/system.ini"]
+        | path to the system.ini file (default: "system.ini")
 
 Returns
 -------
@@ -882,13 +882,13 @@ Example
 -------
 ::
     
-    # sets the sync trigger to -50mV on rising edge
-    sn.device.setSyncEdgeTrg(-50,1)
+    # sets the sync CFD to a discriminator level of 100mV and the zero cross level to 30mV
+    sn.device.setSyncCFD(100, 30)
     
         """
-        if ok:= self.parent.dll.setSyncEdgeTrg(trigLvlSync, trigEdgeSync):
-            self.parent.deviceConfig["TrigLvlSync"] = trigLvlSync
-            self.parent.deviceConfig["TrigEdgeSync"] = trigEdgeSync
+        if ok:= self.parent.dll.setSyncCFD(discrLvlSync, zeroXLvlSync):
+            self.parent.deviceConfig["ZeroxLvLSync"] = zeroXLvlSync
+            self.parent.deviceConfig["DiscrLvlSync"] = discrLvlSync
         return ok
     
     
@@ -1445,7 +1445,51 @@ Example
         return ok
 
 
-    def setInputChannelOffset(self, channel: typing.Optional[int] = -1, chanOffs: typing.Optional[int] = 0):
+    def setInputCFD(self, channel: typing.Optional[int] = -1, discrLvl: typing.Optional[int] = 50, zeroxLvl: typing.Optional[int] = 20):
+        """
+    Supported devices: [HH400] 
+    
+The function sets the CFD (Constant Fraction Discriminators) of the sync channel.
+For the input CFD of the input channels use :meth:`setSyncCFD`.
+    
+Parameters
+----------
+    channel: int
+        | 0 .. [numChannels]-1
+        | -1: all channels (default)
+    discrLvlSync: int
+        | level [mV] (default:50mV)
+        | HH400: [0..1000]
+    zeroXLvlSync: int
+        | zero cross level [mV]
+        | HH400: [0..40]
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # sets the input of channel 1 to a discriminator level of 100mV on zero cross level of 30mV
+    sn.device.setInputEdgeTrg(0, 100, 30)
+    
+        """
+        if ok:= self.parent.dll.setInputCFD(channel, discrLvl, zeroxLvl):
+            if channel == -1:
+                for chan in range(self.parent.deviceConfig["NumChans"]):
+                    self.parent.deviceConfig["ChansCfg"][chan]["DiscrLvl"] = discrLvl
+                    self.parent.deviceConfig["ChansCfg"][chan]["ZeroXLvl"] = zeroxLvl
+            else:
+                self.parent.deviceConfig["ChansCfg"][channel]["DiscrLvl"] = discrLvl
+                self.parent.deviceConfig["ChansCfg"][channel]["ZeroXLvl"] = zeroxLvl
+                
+        return ok
+    
+
+def setInputChannelOffset(self, channel: typing.Optional[int] = -1, chanOffs: typing.Optional[int] = 0):
         """
     Supported devices: [MH150/160 | HH400] 
     
@@ -1488,7 +1532,7 @@ Example
         return ok
 
 
-    def setInputChannelEnable(self, channel: typing.Optional[int] = -1, chanEna: typing.Optional[int] = 1):
+def setInputChannelEnable(self, channel: typing.Optional[int] = -1, chanEna: typing.Optional[int] = 1):
         """
     Supported devices: [MH150/160 | HH400] 
     
@@ -1530,7 +1574,7 @@ Example
         return ok
 
 
-    def setInputDeadTime(self, channel: typing.Optional[int] = -1, deadTime: typing.Optional[int] = 800):
+def setInputDeadTime(self, channel: typing.Optional[int] = -1, deadTime: typing.Optional[int] = 800):
         """
     Supported devices: [MH150/160] 
     
@@ -2033,8 +2077,7 @@ Warning
 -------
     If the colleted data exceeds the buffer size a warning will be added to the log: 
     'WRN RawStore buffer overrun - clearing!' and de internal buffer will be cleared. That
-    means that this part of data is lost! You may reduce the count rate!
-
+    means that this part of data is lost! You should reduce the count rate!
 
 Parameters
 ----------
@@ -2087,7 +2130,7 @@ Warning
 -------
     If the colleted data exceeds the maximum block size a warning will be added to the log: 
     'WRN RawStore buffer overrun - clearing!' and de internal buffer will be cleared. That
-    means that dis part of data is lost! You may reduce the count rate!
+    means that this part of data is lost! You should reduce the count rate!
 
 Parameters
 ----------
@@ -2599,7 +2642,7 @@ Warning
 -------
     If the colleted data exceeds the maximum block size a warning will be added to the log: 
     'WRN UfStore buffer overrun - clearing!' and de internal buffer will be cleared. This
-    means that part of data is lost! You may reduce the count rate!
+    means that this part of data is lost! You should reduce the count rate!
 
 Parameters
 ----------
@@ -3098,7 +3141,7 @@ Warning
 -------
     If the colleted data exceeds the buffer size a warning will be added to the log: 
     'WRN UfStore buffer overrun - clearing!' and de internal buffer will be cleared. This
-    means that part of data is lost! You may reduce the count rate!
+    means that this part of data is lost! You should reduce the count rate!
     
 Parameters
 ----------
@@ -3298,7 +3341,7 @@ This function sets the number of bins to collect the counts in.
 
 Note
 ----
-    The bin with can calculated as :math:`binWith = historySize / numBins`.
+    The bin with can calculated as :math:`binWidth = historySize / numBins`.
 
 Parameters
 ----------
@@ -3334,7 +3377,7 @@ Warning
     
 Note
 ----
-    The bin with can calculated as :math:`binWith = historySize / numBins`.
+    The bin with can calculated as :math:`binWidth = historySize / numBins`.
 
 Parameters
 ----------
@@ -3571,7 +3614,7 @@ sample of a g(2) `Correlation` measurement drawn with matplotlib
         self.finished = ct.pointer(ct.c_bool(False))
         
 
-    def setG2parameters(self, startChannel: int, clickChannel: int, windowSize: float, binWidth: float):
+    def setG2Parameters(self, startChannel: int, clickChannel: int, windowSize: float, binWidth: float):
         """
 This function sets the the parameters for the g(2) correlation. If the startChannel is the same as the
 clickChannel an autocorrelation is calculated and if the channels are different a
@@ -3610,7 +3653,7 @@ Example
 ::
 
     # sets the window size to 5000ps with a bin width of 5ps (that means 1000 bins will be calculated)
-    sn.correlation.setG2parameters(1, 2 , 5000, 5)
+    sn.correlation.setG2Parameters(1, 2 , 5000, 5)
     
         """
         self.startChannel = startChannel
@@ -3668,7 +3711,7 @@ Example
 ::
 
     # sets the window size to 1s with a startTime of 50000ps
-    sn.correlation.setG2parameters(1, 2 , 1e12, 5e4)
+    sn.correlation.setG2Parameters(1, 2 , 1e12, 5e4)
     
         """
         if startTime is None:
@@ -3723,7 +3766,7 @@ Example
     sn.getDeviceIDs()
     sn.getDevice()
     sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
-    sn.correlation.setG2parameters(1, 2, 1000, 200)
+    sn.correlation.setG2Parameters(1, 2, 1000, 200)
     sn.correlation.measure()
 
     while True:
@@ -3775,7 +3818,7 @@ Example
     sn = snAPI()
     sn.getDevice()
     sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
-    sn.correlation.setG2parameters(1, 2, 1000, 200)
+    sn.correlation.setG2Parameters(1, 2, 1000, 200)
     sn.correlation.measure()
 
     while True:
