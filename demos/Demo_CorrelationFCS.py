@@ -7,21 +7,24 @@ import time
 
 if(__name__ == "__main__"):
 
-    sn = snAPI()
+    sn = snAPI(libType=LibType.HH)
     sn.getDeviceIDs()
     sn.getDevice()
-    #sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
-    #sn.getFileDevice(r"e:\Data\PicoQuant\cell01_55pct_1.ptu")
-    #sn.getFileDevice(r"e:\Data\PicoQuant\Correaltion_T3.ptu")
-    #sn.getFileDevice(r"e:\Data\PicoQuant\OpenCLTest\Atto655+Cy5_diff_FCS+FLCS_Conv.ptu")
-    sn.initDevice(MeasMode.T3)
-    #sn.device.setInputDeadTime(-1,1000)
-    sn.correlation.setFCSparameters(1, 2, 1e4, 5)
-    sn.correlation.measure(10000,savePTU=True)
+    sn.initDevice(MeasMode.T2)
+    
+    # set the configuration for your device type
+    sn.loadIniConfig("config\HH.ini")
+    
+    # 1. shift the signals to max correlation max at tau = 0
+    #sn.device.setInputChannelOffset(1, 1564)
+    
+    # 2. set windowSize and startTime
+    sn.correlation.setFCSParameters(1, 2, 1e10, 1e5)
+    sn.correlation.measure(100,savePTU=True)
 
     while True:
         finished = sn.correlation.isFinished()
-        data, bins = sn.correlation.getFCSdata()
+        data, bins = sn.correlation.getFCSData()
         time.sleep(.3)
         
         plt.clf()
@@ -34,9 +37,7 @@ if(__name__ == "__main__"):
         plt.legend()
         plt.title("FCS")
         plt.pause(0.1)
-            
-        #sn.correlation.clearMeasure()
-            
+        
         if finished:
             break
 

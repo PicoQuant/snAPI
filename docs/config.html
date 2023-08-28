@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Configuration &#8212; snAPI  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'config';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="TTTR Record Format" href="tttr%20data%20format.html" />
+    <link rel="prev" title="snAPI.Utils module" href="snAPI.Utils.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo-light.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="introduction.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="snAPI.html">
+                        snAPI package
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Configuration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+                        TTTR Record Format
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://PicoQuant.com">
+                    PicoQuant
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="introduction.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="snAPI.html">
+                        snAPI package
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Configuration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+                        TTTR Record Format
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://PicoQuant.com">
+                    PicoQuant
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Configuration</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">#</a></h1>
+<p>The <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a> stores the state of the device in the API and can be updated with <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getDeviceConfig" title="snAPI.Main.snAPI.getDeviceConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDeviceConfig()</span></code></a>.
+From <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a> the parameters can only be read. To set them you need to call <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_loadIniConfig" title="snAPI.Main.snAPI.loadIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">loadIniConfig()</span></code></a> or <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setIniConfig()</span></code></a>.
+An other and more pythonesque way to change them is to use the commands defined in the <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device" title="snAPI.Main.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a> directly.
+This document will give you an overview about the configuration parameters and there corresponding functions or constants,
+where their values and/or their maximum and minimum are defined.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you encounter any issues reading a config.ini file enable the config log level in the system.ini. The file location
+is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p>
+</div>
+<section id="parameter-description">
+<h2>Parameter Description<a class="headerlink" href="#parameter-description" title="Permalink to this heading">#</a></h2>
+<section id="read-only-parameters">
+<h3>Read only parameters<a class="headerlink" href="#read-only-parameters" title="Permalink to this heading">#</a></h3>
+<table class="table" id="id1">
+<caption><span class="caption-text">Read only from <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a> (can’t set via <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_loadIniConfig" title="snAPI.Main.snAPI.loadIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">loadIniConfig()</span></code></a> or <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setIniConfig()</span></code></a>)</span><a class="headerlink" href="#id1" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object / Reference</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DeviceType</p></td>
+<td><p><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType" title="snAPI.Constants.DeviceType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceType</span></code></a></p></td>
+<td><p>real Hardware or File Device</p></td>
+</tr>
+<tr class="row-odd"><td><p>FileDevicePath</p></td>
+<td><p>string</p></td>
+<td><p>path to the ptu file</p></td>
+</tr>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p>string</p></td>
+<td><p>serial number</p></td>
+</tr>
+<tr class="row-odd"><td><p>Index</p></td>
+<td><p>int</p></td>
+<td><p>index number of the device in the list of <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceIDs" title="snAPI.Main.snAPI.deviceIDs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceIDs</span></code></a> (only valid after <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getDeviceIDs" title="snAPI.Main.snAPI.getDeviceIDs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDeviceIDs()</span></code></a>)</p></td>
+</tr>
+<tr class="row-even"><td><p>Model</p></td>
+<td><p>string</p></td>
+<td><p>model name</p></td>
+</tr>
+<tr class="row-odd"><td><p>PartNo</p></td>
+<td><p>string</p></td>
+<td><p>part number</p></td>
+</tr>
+<tr class="row-even"><td><p>Version</p></td>
+<td><p>string</p></td>
+<td><p>version number</p></td>
+</tr>
+<tr class="row-odd"><td><p>BaseResolution</p></td>
+<td><p>double</p></td>
+<td><p>base resolution in ps (timing resolution in T2 mode)</p></td>
+</tr>
+<tr class="row-even"><td><p>Resolution</p></td>
+<td><p>double</p></td>
+<td><p>current binning (histogram bin width) in ps (not meaningful in T2 mode)</p></td>
+</tr>
+<tr class="row-odd"><td><p>BinSteps</p></td>
+<td><p>int</p></td>
+<td><p>number of allowed binning steps</p></td>
+</tr>
+<tr class="row-even"><td><p>NumChans</p></td>
+<td><p>int</p></td>
+<td><p>number of installed input channels</p></td>
+</tr>
+<tr class="row-odd"><td><p>NumMods</p></td>
+<td><p>int</p></td>
+<td><p>number of installed modules</p></td>
+</tr>
+<tr class="row-even"><td><p>MeasMode</p></td>
+<td><p><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode" title="snAPI.Constants.MeasMode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode</span></code></a></p></td>
+<td><p>Histogram, T2, T3</p></td>
+</tr>
+<tr class="row-odd"><td><p>RefSource</p></td>
+<td><p><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource" title="snAPI.Constants.RefSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RefSource</span></code></a></p></td>
+<td><p>source of the reference clock</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ini-device-section">
+<h3>INI Device Section<a class="headerlink" href="#ini-device-section" title="Permalink to this heading">#</a></h3>
+<table class="table" id="id2">
+<caption><span class="caption-text">INI Section: [Device]</span><a class="headerlink" href="#id2" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object / Reference</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SyncDivider</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncDiv" title="snAPI.Main.Device.setSyncDiv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncDiv()</span></code></a></p></td>
+<td><p>sync rate divider</p></td>
+</tr>
+<tr class="row-odd"><td><p>SyncTrigMode</p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncTrigMode()</span></code></p></td>
+<td><p><cite>Edge</cite> or <cite>CFD</cite> trigger</p></td>
+</tr>
+<tr class="row-even"><td><p>SyncEdgeTrig, SyncTrigLvl , SyncTrigEdge</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncEdgeTrig" title="snAPI.Main.Device.setSyncEdgeTrig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncEdgeTrig()</span></code></a></p></td>
+<td><p>sets both parameters at once: trigger level and edge</p></td>
+</tr>
+<tr class="row-odd"><td><p>SyncCFD, SyncDiscrLvl , SyncZeroXLvL</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncCFD" title="snAPI.Main.Device.setSyncCFD"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncCFD()</span></code></a></p></td>
+<td><p>sets both parameters at once: discriminator- and zero cross level</p></td>
+</tr>
+<tr class="row-even"><td><p>SyncChannelOffset</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncChannelOffset" title="snAPI.Main.Device.setSyncChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelOffset()</span></code></a></p></td>
+<td><p>sync timing offset in ps</p></td>
+</tr>
+<tr class="row-odd"><td><p>SyncChannelEnable</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncChannelEnable" title="snAPI.Main.Device.setSyncChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelEnable()</span></code></a></p></td>
+<td><p>enable state of the sync channel</p></td>
+</tr>
+<tr class="row-even"><td><p>SyncDeadTime</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncDeadTime" title="snAPI.Main.Device.setSyncDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncDeadTime()</span></code></a></p></td>
+<td><p>dead-time in ps</p></td>
+</tr>
+<tr class="row-odd"><td><p>HystCode</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputHysteresis" title="snAPI.Main.Device.setInputHysteresis"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputHysteresis()</span></code></a></p></td>
+<td><p>input hysteresis</p></td>
+</tr>
+<tr class="row-even"><td><p>StopCount</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setStopOverflow" title="snAPI.Main.Device.setStopOverflow"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setStopOverflow()</span></code></a></p></td>
+<td><p>stop count for histogram</p></td>
+</tr>
+<tr class="row-odd"><td><p>Binning</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setBinning" title="snAPI.Main.Device.setBinning"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setBinning()</span></code></a></p></td>
+<td><p>binning factor</p></td>
+</tr>
+<tr class="row-even"><td><p>Offset</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setOffset" title="snAPI.Main.Device.setOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setOffset()</span></code></a></p></td>
+<td><p>histogram time offset in ns</p></td>
+</tr>
+<tr class="row-odd"><td><p>LengthCode, NumBins</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setHistoLength" title="snAPI.Main.Device.setHistoLength"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setHistoLength()</span></code></a></p></td>
+<td><p>number of bins</p></td>
+</tr>
+<tr class="row-even"><td><p>TriggerOutput</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setTriggerOutput" title="snAPI.Main.Device.setTriggerOutput"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setTriggerOutput()</span></code></a></p></td>
+<td><p>programmable trigger output period in ns</p></td>
+</tr>
+<tr class="row-odd"><td><p>MarkerHoldoffTime</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setMarkerHoldoffTime" title="snAPI.Main.Device.setMarkerHoldoffTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setMarkerHoldoffTime()</span></code></a></p></td>
+<td><p>marker hold of time to remove glitches in ns</p></td>
+</tr>
+<tr class="row-even"><td><p>HoldTime</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setOflCompression" title="snAPI.Main.Device.setOflCompression"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setOflCompression()</span></code></a></p></td>
+<td><p>low data rates</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ini-channel-section">
+<h3>INI Channel Section<a class="headerlink" href="#ini-channel-section" title="Permalink to this heading">#</a></h3>
+<table class="table" id="id3">
+<caption><span class="caption-text">INI Section: [All_Channels] | [Channel_N]</span><a class="headerlink" href="#id3" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object / Reference</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TrigMode</p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputTrigMode()</span></code></p></td>
+<td><p><cite>Edge</cite> or <cite>CFD</cite> trigger</p></td>
+</tr>
+<tr class="row-odd"><td><p>EdgeTrig, TrigLvl , TrigEdge</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputEdgeTrig" title="snAPI.Main.Device.setInputEdgeTrig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputEdgeTrig()</span></code></a></p></td>
+<td><p>sets both values at once: trigger level and edge</p></td>
+</tr>
+<tr class="row-even"><td><p>CFD, DiscrLvl , ZeroXLvl</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputCFD" title="snAPI.Main.Device.setInputCFD"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputCFD()</span></code></a></p></td>
+<td><p>sets both values at once: discriminator- and zero cross level</p></td>
+</tr>
+<tr class="row-odd"><td><p>ChanOffs</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputChannelOffset" title="snAPI.Main.Device.setInputChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code></a></p></td>
+<td><p>input channel offset timing offset in ps</p></td>
+</tr>
+<tr class="row-even"><td><p>ChanEna</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputChannelEnable" title="snAPI.Main.Device.setInputChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelEnable()</span></code></a></p></td>
+<td><p>enable state of the input channel</p></td>
+</tr>
+<tr class="row-odd"><td><p>DeadTime</p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputDeadTime" title="snAPI.Main.Device.setInputDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputDeadTime()</span></code></a></p></td>
+<td><p>dead-time in ps</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-of-the-deviceconfig">
+<h3>Example of the <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a><a class="headerlink" href="#example-of-the-deviceconfig" title="Permalink to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;DeviceType&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;FileDevicePath&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="s2">&quot;1045483&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiHarp 150 4P&quot;</span><span class="p">,</span>
+<span class="s2">&quot;PartNo&quot;</span><span class="p">:</span> <span class="s2">&quot;930043&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="s2">&quot;BaseResolution&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
+<span class="s2">&quot;Resolution&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span>
+<span class="s2">&quot;BinSteps&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+<span class="s2">&quot;NumChans&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<span class="s2">&quot;NumMods&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="s2">&quot;SyncDivider&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;SyncTrigMode&quot;</span><span class="p">:</span> <span class="s2">&quot;Edge&quot;</span><span class="p">,</span>
+<span class="s2">&quot;SyncTrigLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
+<span class="s2">&quot;SyncTrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;SyncDiscrLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
+<span class="s2">&quot;SyncZeroXLvL&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;SyncChannelOffset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;SyncChannelEnable&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;SyncDeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+<span class="s2">&quot;HystCode&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;StopCount&quot;</span><span class="p">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+<span class="s2">&quot;Binning&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;Offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;lengthCode&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+<span class="s2">&quot;NumBins&quot;</span><span class="p">:</span> <span class="mi">65536</span><span class="p">,</span>
+<span class="s2">&quot;MeasCtrl&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;StartEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;StopEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;TrigOutput&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;HoldoffTime&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;HoldTime&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;MarkerEdges&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span>
+<span class="p">],</span>
+<span class="s2">&quot;MarkerEna&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span>
+<span class="p">],</span>
+<span class="s2">&quot;ModsCfg&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;ModelCode&quot;</span><span class="p">:</span> <span class="mi">1010</span><span class="p">,</span>
+    <span class="s2">&quot;VersionCode&quot;</span><span class="p">:</span> <span class="mi">16843029</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;ModelCode&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s2">&quot;VersionCode&quot;</span><span class="p">:</span> <span class="mi">17694997</span>
+    <span class="p">}</span>
+<span class="p">],</span>
+<span class="s2">&quot;ChansCfg&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;DiscrLvl&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;ZeroXLvl&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+    <span class="s2">&quot;Index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;TrigLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">120</span><span class="p">,</span>
+    <span class="s2">&quot;TrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;DiscrLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">120</span><span class="p">,</span>
+    <span class="s2">&quot;ZeroXLvl&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;ChanOffs&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;ChanEna&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;DeadTime&quot;</span><span class="p">:</span> <span class="mi">800</span>
+    <span class="p">}</span>
+<span class="p">],</span>
+<span class="s2">&quot;MeasMode&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;RefSource&quot;</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="example-of-the-device-ini-file">
+<h3>Example of the device ini file<a class="headerlink" href="#example-of-the-device-ini-file" title="Permalink to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Device</span><span class="p">]</span>
+<span class="n">HystCode</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">SyncDiv</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">SyncEdgeTrig</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">SyncChannelOffset</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">SyncChannelEnable</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">SyncDeadTime</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">StopOverflow</span> <span class="o">=</span> <span class="mi">4294967295</span>
+<span class="n">Binning</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Offset</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MeasControl</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">StartEdge</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">StopEdge</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">TriggerOutput</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="p">[</span><span class="n">All_Channels</span><span class="p">]</span>
+<span class="n">InputEdgeTrig</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">InputChannelOffset</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">SetInputChannelEnable</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">InputDeadTime</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="p">[</span><span class="n">Channel_0</span><span class="p">]</span>
+<span class="n">InputEdgeTrig</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">InputChannelOffset</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="p">[</span><span class="n">Channel_1</span><span class="p">]</span>
+<span class="n">InputEdgeTrig</span> <span class="o">=</span> <span class="o">-</span><span class="mi">120</span><span class="p">,</span><span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="snAPI.Utils.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">snAPI.Utils module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="tttr%20data%20format.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">TTTR Record Format</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-description">Parameter Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-only-parameters">Read only parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ini-device-section">INI Device Section</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ini-channel-section">INI Channel Section</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-the-deviceconfig">Example of the <code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-the-device-ini-file">Example of the device ini file</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Picoquant.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.4dev0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -2570,7 +2570,7 @@ html:not([data-theme]) {
     --pst-color-attention: #ffc107;
     --pst-color-danger: #dc3545;
     --pst-color-text-base: #323232;
-    --pst-color-text-muted: #646464;
+    --pst-color-text-muted: #3d3d3d;
     --pst-color-shadow: #d8d8d8;
     --pst-color-border: #c9c9c9;
     --pst-color-inline-code: #e83e8c;
@@ -2590,7 +2590,7 @@ html:not([data-theme]) .only-dark,html:not([data-theme]) .only-dark~figcaption {
 html[data-theme=light] {
     --pst-color-attention: #ffc107;
     --pst-color-text-base: #323232;
-    --pst-color-text-muted: #646464;
+    --pst-color-text-muted: #3d3d3d;
     --pst-color-shadow: #d8d8d8;
     --pst-color-border: #c9c9c9;
     --pst-color-inline-code: #e83e8c;
@@ -2609,8 +2609,8 @@ html[data-theme=light] .only-dark,html[data-theme=light] .only-dark~figcaption {
 
 html[data-theme=dark] {
     --pst-color-attention: #dca90f;
-    --pst-color-text-base: #cecece;
-    --pst-color-text-muted: #a6a6a6;
+    --pst-color-text-base: #eeeeee;
+    --pst-color-text-muted: #e0e0e0;
     --pst-color-shadow: #212121;
     --pst-color-border: silver;
     --pst-color-inline-code: #dd9ec2;

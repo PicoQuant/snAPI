@@ -111,7 +111,7 @@
       
     
     
-    <img src="_static/logo-dark.png" class="logo__image only-light" alt="Logo image"/>
+    <img src="_static/logo-light.png" class="logo__image only-light" alt="Logo image"/>
     <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
@@ -151,6 +151,13 @@
                     <li class="nav-item">
                       <a class="nav-link nav-internal" href="snAPI.html">
                         snAPI package
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="config.html">
+                        Configuration
                       </a>
                     </li>
                 
@@ -262,6 +269,13 @@ document.write(`
                     <li class="nav-item">
                       <a class="nav-link nav-internal" href="snAPI.html">
                         snAPI package
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="config.html">
+                        Configuration
                       </a>
                     </li>
                 
@@ -384,7 +398,7 @@ document.write(`
 </section>
 <section id="snapi">
 <h2>snAPI<a class="headerlink" href="#snapi" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple" start="7">
+<ol class="arabic simple">
 <li><p>Download the latest release from <a class="reference external" href="https://github.com/picoQuant/snapi/releases">github.com/picoQuant/snAPI/releases</a> from the repository: <a class="github reference external" href="https://github.com/picoquant/snapi">picoquant/snapi</a></p></li>
 <li><p>Finally, you can unpack the files and install your package using <cite>pip</cite>. Navigate to the directory where your package is located, and type the following command:</p></li>
 </ol>
@@ -394,34 +408,63 @@ document.write(`
 </section>
 <section id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading">#</a></h2>
-<p>This will install your package and its dependencies.</p>
-<ol class="arabic simple" start="9">
+<ol class="arabic simple">
 <li><dl class="simple">
-<dt>Download the MultiHarp library you need:</dt><dd><ul class="simple">
+<dt>Download and install the software for the product you need:</dt><dd><ul class="simple">
 <li><p><a class="reference external" href="https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip">https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip</a></p></li>
 <li><p><a class="reference external" href="https://www.picoquant.com/dl_software/HydraHarp400/HydraHarp400_SW_and_DLL_v3_0_0_4.zip">https://www.picoquant.com/dl_software/HydraHarp400/HydraHarp400_SW_and_DLL_v3_0_0_4.zip</a></p></li>
+<li><p><a class="reference external" href="https://www.picoquant.com/dl_software/TimeHarp260/TimeHarp260_SW_and_DLL_V3_2.zip">https://www.picoquant.com/dl_software/TimeHarp260/TimeHarp260_SW_and_DLL_V3_2.zip</a></p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p>Unzip the library to a folder on your computer.</p></li>
-<li><p>Open an explorer window and navigate to the folder containing the unzipped library installer.</p></li>
-<li><p>Run the <cite>setup.exe</cite> in “MultiHarp150_160_V3_1\MHLib v3.1.0.0\Windows\installation\”.</p></li>
+<li><p>Start the Harp Software and check if the device is working.</p></li>
 <li><p>Once the installation is complete, verify that the package is installed by running the command <cite>import snAPI</cite> in a Python interpreter. If no error message is shown, the installation was successful.</p></li>
 </ol>
 </section>
 <section id="additional-features">
 <h2>Additional Features<a class="headerlink" href="#additional-features" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple" start="14">
+<ol class="arabic simple">
 <li><p>Colored Log is default on Windows 11 but on Windows 10 you have to enable it manually in terminal by executing the included registry key <cite>EnableTerminalColors.reg</cite> and restart the terminal.</p></li>
 </ol>
 <img alt="_images/Log.png" class="p-2" src="_images/Log.png" />
 <p>Example cutout of a colored log.</p>
-<ol class="arabic simple" start="15">
+<ol class="arabic simple" start="2">
 <li><p>To get the full power of coding we suggest to use snAPI with VSCode.</p></li>
 </ol>
 <img alt="_images/VSCode.png" class="p-2" src="_images/VSCode.png" />
 <p>VSCode will show the documentation on mouse hover.</p>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Open a command prompt and navigate to the demos folder.</p></li>
+<li><p>Open Demo_TimeTrace.py in an editor.</p></li>
+<li><p>Change libtype to your device family.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">(</span><span class="n">libType</span><span class="o">=</span><span class="n">LibType</span><span class="o">.</span><span class="n">TH260</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Also change the default configuration to the matching one from the demos/config folder.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span><span class="o">.</span><span class="n">loadIniConfig</span><span class="p">(</span><span class="s2">&quot;config\TH260N.ini&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>install matplotlib</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">matplotlib</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>run the demo</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">.</span>\<span class="n">Demo_TimeTrace</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<img alt="_images/TimeTrace.png" class="p-2" src="_images/TimeTrace.png" />
+<p>example of a timetrace window drawn by matplotlib</p>
 </section>
 </section>
 
@@ -472,6 +515,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snapi">snAPI</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-features">Additional Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
 </ul>
   </nav></div>
 

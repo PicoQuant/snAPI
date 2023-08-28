@@ -111,7 +111,7 @@
       
     
     
-    <img src="_static/logo-dark.png" class="logo__image only-light" alt="Logo image"/>
+    <img src="_static/logo-light.png" class="logo__image only-light" alt="Logo image"/>
     <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
@@ -151,6 +151,13 @@
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="snAPI.html">
                         snAPI package
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="config.html">
+                        Configuration
                       </a>
                     </li>
                 
@@ -267,6 +274,13 @@ document.write(`
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="config.html">
+                        Configuration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="tttr%20data%20format.html">
                         TTTR Record Format
                       </a>
@@ -374,7 +388,7 @@ document.write(`
 <dt class="sig sig-object py" id="snAPI_Constants_LibType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">LibType</span></span><a class="headerlink" href="#snAPI_Constants_LibType" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>snAPI provides different library types / devices families. This has to be defined at crating the snAPI instance.</p>
+<p>snAPI supports different library types / devices families. Which one is used has to be defined when creating a snAPI instance.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_LibType_Undefined">
 <span class="sig-name descname"><span class="pre">Undefined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#snAPI_Constants_LibType_Undefined" title="Permalink to this definition">#</a></dt>
@@ -384,13 +398,37 @@ document.write(`
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_LibType_MH">
 <span class="sig-name descname"><span class="pre">MH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_LibType_MH" title="Permalink to this definition">#</a></dt>
-<dd><p>This selects the library for MultiHarp 150/160 (MH150/160) devices.</p>
+<dd><p>This selects the library for
+<a class="reference external" href="https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/multiharp-160">MultiHarp 160</a>
+<a class="reference external" href="https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/multiharp-150-high-throughput-multichannel-event-timer-tcspc-unit">MultiHarp 150</a>
+(MH150/160) devices.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_LibType_HH">
 <span class="sig-name descname"><span class="pre">HH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_LibType_HH" title="Permalink to this definition">#</a></dt>
-<dd><p>This selects the library for the HydraHarp 400 (HH400) devices.</p>
+<dd><p>This selects the library for the
+<a class="reference external" href="https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/hydraharp-400-multichannel-picosecond-event-timer-tcspc-module">HydraHarp 400</a>
+(HH400) devices.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LibType_TH260">
+<span class="sig-name descname"><span class="pre">TH260</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_LibType_TH260" title="Permalink to this definition">#</a></dt>
+<dd><p>This selects the library for the
+<a class="reference external" href="https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/timeharp-260-tcspc-and-mcs-board-with-pcie-interface">TimeHarp 260</a>
+(TH260) devices.
+There are two versions of the
+<a class="reference external" href="https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/timeharp-260-tcspc-and-mcs-board-with-pcie-interface">TimeHarp 260</a>
+. The PICO version (TH260P) has a resolution of 25 ps
+and a deadtime of 25 ns whereas the NANO version (TH260N) provides a time resolution of 250 ps
+with a deadtime below 2 ns.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LibType_PH330">
+<span class="sig-name descname"><span class="pre">PH330</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_LibType_PH330" title="Permalink to this definition">#</a></dt>
+<dd><p>This selects the library for the PicoHarp 330 (PH330) devices.</p>
 </dd></dl>
 
 </dd></dl>
@@ -399,9 +437,9 @@ document.write(`
 <dt class="sig sig-object py" id="snAPI_Constants_DeviceType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">DeviceType</span></span><a class="headerlink" href="#snAPI_Constants_DeviceType" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>The Harp devices can use their internal crystal clock but alternatively they can be synchronized
-to an external reference clock. The latter is important when clock drift between multiple instruments in
-an experiment must be avoided. The constants defined here specify the reference clock to use.</p>
+<p>The PicoQuant TCSPC devices can use their internal crystal clock but can be synchronized with an external
+reference clock as well. The latter is preferable when a clock drift between multiple instruments in
+an experiment needs to be avoided. The constants defined here specify the reference clock to use.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_DeviceType_Undefined">
 <span class="sig-name descname"><span class="pre">Undefined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#snAPI_Constants_DeviceType_Undefined" title="Permalink to this definition">#</a></dt>
@@ -427,20 +465,21 @@ an experiment must be avoided. The constants defined here specify the reference 
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">MeasMode</span></span><a class="headerlink" href="#snAPI_Constants_MeasMode" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>The PicoQuant TCSPC devices support different measurement modes.
-The constants defined here specify the measurement mode the device gets initialized for with <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
+The constants defined here are specified by the measurement mode with which the device gets initialized
+when using <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
 <p>In histogram mode, the photon arrival time data is instantly processed to calculate the time differences
-between sync events and events on the input channels. These get then accumulated in a set of histograms,
-one for each input channel. This is typically used for classic fluorescence lifetime measurements with
-TCSPC and requires very little data processing effort by the user. As opposed to this, the time tagging
-modes T2 and T3 are designed to stream the raw photon arrival time data to the host PC where the data
-can be processed and analyzed with ultimate flexibility for a huge range of more advanced applications.
-This processing can be carried out “on the fly” while the measurement is running, alternatively the data
+between sync events and events on the input channels. These then get accumulated in a set of histograms,
+one for each input channel. This is typically used for classic fluorescence lifetime measurements
+and requires very little data processing effort by the user. As opposed to this, the time tagging
+modes T2 and T3 are designed to stream the raw photon arrival time data to the host PC where the data then
+can be processed and analyzed. This allows more flexibility to facilitate a huge range of more advanced applications.
+Data processing can be carried out directly “on the fly” while the measurement is running. Alternatively the data
 can be streamed to a file or PC memory and be processed later. The snAPI library supports both approaches.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_MeasMode_Histogram">
 <span class="sig-name descname"><span class="pre">Histogram</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_Histogram" title="Permalink to this definition">#</a></dt>
 <dd><p><strong>Histogram Mode</strong></p>
-<p>For the measurement class <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram" title="snAPI.Main.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a> it is useful to initialize the device in Histogram mode.
+<p>For the measurement class <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram" title="snAPI.Main.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a> it is useful to initialize the device in Histogram mode.
 For devices that support hardware histogramming this will enable higher count rates than software processing
 of the raw stream of time tags.</p>
 <div class="admonition note">
@@ -455,14 +494,14 @@ does not get transmitted to the API.</p>
 <span class="sig-name descname"><span class="pre">T2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_T2" title="Permalink to this definition">#</a></dt>
 <dd><p><strong>T2 mode</strong></p>
 <img alt="_images/T2_mode.jpg" class="p-2" src="_images/T2_mode.jpg" />
-<p>In T2 mode all timing inputs and the sync input are functionally identical. There is no dedication
-of the sync input channel to a sync signal from a laser. It may be left unconnected or can be used
-for an additional detector signal. Usually all regular inputs are used to connect photon detectors.
-The events from all channels are recorded independently and treated equally. In each case an event
-record is generated that contains information about the channel it came from and the arrival time
-of the event with respect to the overall measurement start. The timing is recorded with the highest
-resolution the hardware supports.
-Dead-times exist only within each channel but not across the channels.</p>
+<p>The T2 mode is PicoQuants time-tagging mode. In T2 mode, no periodic sync signal is required.
+The sync input can therefore be used to connect an additional photon detector. T2 mode is often
+used for any kind of coincidence detection, such as coincidence counting and correlation for,
+e.g., antibunching in a HBT set-up. Two pieces of information are collected for each event:</p>
+<ul class="simple">
+<li><p>The elapsed time since the start of the measurement</p></li>
+<li><p>The channel at which the event has been detected</p></li>
+</ul>
 </dd></dl>
 
 <dl class="py attribute">
@@ -470,24 +509,15 @@ Dead-times exist only within each channel but not across the channels.</p>
 <span class="sig-name descname"><span class="pre">T3</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_T3" title="Permalink to this definition">#</a></dt>
 <dd><p><strong>T3 Mode</strong></p>
 <img alt="_images/T3_mode.jpg" class="p-2" src="_images/T3_mode.jpg" />
-<p>In T3 mode the sync input is dedicated to a periodic sync signal, typically from a laser. As far as
-the experimental setup is concerned, this is similar to histogram mode. The main objective is to
-allow high sync rates which could not be handled in T2 mode due to deadtime and USB bandwith limits.
-Accommodating the high sync rates in T3 mode is achieved as follows:
-First, a sync divider is employed (as in histogram mode).
-This reduces the sync rate so that the channel dead-time is no longer a problem. The remaining
-problem is that even with the divider the sync rate may still be too high for collecting all
-individual sync events like ordinary T2 mode events. Considering that sync events are not of primary
-interest, the solution is to record them only if they arrive in the context of a photon event on any
-of the input channels. The event record is then composed of two timing figures:</p>
+<p>The T3 mode is an elegant solution for performing measurements at very high synchronization rates
+and can provide more effective data encoding for many applications. This mode is ideally suited
+for luminescence lifetime imaging and fluorescence correlation spectroscopy. Three different pieces
+of information are recorded for each detected event:</p>
 <ul class="simple">
-<li><p>the start stop timing difference between the photon event and the last sync event, and</p></li>
-<li><p>the arrival time of the event pair on the overall experiment time scale (the time tag).</p></li>
+<li><p>The start-stop time difference (similar to classic  TCSPC)</p></li>
+<li><p>The number of elapsed sync pulses since measure ment start</p></li>
+<li><p>The channel at which the event has been detected</p></li>
 </ul>
-<p>The latter is obtained by simply counting sync pulses. From the T3 mode event records it is therefore
-possible to precisely determine which sync period a photon event belongs to. Since the sync period
-is also known precisely, this furthermore allows to reconstruct the arrival time of the photon with
-respect to the overall experiment time.</p>
 </dd></dl>
 
 </dd></dl>
@@ -496,25 +526,25 @@ respect to the overall experiment time.</p>
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">RefSource</span></span><a class="headerlink" href="#snAPI_Constants_RefSource" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>The Harp devices can use their internal crystal clock but alternatively they can be synchronized
-to an external reference clock. The latter is important when clock drift between multiple instruments in
-an experiment must be avoided. The constants defined here specify the reference clock to use.</p>
+<p>PicoQuant TCSPC devices can use their internal crystal clock but can be synchronized with an external
+reference clock as well. The latter is preferable when a clock drift between multiple instruments in
+an experiment needs to be avoided. The constants defined here specify the reference clock to use.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Internal">
 <span class="sig-name descname"><span class="pre">Internal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Internal" title="Permalink to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH400 | (TH260) | PH330]</p>
 <div class="line-block">
 <div class="line"><strong>Internal clock</strong></div>
-<div class="line">This is the default and normally what most users would select when only one device is being used.</div>
+<div class="line">This is the default and normally selected by most users when only one device is being used.</div>
 </div>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_External_10MHZ">
 <span class="sig-name descname"><span class="pre">External_10MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_External_10MHZ" title="Permalink to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160 | HH400]</p>
+<dd><p>Supported devices [MH150/160 | HH400 | PH330]</p>
 <div class="line-block">
-<div class="line"><strong>(10MHz) external clock</strong></div>
+<div class="line"><strong>10MHz external clock</strong></div>
 <div class="line">This is for use with an industry standard 10MHz reference such as an atomic clock or another Harp.</div>
 </div>
 </dd></dl>
@@ -562,8 +592,8 @@ an experiment must be avoided. The constants defined here specify the reference 
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Salve_Mharp">
-<span class="sig-name descname"><span class="pre">Wr_Salve_Mharp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Salve_Mharp" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Slave_Mharp">
+<span class="sig-name descname"><span class="pre">Wr_Slave_Mharp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Slave_Mharp" title="Permalink to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>White Rabbit slave with the Harp as partner</strong></p>
 </dd></dl>
@@ -573,6 +603,130 @@ an experiment must be avoided. The constants defined here specify the reference 
 <span class="sig-name descname"><span class="pre">Wr_Grandm_Mharp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Grandm_Mharp" title="Permalink to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>White Rabbit grand master with the Harp as partner</strong></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_External_100MHZ">
+<span class="sig-name descname"><span class="pre">External_100MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_External_100MHZ" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [PH330]</p>
+<div class="line-block">
+<div class="line"><strong>100MHz external clock</strong></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_RefSource_External_500MHZ">
+<span class="sig-name descname"><span class="pre">External_500MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_External_500MHZ" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [PH330]</p>
+<div class="line-block">
+<div class="line"><strong>500MHz external clock</strong></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_TrigMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">TrigMode</span></span><a class="headerlink" href="#snAPI_Constants_TrigMode" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>The PicoQuant TCSPC devices have different trigger modes. Some of them can switch between them.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_TrigMode_Edge">
+<span class="sig-name descname"><span class="pre">Edge</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_TrigMode_Edge" title="Permalink to this definition">#</a></dt>
+<dd><p>This selects the edge trigger.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_TrigMode_CFD">
+<span class="sig-name descname"><span class="pre">CFD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_TrigMode_CFD" title="Permalink to this definition">#</a></dt>
+<dd><p>This selects the CFD (Constant Fraction Discriminator) trigger</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_LogLevel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">LogLevel</span></span><a class="headerlink" href="#snAPI_Constants_LogLevel" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>This is for switching the different log levels on and off with <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setLogLevel" title="snAPI.Main.snAPI.setLogLevel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.setLogLevel()</span></code></a>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_Api">
+<span class="sig-name descname"><span class="pre">Api</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_Api" title="Permalink to this definition">#</a></dt>
+<dd><p>This logs API commands.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_Config">
+<span class="sig-name descname"><span class="pre">Config</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_Config" title="Permalink to this definition">#</a></dt>
+<dd><p>This logs the loading of <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.setIniConfig</span></code></a> and notifies you, if something goes wrong.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_Device">
+<span class="sig-name descname"><span class="pre">Device</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_Device" title="Permalink to this definition">#</a></dt>
+<dd><p>This logs the low level device commands <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device" title="snAPI.Main.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_DataFile">
+<span class="sig-name descname"><span class="pre">DataFile</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_DataFile" title="Permalink to this definition">#</a></dt>
+<dd><p>This logs loading and creating of th ptu file entries.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_Manipulators">
+<span class="sig-name descname"><span class="pre">Manipulators</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_Manipulators" title="Permalink to this definition">#</a></dt>
+<dd><p>This logs the creating, deleting and many more of the <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators" title="snAPI.Main.Manipulators"><code class="xref py py-class docutils literal notranslate"><span class="pre">Manipulators</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">CoincidenceMode</span></span><a class="headerlink" href="#snAPI_Constants_CoincidenceMode" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>This defines the different coincidence modes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceMode_CountAll">
+<span class="sig-name descname"><span class="pre">CountAll</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceMode_CountAll" title="Permalink to this definition">#</a></dt>
+<dd><p>This is the standard mode. Every new event can count as coincidence if it meets the conditions of the different channel count in the defined window time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceMode_CountOnce">
+<span class="sig-name descname"><span class="pre">CountOnce</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceMode_CountOnce" title="Permalink to this definition">#</a></dt>
+<dd><p>This mode allows to count every new event only one time. If count it meets the conditions of the different channel count in the defined window time it will
+generate a coincidence count and get erased for the generation of further coincidences.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">UnfoldFormat</span></span><a class="headerlink" href="#snAPI_Constants_UnfoldFormat" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat_Nothing">
+<span class="sig-name descname"><span class="pre">Nothing</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_UnfoldFormat_Nothing" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat_Absolute">
+<span class="sig-name descname"><span class="pre">Absolute</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_UnfoldFormat_Absolute" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat_DTimes">
+<span class="sig-name descname"><span class="pre">DTimes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_UnfoldFormat_DTimes" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat_DTimesSyncCntr">
+<span class="sig-name descname"><span class="pre">DTimesSyncCntr</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_UnfoldFormat_DTimesSyncCntr" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
 </dd></dl>
 
 </dd></dl>
@@ -626,6 +780,8 @@ an experiment must be avoided. The constants defined here specify the reference 
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_Undefined"><code class="docutils literal notranslate"><span class="pre">LibType.Undefined</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_MH"><code class="docutils literal notranslate"><span class="pre">LibType.MH</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_HH"><code class="docutils literal notranslate"><span class="pre">LibType.HH</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_TH260"><code class="docutils literal notranslate"><span class="pre">LibType.TH260</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_PH330"><code class="docutils literal notranslate"><span class="pre">LibType.PH330</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType"><code class="docutils literal notranslate"><span class="pre">DeviceType</span></code></a><ul class="nav section-nav flex-column">
@@ -649,8 +805,35 @@ an experiment must be avoided. The constants defined here specify the reference 
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Extn_GPS_PPS"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Extn_GPS_PPS_UART"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS_UART</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Master_Mharp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Mharp</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Salve_Mharp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Salve_Mharp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Slave_Mharp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Mharp</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Grandm_Mharp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Grandm_Mharp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_External_100MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_100MHZ</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_External_500MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_500MHZ</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_TrigMode"><code class="docutils literal notranslate"><span class="pre">TrigMode</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_TrigMode_Edge"><code class="docutils literal notranslate"><span class="pre">TrigMode.Edge</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_TrigMode_CFD"><code class="docutils literal notranslate"><span class="pre">TrigMode.CFD</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel"><code class="docutils literal notranslate"><span class="pre">LogLevel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_Api"><code class="docutils literal notranslate"><span class="pre">LogLevel.Api</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_Config"><code class="docutils literal notranslate"><span class="pre">LogLevel.Config</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_Device"><code class="docutils literal notranslate"><span class="pre">LogLevel.Device</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_DataFile"><code class="docutils literal notranslate"><span class="pre">LogLevel.DataFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_Manipulators"><code class="docutils literal notranslate"><span class="pre">LogLevel.Manipulators</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceMode"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceMode_CountAll"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountAll</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceMode_CountOnce"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountOnce</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_UnfoldFormat"><code class="docutils literal notranslate"><span class="pre">UnfoldFormat</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_UnfoldFormat_Nothing"><code class="docutils literal notranslate"><span class="pre">UnfoldFormat.Nothing</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_UnfoldFormat_Absolute"><code class="docutils literal notranslate"><span class="pre">UnfoldFormat.Absolute</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_UnfoldFormat_DTimes"><code class="docutils literal notranslate"><span class="pre">UnfoldFormat.DTimes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_UnfoldFormat_DTimesSyncCntr"><code class="docutils literal notranslate"><span class="pre">UnfoldFormat.DTimesSyncCntr</span></code></a></li>
 </ul>
 </li>
 </ul>

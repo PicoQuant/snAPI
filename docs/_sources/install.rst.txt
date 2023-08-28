@@ -40,9 +40,9 @@ This will install or upgrade `pip` to the latest version.
 snAPI
 -----
 
-7. Download the latest release from `github.com/picoQuant/snAPI/releases <https://github.com/picoQuant/snapi/releases>`_ from the repository: https://github.com/picoquant/snapi
+1. Download the latest release from `github.com/picoQuant/snAPI/releases <https://github.com/picoQuant/snapi/releases>`_ from the repository: https://github.com/picoquant/snapi
 
-8. Finally, you can unpack the files and install your package using `pip`. Navigate to the directory where your package is located, and type the following command:
+2. Finally, you can unpack the files and install your package using `pip`. Navigate to the directory where your package is located, and type the following command:
 
 ::
 
@@ -50,34 +50,65 @@ snAPI
 
 Dependencies
 ------------
-This will install your package and its dependencies.
 
-
-9. Download the MultiHarp library you need:
+1. Download and install the software for the product you need:
     - https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
     - https://www.picoquant.com/dl_software/HydraHarp400/HydraHarp400_SW_and_DLL_v3_0_0_4.zip
+    - https://www.picoquant.com/dl_software/TimeHarp260/TimeHarp260_SW_and_DLL_V3_2.zip
 
-10. Unzip the library to a folder on your computer.
+2. Start the Harp Software and check if the device is working.
 
-11. Open an explorer window and navigate to the folder containing the unzipped library installer.
-
-12. Run the `setup.exe` in "MultiHarp150_160_V3_1\\MHLib v3.1.0.0\\Windows\\installation\\".
-
-13. Once the installation is complete, verify that the package is installed by running the command `import snAPI` in a Python interpreter. If no error message is shown, the installation was successful.
+3. Once the installation is complete, verify that the package is installed by running the command `import snAPI` in a Python interpreter. If no error message is shown, the installation was successful.
 
 Additional Features
 -------------------
 
-14. Colored Log is default on Windows 11 but on Windows 10 you have to enable it manually in terminal by executing the included registry key `EnableTerminalColors.reg` and restart the terminal.
+1. Colored Log is default on Windows 11 but on Windows 10 you have to enable it manually in terminal by executing the included registry key `EnableTerminalColors.reg` and restart the terminal.
 
 .. image:: _static/Log.png
     :class: p-2
     
 Example cutout of a colored log.
 
-15. To get the full power of coding we suggest to use snAPI with VSCode.
+2. To get the full power of coding we suggest to use snAPI with VSCode.
 
 .. image:: _static/VSCode.png
     :class: p-2
     
 VSCode will show the documentation on mouse hover.
+
+Getting Started
+---------------
+
+1. Open a command prompt and navigate to the demos folder.
+
+2. Open Demo_TimeTrace.py in an editor.
+
+3. Change libtype to your device family.
+
+::
+
+    sn = snAPI(libType=LibType.TH260)
+
+4. Also change the default configuration to the matching one from the demos/config folder.
+
+::
+
+    sn.loadIniConfig("config\TH260N.ini")
+
+5. install matplotlib
+
+::
+
+    pip install matplotlib
+
+6. run the demo
+
+::
+
+    python .\Demo_TimeTrace.py
+
+.. image:: _static/TimeTrace.png
+    :class: p-2
+    
+example of a timetrace window drawn by matplotlib

@@ -15,13 +15,20 @@ from snAPI.Utils import *
 # main class
 class snAPI:
     """
-This is the main class of the snAPI library. When acquiring the snAPI object the api is initialized.
+This is the main class of the snAPI library. When creating the snAPI object the api is initialized.
+Here you have to select the underlying library and therefore the device family you want to work with.
 It holds the underlying device dll (dynamic link library), the :obj:`snAPI.deviceConfig`, the measurement classes
-and many other api calls. 
+and many other API calls. 
+
+Note
+----
+Creating the snAPI object calls :meth:`initAPI`. Please look there for detailed information.
 
 Parameters
 ----------
-    none
+    systemIni: str
+        | path to the system.ini file (default: "system.ini")
+    libType: LibType (default: LibType.MH)
 
 Returns
 -------
@@ -32,8 +39,8 @@ Example
 
 ::
 
-    # This instantiates a snAPI object in sn 
-    sn = snAPI()
+    # This instantiates a snAPI object in sn for TimeHarp260 
+    sn = snAPI(libType=LibType.TH260)
         
     """
     dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), '.\snAPI64.dll')))
@@ -45,7 +52,7 @@ the snAPI.dll
     deviceIDs = [] 
     """
 This list contains the IDs serial numbers of the connected devices or the file names of
-the opened file devices and will be filled after calling :meth:`getDeviceIDs()`.
+the opened file devices (files that act as devices) and will be filled after calling :meth:`getDeviceIDs()`.
 
     """
 
@@ -57,6 +64,7 @@ Note
 ----
 The deviceConfig can not directly written. It is only for checking the current state. To change the configuration, you have to call
 the device functions or write the config with :meth:`loadIniConfig` or :meth:`setIniConfig`.
+For detailed information read :ref:`configuration`! 
 
 Example
 -------
@@ -78,8 +86,11 @@ Example
     "NumChans": 4,
     "NumMods": 2,
     "SyncDivider": 1,
-    "TrigLvlSync": -50,
-    "TrigEdgeSync": 1,
+    "SyncTrigMode": "Edge",
+    "SyncTrigLvl": -50,
+    "SyncTrigEdge": 1,
+    "SyncDiscrLvl": -50,
+    "SyncZeroXLvL": 0,
     "SyncChannelOffset": 0,
     "SyncChannelEnable": 1,
     "SyncDeadTime": 800,
@@ -122,8 +133,10 @@ Example
     "ChansCfg": [
         {
         "Index": 0,
-        "TrigLvl": 0,
+        "TrigLvl": 100,
         "TrigEdge": 1,
+        "DiscrLvl": 100,
+        "ZeroXLvl": 0,
         "ChanOffs": 0,
         "ChanEna": 1,
         "DeadTime": 800
@@ -132,22 +145,8 @@ Example
         "Index": 1,
         "TrigLvl": -120,
         "TrigEdge": 1,
-        "ChanOffs": 0,
-        "ChanEna": 1,
-        "DeadTime": 800
-        },
-        {
-        "Index": 2,
-        "TrigLvl": -50,
-        "TrigEdge": 1,
-        "ChanOffs": 0,
-        "ChanEna": 1,
-        "DeadTime": 800
-        },
-        {
-        "Index": 3,
-        "TrigLvl": -50,
-        "TrigEdge": 1,
+        "DiscrLvl": -120,
+        "ZeroXLvl": 1,
         "ChanOffs": 0,
         "ChanEna": 1,
         "DeadTime": 800
@@ -167,27 +166,27 @@ Example
         if systemIni is None:
             systemIni = "\\".join(inspect.getfile(snAPI).split("\\")[:-1])+'\\system.ini'
         self.device = Device(self)
-        """This is the object to the device configuration :class:`Device`"""
+        """This is the object to the device configuration :class:`Device` class"""
         self.filter = Filter(self)
-        """This is the object to the hardware filter configuration :class:`Filter`"""
+        """This is the object to the hardware filter configuration :class:`Filter` class"""
         self.unfold = Unfold(self)
-        """This is the object to :class:`Unfold`"""
+        """This is the object to :class:`Unfold` class"""
         self.raw = Raw(self)
-        """This is the object to :class:`Raw`"""
+        """This is the object to :class:`Raw` class"""
         self.histogram = Histogram(self)
-        """This is the object to :class:`Histogram`."""
+        """This is the object to :class:`Histogram`. class"""
         self.timeTrace = TimeTrace(self)
-        """This is the object to :class:`TimeTrace`."""
+        """This is the object to :class:`TimeTrace`. class"""
         self.correlation = Correlation(self)
-        """This is the object to :class:`Correlation`."""
+        """This is the object to :class:`Correlation`. class"""
         self.manipulators = Manipulators(self)
-        """This is the object to :class:`Manipulators`."""
+        """This is the object to :class:`Manipulators`. class"""
         self.initAPI(systemIni, libType)
         
 
     def __del__(self,):
         self.exitAPI()
-    
+
 
     def logPrint(self,*args, **kwargs):
         """
@@ -232,18 +231,45 @@ Example
             self.dll.logExternal(f"{summarized_args}".encode('utf-8'))
         elif summarized_kwargs:
             self.dll.logExternal(f"{summarized_kwargs}".encode('utf-8'))
-        
+
+
+    def setLogLevel(self, logLevel: LogLevel, onOff: bool):
+        """
+This function can set or overwrite the logging flags :class:`snAPI.Constants.LogLevel` for logging. These log levels
+will initially set by the `system.ini` defined in :meth:`initAPI`.
+
+Parameters
+----------
+    logLevel: LogLevel
+
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+
+Example
+-------
+::
+
+    # This switches the log entries 'Dev' off 
+    
+    sn.setLogLevel(LogLevel.Device, False)
+
+        """
+        return self.dll.setLogLevel(logLevel.value, onOff)
+
 
     def initAPI(self, systemIni: typing.Optional[str] = "system.ini", libType: typing.Optional[LibType] = LibType.MH):
         """
-This function is called by acquiring the snAPI object initializes the API. 
-It loads a system ini file where it is possible to set flags for logging
+This function is called by constructor of the snAPI class. 
+It loads a system INI file where it is possible to set flags for logging
 or change the data path.
 
 Parameters
 ----------
     systemIni: str
         | path to the system.ini file (default: "system.ini")
+    libType: LibType (default: LibType.MH)
 
 Returns
 -------
@@ -256,7 +282,7 @@ Example
 
     sn.initAPI("system.ini")
     
-    # This is an example of an system ini file
+    # This is an example of an system INI file
     
         [Paths]
         # the path where the device configurations are stored
@@ -279,6 +305,11 @@ Example
         Config = 0
         Device = 1
         DataFile = 0
+        Manipulators = 1
+        
+        # buffer size in number ofb blocks of 1048576 Bytes
+        [Params]
+        BufferSize = 128
     
         """
         SBuf = systemIni.encode('utf-8')
@@ -290,7 +321,7 @@ Example
     def exitAPI(self,):
         """
 This is function is called in the snAPI destructor. 
-It frees the API.
+It deletes the API instance and frees its memory.
     
 Parameters
 ----------
@@ -307,7 +338,7 @@ Returns
     def getDeviceIDs(self):
         """
 With this function it is possible to read the device identifiers (serial numbers). This `DeviceIDs`
-can be used to get the device right device if more than 1 are connected. If only on device is connected,
+can be used to identify the devices if more than one are connected. If only on device is connected,
 :meth:`getDevice` can be called directly to get this device.
     
 Parameters
@@ -316,9 +347,10 @@ Parameters
 
 Returns
 -------
-    | none
-    | The list of the device names is stored in deviceNames.
-    | They will also be shown in the log.
+    True:  operation successful
+    False: operation failed
+| The list of the device names is stored in deviceNames.
+| They will also be shown in the log.
 
 Example
 -------
@@ -343,7 +375,7 @@ Example
 
     def getDevice(self, *dev):
         """
-The getDevice function acquires a harp device and sets it as the current device.
+The `getDevice` function acquires a PicoQuant TCSPC device and sets it as the current device.
 From now on all functions will act on this device until another device is acquired.
     
 Parameters
@@ -360,8 +392,8 @@ Parameters
 
 Returns
 -------
-    True:  If a device is acquired
-    False: No device is acquired
+    True:  A device was acquired
+    False: No device was acquired
 
 Example
 -------
@@ -420,9 +452,10 @@ Example
 
     def getFileDevice(self, path: str):
         """
-This function allows to open a ptu file given by its path. The file will be handled
+This function allows opening a PTU file with a specific path. The file will be handled
 like a real device. It is possible to read the ptu header with :obj:`getDeviceConfig`.
-The measurement classes can calculate a histogram, a time trace and so on.
+The measurement classes can then be used to calculate a histogram, a time trace or perform
+other operations on the data.
 
 Parameters
 ----------
@@ -452,9 +485,9 @@ Example
                 refSrc: typing.Optional[RefSource] = RefSource.Internal):
         """
 This function initializes the device, sets its measurement mode and the reference source.
-After that it is possible to do some measurements on the device.
+After that it is possible to do measurements on the device.
 
-Info
+Note
 ----
 In case of a file device it is not needed to call initDevice and will be ignored. 
 
@@ -493,9 +526,7 @@ If the current device is a file device it closes the file.
 
 Parameters
 ----------
-    all: bool
-        | True: all opened devices (default)
-        | False: the current device
+    all: bool [True: all opened devices (default) | False: the current device]
 
 Returns
 -------
@@ -509,7 +540,7 @@ Returns
         """
 
 This function sets the path to the ptu file, if the measurement supports writing the `Raw` data stream to file.
-If no special path is set the file will be written to the data path defined in the ini file
+If no special path is set the file will be written to the data path defined in the INI file
 that was called with :meth:`initAPi`. The default file name ist default.ptu.
 
 Parameters
@@ -536,18 +567,24 @@ Example
 
     def loadIniConfig(self, path: str):
         """
-The device will be initialized with default parameters at intDevice. If it is wanted to
-change a parameter it can subsequently be set by way of the corresponding API call.
-Alternatively and for convenience multiple parameters can be loaded at once by way of loadIniConfig. 
-It loads an ini configuration file that contains a [Device]
+The device will be initialized with default parameters from intDevice. If is desired to change a
+parameter this can be done subsequently with corresponding API call.
+Alternatively multiple parameters can be conveniently loaded at once by using :meth:`loadIniConfig`. 
+This loads an ini configuration file that contains a [Device]
 section for general device parameters, a [Default] section that will set parameters for
-all channels and maybe some [Channel_N] sections with N starting at 0 for individual channel
-settings. As seen in the example, only the parameters to change have to set there.
+all channels and possibly [Channel_N] sections with N starting at 0 for individual channel
+settings. Only the parameters which need need to be changed have to be defined in the config file.
+
+Note
+----
+For detailed information read :ref:`configuration` section!
+If you encounter any issues reading a config.ini file enable the config log level in the system.ini. The file location 
+is shown in the first log entry: 'loadSettingsIni: e:\path\to\system.ini'.
 
 Parameters
 ----------
     path: str
-        path to the device configuration ini file
+        path to the device configuration INI file
     
 Returns
 -------
@@ -560,11 +597,11 @@ Example
 
     sn.loadIniConfig("C:\Data\PicoQuant\Configs\device.ini")
     
-    # This is an example for a device ini file
+    # This is an example for a device INI file
     [Device]
-    InputHysteresis = 0
+    HystCode = 0
     SyncDiv = 1
-    SyncEdgeTrg = -50,1
+    SyncEdgeTrig = -50,1
     SyncChannelOffset = 0
     SyncChannelEnable = 1
     SyncDeadTime = 0
@@ -577,17 +614,17 @@ Example
     TriggerOutput = 0
 
     [All_Channels]
-    InputEdgeTrg = -50,1
+    InputEdgeTrig = -50,1
     InputChannelOffset = 0
     SetInputChannelEnable = 1
     InputDeadTime = 0
 
     [Channel_0]
-    InputEdgeTrg = -10,1
+    InputEdgeTrig = -10,1
     InputChannelOffset = 100
 
     [Channel_1]
-    InputEdgeTrg = -120,1
+    InputEdgeTrig = -120,1
     
         """
         SBuf = path.encode('utf-8')
@@ -598,18 +635,21 @@ Example
 
     def setIniConfig(self, text: str):
         """
-This is the same as loadIniConfig but it directly takes the ini string and not the path
+This command is similar to :meth:`loadIniConfig` but it takes the INI string instead of the path
 to the file.
 
 Note
 ----
-    An ini file uses multiple lines to separate the entries. It is therefore necessary
-    to use the separator '\\n' to be able to pass it as a single-line string.
+    An INI file uses multiple lines to separate the entries. It is therefore necessary
+    to use the separator '\\\\n' to be able to pass it as a single-line string.
+    For detailed information read :ref:`configuration`!
+    If you encounter any issues setting the config enable the config log level in the system.ini. The file location 
+    is shown in the first log entry as follows: 'loadSettingsIni: e:\\path\\to\\system.ini'.
 
 Parameters
 ----------
     text: str
-        device configuration ini string
+        device configuration INI string
     
 Returns
 -------
@@ -621,7 +661,7 @@ Example
 ::
 
     # sets the Channel 2 Input Edge to -50mV with falling edge
-    sn.setIniConfig("[Channel_1]\\nInputEdgeTrg = -50,0")
+    sn.setIniConfig("[Channel_1]\\nInputEdgeTrig = -50,0")
     
         """
         self.logPrint("setConfigIni")
@@ -633,13 +673,14 @@ Example
 
     def getDeviceConfig(self,):
         """
-This command reads the device configuration stored by th API and returns it to
+This command reads the device configuration stored by the API and returns it to
 :obj:`snAPI.deviceConfig`.
 
 Note
 ----
-    Normally you have not to to call this function to refresh the deviceConfig. The deviceConfig should always be
-    up to date. However, under certain circumstances the device configuration could be updated manually.
+    Normally you have do not have to call this function in order to refresh the :obj:`snAPI.deviceConfig`. 
+    It should always be up to date automatically. However, under certain circumstances it might be desired to
+    update the device configuration manually. For detailed information read :ref:`configuration`! 
 
 Parameters
 ----------
@@ -673,8 +714,9 @@ Example
 
     def _stopMeasure(self):
         """
-If a measurement is started it will automatically stop after the defined acquisition time.
-Sometimes it may be necessary to stop on user demand or a special condition. Then this function can be used.
+After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.
 
 Note
 ----
@@ -716,10 +758,10 @@ Returns
 
     def getCountRates(self,):
         """
-This function retrieves the count rates. The measurement is implemented in hardware 
-by a counter with a gate time of 100ms. You will therefore obtain new values only when this time has elapsed.
-The function will return an array of count rates.
-The first element is the sync rate then will follow the count rates from the channels.
+This function retrieves the count rates. This measurement is first performed by the hardware by counting with a
+gate time of 100ms. You will therefore obtain new values only after this time has elapsed.
+Afterwards the function will return an array of count rates, where the first element is the sync rate, followed
+by the count rates of the channels.
 
 Parameters
 ----------
@@ -745,12 +787,40 @@ Example
         a = np.resize(a, self.getNumAllChannels())
         a = np.insert(a, 0, syncRate.contents.value)
         return a
+    
+    
+    def getSyncPeriod(self,):
+        """
+This function only gives meaningful results while a measurement is running and after two sync periods have elapsed.
+The return value is `0.0` in all other cases. Resolution is the device base resolution. Accuracy is determined by
+single shot jitter and clock stability.
+
+Parameters
+----------
+    none
+    
+Returns
+-------
+    syncPeriod: float
+    
+Example
+-------
+::
+    
+    syncPeriod = sn.getSyncPeriod()
+    
+        """
+        syncPeriod =  ct.c_double(0)
+        self.dll.getSyncPeriod.argtypes = [ct.POINTER(ct.c_double)]
+        ok = self.dll.getSyncPeriod(ct.pointer(syncPeriod))
+        return syncPeriod.value
 
 
     def getNumAllChannels(self,):
         """
-It returns the number of channels the device has plus the number of channels for the :class:`Manipulator` and one for the sync channel.
-It describes the number of channels a measurement returns and is used for memory allocation.
+This functions returns the number of available channels from the active device has plus the number of channels for
+the :class:`Manipulators` and one for the sync channel. It describes the number of channels a measurement returns
+and is used for memory allocation.
 
 Parameters
 ----------
@@ -773,9 +843,8 @@ Example
 
 class Device():
     """
-This is the low level device configuration class. Which functions and parameters you can use
-depends on the device you want to use. Therefore the right library must be chosen at creating
-the snAPI object. 
+This is the low level device configuration class. It has to be noted that the functions and parameters you can use
+depend on the connected device. Therefore, the correct library must be chosen when creating the snAPI object. 
 
     """
     
@@ -786,20 +855,19 @@ the snAPI object.
 
     def setSyncDiv(self, syncDiv: typing.Optional[int] = 1):
         """
-    Supported devices: [MH150/160 | HH400]
+    Supported devices: [MH150/160 | HH400 | PH330]
     
-The sync divider must be used to keep the effective sync rate at values < 78 MHz.
+The sync divider must be used in order to keep the effective sync rate at values < 78 MHz.
 It should only be used with sync sources of stable period. Using a larger divider
-than strictly necessary does not do great harm but it may result in slightly
-larger timing jitter.
+than strictly necessary may result in an slightly larger timing jitter.
     
 Parameters
 ----------
     syncDiv: int
         | sync rate divider 
         | 1(default)
-        | MH150/160: [1, 2, 4, 8, 16]
-        | HH400: [1, 2, 4, 8, 16]
+        | MH150/160, HH400  [1, 2, 4, 8, 16]
+        | TH260 | PH330: [1, 2, 4, 8]
     
 Returns
 -------
@@ -818,22 +886,22 @@ Example
         return ok
 
 
-    def setSyncEdgeTrg(self, trigLvlSync: typing.Optional[int] = -50, trigEdgeSync: typing.Optional[int] = 1):
+    def setSyncEdgeTrig(self, syncTrigLvl: typing.Optional[int] = -50, syncTrigEdge: typing.Optional[int] = 1):
         """
-    Supported devices: [MH150/160]
+    Supported devices: [MH150/160 | TH260N | PH330]
     
-The function sets the trigger level and edge of the sync channel.
+This function sets the trigger level and trigger slope of the sync channel.
 The hardware uses a 10 bit DAC that can resolve the level value only
-in steps of about 2.34 mV
-For the input edge trigger of the input channels use :meth:`setInputEdgeTrg`.
+in steps of about 2.34 mV.
+To set the input edge trigger of the input channels use :meth:`setInputEdgeTrig`.
     
 Parameters
 ----------
-    trigLvlSync: int
+    syncTrigLvl: int
         | trigger level [mV] 
         | (default:-50mV)
-        | MH150/160: [-1200..1200]
-    trigEdgeSync: int
+        | MH150/160, TH260N : [-1200..1200]
+    syncTrigEdge: int
         | trigger edge 
         | 0: falling
         | 1: rising (default)
@@ -848,30 +916,32 @@ Example
 ::
     
     # sets the sync trigger to -50mV on rising edge
-    sn.device.setSyncEdgeTrg(-50,1)
+    sn.device.setSyncEdgeTrig(-50,1)
     
         """
-        if ok:= self.parent.dll.setSyncEdgeTrg(trigLvlSync, trigEdgeSync):
-            self.parent.deviceConfig["TrigLvlSync"] = trigLvlSync
-            self.parent.deviceConfig["TrigEdgeSync"] = trigEdgeSync
+        if ok:= self.parent.dll.setSyncEdgeTrig(syncTrigLvl, syncTrigEdge):
+            self.parent.deviceConfig["SyncTrigLvl"] = syncTrigLvl
+            self.parent.deviceConfig["SyncTrigEdge"] = syncTrigEdge
         return ok
 
 
-    def setSyncCFD(self, discrLvlSync: typing.Optional[int] = 50, zeroXLvlSync: typing.Optional[int] = 20):
+    def setSyncCFD(self, syncDiscrLvl: typing.Optional[int] = 50, syncZeroXLvL: typing.Optional[int] = 20):
         """
-    Supported devices: [HH400]
+    Supported devices: [HH400 | TH260P | PH330]
     
-The function sets the CFD (Constant Fraction Discriminators) of the sync channel.
+This function configures the CFD (Constant Fraction Discriminator) of the sync channel.
 For the input CFD of the input channels use :meth:`setInputCFD`.
     
 Parameters
 ----------
-    discrLvlSync: int
+    syncDiscrLvl: int
         | level [mV] (default:50mV)
         | HH400: [0..1000]
-    zeroXLvlSync: int
+        | TH260P: [-1200..0]
+    syncZeroXLvL: int
         | trigger edge 
         | HH400: [0..40]
+        | TH260P: [-40..0]
     
 Returns
 -------
@@ -886,25 +956,25 @@ Example
     sn.device.setSyncCFD(100, 30)
     
         """
-        if ok:= self.parent.dll.setSyncCFD(discrLvlSync, zeroXLvlSync):
-            self.parent.deviceConfig["ZeroxLvLSync"] = zeroXLvlSync
-            self.parent.deviceConfig["DiscrLvlSync"] = discrLvlSync
+        if ok:= self.parent.dll.setSyncCFD(syncDiscrLvl, syncZeroXLvL):
+            self.parent.deviceConfig["SyncZeroXLvL"] = syncZeroXLvL
+            self.parent.deviceConfig["SyncDiscrLvl"] = syncDiscrLvl
         return ok
     
     
     def setSyncChannelOffset(self, syncChannelOffset: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160]
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330]
     
 This sets a virtual delay time to the sync pulse. This is equivalent to changing
-the cable delay on the sync input. Actual resolution is the device's base resolution.
+the cable length on the sync input. The current resolution is the device's base resolution.
     
 Parameters
 ----------
     syncChannelOffset: int
         | sync timing offset [ps]
         | (0: default)
-        | MH150/160: [-99999..99999]
+        | MH150/160, HH400, TH260, PH330: [-99999..99999]
     
 Returns
 -------
@@ -926,10 +996,10 @@ Example
 
     def setSyncChannelEnable(self, syncChannelEnable: typing.Optional[int] = 1):
         """
-    Supported devices: [MH150/160]
+    Supported devices: [MH150/160 | PH330]
     
-This enables or disables the sync channel. This is really only useful in :obj:`.MeasMode.T2`.
-Histogram and :obj:`.MeasMode.T3` need an active sync signal.
+This enables or disables the sync channel. This is only useful in :obj:`.MeasMode.T2`.
+Histogram and :obj:`.MeasMode.T3` always need an active sync signal.
 To enable or disable the other channels use :meth:`setInputChannelEnable`.
 
 Parameters
@@ -958,16 +1028,16 @@ Example
 
     def setSyncDeadTime(self, syncDeadTime: typing.Optional[int] = 800):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | PH330] 
     
-This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
+This call is primarily intended for the suppression of afterpulsing artifacts caused by some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
 new dead-time. It only suppresses events occurring within the extended dead-time from further processing.
-For the dead time of the other channels use :meth:`setInputDeadTime`. 
+For the configuration of the dead time of the other channels use :meth:`setInputDeadTime`. 
 
 Note
 ----
-    When an extended dead-time is set then it will also affect the count rate meter readings.
+    Setting an extended dead-time will also affect the count rate meter readings.
     The extended deadtime will be rounded to the nearest multiple of the device's base resolution.
 
 Parameters
@@ -975,7 +1045,8 @@ Parameters
     syncDeadTime:
         | extended dead-time [ps]
         | 800 (default)
-        | MH150/160: [801..160000], <=800: disabled
+        | MH150/160, PH330: [801..160000], <=800: disabled
+        | TH206P only [24000, 44000, 66000, 88000, 112000, 135000, 160000 or 180000]
     
 Returns
 -------
@@ -997,9 +1068,9 @@ Example
 
     def setInputHysteresis(self, hystCode: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | PH330] 
     
-This is intended for the suppression of noise or pulse shape artifacts of some detectors by setting
+This function is intended for the suppression of noise or pulse shape artifacts caused by some detectors by setting
 a higher input hysteresis.
 
 Note
@@ -1030,21 +1101,56 @@ Example
         return ok
 
 
-    def setStopOverflow(self, stopCount: typing.Optional[int] = 4294967295):
+    def setTimingMode(self, timingMode: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [TH260P] 
     
-This setting determines if a measurement will stop if any channel reaches the maximum set by stopcount.
-The maximum value that could be count is 4294967295 what is equivalent to the 32 bit storage.
+This will change the base resolution for very long measurements.
 
 Note
 ----
-    This is for :obj:`.MeasMode.Histogram` only!
+    This setting is only available for TimeHarp 260 P.
 
 Parameters
 ----------
-    stopCount: 
-        1..4294967295 (default)
+    hystCode: int
+        | 0: Hires (25ps) (default) 
+        | 1: Lores (2.5 ns, a.k.a. “Long range”) 
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # sets the input hysteresis to approximately 3mV
+    sn.device.setInputHysteresis(0)
+    
+        """
+        if ok := self.parent.dll.setTimingMode(timingMode):
+            self.parent.deviceConfig["TimingMode"] = timingMode
+        return ok
+
+
+    def setStopOverflow(self, stopCount: typing.Optional[int] = 4294967295):
+        """
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    
+This setting causes the measurement to stop if any channel reaches the maximum set by `stopCount`.
+The maximum value that could be count is 4294967295, which is the equivalent to the 32 bit storage.
+
+Note
+----
+    This is for :class:`Histogram` measurements only!
+
+Parameters
+----------
+    stopCount:
+        | 0: off
+        | 1..4294967295 (default)
     
 Returns
 -------
@@ -1066,17 +1172,19 @@ Example
 
     def setBinning(self, binning: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
 This sets the with of the time bins.
-Binning only applies in Histogram and :obj:`.MeasMode.T3`. The binning code steps correspond to repeated doubling.
+Binning only applies in Histogram and :obj:`.MeasMode.T3`. 
+The binning can be set in doubling multiples of the base resolution.
     
 Parameters
 ----------
-    binning:
-        | 0: 1*br (default),
-        | MH150/160: [1: 2*br, 2: 4*br, .., 24: 16777216*br]
+    binning: 
+        | (default: 0 - 1*br)
+        | MH150/160, PH330: [1: 2*br, 2: 4*br, .., 24: 16777216*br]
         | HH400: [1: 2*br, 2: 4*br, .., 26: 67108864*br]
+        | TH260: [1: 2*br, 2: 4*br, .., 22: 4194304*br]
         | (br stands for base resolution)
     
 Returns
@@ -1099,22 +1207,21 @@ Example
 
     def setOffset(self, offset: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
-This offset only applies in Histogram and :obj:`.MeasMode.T3`. It affects only the difference between stop
-and start before it is put into the T3 record or is used to increment the corresponding histogram bin.
+This offset only applies in Histogram and :obj:`.MeasMode.T3`. It affects only the difference between start
+and stop before it is put into the T3 record or is used when allocating the corresponding histogram bin.
 It is intended for situations where the range of the histogram is not long enough to look at “late” data.
-By means of the offset the “window of view” is shifted to a later range.
-This is not the same as changing or compensating cable delays. If the latter is desired please use
-:meth:`setSyncChannelOffset` and/or :meth:`setInputChannelOffset`.
+By means of the offset the viewed time window. This is not the same as changing or compensating cable delays.
+If the latter is desired please use :meth:`setSyncChannelOffset` and/or :meth:`setInputChannelOffset`.
     
 Parameters
 ----------
     offset:
         | histogram time offset [ns]
         | (0: default)
-        | MH150/160: [-100000000..100000000]
-        | HH400: [-500000..500000]
+        | MH150/160, TH260, PH330: [0..100000000]
+        | HH400: [0..500000]
     
 Returns
 -------
@@ -1136,19 +1243,18 @@ Example
 
     def setHistoLength(self, lengthCode: typing.Optional[int] = 6):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
 This function sets the number of bins of the collected histograms in :obj:`.MeasMode.Histogram`.
-The histogram length obtained with its maximum of 65536 which is also the default after
-initialization.
+The maximum histogram length obtained is 65536 which is also the default after initialization.
 In :obj:`.MeasMode.T2` the number of bins is fixed 65536 and in :obj:`.MeasMode.T3` it is 32768. 
 
 Parameters
 ----------
     lengthCode: int
-        | number of bins that can be calculated as :math:`2^{(10 + \\mathrm{lengthCode})}`
+        | number of bins that can be calculated by :math:`2^{(10 + \\mathrm{lengthCode})}`
         | MH150/160: [0..6] (default: 65536 bins = lengthCode 6)
-        | HH400: [0..5] (default: 32768 bins = lengthCode 5)
+        | HH400, TH260, PH330: [0..5] (default: 32768 bins = lengthCode 5)
     
 Returns
 -------
@@ -1164,14 +1270,14 @@ Example
     
         """
         if ok:= self.parent.dll.setHistoLength(lengthCode):
-            self.parent.deviceConfig["numBins"] = pow(2, 10 + lengthCode)
-            self.parent.deviceConfig["lengthCode"] = lengthCode
+            self.parent.deviceConfig["NumBins"] = pow(2, 10 + lengthCode)
+            self.parent.deviceConfig["LengthCode"] = lengthCode
         return ok
 
 
     def setMeasControl(self, measCtrl: typing.Optional[MeasControl] = MeasControl.SingleShotCTC, startEdge: typing.Optional[int] = 0, stopEdge: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
 This sets the measurement control mode and for other than the default it must be called before starting a measurement.
 The default is 0: CTC controlled acquisition time. The modes 1..5 allow hardware triggered measurements
@@ -1189,6 +1295,7 @@ Parameters
         | 1: rising
     stopEdge:
         | 0: falling (default)
+        | 1: rising
     
 Returns
 -------
@@ -1200,7 +1307,7 @@ Example
 ::
     
     # sets the measurement control mode to ::obj:`SingleShotCTC`
-    sn.device.setMeasControl(0,0,0)
+    sn.device.setMeasControl(MeasControl.SingleShotCTC, 0, 0)
     
         """
         if ok:= self.parent.dll.setMeasControl(measCtrl, startEdge, stopEdge):
@@ -1212,19 +1319,19 @@ Example
 
     def setTriggerOutput(self, trigOutput: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | TH260 | PH330] 
     
-This can be used to set the period of the programmable trigger output. The period 0 switches it off.
+This can be used to set the period of the programmable trigger output. A period zero (0) switches it off.
 
 Warning
 -------
-    Observe laser safety when using this feature for triggering a laser 
+    Respect laser safety when using this feature to trigger a laser.
 
 Parameters
 ----------
     trigOutput: int [units of 100ns]
     | 0: switch output off (default)
-    | MH150/160: [0..16777215]
+    | MH150/160, TH260, PH330: [0..16777215]
     
 Returns
 -------
@@ -1240,15 +1347,15 @@ Example
     
         """
         if ok:= self.parent.dll.setTriggerOutput(trigOutput):
-            self.parent.deviceConfig["TrigOutput"] = trigOutput
+            self.parent.deviceConfig["TriggerOutput"] = trigOutput
         return ok
     
 
     def setMarkerEdges(self, edge1: typing.Optional[int] = 0, edge2: typing.Optional[int] = 0, edge3: typing.Optional[int] = 0, edge4: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
-This can be used to change the active edge on which the external TTL signals connected to the marker inputs are triggering.
+This can be used to change the active edge on which the external TTL signals are connected to the marker inputs trigger.
 
 Note
 ----
@@ -1283,7 +1390,7 @@ Example
 
     def setMarkerEnable(self, ena1: typing.Optional[int] = 0, ena2: typing.Optional[int] = 0, ena3: typing.Optional[int] = 0, ena4: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
 This can be used to enable or disable the external TTL marker inputs.
 
@@ -1320,10 +1427,11 @@ Example
 
     def setMarkerHoldoffTime(self, holdofftime: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
-This setting is not normally required but it can be used to deal with glitches on the marker lines. Markers following a previous
-marker within the hold-off time will be suppressed.
+This setting is normally not required but it can be used to deal with glitches
+on the marker lines. Using this function causes the suppression of markers following
+a previous marker within the hold-off time.
 
 Note
 ----
@@ -1334,7 +1442,7 @@ Parameters
 ----------
     holdofftime: int [ns]
         | (0: default)
-        | MH150/160: [0.. 25500]
+        | MH150/160, PH330: [0.. 25500]
         | HH400: [0.. 524296]
     
 Returns
@@ -1357,17 +1465,17 @@ Example
 
     def setOflCompression(self, holdtime: typing.Optional[int] = 2):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | PH330] 
     
-This setting is normally not required but it can be useful when data rates are very low and there are more overflows than
-photons. The hardware then will count overflows and only transfer them to the FiFo when holdtime has elapsed. The default
-value is 2 ms. If you are implementing a real-time preview and data rates are very low you may observe “stutter” when
-holdtime is chosen too large because then there is nothing coming out of the FiFo for longer times. Indeed this is
+This setting is normally not required but it can be useful when data rates are very low and the overflows is high compared to the number of
+photons. If used the hardware will count overflows and only transfer them to the FiFo when the holdtime has elapsed. The default
+value is 2 ms. If you are implementing a real-time preview and data rates are very low you may observe “stutter” when the
+holdtime is too large because then there is nothing no readout of the FiFo for these long times. This is
 aggravated by the fact that the FiFo has a transfer granularity of 16 records. Supposing a data stream without any
-regular event records (i.e. only overflows) this means that effectively there will be transfers only every 16*holdtime ms.
+regular event records (i.e. only overflows) this means that effectively there will be a transfer only every 16*holdtime ms.
 Whenever there is a true event record arriving (photons or markers) the previously accumulated overflows will instantly
-be transferred. This may be the case merely due to dark counts, so the stutter would rarely occur. In any case you can
-switch overflow compression off by setting holdtime 0.
+be transferred. This is the case even with dark counts from the detector. Hence, the stutter will rarely occur. In any case you can
+switch overflow compression off by setting the holdtime to zero (0).
 
 Note
 ----
@@ -1394,14 +1502,14 @@ Example
         if ok:= self.parent.dll.setOflCompression(holdtime):
             self.parent.deviceConfig["Holdtime"] = holdtime
         return ok
-    
 
-    def setInputEdgeTrg(self, channel: typing.Optional[int] = -1, trigLvl: typing.Optional[int] = -50, trigEdge: typing.Optional[int] = 1):
+
+    def setInputEdgeTrig(self, channel: typing.Optional[int] = -1, trigLvl: typing.Optional[int] = -50, trigEdge: typing.Optional[int] = 1):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | TH260 | PH330] 
     
-This sets the input trigger. It has to be configured the trigger level and the trigger edge.
-For the input edge trigger of the sync channel use :meth:`setSyncEdgeTrg`.
+This command sets the input trigger. Both the trigger level and the trigger slope have to be configured.
+For the input edge trigger of the sync channel use :meth:`setSyncEdgeTrig`.
 
 Note
 ----
@@ -1415,7 +1523,7 @@ Parameters
         | -1: all channels (default)
     trigLvl: int [mV]
         | (default: -50mV)
-        | MH150/160: [-1200..1200]
+        | MH150/160, TH260: [-1200..1200]
     trigEdge: int
         | 0: falling
         | 1: rising (default)
@@ -1430,10 +1538,10 @@ Example
 ::
     
     # sets the input of channel 1 to a trigger edge of -100mV on a falling edge
-    sn.device.setInputEdgeTrg(0, -100, 0)
+    sn.device.setInputEdgeTrig(0, -100, 0)
     
         """
-        if ok:= self.parent.dll.setInputEdgeTrg(channel, trigLvl, trigEdge):
+        if ok:= self.parent.dll.setInputEdgeTrig(channel, trigLvl, trigEdge):
             if channel == -1:
                 for chan in range(self.parent.deviceConfig["NumChans"]):
                     self.parent.deviceConfig["ChansCfg"][chan]["TrigLvl"] = trigLvl
@@ -1445,11 +1553,11 @@ Example
         return ok
 
 
-    def setInputCFD(self, channel: typing.Optional[int] = -1, discrLvl: typing.Optional[int] = 50, zeroxLvl: typing.Optional[int] = 20):
+    def setInputCFD(self, channel: typing.Optional[int] = -1, discrLvl: typing.Optional[int] = 50, zeroXLvl: typing.Optional[int] = 20):
         """
-    Supported devices: [HH400] 
+    Supported devices: [HH400 | TH260P | PH330] 
     
-The function sets the CFD (Constant Fraction Discriminators) of the sync channel.
+This function can be used to configure the CFD (Constant Fraction Discriminator) of the sync channel.
 For the input CFD of the input channels use :meth:`setSyncCFD`.
     
 Parameters
@@ -1460,9 +1568,11 @@ Parameters
     discrLvlSync: int
         | level [mV] (default:50mV)
         | HH400: [0..1000]
-    zeroXLvlSync: int
+        | TH260P: [-1200..0]
+    syncZeroXLvL: int
         | zero cross level [mV]
         | HH400: [0..40]
+        | TH260P: [-40..0]
     
 Returns
 -------
@@ -1474,26 +1584,26 @@ Example
 ::
     
     # sets the input of channel 1 to a discriminator level of 100mV on zero cross level of 30mV
-    sn.device.setInputEdgeTrg(0, 100, 30)
+    sn.device.setInputEdgeTrig(0, 100, 30)
     
         """
-        if ok:= self.parent.dll.setInputCFD(channel, discrLvl, zeroxLvl):
+        if ok:= self.parent.dll.setInputCFD(channel, discrLvl, zeroXLvl):
             if channel == -1:
                 for chan in range(self.parent.deviceConfig["NumChans"]):
                     self.parent.deviceConfig["ChansCfg"][chan]["DiscrLvl"] = discrLvl
-                    self.parent.deviceConfig["ChansCfg"][chan]["ZeroXLvl"] = zeroxLvl
+                    self.parent.deviceConfig["ChansCfg"][chan]["ZeroXLvl"] = zeroXLvl
             else:
                 self.parent.deviceConfig["ChansCfg"][channel]["DiscrLvl"] = discrLvl
-                self.parent.deviceConfig["ChansCfg"][channel]["ZeroXLvl"] = zeroxLvl
+                self.parent.deviceConfig["ChansCfg"][channel]["ZeroXLvl"] = zeroXLvl
                 
         return ok
     
 
-def setInputChannelOffset(self, channel: typing.Optional[int] = -1, chanOffs: typing.Optional[int] = 0):
+    def setInputChannelOffset(self, channel: typing.Optional[int] = -1, chanOffs: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
-This is equivalent to changing the cable delay on the chosen input. Actual offset resolution is the device base resolution.
+This operation equivalent to changing the cable length (delay) on the chosen input. The offset resolution is equal to the device base resolution.
 For the input channel offset of the sync channel use :meth:`setSyncChannelOffset`.
 
 Note
@@ -1507,8 +1617,7 @@ Parameters
         | -1: all channels (default)
     chanOffs: int channel timing offset [ps]
         | (default: 0)
-        | MH150/160 [-99999..99999] 
-        | HH400 [-99999..99999] 
+        | MH150/160, HH400, TH260, PH330 [-99999..99999] 
     
 Returns
 -------
@@ -1532,9 +1641,9 @@ Example
         return ok
 
 
-def setInputChannelEnable(self, channel: typing.Optional[int] = -1, chanEna: typing.Optional[int] = 1):
+    def setInputChannelEnable(self, channel: typing.Optional[int] = -1, chanEna: typing.Optional[int] = 1):
         """
-    Supported devices: [MH150/160 | HH400] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
 This function enables or disables the input channels.
 To enable the sync channel use :meth:`setSyncChannelEnable`.
@@ -1562,7 +1671,7 @@ Example
 ::
     
     # disables the input channel 4
-    sn.device.setInputEdgeTrg(3, 0)
+    sn.device.setInputEdgeTrig(3, 0)
     
         """
         if ok:= self.parent.dll.setInputChannelEnable(channel, chanEna):
@@ -1574,9 +1683,9 @@ Example
         return ok
 
 
-def setInputDeadTime(self, channel: typing.Optional[int] = -1, deadTime: typing.Optional[int] = 800):
+    def setInputDeadTime(self, channel: typing.Optional[int] = -1, deadTime: typing.Optional[int] = 800):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | TH260 | PH330] 
     
 This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
@@ -1595,8 +1704,8 @@ Parameters
         -1: all channels (default)
     deadTime:
         | extended dead-time [ps]
-        | (default: 800)
-        | [800..160000] (<=800: disabled)
+        | MH150/160, TH260, PH330 [800..160000] (default: 800) (<=800: disabled)
+        | TH260 [24000 | 44000 | 66000 | 88000 | 112000 | 135000 | 160000 | 180000] (default: 24000)
     
 Returns
 -------
@@ -1623,23 +1732,25 @@ Example
 
 class Filter():
     """
-Filtering TTTR helps to reduce USB bus load in TTTR mode by eliminating photon events that carry no information of
-interest as typically found in many coincidence correlation experiments. 
+Filtering the TTTR data stream before transfer helps to reduce the USB bus load in TTTR mode by eliminating photon events
+that carry no information of interest as typically found in many coincidence correlation experiments. 
 There are two types of event filters. The Row Filters are implemented in the local FPGA processing a row of
 input channels. Each Row Filter can act only on the input channels within its own row and never on the sync
 channel. The Main Filter is implemented in the main FPGA processing the aggregated events arriving from
-the row FPGAs. The Main Filter can therefore act on all channels of the Harp device including the sync
+the row FPGAs. The Main Filter can therefore act on all channels of the device including the sync
 channel. Since the Row Filters and Main Filter form a daisychain, the overall filtering result depends on their
 combined action. Both filters are by default disabled upon device initialization and can be independently enabled
 when needed.
+
 Both filters follow the same concept but with independently programmable parameters. The parameter
 `timeRange` determines the time window the filter is acting on. The parameter `matchCount` specifies how
 many other events must fall into the chosen time window for the filter condition to act on the event at hand.
 The parameter `inverse` inverts the filter action, i.e. when the filter would regularly have eliminated an event
-it will then keep it and vice versa. For the typical case, let it be not inverted. Then, if `matchCount` is 1 we will
+it will then keep it instead and vice versa. For the typical case, let it be not inverted. Then, if `matchCount` is 1 we will
 obtain a simple 'singles filter'. This is the most straight forward and most useful filter in typical quantum optics
 experiments. It will suppress all events that do not have at least one coincident event within the chosen time
-range, be this in the same or any other channel.
+range. This can be in the same or any other channel.
+
 In addition to the filter parameters explained so far it is possible to mark individual channels for use. Used
 channels will take part in the filtering process. Unused channels will be suppressed altogether. Furthermore, it
 is possible to indicate if a channel is to be passed through the filter unconditionally, whether it is marked as
@@ -1667,22 +1778,22 @@ Note
 This sets the parameters for one Row Filter implemented in the local FPGA processing that row of input channels. Each
 Row Filter can act only on the input channels within its own row and never on the sync channel. The parameter `timeRange` determines
 the time window the filter is acting on. The parameter `matchCount` specifies how many other events must fall into the
-chosen time window for the filter condition to act on the event at hand. The parameter inverse inverts the filter action, i.e.
-when the filter would regularly have eliminated an event it will then keep it and vice versa. For the typical case, let it be not
+chosen time window for the filter condition to act on the event at hand. The parameter `inverse` inverts the filter action, i.e.
+when the filter would regularly have eliminated an event it will then keep it instead and vice versa. For the typical case, let it be not
 inverted. Then, if `matchCount` is 1 we will obtain a simple 'singles filter'. This is the most straight forward and most useful filter
 in typical quantum optics experiments. It will suppress all events that do not have at least one coincident event within the
 chosen time range, be this in the same or any other channel marked as 'use' in this row. The list `passChans` is used
 to indicate if a channel is to be passed through the filter unconditionally, whether it is marked as 'use' or not. The events on a
 channel that is marked neither as 'use' nor as 'pass' will not pass the filter, provided the filter is enabled. The parameter
 settings are irrelevant as long as the filter is not enabled. The output from the Row Filters is fed to the Main Filter. The overall
-filtering result depends on their combined action. Only the Main Filter can act on all channels of the Harp device including
+filtering result depends on their combined action. Only the Main Filter can act on all channels of the PicoQuant TCSPC device including
 the sync channel. 
 
 Note
 ----
     It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filter(s)
     are early data reduction, so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with
-    different time ranges
+    different time ranges.
     
 Parameters
 ----------
@@ -1758,24 +1869,24 @@ Example
 
     def setMainParams(self, timeRange: int, matchCount: int, inverse: bool):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | PH330] 
     
 This sets the parameters for the Main Filter implemented in the main FPGA processing the aggregated events arriving from
-the row FPGAs. The Main Filter can therefore act on all channels of the Harp device including the sync channel. The
+the row FPGAs. The Main Filter can therefore act on all channels of the device including the sync channel. The
 value `timeRange` determines the time window the filter is acting on. The parameter `matchCount` specifies how many other
-events must fall into the chosen time window for the filter condition to act on the event at hand. The parameter inverse inverts
-the filter action, i.e. when the filter would regularly have eliminated an event it will then keep it and vice versa. For the
+events must fall into the chosen time window for the filter condition to act on the event at hand. The parameter `inverse` inverts
+the filter action, i.e. when the filter would regularly have eliminated an event it will then keep it instead and vice versa. For the
 typical case, let it be not inverted. Then, if `matchCount` is 1 we obtain a simple 'singles filter'. This is the most straight forward
 and most useful filter in typical quantum optics experiments. It will suppress all events that do not have at least one coincident
 event within the chosen time range, be this in the same or any other channel. In order to mark individual channel as 'use'
-and/or 'pass' please use meth:`SetMainChannels`.The parameter settings are irrelevant as long as the filter is not
-enabled. Note that the Main Filter only receives event data that passes the Row Filters (if they are enabled). The overall filtering
-result therefore depends on the combined action of both filters.
+and/or 'pass' please use meth:`setMainChannels`. The parameter settings are irrelevant if the filter is not
+enabled. Note that the Main Filter only receives events that passes the Row Filters (if they are enabled). The overall filtering
+result depend on the combined action of both filters.
 
 Note
 ----
     It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filters are early data reduction,
-    so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with different time ranges.
+    to prevent overloading of the Main Filter, and for possible need for more complex filters, e.g. with different time ranges are needed.
     
 Parameters
 ----------
@@ -1805,7 +1916,7 @@ Example
 
     def setMainChannels(self, row: int, useChans:typing.List[int], passChans:typing.List[int]):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | PH330] 
     
 This selects the Main Filter channels for one row of input channels. Doing this row by row is to address the fact that the various
 device models have different numbers of rows. The list `useChans` is used to to indicate if a channel is to be
@@ -1813,18 +1924,18 @@ used by the filter. The list `passChans` is used to to indicate if a channel is 
 whether it is marked as 'use' or not. The events on a channel that is marked neither as 'use' nor as 'pass' will not
 pass the filter, provided the filter is enabled. The channel settings are irrelevant as long as the filter is not enabled.
 The Main Filter receives its input from the Row Filters. If the Row Filters are enabled, the overall filtering result
-therefore depends on the combined action of both filters. Only the Main Filter can act on all channels of the Harp device
+therefore depends on the combined action of both filters. Only the Main Filter can act on all channels of the PicoQuant TCSPC device
 including the sync channel.
 
 Note
 ----
-The settings for the sync channel Only meaningful in :obj:`.MeasMode.T2` and will be ignored in :obj:`.MeasMode.T3`.
+The settings for the sync channel are only meaningful in :obj:`.MeasMode.T2` and will be ignored in :obj:`.MeasMode.T3`.
 
 Note
 ----
-    It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filters are early data reduction,
-    so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with different time ranges.
-
+    It is usually sufficient and easier to use the `Main Filter` alone. The only reasons for using the Row Filters are early data reduction,
+    to prevent overloading of the Main Filter, and if for more complex filters, e.g. with different time ranges are needed.
+    
 Parameters
 ----------
     row: int [0..8]
@@ -1860,17 +1971,17 @@ Example
 
     def enableMain(self, enable: typing.Optional[bool] = True):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | PH330] 
     
 When the filter is disabled all events will pass. This is the default after initialization. When it is enabled, events may be
 filtered out according to the parameters set with :meth:`setMainParams` and :meth:`setMainParams`.
 
 Note
 ----
-    The Main Filter only receives event data that passes the Row Filters (if they are enabled). The overall filtering result
+    The Main Filter only receives events that pass the Row Filters (if they are enabled). The overall filtering result
     therefore depends on the combined action of both filters. It is usually sufficient and easier to use the Main Filter alone. The
-    only reasons for using the Row Filters are early data reduction, so as to not overload the Main Filter, and the possible need
-    for more complex filters, e.g. with different time ranges.
+    only reasons for using the Row Filters are early data reduction, to prevent overloading of the Main Filter, and if for
+    more complex filters, e.g. with different time ranges are needed.
 
 Parameters
 ----------
@@ -1898,11 +2009,11 @@ Example
     
     def setTestMode(self, testMode: typing.Optional[bool] = True):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | PH330] 
     
 One important purpose of the event filters is to reduce USB load. When the input data rates are higher than the USB bandwith,
-there will at some point be a FiFo overrun. It may under such conditions be difficult to empirically optimize the filter settings.
-Setting filter test mode disables all data transfers into the FiFo so that a test measurement can be run without interruption
+there will  be a FiFo overrun at some point. Under such conditions can be difficult to empirically optimize the filter settings.
+Activating the filter test mode disables all data transfers into the FiFo so that a test measurement can be run without being interrupted
 by a FiFo overrun. The library routines :meth:`getRowRates` and :meth:`getMainRates` can then be used to monitor the count rates
 after the Row Filter and after the Main Filter. When the filtering effect is satisfactory the test mode can be switched off again
 to perform the regular measurement.
@@ -1934,11 +2045,15 @@ Example
     
     def getRowRates(self):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | PH330] 
     
 This call retrieves the count rates after the Row Filter before entering the FiFO. A measurement must be running to obtain
-valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The returning list
+valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The list which is returned
 contains the sync rate and the rates of the input channels.
+
+Note
+----
+In case of PH330 this function gives you the input filter rates, where :meth:`getMainRates` gives you the output filter rates.
     
 Parameters
 ----------
@@ -1971,10 +2086,10 @@ Example
     
     def getMainRates(self):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | PH330] 
     
 This call retrieves the count rates after the Main Filter before entering the FiFO. A measurement must be running to obtain
-valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The returning list
+valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The list which is returned
 contains the sync rate and the rates of the input channels.
     
 Parameters
@@ -2010,8 +2125,8 @@ Example
 class Raw():
     """This is the `Raw` measurement class.
 
-This `Raw` measure class is made to directly access to the TTTR (Time Tagged Time-Resolved) data. 
-The format depends on the :class:`.MeasMode` in the :meth:`snAPI.initDevice` function.
+This class is made to directly access the TTTR (Time Tagged Time-Resolved) data. 
+The format of the data depends on the :class:`.MeasMode` in the :meth:`snAPI.initDevice` function.
 
 Each :obj:`.MeasMode.T2` event record consists of 32 bits. There are 6 bits for the channel number and 25 bits 
 for the time tag. If the time tag overflows, a special overflow marker record is inserted in the
@@ -2030,13 +2145,14 @@ all relevant experiment scenarios.
 
 Note
 ----
-    This class is provided primarily for compatibility with the native MHLib data formats. 
-    It is recommended to use the :class:`Unfold` class, which allows much more convenient access to the data.
-        
+    This class is provided primarily to enable compatibility with the native MHLib data formats. 
+    It is recommended to use the :class:`Unfold` class instead, which allows much more convenient access to the data.
+    
 There are special functions to decode the :obj:`.MeasMode.T2`and :obj:`.MeasMode.T3` data records:
     - :meth:`isSpecial`
     - :meth:`timeTag_T2`
     - :meth:`nSync_T3`
+    - :meth:`dTime_T3`
     - :meth:`channel`
     - :meth:`isMarker`
     - :meth:`markers`
@@ -2058,16 +2174,16 @@ There are special functions to decode the :obj:`.MeasMode.T2`and :obj:`.MeasMode
     def measure(self, acqTime: typing.Optional[int] = 1000, size: typing.Optional[int] = 134217728, waitFinished: typing.Optional[bool] = True, savePTU: typing.Optional[bool] = False):
         """
 With this function a simple measurement of `Raw` data records into RAM and/or disc is provided.
-You must define the size of the buffer raw.data. If waitFinished is set True the call will block
-until the measurement is completed. If you wish to avoid blocking you can pass waitFinished False
-and proceed with other code. In order to check later if the measurement is completed you can use
+Therefore, you must define the size of the buffer raw.data. If `waitFinished` is set `True` the call will be blocked
+until the measurement is completed. If you wish to avoid blocking you can pass `waitFinished` as `False`
+and run other code. In order to check later if the measurement is completed you can use
 the :meth:`isFinished` function. The data can be accessed with :meth:`getData`.
 
 Caution
 -------
-The `Raw Buffer overrun - clearing!` warning or `Raw Buffer full - waiting!` info means, that data cant be stored
-in the allocated memory `size`. Increase the memory `size`, use the non blocking measure or the :meth:`startBlock`
-and :meth:`readBlock`!
+If a `Raw Buffer overrun - clearing!` warning or `Raw Buffer full - waiting!` info means, that data cant be stored
+in the allocated memory `size`. Increase the memory `size`, to resolve this issue by using the non blocking measure
+or the :meth:`startBlock` and :meth:`getBlock`!
 
 Note
 ----
@@ -2077,14 +2193,14 @@ Warning
 -------
     If the colleted data exceeds the buffer size a warning will be added to the log: 
     'WRN RawStore buffer overrun - clearing!' and de internal buffer will be cleared. That
-    means that this part of data is lost! You should reduce the count rate!
+    means that this part of the data is lost! You should reduce the count rate to prevent this!
 
 Parameters
 ----------
     acqTime: int (default: 1s)
-        0: means it will run until :meth:`stopMeasure`
-        acquisition time [ms]
-        will be ignored if device is a FileDevice
+        | 0: means the measurement will run until :meth:`stopMeasure`
+        | acquisition time [ms]
+        | will be ignored if device is a FileDevice
     size: int number of records (default: 128 million records = 1GB)
         memory size for the data array
     waitFinished: bool (default: True)
@@ -2122,9 +2238,14 @@ Example
 
     def startBlock(self, acqTime: typing.Optional[int] = 1000, size: typing.Optional[int] = 134217728, savePTU: typing.Optional[bool] = False):
         """
-This function starts a block measurement. The data is collected by the API until you capture it by the getBlock function.
-The size of the block depends on the count rate and the time that reached until the next blockRead is executed. You have
-to define the maximum size of the available block buffer. The data can be accessed with :meth:`getBlock`.
+This function starts a block-wise data measurement. It refers to the practice of collecting, processing,
+or transmitting data in discrete blocks or chunks, rather than as a continuous stream. Instead of receiving
+all the data at once, the data is divided into manageable blocks, which are processed or analyzed one at a
+time. This approach offers several benefits, such as efficient use of resources, real-time processing,
+and the ability to handle data streams that are too large to process all at once.
+The data is collected by the API until you capture it by the :meth:`getBlock` function.
+The size of the block depends on the count rate and the time that reached until the next :meth:`getBlock` is executed. You also
+have to set the size parameter to define the maximum size of the available block buffer. The data can be accessed with :meth:`getBlock`.
 
 Warning
 -------
@@ -2137,7 +2258,7 @@ Parameters
     acqTime: int (default: 1s)
         acquisition time [ms]
         will be ignored if device is a FileDevice
-    size: int number of records (default: 128 million records = 1GB)
+    size: int number of records (default: 1GB = 256 million records * 32Bit)
         maximum memory size for the block
     savePTU: bool (default: False)
         Save data to ptu file
@@ -2173,7 +2294,7 @@ Example
 
     def getBlock(self):
         """
-This function gets the last block of data from the API and returns an array of `Raw` data.
+This function gets the last block of data from the API and returns it in form of an array of `Raw` data records.
 
 Parameters
 ----------
@@ -2216,7 +2337,7 @@ This function returns the data of a measurement.
 
 Note
 ----
-    This function is part of the getBlock function.
+    This function is part of the :meth:`getBlock` function.
 
 Parameters
 ----------
@@ -2256,7 +2377,7 @@ Example
 
     def numRead(self):
         """
-This function returns the number of available data if you measure into the RAM with :meth:`measure` or it gives the
+This function returns the number of available data records if you measure into the RAM with :meth:`measure` or it gives the
 block size if you measure in block mode with :meth:`getBlock`.
 
 Parameters
@@ -2281,12 +2402,13 @@ Example
 
     def isFinished(self):
         """
-This function tells if the measurement is finished.
+This function tells you if the measurement is finished.
 
 Warning
 -------
-    If the measurement is finished, there may be some data available. It may be necessary to 
-    read the data once again after it.
+    If the measurement is finished, there might be some data available, which was not retrieved yet. It may be necessary to 
+    call :meth:`getData()` or :meth:`getBlock()` once again after `isFinished` returns `True`.
+    Check out the example of a possible implementation below.
 
 Parameters
 ----------
@@ -2301,7 +2423,7 @@ Example
 -------
 ::
 
-    # runs a while loop until the measurement is finished
+    # runs a while loop until the measurement is finished (wrong)
         while not sn.raw.isFinished():
         data = sn.raw.getData()
         if len(data) > 0:
@@ -2323,8 +2445,9 @@ Example
 
     def stopMeasure(self):
         """
-After a measurement is started it will normally be left to run until the defined acquisition time is elapsed. However,
-sometimes it may be necessary to stop manually. This function can be used for such a manual stop.
+After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.
 
 Parameters
 ----------
@@ -2340,7 +2463,7 @@ Returns
 
     def isSpecial(self, data: int) :
         """
-This function takes a T2 or T3 `Raw` data record and returns True if it is a special record.
+This function takes a T2 or T3 `Raw` data record and returns `True` if it is a special record.
 
 Parameters
 ----------
@@ -2451,12 +2574,8 @@ Example
     def channel(self, data: int) :
         """
 This function takes a T2 or T3 `Raw` data record and returns the channel number if its not
-a special record or a marker record.
+a special record or a marker record. Check it with :meth:`isMarker`.
 
-Warning
--------
-    Don't use this function with a special record.
-    
 Parameters
 ----------
     data: int
@@ -2483,7 +2602,7 @@ Example
 
     def isMarker(self, data: int) :
         """
-This function takes a T2 or T3 `Raw` data record and returns True if it is a marker record.
+This function takes a T2 or T3 `Raw` data record and returns `True` if it is a marker record.
 
 Parameters
 ----------
@@ -2514,7 +2633,7 @@ markers.
 
 Warning
 -------
-    Only use this function with a marker record.
+    Only use this function with a marker record. Check it with :meth:`isMarker` before.
     
 Parameters
 ----------
@@ -2543,15 +2662,14 @@ Example
 class Unfold():
     """This is the `Unfold` measurement class.
 
-This measurement class is provided to conveniently access the TTTR (Time Tagged Time-Resolved) data. 
+This measurement class can be used to conveniently access the TTTR (Time Tagged Time-Resolved) data. 
 The format does not depend on the :class:`.MeasMode` in the :meth:`snAPI.initDevice` function,
-but in the :obj:`.MeasMode.T3`, the sync records are removed in :obj:`.MeasMode.T3` to increase the
-throughput on the usb bus.
+but in the :obj:`.MeasMode.T3`, the sync records are removed to increase the throughput on the usb bus.
 
 Note
 ----
-    This class is created to provide a better user experience than the `Raw` data class. The overflow records
-    have been removed an the timetags now have a 64Bit wide. The channel information is stored in a separate
+    This class was created to provide a better user experience than the `Raw` data class. The overflow records
+    have been removed an the timetags now have a width of 64Bit. The channel information is stored in a separate
     array.
         
 There are special functions to decode the channel information:
@@ -2573,28 +2691,57 @@ There are special functions to decode the channel information:
         self.finished = ct.pointer(ct.c_bool(False))
 
 
+    def setT3Format(self, format: typing.Optional[UnfoldFormat] = UnfoldFormat.DTimesSyncCntr) :
+        """
+This function sets the content format of the times array of the unfold data stream.
+
+Note
+----
+    Only meaningful in :obj:`.MeasMode.T3`.
+    
+Parameters
+----------
+    format: UnfoldFormat (default: UnfoldFormat.DTimesSyncCntr)
+        
+Returns
+-------
+    none
+
+Example
+-------
+::
+
+    # creates a unfold data stream in :obj:`.UnfoldFormat.DTimes` with differential times 
+    sn.histogram.setT3Format(UnfoldFormat.DTimes)
+
+        """
+        if(self.parent.deviceConfig["MeasMode"] != MeasMode.T3.value):
+            self.parent.logPrint( "setT3Format is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+        self.parent.dll.setUnfoldT3Format(format.value)
+
+
     def measure(self, acqTime: typing.Optional[int] = 1000, size: typing.Optional[int] = 134217728, waitFinished: typing.Optional[bool] = True, savePTU: typing.Optional[bool] = False):
         """
 With this function a simple measurement of Unfolded data records into RAM and/or disc is provided.
-You must define the size of the buffer that is unfold.data. If waitFinished is set True the call
-will block until the measurement is completed. If waitFinished is set False (default) you can get
-updates on the fly, and you can access the execution status with the :meth:`isFinished` function.
-If you wish to avoid blocking you can pass waitFinished False and proceed with other code. In order
-to check later if the measurement is completed you can use the :meth:`isFinished` function.
+Beforehand, you must define the size of the buffer that is unfold.data. If waitFinished is set `True` the call
+will block until the measurement is completed. If `waitFinished` is set `False` (default) you can get
+updates on the fly, and you can request the execution status with the :meth:`isFinished` function.
+If you wish to avoid blocking you can set `waitFinished` `False` and proceed with other code. Again, you
+can check if the measurement is completed by using the :meth:`isFinished` function.
 The data can be accessed with :meth:`getData`.
 
 Caution
 -------
-The `Unfold buffer overrun - clearing!` warning or `Unfold Buffer full - waiting!` info means, that data cant be stored
-in the allocated memory `size`. Increase the memory `size`, use the non blocking measure or the :meth:`startBlock`
-and :meth:`readBlock`!
+The `Unfold buffer overrun - clearing!` warning or `Unfold Buffer full - waiting!` info means, that data could not be stored
+in the allocated memory. Increase the memory by the `size` parameter, use the non blocking measure or block read 
+functions the :meth:`startBlock` and :meth:`getBlock` instead!
     
 Parameters
 ----------
     acqTime: int (default: 1s)
-        0: means it will run until :meth:`stopMeasure`
-        acquisition time [ms]
-        will be ignored if device is a FileDevice
+        | 0: means the measurement will run until :meth:`stopMeasure`
+        | acquisition time [ms]
+        | will be ignored if device is a FileDevice
     size: int number of records (default: 128 million records = 1GB)
         memory size for the data array
     waitFinished: bool (default: True)
@@ -2634,23 +2781,28 @@ Example
 
     def startBlock(self, acqTime: int= 1000, size: int = 134217728, savePTU: typing.Optional[bool] = False):
         """
-This function starts a block measurement. The data is collected by the API internally until you retrieve it via the getBlock function.
-The size of the block depends on the count rate and the time that elapsed until the next blockRead is executed. You have
-to define the maximum size of the available block buffer. The data can be accessed with :meth:`getBlock`.
+This function starts a block-wise data measurement. It refers to the practice of collecting, processing,
+or transmitting data in discrete blocks or chunks, rather than as a continuous stream. Instead of receiving
+all the data at once, the data is divided into manageable blocks, which are processed or analyzed one at a
+time. This approach offers several benefits, such as efficient use of resources, real-time processing,
+and the ability to handle data streams that are too large to process all at once.
+The data is collected by the API internally until you retrieve it via the :meth:`getBlock` function.
+The size of the block depends on the count rate and the time that elapsed until the next blockRead is executed.
+Beforehand, you have to define the maximum size of the available block buffer. The data can be accessed with :meth:`getBlock`.
 
 Warning
 -------
     If the colleted data exceeds the maximum block size a warning will be added to the log: 
-    'WRN UfStore buffer overrun - clearing!' and de internal buffer will be cleared. This
-    means that this part of data is lost! You should reduce the count rate!
+    'WRN UfStore buffer overrun - clearing!' and the internal buffer will be cleared. This
+    means that this part of data is lost! To prevent this you should reduce the count rate!
 
 Parameters
 ----------
     acqTime: int (default: 1s)
-        0: means it will run until :meth:`stopMeasure`
-        acquisition time [ms]
-        will be ignored if device is a FileDevice
-    size: int number of records (default: 128 million records = 1GB)
+        | 0: means the measurement will run until :meth:`stopMeasure`
+        | acquisition time [ms]
+        | will be ignored if device is a FileDevice
+    size: int number of records (default: 1GB = 128 million records * 64Bits)
         maximum memory size for the block
     savePTU: bool (default: False)
         Save data to ptu file
@@ -2688,7 +2840,7 @@ Example
 
     def getBlock(self):
         """
-This function gets the last block of data from the API and returns an array of `Unfold` data.
+This function retrieves the last block of data from the API and returns the of `Unfold` data as an array.
 
 Parameters
 ----------
@@ -2735,7 +2887,7 @@ This function returns the data of a measurement.
 
 Note
 ----
-    This function is also used as part of the getBlock function.
+    This function is also used as part a of the :meth:`getBlock` function.
 
 Parameters
 ----------
@@ -2779,7 +2931,7 @@ channel information.
 
 Note
 ----
-    This function is part of the getBlock function.
+    This function is part of the :meth:`getBlock` function.
 
 Parameters
 ----------
@@ -2816,7 +2968,9 @@ Example
 
     def getChannels(self, numRead: int):
         """
-This function returns an array of channel information of an `Unfold` measurement.
+This function returns an array of channel information of an `Unfold` measurement. This can contain
+channels and marker. If you ar using markers you can check it with :meth:`isMarker` and get the marker
+index with :meth:`markers`.
 
 Note
 ----
@@ -2838,8 +2992,8 @@ Returns
 
     def numRead(self):
         """
-This function returns the number of available data if you measure into RAM with :meth:`measure` otherwise it gives the
-block size if you measure in block mode with :meth:`getBlock`.
+This function returns the number of available data records if you measure into RAM with :meth:`measure`
+otherwise it gives the block size if you measure in block mode with :meth:`getBlock`.
 
 Parameters
 ----------
@@ -2867,8 +3021,9 @@ This function reports whether the measurement is finished.
 
 Warning
 -------
-    If the measurement is completed, more data may be available. If this data is required, the data must be read again
-    afterwards. Check out the example of a possible implementation below.
+    If the measurement is finished, there might be some data available, which was not retrieved yet. It may be necessary to 
+    call :meth:`getData()` or :meth:`getBlock()` once again after `isFinished` returns `True`.
+    Check out the example of a possible implementation below.
 
 Parameters
 ----------
@@ -2905,8 +3060,9 @@ Example
 
     def stopMeasure(self):
         """
-After a measurement is started it is normally left to run until the defined acquisition time is over. However,
-sometimes it may be necessary to stop manually. This function can be used for such a manual stop.
+After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.
 
 Parameters
 ----------
@@ -2922,8 +3078,7 @@ Returns
 
     def getTimesByChannel(self, channel: int, size: typing.Optional[int] = None):
         """
-This function gives you the timetags of a given channel of the current measurement. It is provided for performance
-reasons and is much faster than a direct implementation in python would be.
+This function gives you the timetags of a given channel of the current measurement.
 
 Parameters
 ----------
@@ -2965,7 +3120,7 @@ Example
 
     def isMarker(self, channel) :
         """
-This function takes a T2 or T3 `Unfold` channel record and returns True if it is a marker record.
+This function takes a T2 or T3 `Unfold` channel record and returns `True` if it is a marker record.
 
 Parameters
 ----------
@@ -2985,21 +3140,21 @@ Example
         ...
     
         """
-        return ((0x80 & channel) != 0)
+        return ((0x80 & channel) != 0) 
     
 
     def markers(self, channel) :
         """
-This function takes a `Unfold` data record and returns an array of the 4 possible markers.
+This function takes an `Unfold` data record and returns an array of the four possible markers signals.
 
 Warning
 -------
-    Only use this function with a marker record.
+    Only use this function with a marker record. Check the `channel` array with :meth:`isMarker` before.
     
 Parameters
 ----------
     data: int
-        a `Raw` data marker record
+        a `Unfold` data marker record
         
 Returns
 -------
@@ -3019,27 +3174,90 @@ Example
         return [marker & 0x01, (marker & 0x02) != 0, (marker & 0x04) != 0, (marker & 0x08) != 0]
 
 
+    def nSync_T3(self, times: int) :
+        """
+This function takes a T3 `Unfold` data record and returns the number of the sync period this event occurred in.
+
+Warning
+-------
+    Use this function with a T3 `Unfold` data record. with :obj:`.UnfoldFormat.DTimesSyncCntr`.
+    
+Parameters
+----------
+    data: int
+        a T3 `Raw` data record
+        
+Returns
+-------
+    timetag: int
+
+
+Example
+-------
+::
+
+    # prints out the number of the sync period of the `Raw` T3 record in data[i]
+    sn.print(sn.unfold.nSync_T3(times[i]))
+    
+        """
+        return (times.astype(np.int64) >> 15).astype(np.uint64)
+    
+
+    def dTime_T3(self, times: int) :
+        """
+This function takes a T3 `Unfold` data record and returns the differential time.
+
+Warning
+-------
+    Use this function with the T3 `Unfold` data record. with :obj:`.UnfoldFormat.DTimesSyncCntr`.
+    When using the T3 `Unfold` data record with :obj:`.UnfoldFormat.DTimes` this function is not required,
+    because the times array consists only of `dTimes`.
+    
+Parameters
+----------
+    data: int
+        a T3 `Unfold` data record
+        
+Returns
+-------
+    differential time: int
+
+Example
+-------
+::
+
+    # prints out the differential time of a T3 `Unfold` data record 
+    sn.print(sn.unfold.dTime_T3(times[i]))
+    
+        """
+        return (0x00007FFF & times.astype(np.int64)).astype(np.uint64)
+    
 
 class Histogram():
     """
 This measurement class provides you with histograms of time differences between the channels. 
-While the device's internal histogramming and :obj:`.MeasMode.T3` always calculate the
-differences between the sync and the other channels, in :obj:`.MeasMode.T2` you
-can change the reference channel and a histogram of the time differences between this refChannel and the
-refChannel itself and all other channels including the sync channel is created.
+The device's internal histogramming and :obj:`.MeasMode.T3` always calculate the
+differences between the sync and the other channels. However, in :obj:`.MeasMode.T2` you
+can change the reference channel and histograms of the time differences between this refChannel
+and itself as well as all other channels including the sync channel are created.
 
-.. image:: _static/Histogram.png
-    :class: p-2
+.. image:: _static/01_Histogram.png
+    :width: 600px
+    :class: only-light
     
-sample of a `Histogram` measurement drawn with matplotlib
+.. image:: _static/01_Histogram_dark.png
+    :width: 600px
+    :class: only-dark
+    
+:figure-caption:`This figure shows the generation of a Histogram measurement.`
 
 Caution
 -------
-To calculate the histogram in :obj:`.MeasMode.T3` it is necessary to store dTimes (different time between the
-sync- and the channel events) in the times array of the internal unfold data stream, because the sync events
+To calculate the histogram in :obj:`.MeasMode.T3` it is necessary to store `dTimes` (time difference between the
+sync- and the channel events) in the returned bins array of the internal unfold data stream, because the sync events
 are removed. Therefore the :class:`Manipulators` may work different than with absolute times stored in the unfold
 data stream. They may only be correct in between there sync periods. If you need the default behaviour you have
-to use the :obj:`.MeasMode.T3` instead.
+to use the :obj:`.MeasMode.T2` instead.
     
     """
     
@@ -3054,7 +3272,8 @@ to use the :obj:`.MeasMode.T3` instead.
 
     def setRefChannel(self, channel: typing.Optional[int] = 0) :
         """
-This function sets the reference channel for which the time differences for the histograms are to be built.
+This function sets the reference channel used to calculate the time differences with respect
+to the other channels. The histograms are then created from these calculated data.
 
 Note
 ----
@@ -3090,7 +3309,7 @@ Example
 
     def setBinWidth(self, binWidth: typing.Optional[int] = None):
         """
-This function sets the reference channel for which the time differences for the histograms are to be build.
+This function sets the `binWidth` of the time differences for the histograms are to be build.
 
 Warning
 -------
@@ -3128,9 +3347,10 @@ Example
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = True, savePTU: typing.Optional[bool] = False):
         """
-With this function a Histogram measurement into RAM and/or disc is provided. If waitFinished is set True
-the call will block until the measurement is completed. If waitFinished is set False (default) you can
-get updates on the fly, and you can access the execution status with the :meth:`isFinished` function.
+With this function a measurement and creation of a histogram us initiated, which ist stored 
+into RAM and/or disc. If `waitFinished` is set `True` the call will be blocked until the measurement
+is completed. If `waitFinished` is set to `False` (default) you can get updates on the fly,
+and you can access the execution status with the :meth:`isFinished` function.
 If you wish to obtain updates on the fly the data can be accessed with :meth:`getData`.
 
 Note
@@ -3140,15 +3360,15 @@ Note
 Warning
 -------
     If the colleted data exceeds the buffer size a warning will be added to the log: 
-    'WRN UfStore buffer overrun - clearing!' and de internal buffer will be cleared. This
-    means that this part of data is lost! You should reduce the count rate!
+    'WRN UfStore buffer overrun - clearing!' and the internal buffer will be cleared. This
+    means that this part of data is lost! To prevent this, you should reduce the count rate.
     
 Parameters
 ----------
     acqTime: int (default: 1s)
-        0: means it will run until :meth:`stopMeasure`
-        acquisition time [ms]
-        will be ignored if device is a FileDevice
+        | 0: means the measurement will run until :meth:`stopMeasure`
+        | acquisition time [ms]
+        | will be ignored if device is a FileDevice
     size: int number of records (default: 128 million records = 1GB)
         memory size for the data array
     waitFinished: bool (default: True)
@@ -3177,8 +3397,7 @@ Example
         numChans = self.parent.getNumAllChannels()
         self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         
-        l = self.parent.deviceConfig["NumBins"]
-        self.bins = range(l)
+        self.bins = range(self.numBins)
         if (self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.bins = np.multiply(self.bins, self.parent.deviceConfig["BaseResolution"])
         else:
@@ -3234,8 +3453,9 @@ Example
 
     def stopMeasure(self):
         """
-After a measurement is started it is usually left to run until the defined acquisition time is elapsed. However,
-sometimes it may be necessary to stop manually. This function can be used for such a manual stop.
+After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.
 
 Parameters
 ----------
@@ -3252,7 +3472,7 @@ Returns
     def clearMeasure(self):
         """
 Some measurements calculate their results on large sets of historical data. When conditions have changed,
-the old data may need to be deleted to get a fresh view of the new data. This function deletes the internal 
+the old data may need to be deleted to get an unobstructed view of the new data. This function deletes the internal 
 data without having to restart the measurement.
 
 Parameters
@@ -3264,8 +3484,6 @@ Returns
     none
     
         """
-        numChans = self.parent.getNumAllChannels()
-        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         self.parent._clearMeasure()
     
 
@@ -3275,8 +3493,9 @@ This function reports whether the measurement is finished.
 
 Warning
 -------
-    If the measurement is completed, new data may still be available. If this data is required it must be read again
-    afterwards. Check out the example below for a possible implementation.
+    If the measurement is finished, there might be some data available, which was not retrieved yet. It may be necessary to 
+    call :meth:`getData()` or :meth:`getBlock()` once again after `isFinished` returns `True`.
+    Check out the example of a possible implementation below.
 
 Parameters
 ----------
@@ -3312,17 +3531,22 @@ Example
 
 class TimeTrace():
     """
-This measurement class provides you with time trace data. It is useful for real-time calibrations of the
-measurement setup.
+This measurement class provides you with time trace data. This can be used for real-time
+calibration of and optimization ae measurement setup.
 
 Note
 ----
     Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
 
-.. image:: _static/TimeTrace.png
-    :class: p-2
+.. image:: _static/02_TimeTrace.png
+    :width: 600px
+    :class: only-light
     
-sample of a `TimeTrace` measurement drawn with matplotlib
+.. image:: _static/02_TimeTrace_dark.png
+    :width: 600px
+    :class: only-dark
+    
+:figure-caption:`This figure shows the principle of the TimeTrace measurement.`
     
     """
 
@@ -3337,11 +3561,11 @@ sample of a `TimeTrace` measurement drawn with matplotlib
 
     def setNumBins(self, numBins: typing.Optional[int] = 10000):
         """
-This function sets the number of bins to collect the counts in.
+This function sets the number of bins into which the counts are sorted.
 
 Note
 ----
-    The bin with can calculated as :math:`binWidth = historySize / numBins`.
+    The bin width can calculated as :math:`binWidth = historySize / numBins`.
 
 Parameters
 ----------
@@ -3366,7 +3590,8 @@ Example
 
     def setHistorySize(self, historySize: typing.Optional[float] = 1):
         """
-This function sets the length or duration of the recorded data in the time domain to collect the counts.
+This function sets the length or duration of the recorded data in the time domain in which
+the counts are collected.
 
 Warning
 -------
@@ -3377,7 +3602,7 @@ Warning
     
 Note
 ----
-    The bin with can calculated as :math:`binWidth = historySize / numBins`.
+    The bin width can calculated as :math:`binWidth = historySize / numBins`.
 
 Parameters
 ----------
@@ -3404,16 +3629,16 @@ Example
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
         """
 With this function a simple `TimeTrace` measurement into RAM and/or disc is provided. When waitFinished
-is set True the call will block until the measurement is completed. However, in most cases you probably
+is set `True` the call will block until the measurement is completed. However, in most cases you probably
 want to avoid blocking in order to retrieve and display the data in real time. the data can be accessed
 with :meth:`getData`.
 
 Parameters
 ----------
     acqTime: int (default: 1s)
-        0: means it will run until :meth:`stopMeasure`
-        acquisition time [ms]
-        will be ignored if device is a FileDevice
+        | 0: means the measurement will run until :meth:`stopMeasure`
+        | acquisition time [ms]
+        | will be ignored if device is a FileDevice
     waitFinished: bool (default: False)
         True: block execution until finished (will be False on acqTime = 0)
     savePTU: bool (default: False)
@@ -3455,7 +3680,7 @@ This function returns the data of the time trace measurement. The data is optimi
 Parameters
 ----------
     normalized: bool (default: True)
-        The counts will be normalized by its bin width, otherwise you get the absolute number of count per bin
+        The counts will be normalized to its bin width, otherwise you get the absolute number of count per bin
     
 Returns
 -------
@@ -3513,8 +3738,9 @@ This function reports whether the measurement is finished.
 
 Warning
 -------
-    If the measurement is completed, new data may still be available. If this data is required, the data must be read again
-    afterwards. Check out the example below for a possible implementation.
+    If the measurement is finished, there might be some data available, which was not retrieved yet. It may be necessary to 
+    call :meth:`getData()` or :meth:`getBlock()` once again after `isFinished` returns `True`.
+    Check out the example of a possible implementation below.
 
 Parameters
 ----------
@@ -3549,8 +3775,9 @@ Example
 
     def stopMeasure(self):
         """
-After a measurement is started it will normally be left to run until the defined acquisition time is elapsed. However,
-sometimes it may be necessary to stop manually. This function can be used for such a manual stop.
+After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.
 
 Parameters
 ----------
@@ -3567,8 +3794,8 @@ Returns
     def clearMeasure(self):
         """
 Some measurements calculate their results on large sets of historical data. When conditions have changed,
-the old data may need to be deleted to get a fresh view of the new data. This function deletes the internal 
-data without having to restart the measurement.
+the old data may need to be deleted to get a an unobstructed view of the new data. This function deletes
+the internal data without having to restart the measurement.
 
 Parameters
 ----------
@@ -3579,23 +3806,26 @@ Returns
     none
     
         """
-        numChans = self.parent.getNumAllChannels()
-        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         self.parent._clearMeasure()
 
 
 
 class Correlation():
     """
-This is the correlation measurement class. It is possible to calculate g(2) or FCS correlations.
-(FCS: Fluorescence Correlation Spectroscopy) 
+This is the correlation measurement class with which it is possible to perform 
+FCS (Fluorescence Correlation Spectroscopy) or g(2) correlations.
 The g(2) correlation is calculated with bins of the same width while the FCS correlation with the
 multi-tau algorithm uses pseudo-logarithmically increasing bin widths.
 
-.. image:: _static/G2_Correlation.png
-    :class: p-2
+.. image:: _static/03_Correlation_Bunching.png
+    :width: 600px
+    :class: only-light
+
+.. image:: _static/03_Correlation_Bunching_dark.png
+    :width: 600px
+    :class: only-dark
     
-sample of a g(2) `Correlation` measurement drawn with matplotlib
+:figure-caption:`This figure shows the principle of the Correlation measurement.`
     
     """
     
@@ -3605,7 +3835,7 @@ sample of a g(2) `Correlation` measurement drawn with matplotlib
         self.data = ct.ARRAY(ct.c_double, 0)()
         self.bins = ct.ARRAY(ct.c_double, 0)()
         self.startChannel = 1
-        self.clickChannel = 2
+        self.stopChannel = 2
         self.numIntervals = 1
         self.intervalLength = 1000
         self.binWidth = 1000
@@ -3614,35 +3844,35 @@ sample of a g(2) `Correlation` measurement drawn with matplotlib
         self.finished = ct.pointer(ct.c_bool(False))
         
 
-    def setG2Parameters(self, startChannel: int, clickChannel: int, windowSize: float, binWidth: float):
+    def setG2Parameters(self, startChannel: int, stopChannel: int, windowSize: float, binWidth: typing.Optional[float] = None):
         """
-This function sets the the parameters for the g(2) correlation. If the startChannel is the same as the
-clickChannel an autocorrelation is calculated and if the channels are different a
-cross calculation is calculated.
+This function sets the the parameters for the g(2) correlation. If the `startChannel` is the same as the
+`stopChannel` an autocorrelation is performed and if the channels are different a
+cross calculation is done instead.
 
 Note
 ----
-    The g(2) correlation is normalized with following factor:
+    The g(2) correlation is normalized with the following factor:
 
 .. math::
     :label: g2factor
 
     \\frac{\\Delta t}{binWidth \\cdot N_1 \\cdot N_2}
     
-The :math:`\\Delta t` term represents the total measurement time of calculating the correlation,
+Here the :math:`\\Delta t` term represents the total time span of the correlation,
 and :math:`N_1` and :math:`N_2` represent the total number of events in the two detection channels
-in this time.
+during this time span.
     
 Parameters
 ----------
     startChannel: int (0 is sync channel)
         start channel
-    clickChannel: int (0 is sync channel)
+    stopChannel: int (0 is sync channel)
         click channel
     windowSize: int [ps]
         size of the correlation window
     binWidth: int [ps]
-        width of bins 
+        width of bins (Default: None - T2: BaseResolution, T3: Resolution) 
 
 Returns
 -------
@@ -3656,21 +3886,27 @@ Example
     sn.correlation.setG2Parameters(1, 2 , 5000, 5)
     
         """
+        if binWidth is None:
+            if self.parent.deviceConfig["MeasMode"] == MeasMode.T2.value:
+                binWidth = self.parent.deviceConfig["BaseResolution"]
+            elif self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value:
+                binWidth = self.parent.deviceConfig["Resolution"]
+                
         self.startChannel = startChannel
-        self.clickChannel = clickChannel
+        self.stopChannel = stopChannel
         self.windowSize = windowSize
         self.binWidth = binWidth
         self.intervalLength = int(windowSize / binWidth)
         self.isFcs = False
         
         self.parent.dll.setG2Params.argtypes = [ct.c_int, ct.c_int, ct.c_double, ct.c_double]
-        self.parent.dll.setG2Params(startChannel, clickChannel, windowSize, binWidth)
+        self.parent.dll.setG2Params(startChannel, stopChannel, windowSize, binWidth)
     
 
-    def setFCSparameters(self, startChannel: int, clickChannel: int, windowSize: typing.Optional[float] = 1e12, startTime: typing.Optional[int] = None):
+    def setFCSParameters(self, startChannel: int, stopChannel: int, windowSize: typing.Optional[float] = 1e12, startTime: typing.Optional[int] = None):
         """
-This function sets the the parameters for the FCS correlation. If the startChannel is the same as the
-clickChannel an autocorrelation is calculated and if the channels are different a
+This function sets the the parameters for the FCS correlation. If the `startChannel` is the same as the
+`stopChannel` an autocorrelation is calculated and if the channels are different a
 cross calculation is calculated.
 
 Note
@@ -3686,7 +3922,7 @@ where:
 
 - :math:`\\tau_0` is the initial lag time which is defined by the :obj:`snAPI.deviceConfig` **BaseResolution**
 - :math:`k` is the index of the lag time in the sequence, with :math:`k = 0, 1, 2, \\dots, N-1`, where :math:`N` is the **numIntervals**
-- :math:`p` is the period of the sequence, which is defined **intervalLength** between successive powers of :math:`2`. \
+- :math:`p` is the period of the sequence, which is defined by **intervalLength** between successive powers of :math:`2`. \
 For example, if :math:`\\tau_0 = 1` and :math:`p = 4`, then the sequence would include lag times of 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, and so on.
 - :math:`\\lfloor \\cdot \\rfloor` denotes the floor function, which rounds a number down to the nearest integer
 - :math:`\\bmod` is the modulus operator, which gives the remainder when dividing one number by another.
@@ -3695,12 +3931,12 @@ Parameters
 ----------
     startChannel: int (0 is sync channel)
         start channel
-    clickChannel: int (0 is sync channel)
+    stopChannel: int (0 is sync channel)
         click channel
     windowSize: int [ps]
         size of the correlation window
     startTime: int [ps]
-        width of bins None: T2: BaseResolution, T3: Resolution
+        minimum tau, the left border of the correlation (Default: None - T2: BaseResolution, T3: Resolution)
 
 Returns
 -------
@@ -3721,7 +3957,7 @@ Example
                 startTime = self.parent.deviceConfig["Resolution"]
             
         self.startChannel = startChannel
-        self.clickChannel = clickChannel
+        self.stopChannel = stopChannel
         self.windowSize = windowSize
         self.startTime = startTime
         self.isFcs = True
@@ -3729,24 +3965,25 @@ Example
         pIntervalLength = ct.pointer(ct.c_int(0))
         
         self.parent.dll.setFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.POINTER(ct.c_int), ct.c_double, ct.c_double]
-        self.parent.dll.setFCSParams(startChannel, clickChannel, pNumIntervals, pIntervalLength, windowSize, startTime)
+        self.parent.dll.setFCSParams(startChannel, stopChannel, pNumIntervals, pIntervalLength, windowSize, startTime)
         self.numIntervals = pNumIntervals.contents.value
         self.intervalLength = pIntervalLength.contents.value
         
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
         """
-With this function a simple `Correlation` measurement into RAM and/or disc is provided. If waitFinished
-is set True the call will block until the measurement is completed. If waitFinished is set False (default)
-you can get updates on the fly, and you can access the execution status with the :meth:`isFinished` function.
+With this function a simple `Correlation` measurement is initiated. The results are stored into
+RAM and/or disc. If `waitFinished` is set `True` the call will be blocked until the measurement
+is completed. If `waitFinished` is set `False` (default) you can get updates on the fly, and you
+can access the execution status with the :meth:`isFinished` function.
 The data can be accessed with :meth:`getData`.
 
 Parameters
 ----------
     acqTime: int (default: 1s)
-        0: means it will run until :meth:`stopMeasure`
-        acquisition time [ms]
-        will be ignored if device is a FileDevice
+        | 0: means the measurement will run until :meth:`stopMeasure`
+        | acquisition time [ms]
+        | will be ignored if device is a FileDevice
     waitFinished: bool (default: False)
         True: block execution until finished (will be False on acqTime = 0)
     savePTU: bool (default: False)
@@ -3793,7 +4030,7 @@ Example
         return self.parent.dll.getCorrelation(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.bins), self.finished)
 
 
-    def getG2data(self):
+    def getG2Data(self):
         """
 This function returns the data of the g(2) correlation measurement.
 
@@ -3805,9 +4042,9 @@ Returns
 -------
     tuple [1DArray, 1DArray]
         data: 1DArray[int]
-            data array of the normalized g(2) measurement :eq:`g2factor`.
+            data array of the normalized g(2) measurement :eq:`g2factor`
         bins: 1DArray[int]
-            data array of the start times of the bins from the beginning of the measurement [s]
+            data array of the start times of bins from the beginning of the measurement [s]
 
 Example
 -------
@@ -3841,7 +4078,7 @@ Example
         return self.data, self.bins
 
 
-    def getFCSdata(self):
+    def getFCSData(self):
         """
 This function returns the data of the FCS correlation measurement.
 
@@ -3896,8 +4133,9 @@ Example
 
     def stopMeasure(self):
         """
-After a measurement is started it will normally be left to run until the defined acquisition time is elapsed. However,
-sometimes it may be necessary to stop manually. This function can be used for such a manual stop.
+After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.
 
 Parameters
 ----------
@@ -3926,12 +4164,6 @@ Returns
     none
     
         """
-        if self.isFcs:
-            self.numBins = self.numIntervals * self.intervalLength
-            self.data = ct.ARRAY(ct.c_double, 2 * self.numBins)(0)
-        else:
-            self.numBins = 2 * self.intervalLength
-            self.data = ct.ARRAY(ct.c_double, self.numBins)(0)
         self.parent._clearMeasure()
 
 
@@ -3941,9 +4173,10 @@ This function reports whether the measurement is finished.
 
 Warning
 -------
-    If the measurement is completed, new data may still be available. If this data is required, the data must be read again
-    afterwards. Check out the example below for a possible implementation.
-
+    If the measurement is finished, there might be some data available, which was not retrieved yet. It may be necessary to 
+    call :meth:`getData()` or :meth:`getBlock()` once again after `isFinished` returns `True`.
+    Check out the example of a possible implementation below.
+    
 Parameters
 ----------
     none
@@ -3978,13 +4211,20 @@ Example
 
 class Manipulators():    
     """
-This is the manipulators class. It is used to modify the unfold data stream that is created in snAPI. 
-With it it is possible to modify existing channel records and/or create or delete new ones that fit in the data stream.
+This is the manipulators class. It can be used to modify the unfold data stream in snAPI. It it is
+possible to modify existing channel records and/or create or delete new ones which are then added
+to the data stream.
 
-.. image:: _static/snAPI_Flow.png
-    :class: p-2
+.. image:: _static/08_snAPI_Flow.png
+    :width: 600px
+    :class: only-light
     
-Flow chart of the integration of the manipulators.
+.. image:: _static/08_snAPI_Flow_dark.png
+    :width: 600px
+    :class: only-dark
+    
+
+:figure-caption:`This figure shows the flow chart of the integration of the Manipulators.`
 
     """
     
@@ -3994,8 +4234,8 @@ Stores a list of the defined manipulators and can manually read with :meth:`getC
 
 Note
 ----
-The Manipulator.config can not directly written. It is only for checking the current state. To change the configuration, you have to call
-the certain functions.
+The Manipulator.config can not be written to. It is only for checking the current state. To change
+the configuration, you have to call the specific functions directly.
 
 Example
 -------
@@ -4056,12 +4296,13 @@ Example
     def getConfig(self):
         """
 This command reads the manipulator configuration stored by th API and returns it to
-:obj:`snAPI.Manipulators.config`.
+:obj:`config`.
 
 Note
 ----
-    Normally you have not to to call this function to refresh the manipulator.config. It should always be
-    up to date. However, under certain circumstances the manipulator.config could be updated manually.
+    Normally you do not have to to call this function in order to refresh the manipulator.config.
+    It should always be up to date. However, under certain circumstances it might be desired to
+    update the manipulator.config manually.
 
 Parameters
 ----------
@@ -4104,7 +4345,7 @@ Warning
         self.parent.dll.clearManis()
         self.getConfig()
 
-    def coincidence(self, chans: typing.List[int], windowTime: typing.Optional[int] = 1000, keepChannels: typing.Optional[bool] = True):
+    def coincidence(self, chans: typing.List[int], windowTime: typing.Optional[float] = 1000, mode: typing.Optional[CoincidenceMode] = CoincidenceMode.CountAll, keepChannels: typing.Optional[bool] = True):
         """
 This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window size.
 
@@ -4113,14 +4354,26 @@ Note
     If only the coincidence channel is needed for further investigations set `keepChannels` to False.
     This will reduce the data stream and therefore the processor load and memory consumption.
 
+.. image:: _static/04_Coincidence.png
+    :width: 600px
+    :class: only-light
+    
+.. image:: _static/04_Coincidence_dark.png
+    :width: 600px
+    :class: only-dark
+    
+:figure-caption:`This figure shows the principle of the Coincidence.`
+
 Parameters
 ----------
     chans: List[int]
         channel indices that build a coincidence
-    windowTime: int 
+    windowTime: float 
         window size [ps]
+    mode: CoincidenceMode (default: CoincidenceMode.CountAll)
+        coincidence counting mode
     keepChannels: bool (default: True)
-        | True: the coincidence channel is be integrated in the data stream as additional channel 
+        | True: the coincidence channel is be integrated in the data stream as an additional channel 
         | False: only the coincidence channel is in the data stream
 
 Returns
@@ -4130,12 +4383,6 @@ Returns
 
 Example
 -------
-
-.. image:: _static/coincidence.png
-    :class: p-2
-    
-plot of the example
-
 ::
 
     # plots a timetrace of channel 1 and 2 and their coincidence within a window time of 1ns 
@@ -4175,19 +4422,31 @@ plot of the example
         channels = (ct.c_int * length)()
         for i in range(length):
             channels[i] = chans[i]
-        chanOut = self.parent.dll.addMCoincidence(ct.pointer(channels), length, windowTime, keepChannels)
+        self.parent.dll.addMCoincidence.argtypes = [ct.c_void_p, ct.c_int, ct.c_double, ct.c_int, ct.c_bool]
+        chanOut = self.parent.dll.addMCoincidence(ct.pointer(channels), length, windowTime, mode.value, keepChannels)
         self.getConfig()
         return chanOut
     
     
     def merge(self, chans: typing.List[int], keepChannels: typing.Optional[bool] = True):
         """
-This creates a merge manipulator. You only have to define which channels should be merged.
+This manipulator combines the data steam of the specified channels. You only have to define
+which channels should be merged.
 
 Note
 ----
-    If you are only the merged channel is needed for further investigations set `keepChannels` to False. This will reduce the data stream and 
-    therefore the processor load and memory consumption.
+    If only the merged channel is needed for further investigations set `keepChannels` to False.
+    This will reduce the data stream and therefore the processor load and memory consumption.
+
+.. image:: _static/06_Merge.png
+    :width: 600px
+    :class: only-light
+    
+.. image:: _static/06_Merge_dark.png
+    :width: 600px
+    :class: only-dark
+    
+:figure-caption:`This figure shows the Merge operator principle.`
 
 Parameters
 ----------
@@ -4224,23 +4483,34 @@ Example
     
     def delay(self, channel: int, delayTime: float, keepSourceChannel: typing.Optional[bool] = True):
         """
-This implements a delay manipulator, that gives you the ability to add a delay to the given channel.
-Its generally better to use :meth:`setInputChannelOffset` because it does the same but in hardware and therefore
-it don't uses any resources of the PC. But if you data of a ptu file it is the only way to do it.
+This manipulator, gives you the ability to add a delay to the specified channels. Its generally
+better to use :meth:`setInputChannelOffset` because it does the same but on a hardware level and
+therefore it doesn't uses any resources of the PC. But if you handle data of a ptu file this is
+the only.
+
+.. image:: _static/05_Delay.png
+    :width: 600px
+    :class: only-light
+    
+.. image:: _static/05_Delay_dark.png
+    :width: 600px
+    :class: only-dark
+    
+:figure-caption:`This figure shows the principle of the Delay operator.`
 
 Note
 ----
-    If don't need the original channel anymore set `keepSourceChannel` to False. This will reduce the data stream and 
-    therefore the processor load and memory consumption.
+    If you don't need the original channel anymore set `keepSourceChannel` to False.
+    This will reduce the data stream and therefore the processor load and memory consumption.
     
 Parameters
 ----------
     channel: int
-        index o that build a coincidence
+        index of the channels, for which a coincidence will be calculated
     delayTime: int 
         window size [ps]
     keepSourceChannel: bool (default: True)
-        | True: the delayed channel is be integrated in the data stream as additional channel 
+        | True: the delayed channel is being integrated in the data stream as an additional channel 
         | False: the source channel will be delayed
 
 Returns
@@ -4250,12 +4520,6 @@ Returns
 
 Example
 -------
-
-.. image:: _static/delay.png
-    :class: p-2
-    
-plot of following example
-
 ::
 
     # creates a delay of channel 1 with 1ms and stores it in cd
@@ -4298,8 +4562,19 @@ plot of following example
 
     def herald(self, herald:int, gateChans: typing.List[int], delayTime: typing.Optional[int] = 0, gateTime: typing.Optional[int] = 1000, keepChannels: typing.Optional[bool] = True):
         """
-This manipulator creates a heralded gate filter. You have to define which channel contains the herald events and which
-channels have to been filtered. Therefor it is been necessary to set the delay time and the gate time of the following gate.
+This manipulator performs as heralded gate filter. You have to define from which channel the herald events
+will be taken and which channels will be filtered. Therefore it is been necessary to set the delay time and
+the gate time of the following gate accordingly.
+
+.. image:: _static/07_Herald.png
+    :width: 600px
+    :class: only-light
+        
+.. image:: _static/07_Herald_dark.png
+    :width: 600px
+    :class: only-dark
+    
+:figure-caption:`This figure shows the principle of the Herald operator.`
 
 Note
 ----
@@ -4308,10 +4583,10 @@ Note
     
 Caution
 -------
-To calculate the histogram in :obj:`.MeasMode.T3` it is necessary to store dTimes (different time between the
-sync- and the channel events) in the times array of the internal unfold data stream, because the sync events
-are removed. Therefore the herald manipulator only works as gate with the sync channel as herald. The delayTime and gateTime
-parameters do work with the dTimes and not absolute times.
+To calculate the histogram in :obj:`.MeasMode.T3` it is necessary to store `dTimes` (time difference
+between the sync- and the channel events) in the internal unfold data stream, because the sync events
+are removed. Therefore the herald manipulator only works in between to sync pulses. If you need the
+default behaviour you have to use the :obj:`.MeasMode.T2` instead.
 
 Parameters
 ----------
@@ -4334,12 +4609,6 @@ Returns
 
 Example
 -------
-
-.. image:: _static/herald.png
-    :class: p-2
-    
-plot of following example
-
 ::
 
     # sets a herald on sync channel that cuts of a window from 66ns to 76ns from channel 2
