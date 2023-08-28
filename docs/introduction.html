@@ -111,7 +111,7 @@
       
     
     
-    <img src="_static/logo-dark.png" class="logo__image only-light" alt="Logo image"/>
+    <img src="_static/logo-light.png" class="logo__image only-light" alt="Logo image"/>
     <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
@@ -151,6 +151,13 @@
                     <li class="nav-item">
                       <a class="nav-link nav-internal" href="snAPI.html">
                         snAPI package
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="config.html">
+                        Configuration
                       </a>
                     </li>
                 
@@ -263,6 +270,13 @@ document.write(`
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="config.html">
+                        Configuration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="tttr%20data%20format.html">
                         TTTR Record Format
                       </a>
@@ -350,12 +364,36 @@ document.write(`
                   
   <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
-<p>snAPI, which stands for Snappy New API, is a powerful Python wrapper designed to enhance the functionality and performance of HARP devices, developed by PicoQuant. Built upon the Multiharp library, snAPI enables seamless communication and configuration with HARP devices, while providing efficient handling of large photon counts in real-time. It represents the swift and efficient nature of this cutting-edge software tool.</p>
-<p>Harnessing the advantages of C++ for optimal speed and performance, snAPI bridges the gap between the high-speed capabilities of HARP devices and the ease of use and versatility of Python. By leveraging the low-level control offered by C++, snAPI ensures smooth and efficient data processing, enabling real-time analysis of megacounts of photons. Additionally, snAPI introduces a new dimension of flexibility by providing the option to access unfolded data.</p>
-<p>With snAPI, users can now retrieve the unfolded data from HARP devices and leverage the power of Python to perform custom calculations and analysis. This capability opens up a whole new realm of possibilities, allowing researchers, developers, and scientists to delve deeper into their data and extract valuable insights. By directly accessing unfolded data in Python, users can build their own algorithms, implement complex calculations, and develop tailored data processing pipelines.</p>
-<p>snAPI simplifies device communication and configuration, streamlining the process of integrating HARP devices into Python-based projects. With snAPI, users can focus on developing advanced measurement classes such as histogram, correlation, and timetrace, without worrying about the intricacies of device handling.</p>
-<p>By providing a high-level interface to the underlying C++ library, snAPI enables Python developers to tap into the full potential of HARP devices while maintaining the flexibility and versatility of the Python programming language. Whether you are performing complex data analysis, conducting cutting-edge research, or building sophisticated applications, snAPI empowers you to harness the power of HARP devices and customize your data calculations directly in Python.</p>
-<p>In summary, snAPI serves as a bridge between the capabilities of HARP devices and the Python ecosystem, offering efficient device communication, configuration, and data handling. With its added support for accessing unfolded data, snAPI enables users to perform custom calculations and analysis directly in Python, empowering them to extract valuable insights and build tailored data processing pipelines.</p>
+<div class="line-block">
+<div class="line">Our Snappy New API (short snAPI) is a powerful Python wrapper which enables seamless</div>
+<div class="line">communication and configuration with PicoQuant Time Correlated Single Photon Counting</div>
+<div class="line">Instruments (TCSPC devices). It harnesses the advantages of C++ for optimal speed and</div>
+<div class="line">performance and bridges the gap between the high-speed capabilities of your PicoQuant</div>
+<div class="line">TCSPC device and the ease of use and versatility of Python.</div>
+</div>
+<div class="line-block">
+<div class="line">snAPI provides a high-level interface to the underlying C++ library and enables users to tap</div>
+<div class="line">into the full potential of your TCSPC device while maintaining the flexibility and versatility</div>
+<div class="line">of the Python programming language. The low-level control offered by C++ ensures smooth</div>
+<div class="line">and efficient data processing, enabling efficient handling of large photon counts and their</div>
+<div class="line">real-time analysis. Additionally, snAPI introduces another dimension of flexibility by</div>
+<div class="line">providing the option to access unfolded data from your PicoQuant TCSPC device. This opens a whole</div>
+<div class="line">new realm of possibilities, allowing researchers, developers, and scientists to delve deeper</div>
+<div class="line">into their data and extract valuable insights.</div>
+</div>
+<div class="line-block">
+<div class="line">By leveraging the power of Python users can build their own algorithms, implement complex</div>
+<div class="line">calculations, and develop tailored data processing pipelines for analysis. With snAPI, users</div>
+<div class="line">can make use of advanced measurement classes such as timetrace, histogram, unfold, raw and</div>
+<div class="line">correlation (e.g, FCS, g2), without worrying about the intricacies of device handling. The</div>
+<div class="line">measurement classes can be sequentially combined with data manipulators (e.g. coincidence,</div>
+<div class="line">herald, merge, delay) to provide maximum flexibility in analysis.</div>
+</div>
+<div class="line-block">
+<div class="line">snAPI is free to use and compatible with PicoQuant <a class="reference external" href="https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/timeharp-260-tcspc-and-mcs-board-with-pcie-interface">TimeHarp 260</a> (drivers optional),</div>
+<div class="line"><a class="reference external" href="https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/multiharp-160">MultiHarp 160</a>, <a class="reference external" href="https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/multiharp-150-high-throughput-multichannel-event-timer-tcspc-unit">MultiHarp 150</a>, <a class="reference external" href="https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/hydraharp-400-multichannel-picosecond-event-timer-tcspc-module">HydraHarp 400</a> and PicoHarp 330.</div>
+<div class="line">To get started users just need a PicoQuant TCSPC device, its Library/DLL, Python, and snAPI.</div>
+</div>
 </section>
 
 
