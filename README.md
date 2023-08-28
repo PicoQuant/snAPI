@@ -1,8 +1,9 @@
-# snAPI (Alpha Pre-Release)
-This is an alpha pre-release version of snAPI, intended solely for test purposes. Please note that it is not suitable for production environments or critical systems. Use it at your own discretion.
-
-## About snAPI
-snAPI is an experimental API designed for testing and exploration purposes. It provides a set of functionalities and measurement classes that allow users to interact with MultiHarp and their ptu files.
+# snAPI
+Our Snappy New API (short snAPI) is a powerful Python wrapper which enables seamless
+communication and configuration with PicoQuant Time Correlated Single Photon Counting
+Instruments (TCSPC devices). It harnesses the advantages of C++ for optimal speed and
+performance and bridges the gap between the high-speed capabilities of your PicoQuant
+TCSPC device and the ease of use and versatility of Python.
 
 ## Getting Started
 To get started with snAPI, follow the [Install](https://picoquant.github.io/snAPI/install.html) section of the online documentation.
