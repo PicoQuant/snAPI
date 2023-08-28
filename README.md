@@ -27,3 +27,5 @@ This software is released under the [MIT License](LICENSE). Please review the li
 
 ## Disclaimer
 **Use snAPI at your own risk. This is an alpha pre-release version and should not be used in production environments or critical systems. We are not responsible for any damages or losses resulting from the use of this software.**
+
+https://github.com/PicoQuant/snAPI/assets/717502/4cce4620-5fd7-4152-b6d8-e92fd62d5ed5
