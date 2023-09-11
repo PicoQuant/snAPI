@@ -6,7 +6,7 @@ print("Switched to:",matplotlib.get_backend())
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.HH)
+    sn = snAPI(libType=LibType.PH330)
     sn.getDevice()
     
     # alternatively read data from file
@@ -14,8 +14,8 @@ if(__name__ == "__main__"):
     sn.initDevice(MeasMode.T2)
     
     # enable this to get info about loading config
-    #sn.setLogLevel(logLevel=LogLevel.Config, onOff=True)
-    sn.loadIniConfig("config\HH.ini")
+    sn.setLogLevel(logLevel=LogLevel.Config, onOff=True)
+    sn.loadIniConfig("config\PH330_Edge.ini")
     
     numChans = sn.deviceConfig["NumChans"]
     triggerMode = TrigMode.Edge if sn.deviceConfig["SyncTrigMode"] == "Edge" else TrigMode.CFD

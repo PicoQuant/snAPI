@@ -5,7 +5,6 @@ if(__name__ == "__main__"):
     # set the library for your device type
     sn = snAPI(libType=LibType.HH)
     sn.getDevice()
-    
     sn.initDevice()
     
     # set the configuration for your device type

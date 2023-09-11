@@ -8,20 +8,20 @@ import time
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.HH)
+    sn = snAPI(libType=LibType.PH330)
     sn.getDevice()
     sn.initDevice(MeasMode.T2)
     
     # temporarily enable logging of configuration
     sn.setLogLevel(LogLevel.Config, True)
     # set the configuration for your device type
-    sn.loadIniConfig("config\HH.ini")
+    sn.loadIniConfig("config\PH330_CFD.ini")
     sn.setLogLevel(LogLevel.Config, False)
     
     # change histogram parameter in T2 mode
     #sn.histogram.setRefChannel(0)
     #sn.histogram.setBinWidth(1)
-    sn.device.setStopOverflow(int(1e6))
+    #sn.device.setStopOverflow(int(1e6))
     sn.histogram.measure(acqTime=0, waitFinished=False, savePTU=True)
     
     while True:
@@ -43,9 +43,8 @@ if(__name__ == "__main__"):
         plt.title("Histogram")
         
         # clear measure data
-        #sn.histogram.clearMeasure()
+        sn.histogram.clearMeasure()
         if finished:
-            sn.setLogLevel(LogLevel.Manipulators, True)
             break
     
     plt.show(block=True)

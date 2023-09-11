@@ -42,7 +42,8 @@ with a deadtime below 2 ns.
     """
     PH330 = 4
     """
-This selects the library for the PicoHarp 330 (PH330) devices.
+`PicoHarp 330 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/picoharp_330_precise_and_versatile_event_timer_and_tcspc_unit>`_
+(PH330) devices.
     
     """
 
@@ -383,20 +384,22 @@ generate a coincidence count and get erased for the generation of further coinci
     
 class UnfoldFormat(Enum):
     """
+This changes the format of the `Unfold` data stream in :obj:`.MeasMode.T3`.
     """
     Nothing = 0
     """
-    _summary_
+This is for internal use only. 
     """
     Absolute = 1
     """
-    _summary_
+This value will generate absolute times.
     """
     DTimes = 2
     """
-    _summary_
+This generates only `dTimes` (differential time between sync and input channel).
     """
     DTimesSyncCntr = 3
     """
-    _summary_
+This generates `dTimes` (differential time between sync and input channel) and
+`syncCntr` (sync counter).
     """

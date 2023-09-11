@@ -4,6 +4,8 @@ import ctypes as ct
 import json
 import os
 import inspect
+import sys
+import traceback
 import typing
 import numpy as np
 
@@ -158,6 +160,41 @@ Example
     
     """
 
+    measDescription = ()
+    """
+The measurement description contains special information about the measurement. To update it it is necessary to call :meth:`getMeasDescription`.
+
+Note
+----
+    The `measDescription` is only valid after a measurement is done or a file device is loaded.
+
+Parameters
+    - AcqTime: acquisition 
+    - AveSyncRate: if measured with :meth:`getCountRates`
+    - AveSyncPeriod: if measured with :meth:`getSyncPeriod`
+    - StopReason: why the measurement was stopped
+    - StopAfter: the determined time after the measurement was stopped
+    - WarningsFlag: currently not supported
+    - NumRecs: total number of records
+
+Example
+-------
+::
+
+    # This is an example of a measurement description
+    
+    230908_10:29:08.4519796 EXT {
+      "AcqTime": 6000000,
+      "AveSyncRate": 0.0,
+      "AveSyncPeriod": 4294967295.0,
+      "StopReason": "Manual",
+      "StopAfter": 252036.0,
+      "WarningsFlag": 0,
+      "NumRecs": 70791781
+    }
+    
+    """
+
     def __new__(cls, *args, **kwargs):
         return super().__new__(cls)
     
@@ -182,7 +219,7 @@ Example
         self.manipulators = Manipulators(self)
         """This is the object to :class:`Manipulators`. class"""
         self.initAPI(systemIni, libType)
-        
+
 
     def __del__(self,):
         self.exitAPI()
@@ -231,6 +268,34 @@ Example
             self.dll.logExternal(f"{summarized_args}".encode('utf-8'))
         elif summarized_kwargs:
             self.dll.logExternal(f"{summarized_kwargs}".encode('utf-8'))
+
+
+    def logException(exception_type, exception, eTraceback):
+        """
+This function is for internal use only and captures unhandled exceptions and add them to the log.
+
+Example
+-------
+::
+
+    # This is an example of the logged exception
+    230911_12:02:53.5338907 ERR Uncaught python exception: IndexError!
+    230911_12:02:53.5340906 ERR Text: index 1000000000 is out of bounds for axis 0 with size 300862664
+    230911_12:02:53.5349062 ERR   File "e:\Projects\source\Harp\PythonWrapper\Tool_ReadPTU.py", line 25, in <module>
+    230911_12:02:53.5350878 ERR     sn.logPrint(f"{channels[1000000000+i]:9} | {times[i]:8}")
+    230911_12:02:53.5351972 ERR                    ~~~~~~~~^^^^^^^^^^^^^^
+
+        """
+        dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), '.\snAPI64.dll')))
+        dll.logError.argtypes = [ct.c_char_p]
+        dll.logError(f"Uncaught python exception: {exception_type.__name__}!".encode('utf-8'))
+        dll.logError(f"Text: {exception}".encode('utf-8'))
+        if eTraceback:
+            format_exception = traceback.format_tb(eTraceback)
+            for line in format_exception:
+                for l in repr(line).strip('\'').strip('\\n').replace('\\\\','\\').split("\\n"):
+                    dll.logError(l.encode('utf-8'))
+    sys.excepthook = logException
 
 
     def setLogLevel(self, logLevel: LogLevel, onOff: bool):
@@ -604,27 +669,24 @@ Example
     SyncEdgeTrig = -50,1
     SyncChannelOffset = 0
     SyncChannelEnable = 1
-    SyncDeadTime = 0
-    StopOverflow = 4294967295
+    SyncDeadTime = 00
+    StopCount = 4294967295
     Binning = 1
     Offset = 0
-    MeasControl = 0
-    StartEdge = 1
-    StopEdge = 1
     TriggerOutput = 0
 
     [All_Channels]
-    InputEdgeTrig = -50,1
-    InputChannelOffset = 0
-    SetInputChannelEnable = 1
-    InputDeadTime = 0
+    EdgeTrig = -50,1
+    ChanOffs = 0
+    ChanEna = 1
+    DeadTime = 0
 
     [Channel_0]
-    InputEdgeTrig = -10,1
-    InputChannelOffset = 100
+    EdgeTrig = 0,1
+    ChanOffs = 0
 
     [Channel_1]
-    InputEdgeTrig = -120,1
+    EdgeTrig = -120,1
     
         """
         SBuf = path.encode('utf-8')
@@ -661,7 +723,7 @@ Example
 ::
 
     # sets the Channel 2 Input Edge to -50mV with falling edge
-    sn.setIniConfig("[Channel_1]\\nInputEdgeTrig = -50,0")
+    sn.setIniConfig("[Channel_1]\\nEdgeTrig = -50,0")
     
         """
         self.logPrint("setConfigIni")
@@ -669,7 +731,7 @@ Example
         if ok:= self.dll.setIniConfig(SBuf):
             ok = self.getDeviceConfig()
         return ok
-    
+
 
     def getDeviceConfig(self,):
         """
@@ -710,7 +772,54 @@ Example
             self.logPrint(conf)
             return False
 
-    # Measurements
+
+    def getMeasDescription(self):
+        """
+This reads measurement description that contains special information about the measurement and stores it in :obj:`snAPI.measDescription`.
+
+Note
+----
+The `measDescription` is only valid after a measurement is done or a file device is loaded.
+
+Parameters
+----------
+    none
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+        
+Example
+-------
+::
+    
+    # reads the measurement description an prints it out
+    
+    sn.getMeasDescription()
+    sn.logPrint(json.dumps(sn.measDescription, indent=2))
+    
+    # prints
+    230908_11:06:23.9252150 EXT {
+      "AcqTime": 6000000,
+      "AveSyncRate": 0.0,
+      "AveSyncPeriod": 4294967295.0,
+      "StopReason": "Manual",
+      "StopAfter": 252036.0,
+      "WarningsFlag": 0,
+      "NumRecs": 70791781
+    }
+
+        """
+        conf = (ct.c_char * 65535)()
+        ok = self.dll.getMeasDescription(conf)
+        conf = str(conf, "utf-8").replace('\x00','')
+        if ok:
+            self.measDescription = json.loads(conf)
+            return True
+        else:
+            self.parent.logPrint(conf)
+            return False
 
     def _stopMeasure(self):
         """
@@ -886,6 +995,40 @@ Example
         return ok
 
 
+    def setSyncTrigMode(self, syncTrigMode: typing.Optional[TrigMode] = TrigMode.Edge):
+        """
+    Supported devices: [PH330]
+    
+The function sets the trigger mode of the sync channel.
+For the trigger mode of the input channels use :meth:`setInputTrigMode`.
+    
+Parameters
+----------
+    syncTrigMode: TriggerMode
+        | (default: TriggerMode.Edge)
+        | [TriggerMode.Edge | TriggerMode.CFD]
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # sets the sync trigger mode to edge trigger
+    sn.device.setSyncTrigMode(TriggerMode.Edge)
+    
+        """
+        if ok:= self.parent.dll.setSyncTrigMode(syncTrigMode.value):
+            if syncTrigMode == TrigMode.Edge:
+                self.parent.deviceConfig["SyncTrigMode"] = "Edge"
+            elif syncTrigMode == TrigMode.CFD:
+                self.parent.deviceConfig["SyncTrigMode"] = "CFD"
+        return ok
+
+
     def setSyncEdgeTrig(self, syncTrigLvl: typing.Optional[int] = -50, syncTrigEdge: typing.Optional[int] = 1):
         """
     Supported devices: [MH150/160 | TH260N | PH330]
@@ -901,6 +1044,7 @@ Parameters
         | trigger level [mV] 
         | (default:-50mV)
         | MH150/160, TH260N : [-1200..1200]
+        | PH330: [-1500..1500]
     syncTrigEdge: int
         | trigger edge 
         | 0: falling
@@ -938,10 +1082,12 @@ Parameters
         | level [mV] (default:50mV)
         | HH400: [0..1000]
         | TH260P: [-1200..0]
+        | PH330: [-1500..0]
     syncZeroXLvL: int
         | trigger edge 
         | HH400: [0..40]
         | TH260P: [-40..0]
+        | PH330: [-100..0]
     
 Returns
 -------
@@ -1501,6 +1647,55 @@ Example
         """
         if ok:= self.parent.dll.setOflCompression(holdtime):
             self.parent.deviceConfig["Holdtime"] = holdtime
+        return ok
+
+
+    def setInputTrigMode(self, channel: typing.Optional[int] = -1, trigMode: typing.Optional[TrigMode] = TrigMode.Edge):
+        """
+    Supported devices: [PH330] 
+    
+This sets the input trigger mode.
+For the input edge trigger of the sync channel use :meth:`setSyncTrigMode`.
+
+Note
+----
+    The maximum input channel index must be less than deviceConfig["numChans"].
+
+Parameters
+----------
+    channel: int
+        | 0 .. ["numChans"]-1
+        | -1: all channels (default)
+    trigMode:
+        | (default: TriggerMode.Edge)
+        | [TriggerMode.Edge | TriggerMode.CFD]
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # sets the input mode of channel 1 to trigger edge
+    sn.device.setInputTrigMode(0, TriggerMode.Edge)
+    
+        """
+        if ok:= self.parent.dll.setInputTrigMode(channel, trigMode.value):
+            trigModeS = ""
+            if trigMode == TrigMode.CFD:
+                trigModeS = "CFD"
+            elif trigMode == TrigMode.Edge:
+                trigModeS = "Edge"
+                
+            if channel == -1:
+                for chan in range(self.parent.deviceConfig["NumChans"]):
+                    self.parent.deviceConfig["ChansCfg"][chan]["TrigMode"] = trigModeS
+            else:
+                self.parent.deviceConfig["ChansCfg"][channel]["TrigMode"] = trigModeS
+                
         return ok
 
 
@@ -2742,7 +2937,7 @@ Parameters
         | 0: means the measurement will run until :meth:`stopMeasure`
         | acquisition time [ms]
         | will be ignored if device is a FileDevice
-    size: int number of records (default: 128 million records = 1GB)
+    size: int number of records (default: 1 billion records = 8GB)
         memory size for the data array
     waitFinished: bool (default: True)
         True: block execution until finished (will be False on acqTime = 0)

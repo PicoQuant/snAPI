@@ -41,6 +41,7 @@
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/design-tabs.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'snAPI.Constants';</script>
+    <link rel="icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="snAPI.Main module" href="snAPI.Main.html" />
@@ -428,7 +429,13 @@ with a deadtime below 2 ns.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_LibType_PH330">
 <span class="sig-name descname"><span class="pre">PH330</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_LibType_PH330" title="Permalink to this definition">#</a></dt>
-<dd><p>This selects the library for the PicoHarp 330 (PH330) devices.</p>
+<dd><p>//www.picoquant.com/products/category/tcspc-and-time-tagging-modules/picoharp_330_precise_and_versatile_event_timer_and_tcspc_unit&gt;`_
+(PH330) devices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a href="#id2"><span class="problematic" id="id3">`</span></a>PicoHarp 330 &lt;https</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -705,28 +712,30 @@ generate a coincidence count and get erased for the generation of further coinci
 <dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">UnfoldFormat</span></span><a class="headerlink" href="#snAPI_Constants_UnfoldFormat" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>This changes the format of the <cite>Unfold</cite> data stream in <a class="reference internal" href="#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat_Nothing">
 <span class="sig-name descname"><span class="pre">Nothing</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_UnfoldFormat_Nothing" title="Permalink to this definition">#</a></dt>
-<dd><p>_summary_</p>
+<dd><p>This is for internal use only.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat_Absolute">
 <span class="sig-name descname"><span class="pre">Absolute</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_UnfoldFormat_Absolute" title="Permalink to this definition">#</a></dt>
-<dd><p>_summary_</p>
+<dd><p>This value will generate absolute times.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat_DTimes">
 <span class="sig-name descname"><span class="pre">DTimes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_UnfoldFormat_DTimes" title="Permalink to this definition">#</a></dt>
-<dd><p>_summary_</p>
+<dd><p>This generates only <cite>dTimes</cite> (differential time between sync and input channel).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat_DTimesSyncCntr">
 <span class="sig-name descname"><span class="pre">DTimesSyncCntr</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_UnfoldFormat_DTimesSyncCntr" title="Permalink to this definition">#</a></dt>
-<dd><p>_summary_</p>
+<dd><p>This generates <cite>dTimes</cite> (differential time between sync and input channel) and
+<cite>syncCntr</cite> (sync counter).</p>
 </dd></dl>
 
 </dd></dl>
