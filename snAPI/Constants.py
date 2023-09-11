@@ -42,6 +42,7 @@ with a deadtime below 2 ns.
     """
     PH330 = 4
     """
+This selects the library for the
 `PicoHarp 330 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/picoharp_330_precise_and_versatile_event_timer_and_tcspc_unit>`_
 (PH330) devices.
     
