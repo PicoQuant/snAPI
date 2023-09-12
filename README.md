@@ -21,12 +21,12 @@ If you encounter any bugs or issues while using snAPI, we appreciate your feedba
 
 5. Submit the issue, and we will review it as soon as possible.
 
-Please note that as an alpha pre-release version, there might be known limitations, missing features, or unexpected behavior. Your bug reports will help us identify and address these issues effectively.
+Your bug reports are welcome and will help us identify and address issues effectively.
 
 ## License
 This software is released under the [MIT License](LICENSE). Please review the license file for more information.
 
 ## Disclaimer
-**Use snAPI at your own risk. This is an alpha pre-release version and should not be used in production environments or critical systems. We are not responsible for any damages or losses resulting from the use of this software.**
+**Use snAPI at your own risk. We are not responsible for any damages or losses resulting from the use of this software.**
 
 https://github.com/PicoQuant/snAPI/assets/717502/4cce4620-5fd7-4152-b6d8-e92fd62d5ed5
