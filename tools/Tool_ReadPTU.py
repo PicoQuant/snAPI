@@ -22,4 +22,4 @@ if(__name__ == "__main__"):
     sn.logPrint("--------------------")
     
     for i in range(start,start+length):
-        sn.logPrint(f"{channels[1000000000+i]:9} | {times[i]:8}")
+        sn.logPrint(f"{channels[i]:9} | {times[i]:8}")
