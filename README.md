@@ -8,6 +8,9 @@ TCSPC device and the ease of use and versatility of Python.
 ## Getting Started
 To get started with snAPI, follow the [Install](https://picoquant.github.io/snAPI/install.html) section of the online documentation.
 
+## Questions and Answers
+If you have questions about snAPI visit the [Q&A](https://github.com/PicoQuant/snAPI/discussions/categories/q-a) section of this repository.
+
 ## Reporting Bugs
 If you encounter any bugs or issues while using snAPI, we appreciate your feedback. Please help us improve by reporting any problems you encounter. To report a bug, follow these steps:
 
