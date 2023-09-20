@@ -199,7 +199,7 @@ Example
         return super().__new__(cls)
     
 
-    def __init__(self, systemIni: str | None = None, libType: LibType | None = LibType.MH):
+    def __init__(self, systemIni: typing.Union[str, None] = None, libType: typing.Union[LibType, None] = LibType.MH):
         if systemIni is None:
             systemIni = "\\".join(inspect.getfile(snAPI).split("\\")[:-1])+'\\system.ini'
         self.device = Device(self)
@@ -543,6 +543,7 @@ Example
         SBuf = path.encode('utf-8')
         if ok:= self.dll.getFileDevice(SBuf):
             ok = self.getDeviceConfig()
+            ok &= self.getMeasDescription()
         return ok
 
 
@@ -893,7 +894,7 @@ Example
         countRates = ct.ARRAY(ct.c_int, 64)()
         ok = self.dll.getCountRates(syncRate, countRates)
         a = np.array(countRates)
-        a = np.resize(a, self.getNumAllChannels())
+        a = np.resize(a, self.deviceConfig["NumChans"])
         a = np.insert(a, 0, syncRate.contents.value)
         return a
     
