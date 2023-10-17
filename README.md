@@ -27,7 +27,7 @@ If you encounter any bugs or issues while using snAPI, we appreciate your feedba
 Your bug reports are welcome and will help us identify and address issues effectively.
 
 ## License
-This software is released under the [MIT License](LICENSE). Please review the license file for more information.
+This software is released under this [License](LICENSE). Please review the license file for more information.
 
 ## Disclaimer
 **Use snAPI at your own risk. We are not responsible for any damages or losses resulting from the use of this software.**
