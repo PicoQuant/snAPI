@@ -7,8 +7,7 @@ if(__name__ == "__main__"):
     length = 10
     
     sn = snAPI()
-    #sn.getFileDevice(r"C:\Data\PicoQuant\default.ptu")
-    sn.getFileDevice(r'Q:\090_SPAD-Array\Q_Sicherung\F7-10-T2G1\35_C_1h_-500mV.ptu')
+    sn.getFileDevice(r"C:\Data\PicoQuant\default.ptu")
     sn.getDeviceConfig()
     sn.logPrint(json.dumps(sn.deviceConfig, indent=2))
     

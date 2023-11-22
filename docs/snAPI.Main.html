@@ -1544,6 +1544,7 @@ The binning can be set in doubling multiples of the base resolution.</p>
 <div class="line">MH150/160, PH330: [1: 2*br, 2: 4*br, .., 24: 16777216*br]</div>
 <div class="line">HH400: [1: 2*br, 2: 4*br, .., 26: 67108864*br]</div>
 <div class="line">TH260: [1: 2*br, 2: 4*br, .., 22: 4194304*br]</div>
+<div class="line">this means: n*br = 2^binning</div>
 <div class="line">(br stands for base resolution)</div>
 </div>
 </p>
@@ -3449,7 +3450,8 @@ this function.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Unfold_dTime_T3">
 <span class="sig-name descname"><span class="pre">dTime_T3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Unfold_dTime_T3" title="Permalink to this definition">#</a></dt>
-<dd><p>This function takes a T3 <cite>Unfold</cite> data record and returns the differential time.</p>
+<dd><p>This function takes a T3 <cite>Unfold</cite> data record and returns the differential time slot. For the differential time
+it has to be multiplied by the Resolution.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Use this function with the T3 <cite>Unfold</cite> data record. with <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_UnfoldFormat_DTimesSyncCntr" title="snAPI.Constants.UnfoldFormat.DTimesSyncCntr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnfoldFormat.DTimesSyncCntr</span></code></a>.
@@ -3472,7 +3474,7 @@ because the times array consists only of <cite>dTimes</cite>.</p>
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># prints out the differential time of a T3 `Unfold` data record</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">dTime_T3</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">sn</span><span class="o">.</span><span class="n">deviceConfig</span><span class="p">[</span><span class="s1">&#39;Resolution&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">dTime_T3</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -3902,19 +3904,19 @@ Check out the example of a possible implementation below.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># runs a while loop until the measurement is finished</span>
-    <span class="k">while</span> <span class="n">sn</span><span class="o">.</span><span class="n">timetrace</span><span class="o">.</span><span class="n">isFinished</span><span class="p">():</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timetrace</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
-        <span class="o">...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># runs a while loop until the measurement is finished
+    while !sn.timetrace.isFinished():
+    data = sn.timetrace.getData()
+        ...
 
-<span class="c1"># break a while loop if the measurement is finished and reads the last data</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="n">finished</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timetrace</span><span class="o">.</span><span class="n">isFinished</span><span class="p">()</span>
-    <span class="n">counts</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timetrace</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
-        <span class="o">...</span>
+# break a while loop if the measurement is finished and reads the last data
+    while True:
+    finished = sn.timetrace.isFinished()
+    counts, times = sn.timetrace.getData()
+        ...
 
-    <span class="k">if</span> <span class="n">finished</span><span class="p">:</span>
-        <span class="k">break</span>
+    if finished:
+        break
 </pre></div>
 </div>
 </dd></dl>
@@ -4001,7 +4003,7 @@ during this time span.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Correlation_setFCSParameters">
-<span class="sig-name descname"><span class="pre">setFCSParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Correlation_setFCSParameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setFCSParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intervalLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Correlation_setFCSParameters" title="Permalink to this definition">#</a></dt>
 <dd><p>This function sets the the parameters for the FCS correlation. If the <cite>startChannel</cite> is the same as the
 <cite>stopChannel</cite> an autocorrelation is calculated and if the channels are different a
 cross calculation is calculated.</p>
@@ -4024,8 +4026,10 @@ cross calculation is calculated.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>startChannel</strong> (<em>int</em><em> (</em><em>0 is sync channel</em><em>)</em>) – start channel</p></li>
 <li><p><strong>stopChannel</strong> (<em>int</em><em> (</em><em>0 is sync channel</em><em>)</em>) – click channel</p></li>
-<li><p><strong>windowSize</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em>) – size of the correlation window</p></li>
+<li><p><strong>windowSize</strong> (<em>float</em><em> [</em><em>ps</em><em>]</em>) – size of the correlation window</p></li>
 <li><p><strong>startTime</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em>) – minimum tau, the left border of the correlation (Default: None - T2: BaseResolution, T3: Resolution)</p></li>
+<li><p><strong>startTime</strong> – number of sub elements, that the multiple tau algorithm uses to create  (Default: None - T2: BaseResolution, T3: Resolution)</p></li>
+<li><p><strong>intervalLength</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

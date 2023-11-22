@@ -295,8 +295,10 @@ Example
             for line in format_exception:
                 for l in repr(line).strip('\'').strip('\\n').replace('\\\\','\\').split("\\n"):
                     dll.logError(l.encode('utf-8'))
+        sys.__excepthook__(exception_type, exception, eTraceback)
+        
     sys.excepthook = logException
-
+    
 
     def setLogLevel(self, logLevel: LogLevel, onOff: bool):
         """
@@ -473,7 +475,6 @@ Example
     sn.getDevice("1045483")
     
         """
-        self.logPrint("getDevice")
         if not dev: # no device parameter
             name = ""
             SBuf = name.ljust(8, '\0').encode('utf-8')
@@ -539,7 +540,6 @@ Example
     sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
     
         """
-        self.logPrint("getFileDevice", path)
         SBuf = path.encode('utf-8')
         if ok:= self.dll.getFileDevice(SBuf):
             ok = self.getDeviceConfig()
@@ -576,7 +576,6 @@ Example
     sn.initDevice(MeasMode.T3)
     
         """
-        self.logPrint("initDevice", measMode, refSrc)
         if ok:= self.dll.initDevice(measMode.value, refSrc.value):
             ok = self.getDeviceConfig()
         return ok
@@ -1332,6 +1331,7 @@ Parameters
         | MH150/160, PH330: [1: 2*br, 2: 4*br, .., 24: 16777216*br]
         | HH400: [1: 2*br, 2: 4*br, .., 26: 67108864*br]
         | TH260: [1: 2*br, 2: 4*br, .., 22: 4194304*br]
+        | this means: n*br = 2^binning
         | (br stands for base resolution)
     
 Returns
@@ -2818,9 +2818,10 @@ Example
         ...
     
         """
-        c = self.channel(data)
-        return (self.isSpecial(data) and c >= 1 and c <= 15)
-    
+        c = self.channel(data) - 1
+        if self.isSpecial(data) and (c >= 1) and (c <= 15):
+            self.parent.logPrint(data, self.isSpecial(data), self.isSpecial(data) and (c >= 1) and (c <= 15), c)
+        return (self.isSpecial(data) and (c >= 1) and (c <= 15))
 
     def markers(self, data: int) :
         """
@@ -2850,8 +2851,9 @@ Example
                 ...
 
         """
-        markers = (0x7F & data)
-        return [markers & 0x01 != 0, (markers & 0x02) != 0, (markers & 0x04) != 0, (markers & 0x08) != 0]
+        m = self.channel(data) - 1
+        m = (0x7F & m)
+        return [(m & 0x01) != 0, (m & 0x02) != 0, (m & 0x04) != 0, (m & 0x08) != 0]
     
 
 
@@ -3367,7 +3369,7 @@ Example
 
         """
         marker = (0x7F & channel)
-        return [marker & 0x01, (marker & 0x02) != 0, (marker & 0x04) != 0, (marker & 0x08) != 0]
+        return [(marker & 0x01) != 0, (marker & 0x02) != 0, (marker & 0x04) != 0, (marker & 0x08) != 0]
 
 
     def nSync_T3(self, times: int) :
@@ -3401,7 +3403,8 @@ Example
 
     def dTime_T3(self, times: int) :
         """
-This function takes a T3 `Unfold` data record and returns the differential time.
+This function takes a T3 `Unfold` data record and returns the differential time slot. For the differential time
+it has to be multiplied by the Resolution.
 
 Warning
 -------
@@ -3423,7 +3426,7 @@ Example
 ::
 
     # prints out the differential time of a T3 `Unfold` data record 
-    sn.print(sn.unfold.dTime_T3(times[i]))
+    sn.print(sn.deviceConfig['Resolution'] * sn.unfold.dTime_T3(times[i]))
     
         """
         return (0x00007FFF & times.astype(np.int64)).astype(np.uint64)
@@ -3952,7 +3955,7 @@ Example
 ::
 
     # runs a while loop until the measurement is finished
-        while sn.timetrace.isFinished():
+        while !sn.timetrace.isFinished():
         data = sn.timetrace.getData()
             ...
     
@@ -4099,7 +4102,7 @@ Example
         self.parent.dll.setG2Params(startChannel, stopChannel, windowSize, binWidth)
     
 
-    def setFCSParameters(self, startChannel: int, stopChannel: int, windowSize: typing.Optional[float] = 1e12, startTime: typing.Optional[int] = None):
+    def setFCSParameters(self, startChannel: int, stopChannel: int, windowSize: typing.Optional[float] = 1e12, startTime: typing.Optional[float] = None, intervalLength: typing.Optional[int] = 8):
         """
 This function sets the the parameters for the FCS correlation. If the `startChannel` is the same as the
 `stopChannel` an autocorrelation is calculated and if the channels are different a
@@ -4129,10 +4132,12 @@ Parameters
         start channel
     stopChannel: int (0 is sync channel)
         click channel
-    windowSize: int [ps]
+    windowSize: float [ps]
         size of the correlation window
-    startTime: int [ps]
+    startTime: float [ps]
         minimum tau, the left border of the correlation (Default: None - T2: BaseResolution, T3: Resolution)
+    startTime: int [ps]
+        number of sub elements, that the multiple tau algorithm uses to create  (Default: None - T2: BaseResolution, T3: Resolution)
 
 Returns
 -------
@@ -4151,20 +4156,20 @@ Example
                 startTime = self.parent.deviceConfig["BaseResolution"]
             elif self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value:
                 startTime = self.parent.deviceConfig["Resolution"]
-            
+        
+        self.isFcs = True 
         self.startChannel = startChannel
         self.stopChannel = stopChannel
         self.windowSize = windowSize
         self.startTime = startTime
-        self.isFcs = True
+        self.intervalLength = intervalLength
+
         pNumIntervals = ct.pointer(ct.c_int(0))
-        pIntervalLength = ct.pointer(ct.c_int(0))
         
-        self.parent.dll.setFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.POINTER(ct.c_int), ct.c_double, ct.c_double]
-        self.parent.dll.setFCSParams(startChannel, stopChannel, pNumIntervals, pIntervalLength, windowSize, startTime)
+        self.parent.dll.setFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_int, ct.c_double, ct.c_double]
+        self.parent.dll.setFCSParams(startChannel, stopChannel, pNumIntervals, intervalLength, windowSize, startTime)
         self.numIntervals = pNumIntervals.contents.value
-        self.intervalLength = pIntervalLength.contents.value
-        
+
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
         """

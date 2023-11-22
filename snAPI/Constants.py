@@ -28,7 +28,7 @@ This selects the library for the
 (HH400) devices.
     
     """
-    TH260 = 3
+    TH260 = 2
     """
 This selects the library for the
 `TimeHarp 260 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/timeharp-260-tcspc-and-mcs-board-with-pcie-interface>`_
@@ -40,7 +40,7 @@ and a deadtime of 25 ns whereas the NANO version (TH260N) provides a time resolu
 with a deadtime below 2 ns.
     
     """
-    PH330 = 4
+    PH330 = 3
     """
 This selects the library for the
 `PicoHarp 330 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/picoharp_330_precise_and_versatile_event_timer_and_tcspc_unit>`_
