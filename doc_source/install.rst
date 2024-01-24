@@ -46,7 +46,7 @@ snAPI
 
 ::
 
-    pip install .\dist\snAPI-x.y.z-cp311-cp311-win_amd64.whl
+    pip install .\dist\snAPI-<VERSION NUMBER x.y.z>-cp311-cp311-win_amd64.whl
 
 Dependencies
 ------------
@@ -70,7 +70,7 @@ Additional Features
     
 Example cutout of a colored log.
 
-2. To get the full power of coding we suggest to use snAPI with VSCode.
+2. To get the full power of coding we suggest to use snAPI with Visual Studio Code.
 
 .. image:: _static/VSCode.png
     :class: p-2

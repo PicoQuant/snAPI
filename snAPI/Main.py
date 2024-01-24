@@ -87,7 +87,7 @@ Example
     "BinSteps": 24,
     "NumChans": 4,
     "NumMods": 2,
-    "SyncDivider": 1,
+    "SyncDiv": 1,
     "SyncTrigMode": "Edge",
     "SyncTrigLvl": -50,
     "SyncTrigEdge": 1,
@@ -991,7 +991,7 @@ Example
     
         """
         if ok:= self.parent.dll.setSyncDiv(syncDiv):
-            self.parent.deviceConfig["SyncDivider"] = syncDiv
+            self.parent.deviceConfig["SyncDiv"] = syncDiv
         return ok
 
 
@@ -1348,7 +1348,7 @@ Example
     
         """
         if ok := self.parent.dll.setBinning(binning):
-            self.parent.deviceConfig["Binning"] = binning
+            self.parent.getDeviceConfig()
         return ok
     
 
@@ -2002,9 +2002,9 @@ Parameters
     inverse: bool
         | set regular or inverse filter logic
         | false: regular, true: inverse
-    useChans: List[int] [0..7]
+    useChans: List[int] [0..8] (8 is sync channel, T2 Mode only)
         | List of channels to use
-    passChans: List[int] [0..7]
+    passChans: List[int] [0..8] (8 is sync channel, T2 Mode only)
         | List of channels to pass
     
 Returns
@@ -2136,9 +2136,9 @@ Parameters
 ----------
     row: int [0..8]
         | index of the row of input channels, counts bottom to top
-    useChans: List[int] [0..7]
+    useChans: List[int] [0..8] (8 is sync channel, T2 Mode only)
         | List of channels to use
-    passChans: List[int] [0..7]
+    passChans: List[int] [0..8] (8 is sync channel, T2 Mode only)
         | List of channels to pass
     
 Returns
@@ -2199,7 +2199,7 @@ Example
     
         """
         return self.parent.dll.enableMainEventFilter(enable)
-        #     self.parent.deviceConfig["SyncDivider"] = syncDiv
+        #     self.parent.deviceConfig["SyncDiv"] = syncDiv
         # return ok
     
     
@@ -2235,7 +2235,7 @@ Example
     
         """
         return self.parent.dll.setFilterTestMode(testMode)
-        #     self.parent.deviceConfig["SyncDivider"] = syncDiv
+        #     self.parent.deviceConfig["SyncDiv"] = syncDiv
         # return ok
     
     
@@ -3465,7 +3465,9 @@ to use the :obj:`.MeasMode.T2` instead.
         self.parent = parent
         self.data = ct.ARRAY(ct.c_long, 0)()
         self.numBins = 0
-        self.bins = []
+        self.T2binWidth = 0
+        self.bins = np.array(range(self.numBins), dtype='i8')
+        
         self.finished = ct.pointer(ct.c_bool(False))
         
 
@@ -3503,6 +3505,7 @@ Example
         """
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
             self.parent.logPrint( "setRefChannel is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+        self.parent.dll.setHistoT2RefChan.argtypes = [ct.c_uint8]
         self.parent.dll.setHistoT2RefChan(channel)
 
 
@@ -3541,6 +3544,8 @@ Example
             binWidth = self.parent.deviceConfig["BaseResolution"]
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
             self.parent.logPrint( "setBinWidth is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+        self.T2binWidth = binWidth
+        self.parent.dll.setHistoT2BinWidth.argtypes = [ct.c_uint64]
         self.parent.dll.setHistoT2BinWidth(binWidth)
 
 
@@ -3593,13 +3598,17 @@ Example
     
         """
         self.numBins = self.parent.deviceConfig["NumBins"]
-        numChans = self.parent.getNumAllChannels()
+        if self.T2binWidth == 0:
+            self.T2binWidth = self.parent.deviceConfig["BaseResolution"]
+        numChans = self.parent.getNumAllChannels()+2
         self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         
-        self.bins = range(self.numBins)
+        self.bins = np.array(range(self.numBins), dtype='i8')
         if (self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.bins = np.multiply(self.bins, self.parent.deviceConfig["BaseResolution"])
-        else:
+            self.bins = np.multiply(self.bins, self.parent.deviceConfig["Resolution"])
+        elif (self.parent.deviceConfig["MeasMode"] == MeasMode.T2.value):
+            self.bins = np.multiply(self.bins, self.T2binWidth)
+        elif (self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value):
             self.bins = np.multiply(self.bins, self.parent.deviceConfig["Resolution"])
             
         return self.parent.dll.getHistogram(acqTime, waitFinished, savePTU, ct.byref(self.data), self.finished)
@@ -3619,7 +3628,7 @@ Returns
         histogram: 1DArray[int]
             data array of counts
         bins: 1DArray[int]
-            data array of bins [s]
+            data array of bins [ps]
 
 Example
 -------
@@ -4546,7 +4555,7 @@ Warning
         self.parent.dll.clearManis()
         self.getConfig()
 
-    def coincidence(self, chans: typing.List[int], windowTime: typing.Optional[float] = 1000, mode: typing.Optional[CoincidenceMode] = CoincidenceMode.CountAll, keepChannels: typing.Optional[bool] = True):
+    def coincidence(self, chans: typing.List[int], windowTime: typing.Optional[float] = 1000, mode: typing.Optional[CoincidenceMode] = CoincidenceMode.CountAll, time: typing.Optional[CoincidenceTime] = CoincidenceTime.Last, keepChannels: typing.Optional[bool] = True):
         """
 This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window size.
 
@@ -4623,8 +4632,8 @@ Example
         channels = (ct.c_int * length)()
         for i in range(length):
             channels[i] = chans[i]
-        self.parent.dll.addMCoincidence.argtypes = [ct.c_void_p, ct.c_int, ct.c_double, ct.c_int, ct.c_bool]
-        chanOut = self.parent.dll.addMCoincidence(ct.pointer(channels), length, windowTime, mode.value, keepChannels)
+        self.parent.dll.addMCoincidence.argtypes = [ct.c_void_p, ct.c_int, ct.c_double, ct.c_int, ct.c_int, ct.c_bool]
+        chanOut = self.parent.dll.addMCoincidence(ct.pointer(channels), length, windowTime, mode.value, time.value, keepChannels)
         self.getConfig()
         return chanOut
     
@@ -4761,7 +4770,7 @@ Example
         return chanOut
 
 
-    def herald(self, herald:int, gateChans: typing.List[int], delayTime: typing.Optional[int] = 0, gateTime: typing.Optional[int] = 1000, keepChannels: typing.Optional[bool] = True):
+    def herald(self, herald:int, gateChans: typing.List[int], delayTime: typing.Optional[int] = 0, gateTime: typing.Optional[int] = 1000, inverted: typing.Optional[bool] = False, keepChannels: typing.Optional[bool] = True):
         """
 This manipulator performs as heralded gate filter. You have to define from which channel the herald events
 will be taken and which channels will be filtered. Therefore it is been necessary to set the delay time and
@@ -4799,6 +4808,9 @@ Parameters
         time between the herald event and the start of the gate
     gateTime: int (default: 1ns)
         size of the gate [ps]
+    inverted: bool (default: False)
+        | True: inverted logic (The events in the herald window will be removed)
+        | False: only the events inside the defined window will pass this filter
     keepChannels: bool (default: True)
         | True: the gate channels are to be integrated in the data stream as additional channels
         | False: the gate channels are directly filtered
@@ -4848,6 +4860,101 @@ Example
         channels = (ct.c_int * length)()
         for i in range(length):
             channels[i] = gateChans[i]
-        hChan = self.parent.dll.addMHerald(herald, ct.pointer(channels), len(channels), delayTime, gateTime, keepChannels)
+        hChan = self.parent.dll.addMHerald(herald, ct.pointer(channels), len(channels), delayTime, gateTime, inverted, keepChannels)
         self.getConfig()
         return list(range(hChan, hChan + len(channels))) if keepChannels else gateChans
+
+
+    def countrate(self, windowTime: typing.Optional[float] = 1e11):
+        """
+This manipulator, gives you the ability to measure the count rate inside the unfold data stream.
+You can use multiple times, maybe before and after the herald manipulator to measure the filter
+rate.
+The :obj:`count rate` function adds this manipulator and the :obj:`getCountrates` returns the measured
+count rates.
+
+Parameters
+----------
+    windowTime: float (default: 100ms)
+        window size [ps]
+    
+Returns
+-------
+    int: 
+        the index of the manipulator that measures the count rate
+
+Example
+-------
+::
+
+    windowSize = 300 #ps
+    # move the histograms of the both channels to the same time after the sync to filter both at once
+    sn.device.setInputChannelOffset(0,4500)
+
+    # measure the   before the herald filter
+    CrInIdx = sn.manipulators.countrate()
+    
+    # define a gate window after the herald channel 0 (sync) for the detector channels 1 and 2, 
+    # starting at 52000 ps after the herald signal , with a gate length of windowSize (300 ps)
+    heraldChans = sn.manipulators.herald(0, [1,2], 52000, windowSize, keepChannels=False )
+    
+    # measure the count rate after the herald filter
+    CrOutIdx = sn.manipulators.countrate()
+
+    # initiate the g2 correlation with the time-gated channels
+    sn.correlation.setG2Parameters(heraldChans[0], heraldChans[1], windowSize, 1)
+    sn.correlation.measure(100000,savePTU=False)
+
+    while True:
+        finished = sn.correlation.isFinished()
+        data, bins = sn.correlation.getG2Data()
+        
+        CRin = sn.manipulators.GetCountrates(CrInIdx)
+        CRout = sn.manipulators.GetCountrates(CrOutIdx)
+        
+        # print the count rates
+        sn.logPrint(f"CR in: {CRin[1]}, {CRin[2]} - out: {CRout[heraldChans[0]]}, {CRout[heraldChans[1]]}")
+        
+        time.sleep(.3)
+        
+        plt.clf()
+        plt.plot(bins, data, linewidth=2.0, label='g(2)')
+
+        """
+
+        self.parent.dll.addMCountRate.argtypes = [ct.c_double]
+        index = self.parent.dll.addMCountRate(windowTime)
+        self.getConfig()
+        return index
+    
+    def getCountrates(self, manipulatorIndex: int):
+        """
+This function is part of the :obj:`countrate` maipulator. It gives the number of counts that where
+count in the defined windowTime.
+    
+Parameters
+----------
+    manipulatorIndex: int 
+        index of count rate manipulator
+    
+Returns
+-------
+    int: 
+        the index of the manipulator that measures the countrate
+
+Example
+-------
+::
+
+    # gets the count rates of manipulator 0
+    
+    CRs = sn.manipulators.GetCountrates(0)
+    
+        """
+        numChans = self.parent.getNumAllChannels()
+        countRates = ct.ARRAY(ct.c_int, numChans)()
+        ok = self.parent.dll.getMCountRates(manipulatorIndex, countRates)
+        # dataOut = np.lib.stride_tricks.as_strided(countRates, shape=(numChans),
+        #     strides=(ct.sizeof(countRates._type_) * numChans))
+        self.getConfig()
+        return countRates

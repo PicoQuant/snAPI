@@ -705,6 +705,30 @@ generate a coincidence count and get erased for the generation of further coinci
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceTime">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">CoincidenceTime</span></span><a class="headerlink" href="#snAPI_Constants_CoincidenceTime" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>This defines the position of the timetag of the calculated coincidence.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceTime_First">
+<span class="sig-name descname"><span class="pre">First</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceTime_First" title="Permalink to this definition">#</a></dt>
+<dd><p>The coincidence will get the timetag of the first event that build the coincidence.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This makes it is possible to create a herald filter with herald = coincidence and the same window time to filter (removing) the coincidences.
+It will work as anti coincidence than.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceTime_Last">
+<span class="sig-name descname"><span class="pre">Last</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceTime_Last" title="Permalink to this definition">#</a></dt>
+<dd><p>The coincidence will get the timetag of the last event that build the coincidence.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="snAPI_Constants_UnfoldFormat">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">UnfoldFormat</span></span><a class="headerlink" href="#snAPI_Constants_UnfoldFormat" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
@@ -832,6 +856,11 @@ generate a coincidence count and get erased for the generation of further coinci
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceMode"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceMode_CountAll"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountAll</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceMode_CountOnce"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountOnce</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceTime"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceTime_First"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime.First</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceTime_Last"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime.Last</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_UnfoldFormat"><code class="docutils literal notranslate"><span class="pre">UnfoldFormat</span></code></a><ul class="nav section-nav flex-column">

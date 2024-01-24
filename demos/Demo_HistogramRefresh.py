@@ -10,24 +10,23 @@ if(__name__ == "__main__"):
 
     sn = snAPI(libType=LibType.PH330)
     sn.getDevice()
-    sn.initDevice(MeasMode.T2)
+    sn.initDevice(MeasMode.T3)
+    sn.device.setBinning(2)
     
     # temporarily enable logging of configuration
     sn.setLogLevel(LogLevel.Config, True)
     # set the configuration for your device type
-    sn.loadIniConfig("config\PH330_CFD.ini")
+    sn.loadIniConfig("config\PH330_Edge.ini")
     sn.setLogLevel(LogLevel.Config, False)
     
     # change histogram parameter in T2 mode
     #sn.histogram.setRefChannel(0)
     #sn.histogram.setBinWidth(1)
-    #sn.device.setStopOverflow(int(1e6))
     sn.histogram.measure(acqTime=0, waitFinished=False, savePTU=True)
     
     while True:
         finished = sn.histogram.isFinished()
         data, bins = sn.histogram.getData()
-        sn.logPrint(f"c1max: {max(data[1])}, c2max: {max(data[2])}")
         
         # 1s refresh time
         plt.pause(1)
@@ -45,6 +44,7 @@ if(__name__ == "__main__"):
         # clear measure data
         sn.histogram.clearMeasure()
         if finished:
+            sn.setLogLevel(LogLevel.Manipulators, True)
             break
     
     plt.show(block=True)

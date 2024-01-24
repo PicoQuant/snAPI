@@ -382,7 +382,28 @@ This mode allows to count every new event only one time. If count it meets the c
 generate a coincidence count and get erased for the generation of further coincidences.
 
     """
-    
+
+class CoincidenceTime(Enum):
+    """
+This defines the position of the timetag of the calculated coincidence.
+
+    """
+    First = 0
+    """
+The coincidence will get the timetag of the first event that build the coincidence.
+
+Note
+----
+    This makes it is possible to create a herald filter with herald = coincidence and the same window time to filter (removing) the coincidences.
+    It will work as anti coincidence than.
+
+    """
+    Last = 1
+    """
+The coincidence will get the timetag of the last event that build the coincidence.
+
+    """
+
 class UnfoldFormat(Enum):
     """
 This changes the format of the `Unfold` data stream in :obj:`.MeasMode.T3`.

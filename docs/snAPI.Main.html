@@ -450,7 +450,7 @@ For detailed information read <a class="reference internal" href="config.html#co
 <span class="s2">&quot;BinSteps&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
 <span class="s2">&quot;NumChans&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
 <span class="s2">&quot;NumMods&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-<span class="s2">&quot;SyncDivider&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;SyncDiv&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 <span class="s2">&quot;SyncTrigMode&quot;</span><span class="p">:</span> <span class="s2">&quot;Edge&quot;</span><span class="p">,</span>
 <span class="s2">&quot;SyncTrigLvl&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
 <span class="s2">&quot;SyncTrigEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -2164,11 +2164,11 @@ different time ranges.</p>
 <div class="line">false: regular, true: inverse</div>
 </div>
 </p></li>
-<li><p><strong>useChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..7</em><em>]</em>) – <div class="line-block">
+<li><p><strong>useChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..8</em><em>] </em><em>(</em><em>8 is sync channel</em><em>, </em><em>T2 Mode only</em><em>)</em>) – <div class="line-block">
 <div class="line">List of channels to use</div>
 </div>
 </p></li>
-<li><p><strong>passChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..7</em><em>]</em>) – <div class="line-block">
+<li><p><strong>passChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..8</em><em>] </em><em>(</em><em>8 is sync channel</em><em>, </em><em>T2 Mode only</em><em>)</em>) – <div class="line-block">
 <div class="line">List of channels to pass</div>
 </div>
 </p></li>
@@ -2310,11 +2310,11 @@ to prevent overloading of the Main Filter, and if for more complex filters, e.g.
 <div class="line">index of the row of input channels, counts bottom to top</div>
 </div>
 </p></li>
-<li><p><strong>useChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..7</em><em>]</em>) – <div class="line-block">
+<li><p><strong>useChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..8</em><em>] </em><em>(</em><em>8 is sync channel</em><em>, </em><em>T2 Mode only</em><em>)</em>) – <div class="line-block">
 <div class="line">List of channels to use</div>
 </div>
 </p></li>
-<li><p><strong>passChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..7</em><em>]</em>) – <div class="line-block">
+<li><p><strong>passChans</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>[</em><em>0..8</em><em>] </em><em>(</em><em>8 is sync channel</em><em>, </em><em>T2 Mode only</em><em>)</em>) – <div class="line-block">
 <div class="line">List of channels to pass</div>
 </div>
 </p></li>
@@ -3623,7 +3623,7 @@ means that this part of data is lost! To prevent this, you should reduce the cou
 <dd class="field-even"><p><dl class="simple">
 <dt>histogram: 1DArray[int]</dt><dd><p>data array of counts</p>
 </dd>
-<dt>bins: 1DArray[int]</dt><dd><p>data array of bins [s]</p>
+<dt>bins: 1DArray[int]</dt><dd><p>data array of bins [ps]</p>
 </dd>
 </dl>
 </p>
@@ -4379,7 +4379,7 @@ update the manipulator.config manually.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Manipulators_coincidence">
-<span class="sig-name descname"><span class="pre">coincidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CoincidenceMode.CountAll</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepChannels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_coincidence" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">coincidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CoincidenceMode.CountAll</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CoincidenceTime.Last</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepChannels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_coincidence" title="Permalink to this definition">#</a></dt>
 <dd><p>This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window size.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4400,6 +4400,7 @@ This will reduce the data stream and therefore the processor load and memory con
 <div class="line">False: only the coincidence channel is in the data stream</div>
 </div>
 </p></li>
+<li><p><strong>time</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_CoincidenceTime" title="snAPI.Constants.CoincidenceTime"><em>CoincidenceTime</em></a><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -4554,7 +4555,7 @@ This will reduce the data stream and therefore the processor load and memory con
 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Manipulators_herald">
-<span class="sig-name descname"><span class="pre">herald</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">herald</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gateChans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gateTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepChannels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_herald" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">herald</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">herald</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gateChans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gateTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepChannels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_herald" title="Permalink to this definition">#</a></dt>
 <dd><p>This manipulator performs as heralded gate filter. You have to define from which channel the herald events
 will be taken and which channels will be filtered. Therefore it is been necessary to set the delay time and
 the gate time of the following gate accordingly.</p>
@@ -4580,6 +4581,11 @@ default behaviour you have to use the <a class="reference internal" href="snAPI.
 <li><p><strong>chans</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – channel numbers that should be gated</p></li>
 <li><p><strong>delayTime</strong> (<em>(</em><em>default: 0ps</em><em>)</em>) – time between the herald event and the start of the gate</p></li>
 <li><p><strong>gateTime</strong> (<em>int</em><em> (</em><em>default: 1ns</em><em>)</em>) – size of the gate [ps]</p></li>
+<li><p><strong>inverted</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – <div class="line-block">
+<div class="line">True: inverted logic (The events in the herald window will be removed)</div>
+<div class="line">False: only the events inside the defined window will pass this filter</div>
+</div>
+</p></li>
 <li><p><strong>keepChannels</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – <div class="line-block">
 <div class="line">True: the gate channels are to be integrated in the data stream as additional channels</div>
 <div class="line">False: the gate channels are directly filtered</div>
@@ -4625,6 +4631,86 @@ default behaviour you have to use the <a class="reference internal" href="snAPI.
         <span class="k">break</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators_countrate">
+<span class="sig-name descname"><span class="pre">countrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windowTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000000000.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_countrate" title="Permalink to this definition">#</a></dt>
+<dd><p>This manipulator, gives you the ability to measure the count rate inside the unfold data stream.
+You can use multiple times, maybe before and after the herald manipulator to measure the filter
+rate.
+The <code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span> <span class="pre">rate</span></code> function adds this manipulator and the <a class="reference internal" href="#snAPI_Main_Manipulators_getCountrates" title="snAPI.Main.Manipulators.getCountrates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getCountrates</span></code></a> returns the measured
+count rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>windowTime</strong> (<em>float</em><em> (</em><em>default: 100ms</em><em>)</em>) – window size [ps]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the index of the manipulator that measures the count rate</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">windowSize</span> <span class="o">=</span> <span class="mi">300</span> <span class="c1">#ps</span>
+<span class="c1"># move the histograms of the both channels to the same time after the sync to filter both at once</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setInputChannelOffset</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4500</span><span class="p">)</span>
+
+<span class="c1"># measure the   before the herald filter</span>
+<span class="n">CrInIdx</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">countrate</span><span class="p">()</span>
+
+<span class="c1"># define a gate window after the herald channel 0 (sync) for the detector channels 1 and 2,</span>
+<span class="c1"># starting at 52000 ps after the herald signal , with a gate length of windowSize (300 ps)</span>
+<span class="n">heraldChans</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">herald</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">52000</span><span class="p">,</span> <span class="n">windowSize</span><span class="p">,</span> <span class="n">keepChannels</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span>
+
+<span class="c1"># measure the count rate after the herald filter</span>
+<span class="n">CrOutIdx</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">countrate</span><span class="p">()</span>
+
+<span class="c1"># initiate the g2 correlation with the time-gated channels</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2Parameters</span><span class="p">(</span><span class="n">heraldChans</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">heraldChans</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">windowSize</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">100000</span><span class="p">,</span><span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">isFinished</span><span class="p">()</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">getG2Data</span><span class="p">()</span>
+
+    <span class="n">CRin</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">GetCountrates</span><span class="p">(</span><span class="n">CrInIdx</span><span class="p">)</span>
+    <span class="n">CRout</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">GetCountrates</span><span class="p">(</span><span class="n">CrOutIdx</span><span class="p">)</span>
+
+    <span class="c1"># print the count rates</span>
+    <span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CR in: </span><span class="si">{</span><span class="n">CRin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">CRin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"> - out: </span><span class="si">{</span><span class="n">CRout</span><span class="p">[</span><span class="n">heraldChans</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">CRout</span><span class="p">[</span><span class="n">heraldChans</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">.3</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;g(2)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Manipulators_getCountrates">
+<span class="sig-name descname"><span class="pre">getCountrates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manipulatorIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Manipulators_getCountrates" title="Permalink to this definition">#</a></dt>
+<dd><p>This function is part of the <a class="reference internal" href="#snAPI_Main_Manipulators_countrate" title="snAPI.Main.Manipulators.countrate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">countrate</span></code></a> maipulator. It gives the number of counts that where
+count in the defined windowTime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>manipulatorIndex</strong> (<em>int</em>) – index of count rate manipulator</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the index of the manipulator that measures the countrate</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets the count rates of manipulator 0</span>
+
+<span class="n">CRs</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">GetCountrates</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -4820,6 +4906,8 @@ default behaviour you have to use the <a class="reference internal" href="snAPI.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_merge"><code class="docutils literal notranslate"><span class="pre">Manipulators.merge()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_delay"><code class="docutils literal notranslate"><span class="pre">Manipulators.delay()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_herald"><code class="docutils literal notranslate"><span class="pre">Manipulators.herald()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_countrate"><code class="docutils literal notranslate"><span class="pre">Manipulators.countrate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Manipulators_getCountrates"><code class="docutils literal notranslate"><span class="pre">Manipulators.getCountrates()</span></code></a></li>
 </ul>
 </li>
 </ul>

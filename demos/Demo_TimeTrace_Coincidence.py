@@ -8,6 +8,7 @@ if(__name__ == "__main__"):
 
     sn = snAPI(libType=LibType.HH)
     sn.getDevice()
+    sn.getFileDevice("C:\Data\PicoQuant\default_109.ptu")
     
     # alternatively read data from file
     sn.setLogLevel(LogLevel.DataFile, True)
@@ -17,8 +18,8 @@ if(__name__ == "__main__"):
     #sn.setLogLevel(logLevel=LogLevel.Config, onOff=True)
     sn.loadIniConfig("config\HH.ini")
     
-    coincidenceAll = sn.manipulators.coincidence([1,3], windowTime=1e7, mode=CoincidenceMode.CountAll, keepChannels=True)
-    coincidenceOnce = sn.manipulators.coincidence([1,3], windowTime=1e7, mode=CoincidenceMode.CountOnce, keepChannels=True)
+    coincidenceAll = sn.manipulators.coincidence([1,2], windowTime=1e7, mode=CoincidenceMode.CountAll, keepChannels=True)
+    coincidenceOnce = sn.manipulators.coincidence([1,2], windowTime=1e7, mode=CoincidenceMode.CountOnce, keepChannels=True)
     # measure 10s
     sn.timeTrace.measure(10000, waitFinished=False, savePTU=False)
     
@@ -28,7 +29,7 @@ if(__name__ == "__main__"):
         plt.clf()
         plt.plot(times, counts[0], linewidth=2.0, label='sync')
         plt.plot(times, counts[1], linewidth=2.0, label='chan1')
-        plt.plot(times, counts[3], linewidth=2.0, label='chan3')
+        plt.plot(times, counts[2], linewidth=2.0, label='chan2')
         plt.plot(times, counts[coincidenceAll], linewidth=2.0, label='coincidenceAll')
         plt.plot(times, counts[coincidenceOnce], linewidth=2.0, label='coincidenceOnce')
 

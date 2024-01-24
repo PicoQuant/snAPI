@@ -7,25 +7,40 @@ import time
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.MH)
+    sn = snAPI(libType=LibType.PH330)
     sn.getDeviceIDs()
     sn.getDevice()
     sn.initDevice(MeasMode.T2)
+    sn.loadIniConfig("config\PH330_CFD.ini")
+    
+    windowSize = 2000 #ps
+    # move the histograms of the both channels to the same time after the sync to filter both at once
+    sn.device.setInputChannelOffset(0,-4000)
 
-    # define the path for the T2 file
-    sn.getFileDevice("E:\Data\PicoQuant\CW_Shelved.ptu")
-
-    # define a gate window after the herald channel (1) for the detector channels (2 and 3), 
-    # starting at 100000 ps after the herald signal, with a gate length of 200000 ps
-    heraldChans = sn.manipulators.herald(1, [2, 3], 100000, 200000)
+    # measure the count rate before the herald filter
+    CrInIdx = sn.manipulators.countrate()
+    
+    # define a gate window after the herald channel 0 (sync) for the detector channels 1 and 2, 
+    # starting at 52000 ps after the herald signal , with a gate length of windowSize (300 ps)
+    heraldChans = sn.manipulators.herald(0, [1,2], 46000, windowSize, inverted=False, keepChannels=True )
+    
+    # measure the count rate after the herald filter
+    CrOutIdx = sn.manipulators.countrate()
 
     # initiate the g2 correlation with the time-gated channels
-    sn.correlation.setG2Parameters(heraldChans[0],heraldChans[1], 500000, 100)
-    sn.correlation.measure(100000,savePTU=False)
+    sn.correlation.setG2Parameters(heraldChans[0], heraldChans[1], windowSize, 1)
+    sn.correlation.measure(10000,savePTU=False)
 
     while True:
         finished = sn.correlation.isFinished()
         data, bins = sn.correlation.getG2Data()
+        
+        CRin = sn.manipulators.getCountrates(CrInIdx)
+        CRout = sn.manipulators.getCountrates(CrOutIdx)
+        
+        # print the count rates
+        sn.logPrint(f"CR in: {CRin[1]}, {CRin[2]} - out: {CRout[heraldChans[0]]}, {CRout[heraldChans[1]]}")
+        
         time.sleep(.3)
         
         plt.clf()
