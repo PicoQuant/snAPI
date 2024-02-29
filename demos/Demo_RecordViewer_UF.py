@@ -8,7 +8,8 @@ if(__name__ == "__main__"):
     sn = snAPI(libType=LibType.HH)
     sn.getDevice()
     
-    sn.getFileDevice(r"E:\Data\PicoQuant\G2_T3_sameTTs.ptu")
+    sn.getFileDevice(r"E:\Data\PicoQuant\default.ptu")          # T2 File
+    #sn.getFileDevice(r"E:\Data\PicoQuant\G2_T3_sameTTs.ptu")   # T3 File
     sn.initDevice(MeasMode.T3)
     #sn.setLogLevel(LogLevel.Config, True)
     sn.loadIniConfig("config\HH.ini")
@@ -16,36 +17,26 @@ if(__name__ == "__main__"):
     countRates = sn.getCountRates()
     
     # 1GB 
-    sn.unfold.setT3Format(UnfoldFormat.Absolute)
-    sn.unfold.measure(acqTime=1000, size=1024*1024*1024, waitFinished=True, savePTU=False)
-    times, channels  = sn.unfold.getData()
-    sn.logPrint("Unfold Data: UnfoldFormat.Absolute")
-    sn.logPrint("  channel |  absTime") 
-    sn.logPrint("--------------------")
-    
-    for i in range(start,start+length):
-        sn.logPrint(f"{channels[i]:9} | {times[i]:8}")
-        
-    sn.unfold.setT3Format(UnfoldFormat.DTimes)
-    sn.unfold.measure(acqTime=1000, size=1024*1024*1024, waitFinished=True, savePTU=False)
-    times, channels  = sn.unfold.getData()
-    sn.logPrint("Unfold Data: UnfoldFormat.DTimes")
-    sn.logPrint("  channel |    dTime") 
-    sn.logPrint("--------------------")
-    
     resolution = sn.deviceConfig['Resolution']
-    for i in range(start,start+length):
-        sn.logPrint(f"{channels[i]:9} | {(resolution * times[i]):8}")
-        
-    sn.unfold.setT3Format(UnfoldFormat.DTimesSyncCntr)
     sn.unfold.measure(acqTime=1000, size=1024*1024*1024, waitFinished=True, savePTU=False)
     times, channels  = sn.unfold.getData()
-    sn.logPrint("Unfold Data: UnfoldFormat.DTimesSyncCntr")
-    sn.logPrint("  channel | syncCtr |    dTime |   absTime") 
-    sn.logPrint("------------------------------------------")
-        
-    syncPeriod = 1e12 / countRates[0] # in ps
-    for i in range(start,start+length):
-        sn.logPrint(f"{channels[i]:9} | {sn.unfold.nSync_T3(times[i]):7} | {(resolution * sn.unfold.dTime_T3(times[i])):8} | {(syncPeriod * sn.unfold.nSync_T3(times[i]) + (resolution * sn.unfold.dTime_T3(times[i]))):.1f}")
-        
+    
+    if sn.deviceConfig['MeasMode'] == 3: # T3
+        sn.logPrint("Unfold T3 Data:")
+        sn.logPrint("  channel | syncCtr |    dTime |   absTime") 
+        sn.logPrint("------------------------------------------")
+            
+        syncPeriod = 1e12 / countRates[0] # in ps
+        for i in range(start,start+length):
+            sn.logPrint(f"{channels[i]:9} | {sn.unfold.nSync_T3(times[i]):7} | {(resolution * sn.unfold.dTime_T3(times[i])):8} | {(syncPeriod * sn.unfold.nSync_T3(times[i]) + (resolution * sn.unfold.dTime_T3(times[i]))):.1f}")
+
+    else: # T2
+        sn.logPrint("Unfold T2 Data:")
+        sn.logPrint("  channel |   absTime") 
+        sn.logPrint("---------------------")
+            
+        syncPeriod = 1e12 / countRates[0] # in ps
+        for i in range(start,start+length):
+            sn.logPrint(f"{channels[i]:9} | {times[i]:.1f}")
+            
     print("end")
