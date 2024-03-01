@@ -64,15 +64,15 @@ Read only parameters
         
     *   - Resolution
         - double
-        - current binning (histogram bin width) in ps (not meaningful in T2 mode)
+        - current resolution (histogram bin width) in ps (not meaningful in T2 mode)
         
-    *   - BinSteps
+    *   - Binning
         - int
-        - number of allowed binning steps
+        - current binning code (multiplier for BaseResolution) - (not meaningful in T2 mode)
         
     *   - NumChans
         - int
-        - number of installed input channels
+        - number of input channels (without sync)
         
     *   - NumMods
         - int

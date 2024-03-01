@@ -9,10 +9,11 @@ Python
 
 To install the package, follow these steps:
 
-1. First, download and install the latest version of Python 3.11 from the official Python website: https://www.python.org/downloads/
-2. Once you have installed Python 3.11, open a command prompt or terminal window.
+1. Install the Microsoft Visual C++ Redistributable(x64) if missing in the system: https://aka.ms/vs/17/release/vc_redist.x64.exe.
+2. First, download and install the latest version of Python 3.11 from the official Python website: https://www.python.org/downloads/
+3. Once you have installed Python 3.11, open a command prompt or terminal window.
 
-3. Right-click on "Command Prompt" and select "Run as administrator".
+4. Right-click on "Command Prompt" and select "Run as administrator".
 
 ::
 
@@ -20,8 +21,8 @@ To install the package, follow these steps:
 
 This will add the Python 3.11 installation directory to the system path variable.
 
-4. Close the Command Prompt and open a new one to ensure that the changes take effect.
-5. Check if Python is installed correctly by typing the following command:
+5. Close the Command Prompt and open a new one to ensure that the changes take effect.
+6. Check if Python is installed correctly by typing the following command:
 
 ::
 
@@ -29,7 +30,7 @@ This will add the Python 3.11 installation directory to the system path variable
 
 This should output the version number of Python that you have installed.
 
-6. Next, you will need to install the `pip` package manager. To do this, type the following command:
+7. Next, you will need to install the `pip` package manager. To do this, type the following command:
 
 ::
 

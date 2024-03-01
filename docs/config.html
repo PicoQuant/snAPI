@@ -431,15 +431,15 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 </tr>
 <tr class="row-even"><td><p>Resolution</p></td>
 <td><p>double</p></td>
-<td><p>current binning (histogram bin width) in ps (not meaningful in T2 mode)</p></td>
+<td><p>current resolution (histogram bin width) in ps (not meaningful in T2 mode)</p></td>
 </tr>
-<tr class="row-odd"><td><p>BinSteps</p></td>
+<tr class="row-odd"><td><p>Binning</p></td>
 <td><p>int</p></td>
-<td><p>number of allowed binning steps</p></td>
+<td><p>current binning code (multiplier for BaseResolution) - (not meaningful in T2 mode)</p></td>
 </tr>
 <tr class="row-even"><td><p>NumChans</p></td>
 <td><p>int</p></td>
-<td><p>number of installed input channels</p></td>
+<td><p>number of input channels (without sync)</p></td>
 </tr>
 <tr class="row-odd"><td><p>NumMods</p></td>
 <td><p>int</p></td>
@@ -477,7 +477,7 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 <td><p>sync rate divider</p></td>
 </tr>
 <tr class="row-odd"><td><p>SyncTrigMode</p></td>
-<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncTrigMode()</span></code></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncTrigMode" title="snAPI.Main.Device.setSyncTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncTrigMode()</span></code></a></p></td>
 <td><p><cite>Edge</cite> or <cite>CFD</cite> trigger</p></td>
 </tr>
 <tr class="row-even"><td><p>SyncEdgeTrig, SyncTrigLvl , SyncTrigEdge</p></td>
@@ -552,7 +552,7 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 </thead>
 <tbody>
 <tr class="row-even"><td><p>TrigMode</p></td>
-<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputTrigMode()</span></code></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputTrigMode" title="snAPI.Main.Device.setInputTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputTrigMode()</span></code></a></p></td>
 <td><p><cite>Edge</cite> or <cite>CFD</cite> trigger</p></td>
 </tr>
 <tr class="row-odd"><td><p>EdgeTrig, TrigLvl , TrigEdge</p></td>

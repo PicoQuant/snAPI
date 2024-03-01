@@ -573,6 +573,12 @@ For detailed information read <a class="reference internal" href="config.html#co
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Main_snAPI_whiteRabbit">
+<span class="sig-name descname"><span class="pre">whiteRabbit</span></span><a class="headerlink" href="#snAPI_Main_snAPI_whiteRabbit" title="Permalink to this definition">#</a></dt>
+<dd><p>This is the object to the hardware filter configuration <a class="reference internal" href="#snAPI_Main_Filter" title="snAPI.Main.Filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a> class</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Main_snAPI_unfold">
 <span class="sig-name descname"><span class="pre">unfold</span></span><a class="headerlink" href="#snAPI_Main_snAPI_unfold" title="Permalink to this definition">#</a></dt>
 <dd><p>This is the object to <a class="reference internal" href="#snAPI_Main_Unfold" title="snAPI.Main.Unfold"><code class="xref py py-class docutils literal notranslate"><span class="pre">Unfold</span></code></a> class</p>
@@ -1287,14 +1293,14 @@ For the input CFD of the input channels use <a class="reference internal" href="
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>syncDiscrLvl</strong> (<em>int</em>) – <div class="line-block">
-<div class="line">level [mV] (default:50mV)</div>
+<div class="line">discriminator level [mV] (default:50mV)</div>
 <div class="line">HH400: [0..1000]</div>
 <div class="line">TH260P: [-1200..0]</div>
 <div class="line">PH330: [-1500..0]</div>
 </div>
 </p></li>
 <li><p><strong>syncZeroXLvL</strong> (<em>int</em>) – <div class="line-block">
-<div class="line">trigger edge</div>
+<div class="line">zero cross level [mV] (default:20mV)</div>
 <div class="line">HH400: [0..40]</div>
 <div class="line">TH260P: [-40..0]</div>
 <div class="line">PH330: [-100..0]</div>
@@ -2471,6 +2477,373 @@ contains the sync rate and the rates of the input channels.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">WhiteRabbit</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>White Rabbit is a time synchronization technology based on the Precision Time Protocol (PTP).
+It is used to synchronize clocks between different entities on an Ethernet network.
+<a class="reference external" href="https://white-rabbit.web.cern.ch/documents/WhiteRabbitSpec.v2.0.pdf">https://white-rabbit.web.cern.ch/documents/WhiteRabbitSpec.v2.0.pdf</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_mac">
+<span class="sig-name descname"><span class="pre">mac</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_mac" title="Permalink to this definition">#</a></dt>
+<dd><p>The MAC address of the WR device</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_initScript">
+<span class="sig-name descname"><span class="pre">initScript</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_initScript" title="Permalink to this definition">#</a></dt>
+<dd><p>The init/boot script.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_SFPnames">
+<span class="sig-name descname"><span class="pre">SFPnames</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_SFPnames" title="Permalink to this definition">#</a></dt>
+<dd><p>The init/boot script.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_SFPdTxs">
+<span class="sig-name descname"><span class="pre">SFPdTxs</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_SFPdTxs" title="Permalink to this definition">#</a></dt>
+<dd><p>The init/boot script.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_SFPdRxs">
+<span class="sig-name descname"><span class="pre">SFPdRxs</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_SFPdRxs" title="Permalink to this definition">#</a></dt>
+<dd><p>The init/boot script.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_getMAC">
+<span class="sig-name descname"><span class="pre">getMAC</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_getMAC" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_setMAC">
+<span class="sig-name descname"><span class="pre">setMAC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mac</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_setMAC" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p></li>
+<li><p><strong>mac</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_getSFPData">
+<span class="sig-name descname"><span class="pre">getSFPData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_getSFPData" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_setInitScript">
+<span class="sig-name descname"><span class="pre">setInitScript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_setInitScript" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p></li>
+<li><p><strong>script</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_getInitScript">
+<span class="sig-name descname"><span class="pre">getInitScript</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_getInitScript" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_SetMode">
+<span class="sig-name descname"><span class="pre">SetMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bootFromScript</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinitWithMode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_SetMode" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p></li>
+<li><p><strong>bootFromScript</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>reinitWithMode</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>mode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode" title="snAPI.Constants.WRmode"><em>WRmode</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_setTime">
+<span class="sig-name descname"><span class="pre">setTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_setTime" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p></li>
+<li><p><strong>time</strong> (<em>datetime</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_getTime">
+<span class="sig-name descname"><span class="pre">getTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_getTime" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_initLink">
+<span class="sig-name descname"><span class="pre">initLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onOff</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_initLink" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p></li>
+<li><p><strong>onOff</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_getStatus">
+<span class="sig-name descname"><span class="pre">getStatus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_getStatus" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_getTermOutput">
+<span class="sig-name descname"><span class="pre">getTermOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">VT100</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_getTermOutput" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This is lorem ipsum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
+<div class="line">index of the row of input channels, counts bottom to top</div>
+</div>
+</p></li>
+<li><p><strong>VT100</strong> (<em>bool</em><em> | </em><em>None</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="snAPI_Main_Raw">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">Raw</span></span><a class="headerlink" href="#snAPI_Main_Raw" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -2983,29 +3356,6 @@ array.</p>
 </div>
 </div>
 <dl class="py method">
-<dt class="sig sig-object py" id="snAPI_Main_Unfold_setT3Format">
-<span class="sig-name descname"><span class="pre">setT3Format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">UnfoldFormat.DTimesSyncCntr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Unfold_setT3Format" title="Permalink to this definition">#</a></dt>
-<dd><p>This function sets the content format of the times array of the unfold data stream.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>format</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_UnfoldFormat" title="snAPI.Constants.UnfoldFormat"><em>UnfoldFormat</em></a><em> (</em><em>default: UnfoldFormat.DTimesSyncCntr</em><em>)</em>) – </p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
-</dd>
-</dl>
-<p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># creates a unfold data stream in :obj:`.UnfoldFormat.DTimes` with differential times</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">setT3Format</span><span class="p">(</span><span class="n">UnfoldFormat</span><span class="o">.</span><span class="n">DTimes</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Unfold_measure">
 <span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acqTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">134217728</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">waitFinished</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savePTU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Unfold_measure" title="Permalink to this definition">#</a></dt>
 <dd><p>With this function a simple measurement of Unfolded data records into RAM and/or disc is provided.
@@ -3424,7 +3774,7 @@ this function.</p>
 <dd><p>This function takes a T3 <cite>Unfold</cite> data record and returns the number of the sync period this event occurred in.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Use this function with a T3 <cite>Unfold</cite> data record. with <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_UnfoldFormat_DTimesSyncCntr" title="snAPI.Constants.UnfoldFormat.DTimesSyncCntr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnfoldFormat.DTimesSyncCntr</span></code></a>.</p>
+<p>Use this function with a T3 <cite>Unfold</cite> data record.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3454,9 +3804,7 @@ this function.</p>
 it has to be multiplied by the Resolution.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Use this function with the T3 <cite>Unfold</cite> data record. with <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_UnfoldFormat_DTimesSyncCntr" title="snAPI.Constants.UnfoldFormat.DTimesSyncCntr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnfoldFormat.DTimesSyncCntr</span></code></a>.
-When using the T3 <cite>Unfold</cite> data record with <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_UnfoldFormat_DTimes" title="snAPI.Constants.UnfoldFormat.DTimes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnfoldFormat.DTimes</span></code></a> this function is not required,
-because the times array consists only of <cite>dTimes</cite>.</p>
+<p>Use this function with the T3 <cite>Unfold</cite> data record.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4768,6 +5116,7 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_measDescription"><code class="docutils literal notranslate"><span class="pre">snAPI.measDescription</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_device"><code class="docutils literal notranslate"><span class="pre">snAPI.device</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_filter"><code class="docutils literal notranslate"><span class="pre">snAPI.filter</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_whiteRabbit"><code class="docutils literal notranslate"><span class="pre">snAPI.whiteRabbit</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_unfold"><code class="docutils literal notranslate"><span class="pre">snAPI.unfold</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_raw"><code class="docutils literal notranslate"><span class="pre">snAPI.raw</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_snAPI_histogram"><code class="docutils literal notranslate"><span class="pre">snAPI.histogram</span></code></a></li>
@@ -4832,6 +5181,25 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Filter_getMainRates"><code class="docutils literal notranslate"><span class="pre">Filter.getMainRates()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_mac"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.mac</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_initScript"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.initScript</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_SFPnames"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPnames</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_SFPdTxs"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPdTxs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_SFPdRxs"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPdRxs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getMAC"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getMAC()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_setMAC"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setMAC()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getSFPData"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getSFPData()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_setInitScript"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setInitScript()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getInitScript"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getInitScript()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_SetMode"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SetMode()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_setTime"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setTime()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getTime"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getTime()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_initLink"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.initLink()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getStatus"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getStatus()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getTermOutput"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getTermOutput()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Raw"><code class="docutils literal notranslate"><span class="pre">Raw</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Raw_measure"><code class="docutils literal notranslate"><span class="pre">Raw.measure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Raw_startBlock"><code class="docutils literal notranslate"><span class="pre">Raw.startBlock()</span></code></a></li>
@@ -4850,7 +5218,6 @@ count in the defined windowTime.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold"><code class="docutils literal notranslate"><span class="pre">Unfold</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_setT3Format"><code class="docutils literal notranslate"><span class="pre">Unfold.setT3Format()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_measure"><code class="docutils literal notranslate"><span class="pre">Unfold.measure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_startBlock"><code class="docutils literal notranslate"><span class="pre">Unfold.startBlock()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_getBlock"><code class="docutils literal notranslate"><span class="pre">Unfold.getBlock()</span></code></a></li>
