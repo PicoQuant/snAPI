@@ -7,11 +7,11 @@ import time
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.PH330)
+    sn = snAPI()
     sn.getDeviceIDs()
     sn.getDevice()
     sn.initDevice(MeasMode.T2)
-    sn.loadIniConfig("config\PH330_CFD.ini")
+    sn.loadIniConfig("config\MH.ini")
     
     windowSize = 2000 #ps
     # move the histograms of the both channels to the same time after the sync to filter both at once

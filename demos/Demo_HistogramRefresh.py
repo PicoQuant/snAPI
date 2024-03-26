@@ -8,15 +8,14 @@ import time
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.PH330)
+    sn = snAPI(libType=LibType.TH260)
     sn.getDevice()
-    sn.initDevice(MeasMode.T3)
-    sn.device.setBinning(2)
+    sn.initDevice(MeasMode.T2)
     
     # temporarily enable logging of configuration
     sn.setLogLevel(LogLevel.Config, True)
     # set the configuration for your device type
-    sn.loadIniConfig("config\PH330_Edge.ini")
+    sn.loadIniConfig("config\TH.ini")
     sn.setLogLevel(LogLevel.Config, False)
     
     # change histogram parameter in T2 mode

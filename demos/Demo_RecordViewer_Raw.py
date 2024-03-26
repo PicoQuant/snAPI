@@ -5,7 +5,7 @@ if(__name__ == "__main__"):
     start = 0
     length = 10
     
-    sn = snAPI(libType=LibType.HH)
+    sn = snAPI()
     sn.getDevice()
     
     #sn.getFileDevice(r"C:\Data\PicoQuant\default.ptu")

@@ -85,17 +85,13 @@ Getting Started
 
 2. Open Demo_TimeTrace.py in an editor.
 
-3. Change libtype to your device family.
-
-::
-
-    sn = snAPI(libType=LibType.TH260)
-
-4. Also change the default configuration to the matching one from the demos/config folder.
+3. Also change the default configuration to the matching one from the demos/config folder.
 
 ::
 
     sn.loadIniConfig("config\TH260N.ini")
+
+4. edit the ini file and set the trigger levels 
 
 5. install matplotlib
 

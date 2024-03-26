@@ -389,7 +389,8 @@ document.write(`
 <dt class="sig sig-object py" id="snAPI_Constants_LibType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">LibType</span></span><a class="headerlink" href="#snAPI_Constants_LibType" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>snAPI supports different library types / devices families. Which one is used has to be defined when creating a snAPI instance.</p>
+<p>snAPI supports different library types / devices families. Which one is used has to be defined when creating a snAPI instance.
+See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initAPI" title="snAPI.Main.snAPI.initAPI"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initAPI</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_LibType_Undefined">
 <span class="sig-name descname"><span class="pre">Undefined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#snAPI_Constants_LibType_Undefined" title="Permalink to this definition">#</a></dt>
@@ -440,9 +441,7 @@ with a deadtime below 2 ns.</p>
 <dt class="sig sig-object py" id="snAPI_Constants_DeviceType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">DeviceType</span></span><a class="headerlink" href="#snAPI_Constants_DeviceType" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>The PicoQuant TCSPC devices can use their internal crystal clock but can be synchronized with an external
-reference clock as well. The latter is preferable when a clock drift between multiple instruments in
-an experiment needs to be avoided. The constants defined here specify the reference clock to use.</p>
+<p>SnAPI doesn’t only support real Harp devices. It is also possible to use ptu-files that act as a hardware-like device.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_DeviceType_Undefined">
 <span class="sig-name descname"><span class="pre">Undefined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#snAPI_Constants_DeviceType_Undefined" title="Permalink to this definition">#</a></dt>
@@ -526,12 +525,107 @@ of information are recorded for each detected event:</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">MeasControl</span></span><a class="headerlink" href="#snAPI_Constants_MeasControl" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>This constant is for software or hardware starting and stopping (triggered) measurements.
+It is also necessary to set this for using White Rabbit.
+See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setMeasControl" title="snAPI.Main.Device.setMeasControl"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setMeasControl</span></code></a>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_SingleShotCTC">
+<span class="sig-name descname"><span class="pre">SingleShotCTC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_SingleShotCTC" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
+<p>Acquisition starts by software command and runs until CTC expires. The duration is set by the
+aqcTime parameter (&gt;0).
+SwStartSwStop is in use if aqcTime parameter is 0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_C1Gated">
+<span class="sig-name descname"><span class="pre">C1Gated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_C1Gated" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
+<p>Data is collected for the period where C1 is active. This can be the logical high or low period
+dependent on the value supplied to the parameter startEdge.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_C1StartCtcStop">
+<span class="sig-name descname"><span class="pre">C1StartCtcStop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_C1StartCtcStop" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
+<p>Data collection is started by a transition on C1 and stopped by expiration of the internal CTC.
+Which transition actually triggers the start is given by the value supplied to the parameter startEdge.
+The duration is set by the aqcTime parameter (&gt;0).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_C1StartC2Stop">
+<span class="sig-name descname"><span class="pre">C1StartC2Stop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_C1StartC2Stop" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
+<p>Data collection is started by a transition on C1 and stopped by by a transition on C2. Which transitions
+actually trigger start and stop is given by the values supplied to the parameters startEdge and stopEdge.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_WrMaster2Slave">
+<span class="sig-name descname"><span class="pre">WrMaster2Slave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_WrMaster2Slave" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [MH150/160]</p>
+<p>White Rabbit master to slave</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_WrSlave2Master">
+<span class="sig-name descname"><span class="pre">WrSlave2Master</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_WrSlave2Master" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [MH150/160]</p>
+<p>White Rabbit slave to master</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_SwStartSwStop">
+<span class="sig-name descname"><span class="pre">SwStartSwStop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_SwStartSwStop" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [MH150/160 | PH330]</p>
+<p>Software start and software stop is automatically used if aqcTime ist set to 0 in a measurement.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_ContC1Gated">
+<span class="sig-name descname"><span class="pre">ContC1Gated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_ContC1Gated" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [HH400]</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The continuous mode is currently not supported in snAPI.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_Cont_C1_Start_CTC_Stop">
+<span class="sig-name descname"><span class="pre">Cont_C1_Start_CTC_Stop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_Cont_C1_Start_CTC_Stop" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [HH400]</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The continuous mode is currently not supported in snAPI.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_Cont_CTC_Restart">
+<span class="sig-name descname"><span class="pre">Cont_CTC_Restart</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_Cont_CTC_Restart" title="Permalink to this definition">#</a></dt>
+<dd><p>Supported devices [HH400]</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The continuous mode is currently not supported in snAPI.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">RefSource</span></span><a class="headerlink" href="#snAPI_Constants_RefSource" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>PicoQuant TCSPC devices can use their internal crystal clock but can be synchronized with an external
 reference clock as well. The latter is preferable when a clock drift between multiple instruments in
-an experiment needs to be avoided. The constants defined here specify the reference clock to use.</p>
+an experiment needs to be avoided. The constants defined here specify the reference clock to use.
+See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_RefSource_Internal">
 <span class="sig-name descname"><span class="pre">Internal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Internal" title="Permalink to this definition">#</a></dt>
@@ -632,7 +726,8 @@ an experiment needs to be avoided. The constants defined here specify the refere
 <dt class="sig sig-object py" id="snAPI_Constants_TrigMode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">TrigMode</span></span><a class="headerlink" href="#snAPI_Constants_TrigMode" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>The PicoQuant TCSPC devices have different trigger modes. Some of them can switch between them.</p>
+<p>The PicoQuant TCSPC devices have different trigger modes. Some of them can switch between them.
+See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncTrigMode" title="snAPI.Main.Device.setSyncTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setSyncTrigMode</span></code></a> and <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputTrigMode" title="snAPI.Main.Device.setInputTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setInputTrigMode</span></code></a>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_TrigMode_Edge">
 <span class="sig-name descname"><span class="pre">Edge</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_TrigMode_Edge" title="Permalink to this definition">#</a></dt>
@@ -688,7 +783,7 @@ an experiment needs to be avoided. The constants defined here specify the refere
 <dt class="sig sig-object py" id="snAPI_Constants_CoincidenceMode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">CoincidenceMode</span></span><a class="headerlink" href="#snAPI_Constants_CoincidenceMode" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>This defines the different coincidence modes.</p>
+<p>This defines the different coincidence modes. See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_coincidence" title="snAPI.Main.Manipulators.coincidence"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setMeasControl</span></code></a>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_CoincidenceMode_CountAll">
 <span class="sig-name descname"><span class="pre">CountAll</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceMode_CountAll" title="Permalink to this definition">#</a></dt>
@@ -708,7 +803,7 @@ generate a coincidence count and get erased for the generation of further coinci
 <dt class="sig sig-object py" id="snAPI_Constants_CoincidenceTime">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">CoincidenceTime</span></span><a class="headerlink" href="#snAPI_Constants_CoincidenceTime" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>This defines the position of the timetag of the calculated coincidence.</p>
+<p>This defines the position of the timetag of the calculated coincidence. See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_coincidence" title="snAPI.Main.Manipulators.coincidence"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Manipulators.coincidence</span></code></a>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_CoincidenceTime_First">
 <span class="sig-name descname"><span class="pre">First</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceTime_First" title="Permalink to this definition">#</a></dt>
@@ -732,7 +827,7 @@ It will work as anti coincidence than.</p>
 <dt class="sig sig-object py" id="snAPI_Constants_WRmode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">WRmode</span></span><a class="headerlink" href="#snAPI_Constants_WRmode" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>This configures the role of the device onto the White Rabbit network.</p>
+<p>This configures the role of the device onto the White Rabbit network. See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_setMode" title="snAPI.Main.WhiteRabbit.setMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">WhiteRabbit.setMode</span></code></a>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_WRmode_Off">
 <span class="sig-name descname"><span class="pre">Off</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_WRmode_Off" title="Permalink to this definition">#</a></dt>
@@ -765,8 +860,9 @@ precise timing to other devices on a White Rabbit network.</p>
 <dt class="sig sig-object py" id="snAPI_Constants_WRstatus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">WRstatus</span></span><a class="headerlink" href="#snAPI_Constants_WRstatus" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>PTP: Precision Time Protocol
-Servo is a feedback control mechanism. It continuously adjusts the local clock
+<p>Use this function the get the status of the WR node. See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_getStatus" title="snAPI.Main.WhiteRabbit.getStatus"><code class="xref py py-meth docutils literal notranslate"><span class="pre">WhiteRabbit.getStatus</span></code></a>.</p>
+<p>PTP: Precision Time Protocol</p>
+<p>Servo is a feedback control mechanism. It continuously adjusts the local clock
 based on the error between two clocks.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Constants_WRstatus_LinkON">
@@ -973,6 +1069,19 @@ based on the error between two clocks.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasMode_T3"><code class="docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl"><code class="docutils literal notranslate"><span class="pre">MeasControl</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_SingleShotCTC"><code class="docutils literal notranslate"><span class="pre">MeasControl.SingleShotCTC</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_C1Gated"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1Gated</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_C1StartCtcStop"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1StartCtcStop</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_C1StartC2Stop"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1StartC2Stop</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_WrMaster2Slave"><code class="docutils literal notranslate"><span class="pre">MeasControl.WrMaster2Slave</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_WrSlave2Master"><code class="docutils literal notranslate"><span class="pre">MeasControl.WrSlave2Master</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_SwStartSwStop"><code class="docutils literal notranslate"><span class="pre">MeasControl.SwStartSwStop</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_ContC1Gated"><code class="docutils literal notranslate"><span class="pre">MeasControl.ContC1Gated</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_Cont_C1_Start_CTC_Stop"><code class="docutils literal notranslate"><span class="pre">MeasControl.Cont_C1_Start_CTC_Stop</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_Cont_CTC_Restart"><code class="docutils literal notranslate"><span class="pre">MeasControl.Cont_CTC_Restart</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource"><code class="docutils literal notranslate"><span class="pre">RefSource</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Internal"><code class="docutils literal notranslate"><span class="pre">RefSource.Internal</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_External_10MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_10MHZ</span></code></a></li>
@@ -1071,7 +1180,7 @@ based on the error between two clocks.</p>
         <div class="footer-item">
   <p class="copyright">
     
-      © Copyright 2023, Picoquant.
+      © Copyright 2024, PicoQuant.
       <br/>
     
   </p>

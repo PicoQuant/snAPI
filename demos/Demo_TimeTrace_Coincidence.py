@@ -6,9 +6,9 @@ print("Switched to:",matplotlib.get_backend())
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.HH)
+    sn = snAPI()
     sn.getDevice()
-    sn.getFileDevice("C:\Data\PicoQuant\default_109.ptu")
+    #sn.getFileDevice("C:\Data\PicoQuant\default.ptu")
     
     # alternatively read data from file
     sn.setLogLevel(LogLevel.DataFile, True)

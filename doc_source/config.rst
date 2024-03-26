@@ -227,7 +227,7 @@ Example of the :obj:`.deviceConfig`
     "Offset": 0,
     "lengthCode": 6,
     "NumBins": 65536,
-    "MeasCtrl": 0,
+    "MeasControl": 0,
     "StartEdge": 1,
     "StopEdge": 1,
     "TrigOutput": 0,

@@ -11,7 +11,7 @@ print("Switched to:",matplotlib.get_backend())
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.PH330)
+    sn = snAPI()
     sn.getDevice()
     sn.initDevice()
     sn.loadIniConfig("config\PH330_Edge.ini")

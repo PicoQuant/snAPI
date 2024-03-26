@@ -1,15 +1,16 @@
 # Torsten Krause, PicoQuant GmbH, 2023
 
 import ctypes as ct
-import json
-import os
 import inspect
+import json
+import numpy as np
+import os
 import sys
+import time
 import traceback
 import typing
-import numpy as np
 
-from contextlib import contextmanager
+from datetime import datetime, timezone
 from snAPI.Constants import *
 from snAPI.Utils import *
 
@@ -42,7 +43,7 @@ Example
 ::
 
     # This instantiates a snAPI object in sn for TimeHarp260 
-    sn = snAPI(libType=LibType.TH260)
+    sn = snAPI()
         
     """
     dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), '.\snAPI64.dll')))
@@ -102,7 +103,7 @@ Example
     "Offset": 0,
     "lengthCode": 6,
     "NumBins": 65536,
-    "MeasCtrl": 0,
+    "MeasControl": 0,
     "StartEdge": 1,
     "StopEdge": 1,
     "TrigOutput": 0,
@@ -206,6 +207,8 @@ Example
         """This is the object to the device configuration :class:`Device` class"""
         self.filter = Filter(self)
         """This is the object to the hardware filter configuration :class:`Filter` class"""
+        self.whiteRabbit = WhiteRabbit(self)
+        """This is the object to the hardware filter configuration :class:`Filter` class"""
         self.unfold = Unfold(self)
         """This is the object to :class:`Unfold` class"""
         self.raw = Raw(self)
@@ -240,7 +243,7 @@ Parameters
 
 Returns
 -------
-    none
+    None
 
 Example
 -------
@@ -392,11 +395,11 @@ It deletes the API instance and frees its memory.
     
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
-    none
+    None
     
         """
         self.dll.exitAPI()
@@ -410,7 +413,7 @@ can be used to identify the devices if more than one are connected. If only on d
     
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -447,7 +450,7 @@ From now on all functions will act on this device until another device is acquir
     
 Parameters
 ----------
-    none: 
+    None: 
         takes the first available device
     str:
         identifier of device
@@ -595,7 +598,7 @@ Parameters
 
 Returns
 -------
-    none
+    None
     
     """
         self.dll.closeDevice(allDevices)
@@ -746,7 +749,7 @@ Note
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
@@ -783,7 +786,7 @@ The `measDescription` is only valid after a measurement is done or a file device
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
@@ -833,11 +836,11 @@ This is the private function that will be called internally if stopMeasure() wil
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.dll.stopMeasure()
@@ -855,11 +858,11 @@ Note
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.dll.clearMeasure()
@@ -874,7 +877,7 @@ by the count rates of the channels.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
@@ -906,7 +909,7 @@ single shot jitter and clock stability.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
@@ -933,7 +936,7 @@ and is used for memory allocation.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
@@ -1079,12 +1082,12 @@ For the input CFD of the input channels use :meth:`setInputCFD`.
 Parameters
 ----------
     syncDiscrLvl: int
-        | level [mV] (default:50mV)
+        | discriminator level [mV] (default:50mV)
         | HH400: [0..1000]
         | TH260P: [-1200..0]
         | PH330: [-1500..0]
     syncZeroXLvL: int
-        | trigger edge 
+        | zero cross level [mV] (default:20mV)
         | HH400: [0..40]
         | TH260P: [-40..0]
         | PH330: [-100..0]
@@ -1259,7 +1262,7 @@ Note
 
 Parameters
 ----------
-    hystCode: int
+    timingMode: int
         | 0: Hires (25ps) (default) 
         | 1: Lores (2.5 ns, a.k.a. “Long range”) 
     
@@ -1422,7 +1425,7 @@ Example
         return ok
 
 
-    def setMeasControl(self, measCtrl: typing.Optional[MeasControl] = MeasControl.SingleShotCTC, startEdge: typing.Optional[int] = 0, stopEdge: typing.Optional[int] = 0):
+    def setMeasControl(self, measControl: typing.Optional[MeasControl] = MeasControl.SingleShotCTC, startEdge: typing.Optional[int] = 0, stopEdge: typing.Optional[int] = 0):
         """
     Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
@@ -1430,13 +1433,9 @@ This sets the measurement control mode and for other than the default it must be
 The default is 0: CTC controlled acquisition time. The modes 1..5 allow hardware triggered measurements
 through TTL signals at the control port or through White Rabbit. 
 
-Note
-----
-    White Rabbit modes are not fully supported at the moment. 
-
 Parameters
 ----------
-    measCtrl: MeasControl
+    measControl: :class:`snAPI.Constants.MeasControl`
     startEdge: int
         | 0: falling (default)
         | 1: rising
@@ -1457,8 +1456,8 @@ Example
     sn.device.setMeasControl(MeasControl.SingleShotCTC, 0, 0)
     
         """
-        if ok:= self.parent.dll.setMeasControl(measCtrl, startEdge, stopEdge):
-            self.parent.deviceConfig["MeasCtrl"] = measCtrl
+        if ok:= self.parent.dll.setMeasControl(measControl.value, startEdge, stopEdge):
+            self.parent.deviceConfig["MeasControl"] = measControl
             self.parent.deviceConfig["StartEdge"] = startEdge
             self.parent.deviceConfig["StopEdge"] = stopEdge
         return ok
@@ -2316,7 +2315,435 @@ Example
         else:
             return []
     
+class WhiteRabbit():
+    """
+White Rabbit is a time synchronization technology based on the Precision Time Protocol (PTP).
+It is used to synchronize clocks between different entities on an Ethernet network.
+
+See:
+    | :octicon:`mark-github` `Demo_WR_Configure_Master.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_Configure_Master.py>`_
+    | :octicon:`mark-github` `Demo_WR_Configure_Slave.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_Configure_Slave.py>`_
+    | :octicon:`mark-github` `Demo_WR_TimeTrace_Master.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Master.py>`_
+    | :octicon:`mark-github` `Demo_WR_TimeTrace_Slave.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Slave.py>`_
+
+    | :fa:`file-pdf` `White Rabbit Specification v2.0 <https://white-rabbit.web.cern.ch/documents/WhiteRabbitSpec.v2.0.pdf>`_
     
+    """
+    
+
+    def __init__(self, parent):
+        self.parent = parent
+        self.mac = ()
+        """The MAC address of the WR device"""
+        self.initScript = ()
+        """The init/boot script."""
+        self.SFPnames = []
+        """SFP calibration data. (part number)"""
+        self.SFPdTxs = []
+        """SFP calibration data. (transmission delay)"""
+        self.SFPdRxs = []
+        """SFP calibration data. (reception delay)"""
+        self.SFPalphas = []
+        """SFP calibration data. (fiber asymmetry coefficient)"""
+
+    def getMAC(self, ):
+        """
+    Supported devices: [MH150/160] 
+    
+This gets the MAC-Address of the sfp module and writes it to :obj:`WhiteRabbit.mac<.mac>`
+
+Parameters
+----------
+    None
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # read the MAC-Address and prints it out
+    
+    sn.whiteRabbit.getMac()
+    sn.logPrint(sn.whiteRabbit.mac)
+    
+        """
+        mac = (ct.c_char * 18)()
+        ok =  self.parent.dll.WRabbitGetMAC(mac)
+        self.mac = str(mac, "utf-8").replace('\x00','')
+        return ok
+    
+    def setMAC(self, mac: str):
+        """
+    Supported devices: [MH150/160] 
+    
+This sets the MAC-Address of the sfp module.
+    
+Parameters
+----------
+    mac: str
+        | the MAC-Address string that contains 6 hexadecimal numbers separated by a '-'
+
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # sets the MAC-Address
+    
+    sn.whiteRabbit.setMac("01-02-03-04-05-06")
+        """
+        SBuf = mac.encode('utf-8')
+        ok = self.parent.dll.WRabbitSetMAC(SBuf)
+        ok &= self.getMAC()
+        return ok
+
+    def getSFPData(self, ):
+        """
+    Supported devices: [MH150/160] 
+    
+This gets the SFP-Calibration-Parameters and writes them to and writes it to :obj:`WhiteRabbit.SFPalphas<.SFPnames>`,
+:obj:`WhiteRabbit.SFPalphas<.SFPdTxs>`, :obj:`WhiteRabbit.SFPalphas<.SFPdRxs>` and :obj:`WhiteRabbit.SFPalphas<.SFPalphas>`.
+
+:fa:`file-pdf` `White Rabbit calibration procedure v1.1 <https://ohwr.org/project/white-rabbit/uploads/76cdbdbadccc9d6c54d5caf246550fbf/WR_Calibration-v1.1-20151109.pdf>`_
+    
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # Print the sfp calibration data.
+    sn.whiteRabbit.getSFPData()
+    sn.logPrint(f"SFP names: \"{sn.whiteRabbit.SFPnames}\"")
+    sn.logPrint(f"SFP dTxs: \"{sn.whiteRabbit.SFPdTxs}\"")
+    sn.logPrint(f"SFP dRxs: \"{sn.whiteRabbit.SFPdRxs}\"")
+    sn.logPrint(f"SFP alphas: \"{sn.whiteRabbit.SFPalphas}\"")
+    
+        """
+        names = (ct.c_char * 80)()
+        dTxs = (ct.c_int * 4)()
+        dRxs = (ct.c_int * 4)()
+        alphas = (ct.c_int * 4)()
+        ok =  self.parent.dll.WRabbitGetSFPData(names, dTxs, dRxs, alphas)
+        try:
+            self.SFPnames = list(filter(None,str(names, "utf-8").replace('\x00','\n').splitlines()))
+        except UnicodeDecodeError as e:
+            self.parent.dll.logError.argtypes = [ct.c_char_p]
+            self.parent.dll.logError(f"Invalid response @ getSFPData: '{e.reason}'".encode('utf-8'))
+        self.SFPdTxs = np.array(dTxs)
+        self.SFPdRxs = np.array(dRxs)
+        self.SFPalphas = np.array(alphas)
+        return ok
+    
+    def getInitScript(self, ):
+        """
+    Supported devices: [MH150/160] 
+    
+This function reads the init script from the EEPROM and writes it to :obj:`WhiteRabbit.initScript<.initScript>`.
+    
+Parameters
+----------
+    None
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # Get the init script and prints it out. 
+    sn.logPrint(f"Init Script: \"{sn.whiteRabbit.initScript}\"")
+    
+        """
+        script = (ct.c_char * 256)()
+        ok =  self.parent.dll.WRabbitGetInitScript(script)
+        self.initScript = str(script, "utf-8").replace('\x00','')
+        return ok
+    
+    def setInitScript(self, script: str):
+        """
+    Supported devices: [MH150/160] 
+    
+This function reads the init script. It will be written to the EEPROM. After starting the
+Harp Device will automatically boot with this script. 
+    
+Parameters
+----------
+    script: str
+        | WR init script. The commands must be separated by a new line '\\\\n'. 
+    
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # Set the init script for the master. 
+    sn.whiteRabbit.setInitScript("ptp stop\\nsfp detect\\nsfp match\\nmode master\\nptp start\\ngui\\n")
+    
+    # Set the init script for the slave. 
+    sn.whiteRabbit.setInitScript("ptp stop\\nsfp detect\\nsfp match\\nmode slave\\nptp start\\ngui\\n")
+        """
+        ok = self.getInitScript()
+        if script != self.initScript:
+            SBuf = script.encode('utf-8')
+            ok = self.parent.dll.WRabbitSetInitScript(SBuf)
+            ok &= self.getInitScript()
+        return ok
+
+    def setMode(self, bootFromScript: typing.Optional[bool] = False, reinitWithMode: typing.Optional[bool] = False, mode: typing.Optional[WRmode] = WRmode.Off):
+        """
+    Supported devices: [MH150/160] 
+    
+This function temporarily sets the mode of the WR node with or without initializing it. The mode will not be
+stored to the EEPROM.
+    
+Parameters
+----------
+    bootFromScript: bool (default: false)
+        | True: boot from script in EEPROM (reinitWithMode and mode are then ignored)
+    reinitWithMode: bool (default: false)
+        | False: probe if previous mode set is completed
+            | sets the new mode without initializing
+            | (bootFromScript must be False)
+        | True: re-initialize with new mode
+            | re-initializes the WR node with the new mode
+            | (bootFromScript must be False)
+    mode: :class:`Constants.WRmode<snAPI.Constants.WRmode>` (default:  WRmode.Off)
+        | Master, Slave, Grandmaster
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+
+    # sets the WR mode to Master without re-initializing it
+    sn.whiteRabbit.SetMode(mode = WRmode.Master)
+    
+    # reboots the WR with  the script from EEPROM
+    sn.whiteRabbit.SetMode(bootFromScript = True)
+    
+    # re-initializes the WR mode to Master
+    sn.whiteRabbit.SetMode(reinitWithMode= True, mode = WRmode.Master)
+        """
+        script = (ct.c_char * 256)()
+        return self.parent.dll.WRabbitSetMode(bootFromScript, reinitWithMode, mode.value)
+    
+    def getTime(self,):
+        """
+    Supported devices: [MH150/160] 
+    
+This function returns the current UTC time of the WR node.
+    
+Parameters
+----------
+    None
+    
+Returns
+-------
+    dateTime in 16ns resolution
+    
+Example
+-------
+::
+    
+    # Gets the time of the WR node and prints it out
+    sn.logPrint(f"WR time: {sn.whiteRabbit.getTime()}")
+    
+        """
+        time = ct.c_uint64(0)
+        subSec16ns = ct.c_uint32(0)
+        ok = self.parent.dll.WRabbitGetTime(ct.byref(time), ct.byref(subSec16ns))
+        return datetime.fromtimestamp(time.value + subSec16ns.value * 16e-9, tz=timezone.utc)
+
+    def setTime(self, time: datetime):
+        """
+    Supported devices: [MH150/160] 
+    
+This can be used to set the current UTC time of a WR node configured as WR master. If a slave is connected it
+will be set to the same time.
+
+Parameters
+----------
+    time: datetime
+        | (import the time module)
+    
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # Set the correct UTC time.
+    sn.whiteRabbit.setTime(datetime.now()) 
+    
+        """
+        t = ct.c_uint64(round(time.replace(tzinfo=timezone.utc).timestamp()))
+        return self.parent.dll.WRabbitSetTime(t)
+    
+    def initLink(self, onOff: bool):
+        """
+    Supported devices: [MH150/160] 
+    
+This can be used to switch the WR link on and off.
+    
+Parameters
+----------
+    onOff: bool
+        | True: switch the WR link on
+        | False: switch the WR link off
+    
+    
+Returns
+-------
+    True:  operation successful
+    False: operation failed
+    
+Example
+-------
+::
+    
+    # switches the WR link on
+    sn.whiteRabbit.initLink(True)
+        """
+        return self.parent.dll.WRabbitInitLink(onOff)
+    
+    def getStatus(self,):
+        """
+    Supported devices: [MH150/160] 
+    
+This function gives you the status of the WR ptp state machine, the link and servo state.
+It must be interpreted as a 32bit field. The bits are defined in refSrc: :class:`snAPI.Constants.WRstatus`
+    
+Parameters
+----------
+    None
+    
+Returns
+-------
+    status: :class:`Constants.WRmode<snAPI.Constants.WRmode>`
+    
+Example
+-------
+::
+    
+    # Polls the WR status until the Harp device is ready to use.
+    readyState = WRstatus.LockedCalibrated.value | WRstatus.ModeMaster.value | WRstatus.ModeMaster.value
+    for i in range(100):
+        status = sn.whiteRabbit.getStatus()
+        sn.logPrint(f"{status:08x}")
+        if (status & readyState) == readyState:
+            break
+        else:
+            time.sleep(1)
+    
+        """
+        status = ct.c_uint32(0)
+        time.sleep(1)
+        ok = self.parent.dll.WRabbitGetStatus(ct.byref(status))
+        return status.value
+    
+    def getTermOutput(self, VT100: typing.Optional[bool] = False):
+        """
+    Supported devices: [MH150/160] 
+    
+When the Harp WR core has received the commend gui (should be the last line of the init script) it sends terminal
+output describing its state. This function can then be used to retrieve that terminal as string. If the VT100 flag
+is set, the output will contain escape sequences for control of text color, screen refresh, etc. In order to present
+them correctly these escape sequences must be interpreted and translated to the corresponding control mechanisms
+of the chosen display scheme. To take care of this the data can be sent to a terminal emulator. Note that this is
+read-only.
+There is currently no way of injecting commands to the WR core console prompt.
+    
+Parameters
+----------
+    VT100: bool (default: False)
+        | False: To make the WR terminal output readable, the escape sequences are removed.
+        | True: The escape sequences are kept in the return string
+    
+Returns
+-------
+    terminalOutput: str
+    
+Example
+-------
+::
+    
+    # print the terminal output to the log
+    sn.logPrint(sn.whiteRabbit.getTermOutput())
+    
+        """
+        termOut = (ct.c_char * 513)()
+        if VT100:
+            s = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\x1b[H"
+        else:
+            s = "\n"
+        sOld = ""
+        
+        for i in range(20):
+            if self.parent.dll.WRabbitGetTermOutput(termOut):
+                temp = str(termOut, "utf-8")
+                pos = temp.find("\x1b[01;34mWR PTP Core Sync Monitor")
+                if(pos >= 0):
+                    if VT100:
+                        s += temp[pos:]
+                    else:
+                        temp = str(termOut, "utf-8")
+                        pos = temp.find("WR PTP Core Sync Monitor")
+                        s += temp[pos:]
+                    break
+                
+        i = 0
+        while True:
+            if self.parent.dll.WRabbitGetTermOutput(termOut):
+                if VT100:
+                    temp = str(termOut, "utf-8").replace('\x00','')
+                    if(len(temp) > 0 and temp != sOld and s.find(temp) < 0):
+                        s += temp
+                        i += 1
+                else:
+                    temp = str(termOut, "utf-8")
+                    if(len(temp) > 0 and temp != sOld and s.find(temp) < 0):
+                        s += temp
+                        i += 1
+            else:
+                break
+            if i == 2:
+                if VT100:
+                    s += "\x1b[80;24H"
+                else:
+                    s = s.replace('\x00','').replace('\x1b[m','').replace('\x1b[01;31m','').replace('\x1b[01;32m','').replace('\x1b[01;34m','').replace('\x1b[01;37m','').replace('\x1b[02;37m','').replace('\x1b[2J','').replace('\x1b[1;1H','')
+                break
+        return s
+
+
 # measurement classes
 class Raw():
     """This is the `Raw` measurement class.
@@ -2355,7 +2782,7 @@ There are special functions to decode the :obj:`.MeasMode.T2`and :obj:`.MeasMode
 
 .. seealso ::
     | To fully understand the TTTR format please read the MultiHarp manual and/or
-    | `Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences <https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf>`_
+    | :fa:`file-pdf` `Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences <https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf>`_
     | :ref:`TCSPC specific record formats <TCSPC specific record formats>`
 
     """
@@ -2494,7 +2921,7 @@ This function gets the last block of data from the API and returns it in form of
 
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -2578,7 +3005,7 @@ block size if you measure in block mode with :meth:`getBlock`.
 
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -2608,7 +3035,7 @@ Warning
 
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -2647,11 +3074,11 @@ this function.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.parent._stopMeasure()
@@ -2876,7 +3303,7 @@ There are special functions to decode the channel information:
 
 .. seealso ::
     | To fully understand the TTTR format read
-    | `Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences <https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf>`_
+    | :fa:`file-pdf` `Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences <https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf>`_
 
     """
         
@@ -2888,36 +3315,6 @@ There are special functions to decode the channel information:
         self.idx = ct.pointer(ct.c_uint64(0))
         self.finished = ct.pointer(ct.c_bool(False))
 
-
-    def setT3Format(self, format: typing.Optional[UnfoldFormat] = UnfoldFormat.DTimesSyncCntr) :
-        """
-This function sets the content format of the times array of the unfold data stream.
-
-Note
-----
-    Only meaningful in :obj:`.MeasMode.T3`.
-    
-Parameters
-----------
-    format: UnfoldFormat (default: UnfoldFormat.DTimesSyncCntr)
-        
-Returns
--------
-    none
-
-Example
--------
-::
-
-    # creates a unfold data stream in :obj:`.UnfoldFormat.DTimes` with differential times 
-    sn.histogram.setT3Format(UnfoldFormat.DTimes)
-
-        """
-        if(self.parent.deviceConfig["MeasMode"] != MeasMode.T3.value):
-            self.parent.logPrint( "setT3Format is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
-        self.parent.dll.setUnfoldT3Format(format.value)
-
-
     def measure(self, acqTime: typing.Optional[int] = 1000, size: typing.Optional[int] = 134217728, waitFinished: typing.Optional[bool] = True, savePTU: typing.Optional[bool] = False):
         """
 With this function a simple measurement of Unfolded data records into RAM and/or disc is provided.
@@ -2927,6 +3324,9 @@ updates on the fly, and you can request the execution status with the :meth:`isF
 If you wish to avoid blocking you can set `waitFinished` `False` and proceed with other code. Again, you
 can check if the measurement is completed by using the :meth:`isFinished` function.
 The data can be accessed with :meth:`getData`.
+
+See:
+    | :octicon:`mark-github` `Demo_RecordViewer_UF <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_RecordViewer_UF.py>`_
 
 Caution
 -------
@@ -2988,6 +3388,9 @@ The data is collected by the API internally until you retrieve it via the :meth:
 The size of the block depends on the count rate and the time that elapsed until the next blockRead is executed.
 Beforehand, you have to define the maximum size of the available block buffer. The data can be accessed with :meth:`getBlock`.
 
+See:
+    | :octicon:`mark-github` `Demo_CoincidenceTimestamps.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_CoincidenceTimestamps.py>`_
+    
 Warning
 -------
     If the colleted data exceeds the maximum block size a warning will be added to the log: 
@@ -3042,7 +3445,7 @@ This function retrieves the last block of data from the API and returns the of `
 
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -3124,12 +3527,11 @@ Example
 
     def getTimes(self, numRead: int):
         """
-This function returns a tuple of two arrays holding the data of an `Unfold` measurement. The arrays contain the timetag and the 
-channel information.
+This function returns an arrays holding the timetags of an `Unfold` measurement.
 
 Note
 ----
-    This function is part of the :meth:`getBlock` function.
+    This function is part of the :meth:`getData` function.
 
 Parameters
 ----------
@@ -3138,26 +3540,19 @@ Parameters
         
 Returns
 -------
-    tuple [1DArray, 1DArray]
-        times: 1DArray[int]
-            `Unfold` data array of timetags
-        channels: 1DArray[int]
-            `Unfold` data array of channel information
+    times: 1DArray[int]
+        `Unfold` data array of timetags
 
 Example
 -------
 ::
 
-    # reads `Unfold` data every second for 10 seconds in :obj:`.MeasMode.T3`  
+    # reads `Unfold` data every second for 10 seconds in :obj:`.MeasMode.T2`  
     sn = snAPI()
     sn.getDevice()
-    sn.initDevice(MeasMode.T3)
-    sn.unfold.startBlock(10000)
-    while not sn.unfold.isFinished():
-        time.sleep(1)
-        times, channels = sn.unfold.getBlock()
-        if sn.unfold.numRead():
-            sn.logPrint(f"{sn.unfold.numRead()} records read")
+    sn.initDevice(MeasMode.T2)
+    sn.unfold.measure(acqTime=1000, size=1024*1024*1024, waitFinished=True, savePTU=False)
+    times = sn.unfold.getTimes()
     
         """
         return np.lib.stride_tricks.as_strided(self.times, shape=(1, numRead),
@@ -3181,7 +3576,18 @@ Parameters
 Returns
 -------
         channels: 1DArray[int]
-            `Unfold` data array of timetags
+            `Unfold` data array of channel indexes (0: sync)
+
+Example
+-------
+::
+
+    # reads `Unfold` data for 10 seconds in :obj:`.MeasMode.T3`  
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T3)
+    sn.unfold.measure(acqTime=1000, size=1024*1024*1024, waitFinished=True, savePTU=False)
+    chans = sn.unfold.getChannels()
     
         """
         return np.lib.stride_tricks.as_strided(self.channels, shape=(1, numRead),
@@ -3195,7 +3601,7 @@ otherwise it gives the block size if you measure in block mode with :meth:`getBl
 
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -3225,7 +3631,7 @@ Warning
 
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -3264,11 +3670,11 @@ this function.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.parent._stopMeasure()
@@ -3287,23 +3693,19 @@ Parameters
 
 Returns
 -------
-    True: operation successful
-    False: operation failed
+    times: operation successful
 
 Example
 -------
 ::
 
-    # reads `Unfold` data every second for 10 seconds in :obj:`.MeasMode.T3`  
+    # reads `Unfold` data every second for 10 seconds in :obj:`.MeasMode.T2`  
+    # and gets the timetags of Channel 0
     sn = snAPI()
     sn.getDevice()
     sn.initDevice(MeasMode.T3)
-    sn.unfold.startBlock(10000)
-    while not sn.unfold.isFinished():
-        time.sleep(1)
-        data = sn.unfold.getBlock()
-        if sn.unfold.numRead():
-            sn.logPrint(f"{sn.unfold.numRead()} records read")
+    sn.unfold.measure(acqTime=1000, size=1024*1024*1024, waitFinished=True, savePTU=False)
+    times = sn.unfold.getTimesByChannel(1) # index 0 is the sync channel
     
         """
         if not size:
@@ -3371,19 +3773,19 @@ Example
         marker = (0x7F & channel)
         return [(marker & 0x01) != 0, (marker & 0x02) != 0, (marker & 0x04) != 0, (marker & 0x08) != 0]
 
-
-    def nSync_T3(self, times: int) :
+    def abs_T3(self, times: int) :
         """
-This function takes a T3 `Unfold` data record and returns the number of the sync period this event occurred in.
+This function takes a T3 `Unfold` timetag and returns the absolute time calculated from containing the nSync and dTime.
 
 Warning
 -------
-    Use this function with a T3 `Unfold` data record. with :obj:`.UnfoldFormat.DTimesSyncCntr`.
+    Use this function with a T3 `Unfold` timetag only.
+    
     
 Parameters
 ----------
     data: int
-        a T3 `Raw` data record
+        a T3 timetag
         
 Returns
 -------
@@ -3394,7 +3796,40 @@ Example
 -------
 ::
 
-    # prints out the number of the sync period of the `Raw` T3 record in data[i]
+    # prints out the absolute time of the `Unfold` T3 timetag in times[i]
+    sn.print(sn.unfold.abs_T3(times[i]))
+    
+        """
+        if len(self.parent.measDescription) == 0:
+            self.parent.getMeasDescription()
+        if self.parent.measDescription['AveSyncRate'] == 0:
+            raise ValueError("measDescription['AveSyncRate'] is 0, you may execute 'sn.getMeasDescription()' before")
+            
+        return (self.nSync_T3(times) / self.parent.measDescription['AveSyncRate'] * 1e12 + self.parent.deviceConfig['Resolution'] * self.dTime_T3(times))
+
+    def nSync_T3(self, times: int) :
+        """
+This function takes a T3 `Unfold` timetag and returns the number of the sync period this event occurred in.
+
+Warning
+-------
+    Use this function with a T3 `Unfold` timetag only.
+    
+Parameters
+----------
+    data: int
+        a T3 timetag
+        
+Returns
+-------
+    timetag: int
+
+
+Example
+-------
+::
+
+    # prints out the number of the sync period of the `Unfold` T3 timetag in times[i]
     sn.print(sn.unfold.nSync_T3(times[i]))
     
         """
@@ -3403,19 +3838,17 @@ Example
 
     def dTime_T3(self, times: int) :
         """
-This function takes a T3 `Unfold` data record and returns the differential time slot. For the differential time
+This function takes a T3 `Unfold` timetag and returns the differential time slot. For the differential time
 it has to be multiplied by the Resolution.
 
 Warning
 -------
-    Use this function with the T3 `Unfold` data record. with :obj:`.UnfoldFormat.DTimesSyncCntr`.
-    When using the T3 `Unfold` data record with :obj:`.UnfoldFormat.DTimes` this function is not required,
-    because the times array consists only of `dTimes`.
+    Use this function with the T3 `Unfold` timetag only.
     
 Parameters
 ----------
     data: int
-        a T3 `Unfold` data record
+        a T3 `Unfold` timetag
         
 Returns
 -------
@@ -3487,7 +3920,7 @@ Parameters
         
 Returns
 -------
-    none
+    None
 
 Example
 -------
@@ -3524,7 +3957,7 @@ Parameters
         
 Returns
 -------
-    none
+    None
 
 Example
 -------
@@ -3620,7 +4053,7 @@ This function returns the data of the histogram measurement.
 
 Parameters
 ----------
-    none
+    None
             
 Returns
 -------
@@ -3667,11 +4100,11 @@ this function.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.parent._stopMeasure()
@@ -3685,11 +4118,11 @@ data without having to restart the measurement.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.parent._clearMeasure()
@@ -3707,7 +4140,7 @@ Warning
 
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -3782,7 +4215,7 @@ Parameters
 
 Returns
 -------
-    none
+    None
 
 Example
 -------
@@ -3819,7 +4252,7 @@ Parameters
 
 Returns
 -------
-    none
+    None
 
 Example
 -------
@@ -3952,7 +4385,7 @@ Warning
 
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -3989,11 +4422,11 @@ this function.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.parent._stopMeasure()
@@ -4007,11 +4440,11 @@ the internal data without having to restart the measurement.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.parent._clearMeasure()
@@ -4044,7 +4477,7 @@ multi-tau algorithm uses pseudo-logarithmically increasing bin widths.
         self.bins = ct.ARRAY(ct.c_double, 0)()
         self.startChannel = 1
         self.stopChannel = 2
-        self.numIntervals = 1
+        self.numTaus = 1
         self.intervalLength = 1000
         self.binWidth = 1000
         self.numBins = 0
@@ -4084,7 +4517,7 @@ Parameters
 
 Returns
 -------
-    none
+    None
 
 Example
 -------
@@ -4104,7 +4537,7 @@ Example
         self.stopChannel = stopChannel
         self.windowSize = windowSize
         self.binWidth = binWidth
-        self.intervalLength = int(windowSize / binWidth)
+        self.intervalLength = int(2 * windowSize / binWidth)
         self.isFcs = False
         
         self.parent.dll.setG2Params.argtypes = [ct.c_int, ct.c_int, ct.c_double, ct.c_double]
@@ -4150,7 +4583,7 @@ Parameters
 
 Returns
 -------
-    none
+    None
 
 Example
 -------
@@ -4173,11 +4606,11 @@ Example
         self.startTime = startTime
         self.intervalLength = intervalLength
 
-        pNumIntervals = ct.pointer(ct.c_int(0))
+        pNumTaus = ct.pointer(ct.c_int(0))
         
         self.parent.dll.setFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_int, ct.c_double, ct.c_double]
-        self.parent.dll.setFCSParams(startChannel, stopChannel, pNumIntervals, intervalLength, windowSize, startTime)
-        self.numIntervals = pNumIntervals.contents.value
+        self.parent.dll.setFCSParams(startChannel, stopChannel, pNumTaus, intervalLength, windowSize, startTime)
+        self.numTaus = pNumTaus.contents.value
 
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
@@ -4226,10 +4659,10 @@ Example
         """
         
         if self.isFcs:
-            self.numBins = self.numIntervals * self.intervalLength
+            self.numBins = self.numTaus
             self.data = ct.ARRAY(ct.c_double, 2 * self.numBins)(0)
         else:
-            self.numBins = 2 * self.intervalLength
+            self.numBins = self.intervalLength
             self.data = ct.ARRAY(ct.c_double, self.numBins)(0)
             
         self.bins = ct.ARRAY(ct.c_double, self.numBins)(0) 
@@ -4246,7 +4679,7 @@ This function returns the data of the g(2) correlation measurement.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
@@ -4294,7 +4727,7 @@ This function returns the data of the FCS correlation measurement.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
@@ -4349,11 +4782,11 @@ this function.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.parent._stopMeasure()
@@ -4367,11 +4800,11 @@ data without having to restart the measurement.
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------
-    none
+    None
     
         """
         self.parent._clearMeasure()
@@ -4389,7 +4822,7 @@ Warning
     
 Parameters
 ----------
-    none
+    None
 
 Returns
 -------
@@ -4516,7 +4949,7 @@ Note
 
 Parameters
 ----------
-    none
+    None
     
 Returns
 -------

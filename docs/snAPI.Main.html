@@ -171,12 +171,27 @@
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="controlConnector.html">
+                        Control Connector
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
                 <li class="nav-item">
                   <a class="nav-link nav-external" href="https://PicoQuant.com">
                     PicoQuant
                   </a>
                 </li>
                 
+                </div>
+            </div>
+            
   </ul>
 </nav></div>
       
@@ -289,12 +304,27 @@ document.write(`
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="controlConnector.html">
+                        Control Connector
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
                 <li class="nav-item">
                   <a class="nav-link nav-external" href="https://PicoQuant.com">
                     PicoQuant
                   </a>
                 </li>
                 
+                </div>
+            </div>
+            
   </ul>
 </nav></div>
         
@@ -414,7 +444,7 @@ and many other API calls.</p>
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This instantiates a snAPI object in sn for TimeHarp260</span>
-<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">(</span><span class="n">libType</span><span class="o">=</span><span class="n">LibType</span><span class="o">.</span><span class="n">TH260</span><span class="p">)</span>
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
 </pre></div>
 </div>
 <dl class="py attribute">
@@ -465,7 +495,7 @@ For detailed information read <a class="reference internal" href="config.html#co
 <span class="s2">&quot;Offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="s2">&quot;lengthCode&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
 <span class="s2">&quot;NumBins&quot;</span><span class="p">:</span> <span class="mi">65536</span><span class="p">,</span>
-<span class="s2">&quot;MeasCtrl&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;MeasControl&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="s2">&quot;StartEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 <span class="s2">&quot;StopEdge&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 <span class="s2">&quot;TrigOutput&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -628,7 +658,7 @@ The generated log file entry will be marked with an “EXT” (External).</p>
 <dd class="field-odd"><p><strong>args</strong> (<em>It should be used like the normal python print function.</em>) – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -755,10 +785,10 @@ or change the data path.</p>
 It deletes the API instance and frees its memory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -771,7 +801,7 @@ can be used to identify the devices if more than one are connected. If only on d
 <a class="reference internal" href="#snAPI_Main_snAPI_getDevice" title="snAPI.Main.snAPI.getDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDevice()</span></code></a> can be called directly to get this device.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -802,7 +832,7 @@ From now on all functions will act on this device until another device is acquir
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>none</strong> – takes the first available device</p></li>
+<li><p><strong>None</strong> – takes the first available device</p></li>
 <li><p><strong>str</strong> – <dl class="simple">
 <dt>identifier of device</dt><dd><ul>
 <li><p>If the DeviceType is <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType_HW" title="snAPI.Constants.DeviceType.HW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceType.HW</span></code></a> it is the serial number</p></li>
@@ -902,7 +932,7 @@ If the current device is a file device it closes the file.</p>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1036,7 +1066,7 @@ update the device configuration manually. For detailed information read <a class
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -1064,7 +1094,7 @@ update the device configuration manually. For detailed information read <a class
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -1103,7 +1133,7 @@ Afterwards the function will return an array of count rates, where the first ele
 by the count rates of the channels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>countrates</strong></p>
@@ -1128,7 +1158,7 @@ The return value is <cite>0.0</cite> in all other cases. Resolution is the devic
 single shot jitter and clock stability.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>syncPeriod</strong></p>
@@ -1151,7 +1181,7 @@ the <a class="reference internal" href="#snAPI_Main_Manipulators" title="snAPI.M
 and is used for memory allocation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>numAllChannels</strong></p>
@@ -1475,14 +1505,11 @@ a higher input hysteresis.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>hystCode</strong> (<em>int</em>) – <div class="line-block">
+<dd class="field-odd"><p><strong>timingMode</strong> (<em>int</em>) – <div class="line-block">
 <div class="line">0: Hires (25ps) (default)</div>
 <div class="line">1: Lores (2.5 ns, a.k.a. “Long range”)</div>
 </div>
-</p></li>
-<li><p><strong>timingMode</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
-</ul>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -1635,6 +1662,46 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_Meas
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the number of bins to 10000</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setHistoLength</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Device_setMeasControl">
+<span class="sig-name descname"><span class="pre">setMeasControl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measControl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MeasControl.SingleShotCTC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Device_setMeasControl" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160 | HH400 | TH260 | PH330]</p>
+</div></blockquote>
+<p>This sets the measurement control mode and for other than the default it must be called before starting a measurement.
+The default is 0: CTC controlled acquisition time. The modes 1..5 allow hardware triggered measurements
+through TTL signals at the control port or through White Rabbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measControl</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl" title="snAPI.Constants.MeasControl"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.MeasControl</span></code></a>) – </p></li>
+<li><p><strong>startEdge</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">0: falling (default)</div>
+<div class="line">1: rising</div>
+</div>
+</p></li>
+<li><p><strong>stopEdge</strong> (<em>int</em><em> | </em><em>None</em>) – <div class="line-block">
+<div class="line">0: falling (default)</div>
+<div class="line">1: rising</div>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the measurement control mode to ::obj:`SingleShotCTC`</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setMeasControl</span><span class="p">(</span><span class="n">MeasControl</span><span class="o">.</span><span class="n">SingleShotCTC</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2481,8 +2548,19 @@ contains the sync rate and the rates of the input channels.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">WhiteRabbit</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>White Rabbit is a time synchronization technology based on the Precision Time Protocol (PTP).
-It is used to synchronize clocks between different entities on an Ethernet network.
-<a class="reference external" href="https://white-rabbit.web.cern.ch/documents/WhiteRabbitSpec.v2.0.pdf">https://white-rabbit.web.cern.ch/documents/WhiteRabbitSpec.v2.0.pdf</a></p>
+It is used to synchronize clocks between different entities on an Ethernet network.</p>
+<dl>
+<dt>See:</dt><dd><div class="line-block">
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_Configure_Master.py">Demo_WR_Configure_Master.py</a></div>
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_Configure_Slave.py">Demo_WR_Configure_Slave.py</a></div>
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Master.py">Demo_WR_TimeTrace_Master.py</a></div>
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Slave.py">Demo_WR_TimeTrace_Slave.py</a></div>
+</div>
+<div class="line-block">
+<div class="line"><span class="fa fa-file-pdf"></span> <a class="reference external" href="https://white-rabbit.web.cern.ch/documents/WhiteRabbitSpec.v2.0.pdf">White Rabbit Specification v2.0</a></div>
+</div>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_mac">
 <span class="sig-name descname"><span class="pre">mac</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_mac" title="Permalink to this definition">#</a></dt>
@@ -2498,19 +2576,25 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_SFPnames">
 <span class="sig-name descname"><span class="pre">SFPnames</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_SFPnames" title="Permalink to this definition">#</a></dt>
-<dd><p>The init/boot script.</p>
+<dd><p>SFP calibration data. (part number)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_SFPdTxs">
 <span class="sig-name descname"><span class="pre">SFPdTxs</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_SFPdTxs" title="Permalink to this definition">#</a></dt>
-<dd><p>The init/boot script.</p>
+<dd><p>SFP calibration data. (transmission delay)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_SFPdRxs">
 <span class="sig-name descname"><span class="pre">SFPdRxs</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_SFPdRxs" title="Permalink to this definition">#</a></dt>
-<dd><p>The init/boot script.</p>
+<dd><p>SFP calibration data. (reception delay)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_SFPalphas">
+<span class="sig-name descname"><span class="pre">SFPalphas</span></span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_SFPalphas" title="Permalink to this definition">#</a></dt>
+<dd><p>SFP calibration data. (fiber asymmetry coefficient)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2519,13 +2603,10 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>This gets the MAC-Address of the sfp module and writes it to <a class="reference internal" href="#snAPI_Main_WhiteRabbit_mac" title="snAPI.Main.WhiteRabbit.mac"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WhiteRabbit.mac</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
-</div>
-</p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -2536,7 +2617,10 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># read the MAC-Address and prints it out</span>
+
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">getMac</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">mac</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2547,16 +2631,13 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>This sets the MAC-Address of the sfp module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
+<dd class="field-odd"><p><strong>mac</strong> (<em>str</em>) – <div class="line-block">
+<div class="line">the MAC-Address string that contains 6 hexadecimal numbers separated by a ‘-’</div>
 </div>
-</p></li>
-<li><p><strong>mac</strong> (<em>str</em>) – </p></li>
-</ul>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -2567,7 +2648,9 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the MAC-Address</span>
+
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">setMac</span><span class="p">(</span><span class="s2">&quot;01-02-03-04-05-06&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2578,16 +2661,12 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>This gets the SFP-Calibration-Parameters and writes them to and writes it to <a class="reference internal" href="#snAPI_Main_WhiteRabbit_SFPnames" title="snAPI.Main.WhiteRabbit.SFPnames"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WhiteRabbit.SFPalphas</span></code></a>,
+<a class="reference internal" href="#snAPI_Main_WhiteRabbit_SFPdTxs" title="snAPI.Main.WhiteRabbit.SFPdTxs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WhiteRabbit.SFPalphas</span></code></a>, <a class="reference internal" href="#snAPI_Main_WhiteRabbit_SFPdRxs" title="snAPI.Main.WhiteRabbit.SFPdRxs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WhiteRabbit.SFPalphas</span></code></a> and <a class="reference internal" href="#snAPI_Main_WhiteRabbit_SFPalphas" title="snAPI.Main.WhiteRabbit.SFPalphas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WhiteRabbit.SFPalphas</span></code></a>.</p>
+<p><span class="fa fa-file-pdf"></span> <a class="reference external" href="https://ohwr.org/project/white-rabbit/uploads/76cdbdbadccc9d6c54d5caf246550fbf/WR_Calibration-v1.1-20151109.pdf">White Rabbit calibration procedure v1.1</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
-</div>
-</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
 <li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
 <li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
 </ul>
@@ -2595,38 +2674,12 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_setInitScript">
-<span class="sig-name descname"><span class="pre">setInitScript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_setInitScript" title="Permalink to this definition">#</a></dt>
-<dd><blockquote>
-<div><p>Supported devices: [MH150/160]</p>
-</div></blockquote>
-<p>This is lorem ipsum.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
-</div>
-</p></li>
-<li><p><strong>script</strong> (<em>str</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
-<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-<p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print the sfp calibration data.</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">getSFPData</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SFP names: &quot;</span><span class="p">{</span><span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">SFPnames</span><span class="p">}</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SFP dTxs: &quot;</span><span class="p">{</span><span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">SFPdTxs</span><span class="p">}</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SFP dRxs: &quot;</span><span class="p">{</span><span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">SFPdRxs</span><span class="p">}</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SFP alphas: &quot;</span><span class="p">{</span><span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">SFPalphas</span><span class="p">}</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2637,13 +2690,10 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>This function reads the init script from the EEPROM and writes it to <a class="reference internal" href="#snAPI_Main_WhiteRabbit_initScript" title="snAPI.Main.WhiteRabbit.initScript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WhiteRabbit.initScript</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
-</div>
-</p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -2654,29 +2704,26 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the init script and prints it out.</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Init Script: &quot;</span><span class="p">{</span><span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">initScript</span><span class="p">}</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_SetMode">
-<span class="sig-name descname"><span class="pre">SetMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bootFromScript</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinitWithMode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_SetMode" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_setInitScript">
+<span class="sig-name descname"><span class="pre">setInitScript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_setInitScript" title="Permalink to this definition">#</a></dt>
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>This function reads the init script. It will be written to the EEPROM. After starting the
+Harp Device will automatically boot with this script.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
+<dd class="field-odd"><p><strong>script</strong> (<em>str</em>) – <div class="line-block">
+<div class="line">WR init script. The commands must be separated by a new line ‘\n’.</div>
 </div>
-</p></li>
-<li><p><strong>bootFromScript</strong> (<em>bool</em>) – </p></li>
-<li><p><strong>reinitWithMode</strong> (<em>bool</em>) – </p></li>
-<li><p><strong>mode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode" title="snAPI.Constants.WRmode"><em>WRmode</em></a>) – </p></li>
-</ul>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -2687,26 +2734,43 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the init script for the master.</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">setInitScript</span><span class="p">(</span><span class="s2">&quot;ptp stop</span><span class="se">\n</span><span class="s2">sfp detect</span><span class="se">\n</span><span class="s2">sfp match</span><span class="se">\n</span><span class="s2">mode master</span><span class="se">\n</span><span class="s2">ptp start</span><span class="se">\n</span><span class="s2">gui</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Set the init script for the slave.</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">setInitScript</span><span class="p">(</span><span class="s2">&quot;ptp stop</span><span class="se">\n</span><span class="s2">sfp detect</span><span class="se">\n</span><span class="s2">sfp match</span><span class="se">\n</span><span class="s2">mode slave</span><span class="se">\n</span><span class="s2">ptp start</span><span class="se">\n</span><span class="s2">gui</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_setTime">
-<span class="sig-name descname"><span class="pre">setTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_setTime" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_setMode">
+<span class="sig-name descname"><span class="pre">setMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bootFromScript</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinitWithMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">WRmode.Off</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_setMode" title="Permalink to this definition">#</a></dt>
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>This function temporarily sets the mode of the WR node with or without initializing it. The mode will not be
+stored to the EEPROM.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
+<li><p><strong>bootFromScript</strong> (<em>bool</em><em> (</em><em>default: false</em><em>)</em>) – <div class="line-block">
+<div class="line">True: boot from script in EEPROM (reinitWithMode and mode are then ignored)</div>
 </div>
 </p></li>
-<li><p><strong>time</strong> (<em>datetime</em>) – </p></li>
+<li><p><strong>reinitWithMode</strong> (<em>bool</em><em> (</em><em>default: false</em><em>)</em>) – <div class="line-block">
+<div class="line">False: probe if previous mode set is completed
+| sets the new mode without initializing
+| (bootFromScript must be False)</div>
+<div class="line">True: re-initialize with new mode
+| re-initializes the WR node with the new mode
+| (bootFromScript must be False)</div>
+</div>
+</p></li>
+<li><p><strong>mode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode" title="snAPI.Constants.WRmode"><code class="xref py py-class docutils literal notranslate"><span class="pre">Constants.WRmode</span></code></a> (default:  WRmode.Off)) – <div class="line-block">
+<div class="line">Master, Slave, Grandmaster</div>
+</div>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -2718,7 +2782,14 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the WR mode to Master without re-initializing it</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">SetMode</span><span class="p">(</span><span class="n">mode</span> <span class="o">=</span> <span class="n">WRmode</span><span class="o">.</span><span class="n">Master</span><span class="p">)</span>
+
+<span class="c1"># reboots the WR with  the script from EEPROM</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">SetMode</span><span class="p">(</span><span class="n">bootFromScript</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># re-initializes the WR mode to Master</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">SetMode</span><span class="p">(</span><span class="n">reinitWithMode</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">WRmode</span><span class="o">.</span><span class="n">Master</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2729,11 +2800,34 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>This function returns the current UTC time of the WR node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dateTime in 16ns resolution</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gets the time of the WR node and prints it out</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WR time: </span><span class="si">{</span><span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_WhiteRabbit_setTime">
+<span class="sig-name descname"><span class="pre">setTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_WhiteRabbit_setTime" title="Permalink to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Supported devices: [MH150/160]</p>
+</div></blockquote>
+<p>This can be used to set the current UTC time of a WR node configured as WR master. If a slave is connected it
+will be set to the same time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>time</strong> (<em>datetime</em>) – <div class="line-block">
+<div class="line">(import the time module)</div>
 </div>
 </p>
 </dd>
@@ -2746,7 +2840,8 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the correct UTC time.</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">setTime</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2757,16 +2852,14 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>This can be used to switch the WR link on and off.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
+<dd class="field-odd"><p><strong>onOff</strong> (<em>bool</em>) – <div class="line-block">
+<div class="line">True: switch the WR link on</div>
+<div class="line">False: switch the WR link off</div>
 </div>
-</p></li>
-<li><p><strong>onOff</strong> (<em>bool</em>) – </p></li>
-</ul>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -2777,7 +2870,8 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># switches the WR link on</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">initLink</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2788,24 +2882,29 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>This function gives you the status of the WR ptp state machine, the link and servo state.
+It must be interpreted as a 32bit field. The bits are defined in refSrc: <a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus" title="snAPI.Constants.WRstatus"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.WRstatus</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
-</div>
-</p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
-<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
-</ul>
-</p>
+<dd class="field-even"><p><strong>status</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode" title="snAPI.Constants.WRmode"><code class="xref py py-class docutils literal notranslate"><span class="pre">Constants.WRmode</span></code></a></p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Polls the WR status until the Harp device is ready to use.</span>
+<span class="n">readyState</span> <span class="o">=</span> <span class="n">WRstatus</span><span class="o">.</span><span class="n">LockedCalibrated</span><span class="o">.</span><span class="n">value</span> <span class="o">|</span> <span class="n">WRstatus</span><span class="o">.</span><span class="n">ModeMaster</span><span class="o">.</span><span class="n">value</span> <span class="o">|</span> <span class="n">WRstatus</span><span class="o">.</span><span class="n">ModeMaster</span><span class="o">.</span><span class="n">value</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">getStatus</span><span class="p">()</span>
+    <span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">status</span><span class="si">:</span><span class="s2">08x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">&amp;</span> <span class="n">readyState</span><span class="p">)</span> <span class="o">==</span> <span class="n">readyState</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2816,27 +2915,31 @@ It is used to synchronize clocks between different entities on an Ethernet netwo
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160]</p>
 </div></blockquote>
-<p>This is lorem ipsum.</p>
+<p>When the Harp WR core has received the commend gui (should be the last line of the init script) it sends terminal
+output describing its state. This function can then be used to retrieve that terminal as string. If the VT100 flag
+is set, the output will contain escape sequences for control of text color, screen refresh, etc. In order to present
+them correctly these escape sequences must be interpreted and translated to the corresponding control mechanisms
+of the chosen display scheme. To take care of this the data can be sent to a terminal emulator. Note that this is
+read-only.
+There is currently no way of injecting commands to the WR core console prompt.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>row</strong> (<em>int</em><em> [</em><em>0..8</em><em>]</em>) – <div class="line-block">
-<div class="line">index of the row of input channels, counts bottom to top</div>
+<dd class="field-odd"><p><strong>VT100</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – <div class="line-block">
+<div class="line">False: To make the WR terminal output readable, the escape sequences are removed.</div>
+<div class="line">True: The escape sequences are kept in the return string</div>
 </div>
-</p></li>
-<li><p><strong>VT100</strong> (<em>bool</em><em> | </em><em>None</em>) – </p></li>
-</ul>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
-<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
-</ul>
-</p>
+<dd class="field-even"><p><strong>terminalOutput</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the terminal output to the log</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="n">sn</span><span class="o">.</span><span class="n">whiteRabbit</span><span class="o">.</span><span class="n">getTermOutput</span><span class="p">())</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2884,7 +2987,7 @@ It is recommended to use the <a class="reference internal" href="#snAPI_Main_Unf
 <p class="admonition-title">See also</p>
 <div class="line-block">
 <div class="line">To fully understand the TTTR format please read the MultiHarp manual and/or</div>
-<div class="line"><a class="reference external" href="https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf">Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences</a></div>
+<div class="line"><span class="fa fa-file-pdf"></span> <a class="reference external" href="https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf">Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences</a></div>
 <div class="line"><a class="reference internal" href="tttr%20data%20format.html#tcspc-specific-record-formats"><span class="std std-ref">TCSPC specific record formats</span></a></div>
 </div>
 </div>
@@ -3004,7 +3107,7 @@ will be ignored if device is a FileDevice</p></li>
 <dd><p>This function gets the last block of data from the API and returns it in form of an array of <cite>Raw</cite> data records.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><cite>Raw</cite> data</p>
@@ -3069,7 +3172,7 @@ will be ignored if device is a FileDevice</p></li>
 block size if you measure in block mode with <a class="reference internal" href="#snAPI_Main_Raw_getBlock" title="snAPI.Main.Raw.getBlock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getBlock()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>number of data records</p>
@@ -3097,7 +3200,7 @@ Check out the example of a possible implementation below.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -3135,10 +3238,10 @@ time has elapsed. However, sometimes it may be necessary to stop a measurement m
 this function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3352,7 +3455,7 @@ array.</p>
 <p class="admonition-title">See also</p>
 <div class="line-block">
 <div class="line">To fully understand the TTTR format read</div>
-<div class="line"><a class="reference external" href="https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf">Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences</a></div>
+<div class="line"><span class="fa fa-file-pdf"></span> <a class="reference external" href="https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf">Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences</a></div>
 </div>
 </div>
 <dl class="py method">
@@ -3365,6 +3468,12 @@ updates on the fly, and you can request the execution status with the <a class="
 If you wish to avoid blocking you can set <cite>waitFinished</cite> <cite>False</cite> and proceed with other code. Again, you
 can check if the measurement is completed by using the <a class="reference internal" href="#snAPI_Main_Unfold_isFinished" title="snAPI.Main.Unfold.isFinished"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isFinished()</span></code></a> function.
 The data can be accessed with <a class="reference internal" href="#snAPI_Main_Unfold_getData" title="snAPI.Main.Unfold.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a>.</p>
+<dl>
+<dt>See:</dt><dd><div class="line-block">
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_RecordViewer_UF.py">Demo_WR_Configure_Master.py</a></div>
+</div>
+</dd>
+</dl>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>The <cite>Unfold buffer overrun - clearing!</cite> warning or <cite>Unfold Buffer full - waiting!</cite> info means, that data could not be stored
@@ -3419,6 +3528,12 @@ and the ability to handle data streams that are too large to process all at once
 The data is collected by the API internally until you retrieve it via the <a class="reference internal" href="#snAPI_Main_Unfold_getBlock" title="snAPI.Main.Unfold.getBlock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getBlock()</span></code></a> function.
 The size of the block depends on the count rate and the time that elapsed until the next blockRead is executed.
 Beforehand, you have to define the maximum size of the available block buffer. The data can be accessed with <a class="reference internal" href="#snAPI_Main_Unfold_getBlock" title="snAPI.Main.Unfold.getBlock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getBlock()</span></code></a>.</p>
+<dl>
+<dt>See:</dt><dd><div class="line-block">
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_CoincidenceTimestamps.py">Demo_WR_Configure_Master.py</a></div>
+</div>
+</dd>
+</dl>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If the colleted data exceeds the maximum block size a warning will be added to the log:
@@ -3467,7 +3582,7 @@ means that this part of data is lost! To prevent this you should reduce the coun
 <dd><p>This function retrieves the last block of data from the API and returns the of <cite>Unfold</cite> data as an array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
@@ -3540,40 +3655,29 @@ means that this part of data is lost! To prevent this you should reduce the coun
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Unfold_getTimes">
 <span class="sig-name descname"><span class="pre">getTimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numRead</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Unfold_getTimes" title="Permalink to this definition">#</a></dt>
-<dd><p>This function returns a tuple of two arrays holding the data of an <cite>Unfold</cite> measurement. The arrays contain the timetag and the
-channel information.</p>
+<dd><p>This function returns an arrays holding the timetags of an <cite>Unfold</cite> measurement.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This function is part of the <a class="reference internal" href="#snAPI_Main_Unfold_getBlock" title="snAPI.Main.Unfold.getBlock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getBlock()</span></code></a> function.</p>
+<p>This function is part of the <a class="reference internal" href="#snAPI_Main_Unfold_getData" title="snAPI.Main.Unfold.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> function.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>default: None</em><em>)</em>) – number of data to read (default: all data available)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>times: 1DArray[int]</dt><dd><p><cite>Unfold</cite> data array of timetags</p>
-</dd>
-<dt>channels: 1DArray[int]</dt><dd><p><cite>Unfold</cite> data array of channel information</p>
-</dd>
-</dl>
-</p>
+<dd class="field-even"><p><strong>times</strong> – <cite>Unfold</cite> data array of timetags</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple [1DArray, 1DArray]</p>
+<dd class="field-odd"><p>1DArray[int]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># reads `Unfold` data every second for 10 seconds in :obj:`.MeasMode.T3`</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># reads `Unfold` data every second for 10 seconds in :obj:`.MeasMode.T2`</span>
 <span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T3</span><span class="p">)</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">startBlock</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">isFinished</span><span class="p">():</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">times</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">getBlock</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">numRead</span><span class="p">():</span>
-        <span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">numRead</span><span class="p">()</span><span class="si">}</span><span class="s2"> records read&quot;</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T2</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">getTimes</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -3593,12 +3697,21 @@ index with <a class="reference internal" href="#snAPI_Main_Unfold_markers" title
 <dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>default: None</em><em>)</em>) – number of data records to read (default: all data available)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>channels</strong> – <cite>Unfold</cite> data array of timetags</p>
+<dd class="field-even"><p><strong>channels</strong> – <cite>Unfold</cite> data array of channel indexes (0: sync)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>1DArray[int]</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># reads `Unfold` data for 10 seconds in :obj:`.MeasMode.T3`</span>
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T3</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">chans</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">getChannels</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -3608,7 +3721,7 @@ index with <a class="reference internal" href="#snAPI_Main_Unfold_markers" title
 otherwise it gives the block size if you measure in block mode with <a class="reference internal" href="#snAPI_Main_Unfold_getBlock" title="snAPI.Main.Unfold.getBlock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getBlock()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>number of data records</p>
@@ -3636,7 +3749,7 @@ Check out the example of a possible implementation below.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -3674,10 +3787,10 @@ time has elapsed. However, sometimes it may be necessary to stop a measurement m
 this function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3694,24 +3807,20 @@ this function.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
-<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
-</ul>
-</p>
+<dd class="field-even"><p><strong>times</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>operation successful</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># reads `Unfold` data every second for 10 seconds in :obj:`.MeasMode.T3`</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># reads `Unfold` data every second for 10 seconds in :obj:`.MeasMode.T2`</span>
+<span class="c1"># and gets the timetags of Channel 0</span>
 <span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T3</span><span class="p">)</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">startBlock</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">isFinished</span><span class="p">():</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">getBlock</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">numRead</span><span class="p">():</span>
-        <span class="n">sn</span><span class="o">.</span><span class="n">logPrint</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">numRead</span><span class="p">()</span><span class="si">}</span><span class="s2"> records read&quot;</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">getTimesByChannel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># index 0 is the sync channel</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -3769,17 +3878,17 @@ this function.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="snAPI_Main_Unfold_nSync_T3">
-<span class="sig-name descname"><span class="pre">nSync_T3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Unfold_nSync_T3" title="Permalink to this definition">#</a></dt>
-<dd><p>This function takes a T3 <cite>Unfold</cite> data record and returns the number of the sync period this event occurred in.</p>
+<dt class="sig sig-object py" id="snAPI_Main_Unfold_abs_T3">
+<span class="sig-name descname"><span class="pre">abs_T3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Unfold_abs_T3" title="Permalink to this definition">#</a></dt>
+<dd><p>This function takes a T3 <cite>Unfold</cite> timetag and returns the absolute time calculated from containing the nSync and dTime.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Use this function with a T3 <cite>Unfold</cite> data record.</p>
+<p>Use this function with a T3 <cite>Unfold</cite> timetag only.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>int</em>) – a T3 <cite>Raw</cite> data record</p></li>
+<li><p><strong>data</strong> (<em>int</em>) – a T3 timetag</p></li>
 <li><p><strong>times</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
@@ -3791,7 +3900,36 @@ this function.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># prints out the number of the sync period of the `Raw` T3 record in data[i]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># prints out the absolute time of the `Unfold` T3 timetag in times[i]</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">abs_T3</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI_Main_Unfold_nSync_T3">
+<span class="sig-name descname"><span class="pre">nSync_T3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Unfold_nSync_T3" title="Permalink to this definition">#</a></dt>
+<dd><p>This function takes a T3 <cite>Unfold</cite> timetag and returns the number of the sync period this event occurred in.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Use this function with a T3 <cite>Unfold</cite> timetag only.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>int</em>) – a T3 timetag</p></li>
+<li><p><strong>times</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>timetag</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># prints out the number of the sync period of the `Unfold` T3 timetag in times[i]</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">nSync_T3</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 </pre></div>
 </div>
@@ -3800,16 +3938,16 @@ this function.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_Unfold_dTime_T3">
 <span class="sig-name descname"><span class="pre">dTime_T3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_Unfold_dTime_T3" title="Permalink to this definition">#</a></dt>
-<dd><p>This function takes a T3 <cite>Unfold</cite> data record and returns the differential time slot. For the differential time
+<dd><p>This function takes a T3 <cite>Unfold</cite> timetag and returns the differential time slot. For the differential time
 it has to be multiplied by the Resolution.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Use this function with the T3 <cite>Unfold</cite> data record.</p>
+<p>Use this function with the T3 <cite>Unfold</cite> timetag only.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>int</em>) – a T3 <cite>Unfold</cite> data record</p></li>
+<li><p><strong>data</strong> (<em>int</em>) – a T3 <cite>Unfold</cite> timetag</p></li>
 <li><p><strong>times</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
@@ -3863,7 +4001,7 @@ to the other channels. The histograms are then created from these calculated dat
 <dd class="field-odd"><p><strong>channel</strong> (<em>int</em><em> (</em><em>default: 0 sync channel</em><em>)</em>) – the reference channel (0 is sync channel)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -3892,7 +4030,7 @@ to the other channels. The histograms are then created from these calculated dat
 <dd class="field-odd"><p><strong>binWidth</strong> (<em>int</em><em> (</em><em>default: BaseResolution</em><em>)</em>) – the bin width in ps</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -3965,7 +4103,7 @@ means that this part of data is lost! To prevent this, you should reduce the cou
 <dd><p>This function returns the data of the histogram measurement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
@@ -4009,10 +4147,10 @@ time has elapsed. However, sometimes it may be necessary to stop a measurement m
 this function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4025,10 +4163,10 @@ the old data may need to be deleted to get an unobstructed view of the new data.
 data without having to restart the measurement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4045,7 +4183,7 @@ Check out the example of a possible implementation below.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -4101,7 +4239,7 @@ calibration of and optimization ae measurement setup.</p>
 <dd class="field-odd"><p><strong>numBins</strong> (<em>int</em><em> (</em><em>default: 10000</em><em>)</em>) – number of bins</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -4132,7 +4270,7 @@ longer than it took to record it.</p>
 <dd class="field-odd"><p><strong>historySize</strong> (<em>float</em><em> [</em><em>s</em><em>] </em><em>(</em><em>default: 1s</em><em>)</em>) – length or duration of the recorded data in the time domain</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -4241,7 +4379,7 @@ Check out the example of a possible implementation below.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -4277,10 +4415,10 @@ time has elapsed. However, sometimes it may be necessary to stop a measurement m
 this function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4293,10 +4431,10 @@ the old data may need to be deleted to get a an unobstructed view of the new dat
 the internal data without having to restart the measurement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4339,7 +4477,7 @@ during this time span.</p>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -4381,7 +4519,7 @@ cross calculation is calculated.</p>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -4445,7 +4583,7 @@ The data can be accessed with <code class="xref py py-meth docutils literal notr
 <dd><p>This function returns the data of the g(2) correlation measurement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
@@ -4494,7 +4632,7 @@ The data can be accessed with <code class="xref py py-meth docutils literal notr
 <dd><p>This function returns the data of the FCS correlation measurement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
@@ -4549,10 +4687,10 @@ time has elapsed. However, sometimes it may be necessary to stop a measurement m
 this function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4565,10 +4703,10 @@ the old data may need to be deleted to get a fresh view of the new data. This fu
 data without having to restart the measurement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>none</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4585,7 +4723,7 @@ Check out the example of a possible implementation below.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -4697,7 +4835,7 @@ update the manipulator.config manually.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>none</strong> – </p>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -5157,6 +5295,7 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setBinning"><code class="docutils literal notranslate"><span class="pre">Device.setBinning()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setOffset"><code class="docutils literal notranslate"><span class="pre">Device.setOffset()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setHistoLength"><code class="docutils literal notranslate"><span class="pre">Device.setHistoLength()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setMeasControl"><code class="docutils literal notranslate"><span class="pre">Device.setMeasControl()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setTriggerOutput"><code class="docutils literal notranslate"><span class="pre">Device.setTriggerOutput()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setMarkerEdges"><code class="docutils literal notranslate"><span class="pre">Device.setMarkerEdges()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Device_setMarkerEnable"><code class="docutils literal notranslate"><span class="pre">Device.setMarkerEnable()</span></code></a></li>
@@ -5187,14 +5326,15 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_SFPnames"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPnames</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_SFPdTxs"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPdTxs</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_SFPdRxs"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPdRxs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_SFPalphas"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPalphas</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getMAC"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getMAC()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_setMAC"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setMAC()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getSFPData"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getSFPData()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_setInitScript"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setInitScript()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getInitScript"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getInitScript()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_SetMode"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SetMode()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_setTime"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setTime()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_setInitScript"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setInitScript()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_setMode"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setMode()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getTime"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getTime()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_setTime"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setTime()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_initLink"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.initLink()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getStatus"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getStatus()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_WhiteRabbit_getTermOutput"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getTermOutput()</span></code></a></li>
@@ -5230,6 +5370,7 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_getTimesByChannel"><code class="docutils literal notranslate"><span class="pre">Unfold.getTimesByChannel()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_isMarker"><code class="docutils literal notranslate"><span class="pre">Unfold.isMarker()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_markers"><code class="docutils literal notranslate"><span class="pre">Unfold.markers()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_abs_T3"><code class="docutils literal notranslate"><span class="pre">Unfold.abs_T3()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_nSync_T3"><code class="docutils literal notranslate"><span class="pre">Unfold.nSync_T3()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Main_Unfold_dTime_T3"><code class="docutils literal notranslate"><span class="pre">Unfold.dTime_T3()</span></code></a></li>
 </ul>
@@ -5304,7 +5445,7 @@ count in the defined windowTime.</p>
         <div class="footer-item">
   <p class="copyright">
     
-      © Copyright 2023, Picoquant.
+      © Copyright 2024, PicoQuant.
       <br/>
     
   </p>

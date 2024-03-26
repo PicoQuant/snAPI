@@ -4,7 +4,8 @@ from enum import Enum, IntFlag, auto
 
 class LibType(Enum):
     """
-snAPI supports different library types / devices families. Which one is used has to be defined when creating a snAPI instance. 
+snAPI supports different library types / devices families. Which one is used has to be defined when creating a snAPI instance.
+See :meth:`snAPI.initAPI<snAPI.Main.snAPI.initAPI>`
     
     """
 
@@ -50,9 +51,7 @@ This selects the library for the
 
 class DeviceType(Enum):
     """
-The PicoQuant TCSPC devices can use their internal crystal clock but can be synchronized with an external
-reference clock as well. The latter is preferable when a clock drift between multiple instruments in
-an experiment needs to be avoided. The constants defined here specify the reference clock to use.
+SnAPI doesn't only support real Harp devices. It is also possible to use ptu-files that act as a hardware-like device.
     """
 
     Undefined = -1
@@ -140,7 +139,11 @@ of information are recorded for each detected event:
     """
 
 class MeasControl(Enum):
-    """this constant is for software or hardware starting and stopping (triggered) measurements in :meth:`Device.setMeasControl<snAPI.Main.Device.setMeasControl>`."""
+    """
+This constant is for software or hardware starting and stopping (triggered) measurements.
+It is also necessary to set this for using White Rabbit.
+See :meth:`Device.setMeasControl<snAPI.Main.Device.setMeasControl>`.
+    """
 
     SingleShotCTC = 0
     """
@@ -149,6 +152,7 @@ Supported devices [MH150/160 | HH400 | TH260 | PH330]
         
 Acquisition starts by software command and runs until CTC expires. The duration is set by the
 aqcTime parameter (>0).
+SwStartSwStop is in use if aqcTime parameter is 0.
     
     """
     
@@ -178,19 +182,19 @@ Supported devices [MH150/160 | HH400 | TH260 | PH330]
 Data collection is started by a transition on C1 and stopped by by a transition on C2. Which transitions
 actually trigger start and stop is given by the values supplied to the parameters startEdge and stopEdge."""
     
-    WrM2S = 4
+    WrMaster2Slave = 4
     """
 Supported devices [MH150/160]
 
-White Rabbit master to slave (for further use)
+White Rabbit master to slave
     
     """
     
-    WrS2M = 5
+    WrSlave2Master = 5
     """
 Supported devices [MH150/160]
 
-White Rabbit slave to master (for further use)
+White Rabbit slave to master
     
     """
     
@@ -198,32 +202,38 @@ White Rabbit slave to master (for further use)
     """
 Supported devices [MH150/160 | PH330]
 
-Software Start and Software Stop is in use if aqcTime parameter is 0.
-    
+Software start and software stop is automatically used if aqcTime ist set to 0 in a measurement.
+
     """
     
     ContC1Gated = 7
     """
 Supported devices [HH400]
 
-Software Start and Software Stop is in use if aqcTime parameter is 0.
-    
+Warning
+-------
+The continuous mode is currently not supported in snAPI.
+
     """
     
     Cont_C1_Start_CTC_Stop = 8
     """
 Supported devices [HH400]
 
-Software Start and Software Stop is in use if aqcTime parameter is 0.
-    
+Warning
+-------
+The continuous mode is currently not supported in snAPI.
+
     """
 	
     Cont_CTC_Restart = 9
     """
 Supported devices [HH400]
 
-Software Start and Software Stop is in use if aqcTime parameter is 0.
-    
+Warning
+-------
+The continuous mode is currently not supported in snAPI.
+
     """
     
 class RefSource(Enum):
@@ -231,6 +241,7 @@ class RefSource(Enum):
 PicoQuant TCSPC devices can use their internal crystal clock but can be synchronized with an external
 reference clock as well. The latter is preferable when a clock drift between multiple instruments in
 an experiment needs to be avoided. The constants defined here specify the reference clock to use.
+See :meth:`snAPI.initDevice<snAPI.Main.snAPI.initDevice>`.
     """
 
     Internal = 0
@@ -284,21 +295,21 @@ Supported devices [MH150/160]
 **10 MHz + PPS + time via UART from GPS**
     
     """
-    Wr_Master_Mharp = 7
+    Wr_Master_Harp = 7
     """
 Supported devices [MH150/160]
         
 **White Rabbit master with the Harp as partner**
     
     """
-    Wr_Slave_Mharp = 8
+    Wr_Slave_Harp = 8
     """
 Supported devices [MH150/160]
         
 **White Rabbit slave with the Harp as partner**
     
     """
-    Wr_Grandm_Mharp = 9
+    Wr_Grandm_Harp = 9
     """
 Supported devices [MH150/160]
 
@@ -322,6 +333,7 @@ Supported devices [PH330]
 class TrigMode(Enum):
     """
 The PicoQuant TCSPC devices have different trigger modes. Some of them can switch between them. 
+See :meth:`Device.setSyncTrigMode<snAPI.Main.Device.setSyncTrigMode>` and :meth:`Device.setInputTrigMode<snAPI.Main.Device.setInputTrigMode>`.
     
     """
     Edge = 0
@@ -368,7 +380,7 @@ This logs the creating, deleting and many more of the :class:`.Manipulators`.
     
 class CoincidenceMode(Enum):
     """
-This defines the different coincidence modes.
+This defines the different coincidence modes. See :meth:`Device.setMeasControl<snAPI.Main.Manipulators.coincidence>`.
 
     """
     CountAll = 0
@@ -385,7 +397,7 @@ generate a coincidence count and get erased for the generation of further coinci
 
 class CoincidenceTime(Enum):
     """
-This defines the position of the timetag of the calculated coincidence.
+This defines the position of the timetag of the calculated coincidence. See :meth:`Manipulators.coincidence<snAPI.Main.Manipulators.coincidence>`.
 
     """
     First = 0
@@ -404,24 +416,81 @@ The coincidence will get the timetag of the last event that build the coincidenc
 
     """
 
-class UnfoldFormat(Enum):
+class WRmode(Enum):
     """
-This changes the format of the `Unfold` data stream in :obj:`.MeasMode.T3`.
+This configures the role of the device onto the White Rabbit network. See :meth:`WhiteRabbit.setMode<snAPI.Main.WhiteRabbit.setMode>`.
     """
-    Nothing = 0
+    Off = 0
     """
-This is for internal use only. 
+It configures the device to be not a member onto the White Rabbit network. 
     """
-    Absolute = 1
+    Slave = 1
     """
-This value will generate absolute times.
+This let the device synchronize its clock with a master. 
     """
-    DTimes = 2
+    Master = 2
     """
-This generates only `dTimes` (differential time between sync and input channel).
+It implements a controller function and sends the data onto the White Rabbit network.
+Only one Master is allowed on the White Rabbit network.
     """
-    DTimesSyncCntr = 3
+    Grandmaster = 3
     """
-This generates `dTimes` (differential time between sync and input channel) and
-`syncCntr` (sync counter).
+The device synchronizes its clock to an external reference signal and propagates
+precise timing to other devices on a White Rabbit network. 
     """
+    
+class WRstatus(Enum):
+    """
+Use this function the get the status of the WR node. See :meth:`WhiteRabbit.getStatus<snAPI.Main.WhiteRabbit.getStatus>`.
+
+PTP: Precision Time Protocol
+
+Servo is a feedback control mechanism. It continuously adjusts the local clock
+based on the error between two clocks. 
+    """
+    LinkON = 0x00000001			
+    """WR link is switched on"""
+    LinkUP = 0x00000002			
+    """WR link is established"""
+    ModeBitmask = 0x0000000C		
+    """mask for the mode bits"""
+    ModeOff = 0x00000000			
+    """mode is off"""
+    ModeSlave = 0x00000004			
+    """mode is slave"""
+    ModeMaster = 0x00000008		
+    """mode is master"""
+    ModeGMaster = 0x0000000C		
+    """mode is grandmaster"""
+    LockedCalibrated = 0x00000010	
+    """locked and calibrated"""
+    PtpBitmask = 0x000000E0		
+    """mask for the PTP bits"""
+    PtpListening = 0x00000020
+    """waiting for packets"""
+    PtpUncalibratedWRSlaveLock = 0x00000040
+    """slave is actively attempting to synchronize """
+    PtpSlave = 0x00000060
+    """Receives synchronization information from the master clock"""
+    PtpMasterWRMasterLock = 0x00000080
+    """the White Rabbit node or switch operates as both a PTP master and a WR master, it is in a locked state"""
+    PtpMaster = 0x000000A0
+    """reference clock source for synchronization"""
+    ServoBitmask = 0x00000700		
+    """mask for the servo bits"""
+    ServoUninit = 0x00000100		
+    """servo not initialized """
+    ServoSyncSec = 0x00000200		
+    """servo seconds synchronization"""
+    ServoSyncNSec = 0x00000300		
+    """servo nano seconds synchronization"""
+    ServoSyncPhase = 0x00000400	
+    """servo phase alignment process"""
+    ServoWaitOffset = 0x00000500	
+    """servo control loop detects a significant offset between the local clock and the master clock."""
+    ServoTrackPhase = 0x00000600	
+    """servo actively adjusts clock frequencies to minimize phase discrepancies"""
+    MacSet = 0x00000800			
+    """user defined mac address is set"""
+    IsNew = 0x80000000				
+    """status updated since last check"""

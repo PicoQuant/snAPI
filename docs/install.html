@@ -170,12 +170,27 @@
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="controlConnector.html">
+                        Control Connector
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
                 <li class="nav-item">
                   <a class="nav-link nav-external" href="https://PicoQuant.com">
                     PicoQuant
                   </a>
                 </li>
                 
+                </div>
+            </div>
+            
   </ul>
 </nav></div>
       
@@ -288,12 +303,27 @@ document.write(`
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="controlConnector.html">
+                        Control Connector
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
                 <li class="nav-item">
                   <a class="nav-link nav-external" href="https://PicoQuant.com">
                     PicoQuant
                   </a>
                 </li>
                 
+                </div>
+            </div>
+            
   </ul>
 </nav></div>
         
@@ -442,18 +472,13 @@ document.write(`
 <ol class="arabic simple">
 <li><p>Open a command prompt and navigate to the demos folder.</p></li>
 <li><p>Open Demo_TimeTrace.py in an editor.</p></li>
-<li><p>Change libtype to your device family.</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">(</span><span class="n">libType</span><span class="o">=</span><span class="n">LibType</span><span class="o">.</span><span class="n">TH260</span><span class="p">)</span>
-</pre></div>
-</div>
-<ol class="arabic simple" start="4">
 <li><p>Also change the default configuration to the matching one from the demos/config folder.</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span><span class="o">.</span><span class="n">loadIniConfig</span><span class="p">(</span><span class="s2">&quot;config\TH260N.ini&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<ol class="arabic simple" start="5">
+<ol class="arabic simple" start="4">
+<li><p>edit the ini file and set the trigger levels</p></li>
 <li><p>install matplotlib</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">matplotlib</span>
@@ -545,7 +570,7 @@ document.write(`
         <div class="footer-item">
   <p class="copyright">
     
-      © Copyright 2023, Picoquant.
+      © Copyright 2024, PicoQuant.
       <br/>
     
   </p>

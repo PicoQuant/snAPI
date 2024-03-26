@@ -7,20 +7,20 @@ import time
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.HH)
+    sn = snAPI()
     sn.getDeviceIDs()
     sn.getDevice()
     sn.initDevice(MeasMode.T2)
     
     # set the configuration for your device type
-    sn.loadIniConfig("config\HH.ini")
+    sn.loadIniConfig("config\MH.ini")
     
     # 1. shift the signals to max correlation max at tau = 0
     #sn.device.setInputChannelOffset(1, 1564)
     
     # 2. set windowSize and startTime
-    sn.correlation.setFCSParameters(1, 2, 1e10, 1e5)
-    sn.correlation.measure(100,savePTU=True)
+    sn.correlation.setFCSParameters(1, 2, 1e10, 1e5, 8)
+    sn.correlation.measure(2000,savePTU=True)
 
     while True:
         finished = sn.correlation.isFinished()

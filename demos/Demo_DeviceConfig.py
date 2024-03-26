@@ -3,12 +3,12 @@ from snAPI.Main import *
 if(__name__ == "__main__"):
     
     # set the library for your device type
-    sn = snAPI(libType=LibType.HH)
+    sn = snAPI()
     sn.getDevice()
     sn.initDevice()
     
     # set the configuration for your device type
-    sn.loadIniConfig("config\HH.ini")
+    sn.loadIniConfig("config\MH.ini")
     
     # print complete device config structure
     sn.logPrint(json.dumps(sn.deviceConfig, indent=2))

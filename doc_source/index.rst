@@ -16,6 +16,7 @@ Welcome to snAPI's documentation!
    snAPI
    config
    tttr data format
+   controlConnector
 
 Indices and tables
 ==================

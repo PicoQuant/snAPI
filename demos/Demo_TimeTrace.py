@@ -6,7 +6,7 @@ print("Switched to:",matplotlib.get_backend())
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.PH330)
+    sn = snAPI()
     sn.getDevice()
     
     # alternatively read data from file
