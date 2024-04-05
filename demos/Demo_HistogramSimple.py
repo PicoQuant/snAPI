@@ -6,7 +6,7 @@ print("Switched to:",matplotlib.get_backend())
 
 if(__name__ == "__main__"):
     
-    # initialize the API
+    # select the device library
     sn = snAPI()
     # get first available device
     sn.getDevice()
@@ -16,7 +16,7 @@ if(__name__ == "__main__"):
     sn.initDevice(MeasMode.T2)
     
     # set the configuration for your device type
-    sn.loadIniConfig("config\MH.ini")
+    sn.loadIniConfig("config\HH.ini")
     
     # start histogram measurement
     sn.histogram.measure(acqTime=1000,savePTU=True)

@@ -9,6 +9,10 @@ Control Connector
 
 Supported devices: [MH150/160 | PH330]
 
+.. image:: _static/DB-25.png
+    :class: p-2
+|
+
 The control connector is a 25-pin female sub-D connector labeled `CTRL`. 
 The following figure shows the pin layout and the table below contains the connector's default pin assignments.
 
@@ -176,6 +180,10 @@ connected to the housing.
 ------------
 
 Supported devices: [TH260]
+
+.. image:: _static/DE-15.png
+    :class: p-2
+|
 
 The control connector is a 15-pin female sub-D connector located on the slot bracket and labelled `C`. The following
 table shows the control connector's pin assignments
