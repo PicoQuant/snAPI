@@ -28,7 +28,7 @@ def g2correlation(filename, a=1, b=2, windowsize=10000, binsize=10):
     
     plt.savefig(Path(filename).with_suffix('.' + 'png'), format='png')
 
-    # save data
+    # Save data to csv
     with open(Path(filename).with_suffix('.' + 'csv'), mode='w', newline='') as file:
         writer = csv.writer(file)
     
@@ -37,7 +37,8 @@ def g2correlation(filename, a=1, b=2, windowsize=10000, binsize=10):
     
         # Write the data rows using writerows() and zip()
         writer.writerows(zip(lagtimes, g2))
-
+    
+    # Save data to json
     # Combine x_values and y_values into a list of dictionaries
     data_dic = [{'lagtime': x, 'g2': y} for x, y in zip(lagtimes, g2)]
 
@@ -48,7 +49,7 @@ def g2correlation(filename, a=1, b=2, windowsize=10000, binsize=10):
     with open(json_file, 'w') as file:
         json.dump(data_dic, file)
 
-
+    # Save to Excel
     # Combine x_values and y_values into a DataFrame
     df = pd.DataFrame(data_dic)
 
