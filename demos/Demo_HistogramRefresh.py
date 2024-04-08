@@ -8,9 +8,9 @@ import time
 
 if(__name__ == "__main__"):
 
-    sn = snAPI(libType=LibType.TH260)
+    sn = snAPI()
     sn.getDevice()
-    sn.initDevice(MeasMode.T2)
+    sn.initDevice()
     
     # temporarily enable logging of configuration
     sn.setLogLevel(LogLevel.Config, True)
