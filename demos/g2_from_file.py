@@ -18,9 +18,7 @@ def g2correlation(filename, a=1, b=2, windowsize=10000, binsize=10):
     sn.correlation.measure(waitFinished=True)
     g2, lagtimes = sn.correlation.getG2Data()
     
-    df = pd.DataFrame([{'lagtime': x, 'g2': y} for x, y in zip(lagtimes, g2)])
-    # Drop rows where either 'X' or 'Y' value is zero
-    df = df[(df != 0).all(1)]
+    df = pd.DataFrame({"lagtime": list(lagtimes), "g2": list(g2)})
 
     # Plot the DataFrame
     df.plot(x='lagtime', y='g2', label=f'{filename}')
