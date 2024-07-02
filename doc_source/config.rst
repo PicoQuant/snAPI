@@ -22,7 +22,7 @@ Parameter Description
 Read only parameters
 ====================
 
-.. list-table:: Read only from :obj:`.deviceConfig` (can't set via :meth:`.loadIniConfig` or :meth:`.setIniConfig`)
+.. list-table:: Read only from :obj:`.deviceConfig` (can't be set via :meth:`.loadIniConfig` or :meth:`.setIniConfig`)
     :widths: 25 25 50
     :header-rows: 1
 

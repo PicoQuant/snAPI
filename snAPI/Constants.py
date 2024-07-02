@@ -2,53 +2,6 @@
 
 from enum import Enum, IntFlag, auto
 
-class LibType(Enum):
-    """
-snAPI supports different library types / devices families. Which one is used has to be defined when creating a snAPI instance.
-See :meth:`snAPI.initAPI<snAPI.Main.snAPI.initAPI>`
-    
-    """
-
-    Undefined = -1
-    """
-This is for internal use only. 
-    
-    """
-    MH = 0
-    """
-This selects the library for
-`MultiHarp 160 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/multiharp-160>`_
-`MultiHarp 150 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/multiharp-150-high-throughput-multichannel-event-timer-tcspc-unit>`_
-(MH150/160) devices.
-    
-    """
-    HH = 1
-    """
-This selects the library for the
-`HydraHarp 400 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/hydraharp-400-multichannel-picosecond-event-timer-tcspc-module>`_
-(HH400) devices.
-    
-    """
-    TH260 = 2
-    """
-This selects the library for the
-`TimeHarp 260 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/timeharp-260-tcspc-and-mcs-board-with-pcie-interface>`_
-(TH260) devices. 
-There are two versions of the
-`TimeHarp 260 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/timeharp-260-tcspc-and-mcs-board-with-pcie-interface>`_
-. The PICO version (TH260P) has a resolution of 25 ps
-and a deadtime of 25 ns whereas the NANO version (TH260N) provides a time resolution of 250 ps
-with a deadtime below 2 ns.
-    
-    """
-    PH330 = 3
-    """
-This selects the library for the
-`PicoHarp 330 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/picoharp_330_precise_and_versatile_event_timer_and_tcspc_unit>`_
-(PH330) devices.
-    
-    """
-
 class DeviceType(Enum):
     """
 SnAPI doesn't only support real Harp devices. It is also possible to use ptu-files that act as a hardware-like device.
@@ -380,7 +333,7 @@ This logs the creating, deleting and many more of the :class:`.Manipulators`.
     
 class CoincidenceMode(Enum):
     """
-This defines the different coincidence modes. See :meth:`Device.setMeasControl<snAPI.Main.Manipulators.coincidence>`.
+This defines the different coincidence modes. See :meth:`Manipulators.coincidence<snAPI.Main.Manipulators.coincidence>`.
 
     """
     CountAll = 0

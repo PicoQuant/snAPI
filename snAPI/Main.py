@@ -19,8 +19,7 @@ from snAPI.Utils import *
 class snAPI:
     """
 This is the main class of the snAPI library. When creating the snAPI object the api is initialized.
-Here you have to select the underlying library and therefore the device family you want to work with.
-It holds the underlying device dll (dynamic link library), the :obj:`snAPI.deviceConfig`, the measurement classes
+It holds the underlying snAPI.dll (dynamic link library), the :obj:`snAPI.deviceConfig`, the measurement classes
 and many other API calls. 
 
 Note
@@ -31,7 +30,6 @@ Parameters
 ----------
     systemIni: str
         | path to the system.ini file (default: "system.ini")
-    libType: LibType (default: LibType.MH)
 
 Returns
 -------
@@ -65,7 +63,7 @@ The device config contains all information about the initialized device. To upda
 
 Note
 ----
-The deviceConfig can not directly written. It is only for checking the current state. To change the configuration, you have to call
+The deviceConfig can not directly be written. It is only for checking the current state. To change the configuration, you have to call
 the device functions or write the config with :meth:`loadIniConfig` or :meth:`setIniConfig`.
 For detailed information read :ref:`configuration`! 
 
@@ -170,7 +168,7 @@ Note
     The `measDescription` is only valid after a measurement is done or a file device is loaded.
 
 Parameters
-    - AcqTime: acquisition 
+    - AcqTime: acquisition time 
     - AveSyncRate: if measured with :meth:`getCountRates`
     - AveSyncPeriod: if measured with :meth:`getSyncPeriod`
     - StopReason: why the measurement was stopped
@@ -200,7 +198,7 @@ Example
         return super().__new__(cls)
     
 
-    def __init__(self, systemIni: typing.Union[str, None] = None, libType: typing.Union[LibType, None] = LibType.MH):
+    def __init__(self, systemIni: typing.Union[str, None] = None):
         if systemIni is None:
             systemIni = "\\".join(inspect.getfile(snAPI).split("\\")[:-1])+'\\system.ini'
         self.device = Device(self)
@@ -221,7 +219,7 @@ Example
         """This is the object to :class:`Correlation`. class"""
         self.manipulators = Manipulators(self)
         """This is the object to :class:`Manipulators`. class"""
-        self.initAPI(systemIni, libType)
+        self.initAPI(systemIni)
 
 
     def __del__(self,):
@@ -329,7 +327,7 @@ Example
         return self.dll.setLogLevel(logLevel.value, onOff)
 
 
-    def initAPI(self, systemIni: typing.Optional[str] = "system.ini", libType: typing.Optional[LibType] = LibType.MH):
+    def initAPI(self, systemIni: typing.Optional[str] = "system.ini"):
         """
 This function is called by constructor of the snAPI class. 
 It loads a system INI file where it is possible to set flags for logging
@@ -339,7 +337,6 @@ Parameters
 ----------
     systemIni: str
         | path to the system.ini file (default: "system.ini")
-    libType: LibType (default: LibType.MH)
 
 Returns
 -------
@@ -383,7 +380,7 @@ Example
     
         """
         SBuf = systemIni.encode('utf-8')
-        ok = self.dll.initAPI(SBuf, libType.value)
+        ok = self.dll.initAPI(SBuf)
         self.getDeviceConfig()
         return ok
 
@@ -2028,6 +2025,7 @@ Example
         for i in passChans:
             pc |= pow(2, i)
 
+        self.parent.dll.setRowEventFilter.restype = ct.c_bool
         return self.parent.dll.setRowEventFilter(row, timeRange, matchCount, inverse, uc, pc)
 
 
@@ -2059,6 +2057,7 @@ Example
     sn.filter.enableRow(0, True)
     
         """
+        self.parent.dll.enableRowEventFilter.restype = ct.c_bool
         return self.parent.dll.enableRowEventFilter(row, enable)
 
 
@@ -2106,6 +2105,7 @@ Example
     sn.filter.setMainParams(0, 1000, 1, False
     
         """
+        self.parent.dll.setMainEventFilterParams.restype = ct.c_bool
         return self.parent.dll.setMainEventFilterParams(timeRange, matchCount, inverse)
 
 
@@ -2161,6 +2161,7 @@ Example
         for i in passChans:
             pc |= pow(2, i)
         
+        self.parent.dll.setMainEventFilterChannels.restype = ct.c_bool
         return self.parent.dll.setMainEventFilterChannels(row, uc, pc)
 
 
@@ -2197,6 +2198,7 @@ Example
     sn.filter.enableMain(True)
     
         """
+        self.parent.dll.enableMainEventFilter.restype = ct.c_bool
         return self.parent.dll.enableMainEventFilter(enable)
         #     self.parent.deviceConfig["SyncDiv"] = syncDiv
         # return ok
@@ -2233,6 +2235,7 @@ Example
     sn.filter.setTestMode(True)
     
         """
+        self.parent.dll.setFilterTestMode.restype = ct.c_bool
         return self.parent.dll.setFilterTestMode(testMode)
         #     self.parent.deviceConfig["SyncDiv"] = syncDiv
         # return ok
@@ -2550,6 +2553,7 @@ Example
     sn.whiteRabbit.SetMode(reinitWithMode= True, mode = WRmode.Master)
         """
         script = (ct.c_char * 256)()
+        self.parent.dll.WRabbitSetMode.restype = ct.c_bool
         return self.parent.dll.WRabbitSetMode(bootFromScript, reinitWithMode, mode.value)
     
     def getTime(self,):
@@ -2606,6 +2610,7 @@ Example
     
         """
         t = ct.c_uint64(round(time.replace(tzinfo=timezone.utc).timestamp()))
+        self.parent.dll.WRabbitSetTime.restype = ct.c_bool
         return self.parent.dll.WRabbitSetTime(t)
     
     def initLink(self, onOff: bool):
@@ -2633,6 +2638,7 @@ Example
     # switches the WR link on
     sn.whiteRabbit.initLink(True)
         """
+        self.parent.dll.WRabbitInitLink.restype = ct.c_bool
         return self.parent.dll.WRabbitInitLink(onOff)
     
     def getStatus(self,):
@@ -2849,13 +2855,14 @@ Example
     sn.logPrint(f"{len(data)} records read!")
     
     # this reads `Raw` data for 1 sec in :obj:`.MeasMode.T2` and writes it to disc only
-    sn.raw.measure(1000, 0, True, True)
+    sn.raw.measure(1000, 134217728, True, True)
     
         """
         self.data = ct.ARRAY(ct.c_uint32, size)()
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.parent.logPrint( "measurement is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
+        self.parent.dll.rawMeasure.restype = ct.c_bool
         return self.parent.dll.rawMeasure(acqTime, waitFinished, savePTU, ct.byref(self.data), self.idx, ct.c_uint64(size), self.finished)
     
 
@@ -2912,6 +2919,7 @@ Example
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.parent.logPrint( "startBlock is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
+        self.parent.dll.rawStartBlock.restype = ct.c_bool
         return self.parent.dll.rawStartBlock(acqTime, savePTU, ct.byref(self.storeData), ct.c_uint64(size), self.finished)
     
 
@@ -3365,7 +3373,7 @@ Example
     sn.logPrint(f"{len(data)} records read")
     
     # this reads `Unfold` data for 1 sec in :obj:`.MeasMode.T2` and write it to disc only
-    sn.unfold.measure(1000, 0, True, True)
+    sn.unfold.measure(1000, 134217728, True, True)
     
         """
         self.times = ct.ARRAY(ct.c_uint64, size)()
@@ -3374,6 +3382,7 @@ Example
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.parent.logPrint( "measurement is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
+        self.parent.dll.ufMeasure.restype = ct.c_bool
         return self.parent.dll.ufMeasure(acqTime, waitFinished, savePTU, ct.byref(self.times), ct.byref(self.channels), self.idx, ct.c_uint64(size), self.finished)
     
 
@@ -3436,6 +3445,7 @@ Example
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.parent.logPrint( "startBlock is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
+        self.parent.dll.ufStartBlock.restype = ct.c_bool
         return self.parent.dll.ufStartBlock(acqTime, savePTU, ct.byref(self.storeTimes), ct.byref(self.storeChannels), ct.c_uint64(size), self.finished)
     
 
@@ -4044,6 +4054,7 @@ Example
         elif (self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value):
             self.bins = np.multiply(self.bins, self.parent.deviceConfig["Resolution"])
             
+        self.parent.dll.getHistogram.restype = ct.c_bool
         return self.parent.dll.getHistogram(acqTime, waitFinished, savePTU, ct.byref(self.data), self.finished)
     
 
@@ -4311,6 +4322,7 @@ Example
                 MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         
+        self.parent.dll.getTimeTrace.restype = ct.c_bool
         return self.parent.dll.getTimeTrace(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.t0), self.finished)
     
 
@@ -4612,6 +4624,74 @@ Example
         self.parent.dll.setFCSParams(startChannel, stopChannel, pNumTaus, intervalLength, windowSize, startTime)
         self.numTaus = pNumTaus.contents.value
 
+    def setFFCSParameters(self, startChannel: int, stopChannel: int, windowSize: typing.Optional[float] = 1e12, startTime: typing.Optional[float] = None, intervalLength: typing.Optional[int] = 8):
+        """
+This function sets the the parameters for the Fast-FCS correlation. This new algorithm is optimized for longer `windowSize`s.
+If you have a short `windowSize` or a low count rate it may better to use the classical :meth:`setFFCSParameters`.
+If the `startChannel` is the same as the `stopChannel` an autocorrelation is calculated and if the channels are different a
+cross calculation is calculated.
+
+Note
+----
+    The FCS correlation is calculated using the multiple tau algorithm with lag times according to:
+
+.. math::
+    :label: multiTau
+    
+    \\tau_k = \\tau_0 \\cdot 2^{\\left\\lfloor \\frac{k}{p} \\right\\rfloor} \\cdot \\left(1 + (k \\bmod p) \\right)
+
+where:
+
+- :math:`\\tau_0` is the initial lag time which is defined by the :obj:`snAPI.deviceConfig` **BaseResolution**
+- :math:`k` is the index of the lag time in the sequence, with :math:`k = 0, 1, 2, \\dots, N-1`, where :math:`N` is the **numIntervals**
+- :math:`p` is the period of the sequence, which is defined by **intervalLength** between successive powers of :math:`2`. \
+For example, if :math:`\\tau_0 = 1` and :math:`p = 4`, then the sequence would include lag times of 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, and so on.
+- :math:`\\lfloor \\cdot \\rfloor` denotes the floor function, which rounds a number down to the nearest integer
+- :math:`\\bmod` is the modulus operator, which gives the remainder when dividing one number by another.
+
+Parameters
+----------
+    startChannel: int (0 is sync channel)
+        start channel
+    stopChannel: int (0 is sync channel)
+        click channel
+    windowSize: float [ps]
+        size of the correlation window
+    startTime: float [ps]
+        minimum tau, the left border of the correlation (Default: None - T2: BaseResolution, T3: Resolution)
+    startTime: int [ps]
+        number of sub elements, that the multiple tau algorithm uses to create  (Default: None - T2: BaseResolution, T3: Resolution)
+
+Returns
+-------
+    None
+
+Example
+-------
+::
+
+    # sets the window size to 1s with a startTime of 50000ps
+    sn.correlation.setG2Parameters(1, 2 , 1e12, 5e4)
+    
+        """
+        if startTime is None:
+            if self.parent.deviceConfig["MeasMode"] == MeasMode.T2.value:
+                startTime = self.parent.deviceConfig["BaseResolution"]
+            elif self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value:
+                startTime = self.parent.deviceConfig["Resolution"]
+        
+        self.isFcs = True 
+        self.startChannel = startChannel
+        self.stopChannel = stopChannel
+        self.windowSize = windowSize
+        self.startTime = startTime
+        self.intervalLength = intervalLength
+
+        pNumTaus = ct.pointer(ct.c_int(0))
+        
+        self.parent.dll.setFFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_int, ct.c_double, ct.c_double]
+        self.parent.dll.setFFCSParams(startChannel, stopChannel, pNumTaus, intervalLength, windowSize, startTime)
+        self.numTaus = pNumTaus.contents.value
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
         """
@@ -4670,6 +4750,7 @@ Example
             self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         
+        self.parent.dll.getCorrelation.restype = ct.c_bool
         return self.parent.dll.getCorrelation(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.bins), self.finished)
 
 
@@ -4718,7 +4799,7 @@ Example
     plt.show(block=True)
     
         """
-        return self.data, self.bins
+        return np.lib.stride_tricks.as_strided(self.data), np.lib.stride_tricks.as_strided(self.bins)
 
 
     def getFCSData(self):
@@ -4771,7 +4852,7 @@ Example
     
         """
         return np.lib.stride_tricks.as_strided(self.data, shape=(2, self.numBins),
-            strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))[:, 4:], self.bins[4:]
+            strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))[:, 4:], np.lib.stride_tricks.as_strided(self.bins)[4:]
 
 
     def stopMeasure(self):
@@ -5235,7 +5316,7 @@ Parameters
 ----------
     herald:
         the channel that contains the herald events
-    chans: List[int]
+    gateChans: List[int]
         channel numbers that should be gated
     delayTime: (default: 0ps)
         time between the herald event and the start of the gate
@@ -5390,4 +5471,4 @@ Example
         # dataOut = np.lib.stride_tricks.as_strided(countRates, shape=(numChans),
         #     strides=(ct.sizeof(countRates._type_) * numChans))
         self.getConfig()
-        return countRates
+        return np.lib.stride_tricks.as_strided(countRates)

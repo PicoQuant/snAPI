@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>snAPI package &#8212; snAPI  documentation</title>
   
@@ -15,31 +14,33 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=8a448e45"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'snAPI';</script>
     <link rel="icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -55,19 +56,23 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -89,20 +94,29 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <label class="sidebar-toggle primary-toggle" for="__primary">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
-  </label>
+  </button>
   
   
   <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="index.html">
+  
   
   
   
@@ -112,8 +126,8 @@
       
     
     
-    <img src="_static/logo-light.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo-light.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
     <p class="title logo__title">Documentation</p>
@@ -126,71 +140,58 @@
     
     <div class="me-auto navbar-header-items__center">
       
-        <div class="navbar-item"><nav class="navbar-nav">
-  <p class="sidebar-header-items__title"
-     role="heading"
-     aria-level="1"
-     aria-label="Site Navigation">
-    Site Navigation
-  </p>
+        <div class="navbar-item">
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="introduction.html">
-                        Introduction
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="introduction.html">
+    Introduction
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="install.html">
-                        Installation
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
-                        snAPI package
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Installation
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="config.html">
-                        Configuration
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
-                        TTTR Record Format
-                      </a>
-                    </li>
-                
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    snAPI package
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="controlConnector.html">
-                        Control Connector
-                      </a>
-                    </li>
-                
-            <div class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    More
-                </button>
-                <div class="dropdown-menu">
-                    
-                <li class="nav-item">
-                  <a class="nav-link nav-external" href="https://PicoQuant.com">
-                    PicoQuant
-                  </a>
-                </li>
-                
-                </div>
-            </div>
-            
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+    TTTR Record Format
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="controlConnector.html">
+    Control Connector
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://PicoQuant.com">
+    PicoQuant
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -201,23 +202,27 @@
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
         <div class="navbar-item">
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script></div>
@@ -228,27 +233,33 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
-    </label>
+    </button>
   
 </div>
 
-    </nav>
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -259,73 +270,63 @@ document.write(`
     
       <div class="sidebar-header-items__center">
         
-          <div class="navbar-item"><nav class="navbar-nav">
-  <p class="sidebar-header-items__title"
-     role="heading"
-     aria-level="1"
-     aria-label="Site Navigation">
-    Site Navigation
-  </p>
+          
+          
+            <div class="navbar-item">
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="introduction.html">
-                        Introduction
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="introduction.html">
+    Introduction
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="install.html">
-                        Installation
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
-                        snAPI package
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Installation
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="config.html">
-                        Configuration
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="tttr%20data%20format.html">
-                        TTTR Record Format
-                      </a>
-                    </li>
-                
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    snAPI package
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="controlConnector.html">
-                        Control Connector
-                      </a>
-                    </li>
-                
-            <div class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    More
-                </button>
-                <div class="dropdown-menu">
-                    
-                <li class="nav-item">
-                  <a class="nav-link nav-external" href="https://PicoQuant.com">
-                    PicoQuant
-                  </a>
-                </li>
-                
-                </div>
-            </div>
-            
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+    TTTR Record Format
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="controlConnector.html">
+    Control Connector
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://PicoQuant.com">
+    PicoQuant
+  </a>
+</li>
+
   </ul>
 </nav></div>
+          
         
       </div>
     
@@ -334,12 +335,13 @@ document.write(`
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script></div>
@@ -349,13 +351,14 @@ document.write(`
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="snAPI.Constants.html">snAPI.Constants module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="snAPI.Main.html">snAPI.Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="snAPI.Utils.html">snAPI.Utils module</a></li>
+
+
+
 </ul>
 </div>
 </nav></div>
@@ -363,6 +366,33 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+    <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Quick Links</p>
+    <ul class="indices-link">
+          <li class="toctree-l1">
+            <a class="reference internal" href="snAPI.Constants.html">Constants</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="snAPI.Main.html">Main</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="snAPI.Utils.html">Utils</a>
+          </li>
+    </ul>
+  </nav></div>
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
   </div>
   
   <div id="rtd-footer-container"></div>
@@ -370,13 +400,13 @@ document.write(`
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
@@ -385,8 +415,8 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="index.html" class="nav-link" aria-label="Home">
@@ -408,355 +438,43 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="snapi-package">
-<h1>snAPI package<a class="headerlink" href="#snapi-package" title="Permalink to this heading">#</a></h1>
+<h1>snAPI package<a class="headerlink" href="#snapi-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="snAPI.Constants.html">snAPI.Constants module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LibType"><code class="docutils literal notranslate"><span class="pre">LibType</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LibType_Undefined"><code class="docutils literal notranslate"><span class="pre">LibType.Undefined</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LibType_MH"><code class="docutils literal notranslate"><span class="pre">LibType.MH</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LibType_HH"><code class="docutils literal notranslate"><span class="pre">LibType.HH</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LibType_TH260"><code class="docutils literal notranslate"><span class="pre">LibType.TH260</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LibType_PH330"><code class="docutils literal notranslate"><span class="pre">LibType.PH330</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#snAPI_Constants_html">snAPI.Constants module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LibType"><code class="docutils literal notranslate"><span class="pre">LibType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType"><code class="docutils literal notranslate"><span class="pre">DeviceType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode"><code class="docutils literal notranslate"><span class="pre">MeasMode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl"><code class="docutils literal notranslate"><span class="pre">MeasControl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource"><code class="docutils literal notranslate"><span class="pre">RefSource</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_TrigMode"><code class="docutils literal notranslate"><span class="pre">TrigMode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LogLevel"><code class="docutils literal notranslate"><span class="pre">LogLevel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_CoincidenceMode"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_CoincidenceTime"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode"><code class="docutils literal notranslate"><span class="pre">WRmode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus"><code class="docutils literal notranslate"><span class="pre">WRstatus</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType"><code class="docutils literal notranslate"><span class="pre">DeviceType</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType_Undefined"><code class="docutils literal notranslate"><span class="pre">DeviceType.Undefined</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType_HW"><code class="docutils literal notranslate"><span class="pre">DeviceType.HW</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType_File"><code class="docutils literal notranslate"><span class="pre">DeviceType.File</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#snAPI_Main_html">snAPI.Main module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI"><code class="docutils literal notranslate"><span class="pre">snAPI</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device"><code class="docutils literal notranslate"><span class="pre">Device</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw"><code class="docutils literal notranslate"><span class="pre">Raw</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold"><code class="docutils literal notranslate"><span class="pre">Unfold</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram"><code class="docutils literal notranslate"><span class="pre">Histogram</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_TimeTrace"><code class="docutils literal notranslate"><span class="pre">TimeTrace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation"><code class="docutils literal notranslate"><span class="pre">Correlation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators"><code class="docutils literal notranslate"><span class="pre">Manipulators</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode"><code class="docutils literal notranslate"><span class="pre">MeasMode</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_Histogram"><code class="docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T2"><code class="docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode_T3"><code class="docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl"><code class="docutils literal notranslate"><span class="pre">MeasControl</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_SingleShotCTC"><code class="docutils literal notranslate"><span class="pre">MeasControl.SingleShotCTC</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_C1Gated"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1Gated</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_C1StartCtcStop"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1StartCtcStop</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_C1StartC2Stop"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1StartC2Stop</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_WrMaster2Slave"><code class="docutils literal notranslate"><span class="pre">MeasControl.WrMaster2Slave</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_WrSlave2Master"><code class="docutils literal notranslate"><span class="pre">MeasControl.WrSlave2Master</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_SwStartSwStop"><code class="docutils literal notranslate"><span class="pre">MeasControl.SwStartSwStop</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_ContC1Gated"><code class="docutils literal notranslate"><span class="pre">MeasControl.ContC1Gated</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_Cont_C1_Start_CTC_Stop"><code class="docutils literal notranslate"><span class="pre">MeasControl.Cont_C1_Start_CTC_Stop</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasControl_Cont_CTC_Restart"><code class="docutils literal notranslate"><span class="pre">MeasControl.Cont_CTC_Restart</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource"><code class="docutils literal notranslate"><span class="pre">RefSource</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_Internal"><code class="docutils literal notranslate"><span class="pre">RefSource.Internal</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_External_10MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_10MHZ</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_Wr_Master_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Generic</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_Wr_Slave_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Generic</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_Wr_Grandm_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Grandm_Generic</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_Extn_GPS_PPS"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_Extn_GPS_PPS_UART"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS_UART</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_Wr_Master_Harp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Harp</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_Wr_Slave_Harp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Harp</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_Wr_Grandm_Harp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Grandm_Harp</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_External_100MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_100MHZ</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource_External_500MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_500MHZ</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_TrigMode"><code class="docutils literal notranslate"><span class="pre">TrigMode</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_TrigMode_Edge"><code class="docutils literal notranslate"><span class="pre">TrigMode.Edge</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_TrigMode_CFD"><code class="docutils literal notranslate"><span class="pre">TrigMode.CFD</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LogLevel"><code class="docutils literal notranslate"><span class="pre">LogLevel</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LogLevel_Api"><code class="docutils literal notranslate"><span class="pre">LogLevel.Api</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LogLevel_Config"><code class="docutils literal notranslate"><span class="pre">LogLevel.Config</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LogLevel_Device"><code class="docutils literal notranslate"><span class="pre">LogLevel.Device</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LogLevel_DataFile"><code class="docutils literal notranslate"><span class="pre">LogLevel.DataFile</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LogLevel_Manipulators"><code class="docutils literal notranslate"><span class="pre">LogLevel.Manipulators</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_CoincidenceMode"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_CoincidenceMode_CountAll"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountAll</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_CoincidenceMode_CountOnce"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountOnce</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_CoincidenceTime"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_CoincidenceTime_First"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime.First</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_CoincidenceTime_Last"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime.Last</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode"><code class="docutils literal notranslate"><span class="pre">WRmode</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode_Off"><code class="docutils literal notranslate"><span class="pre">WRmode.Off</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode_Slave"><code class="docutils literal notranslate"><span class="pre">WRmode.Slave</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode_Master"><code class="docutils literal notranslate"><span class="pre">WRmode.Master</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRmode_Grandmaster"><code class="docutils literal notranslate"><span class="pre">WRmode.Grandmaster</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus"><code class="docutils literal notranslate"><span class="pre">WRstatus</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_LinkON"><code class="docutils literal notranslate"><span class="pre">WRstatus.LinkON</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_LinkUP"><code class="docutils literal notranslate"><span class="pre">WRstatus.LinkUP</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ModeBitmask"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeBitmask</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ModeOff"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeOff</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ModeSlave"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeSlave</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ModeMaster"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeMaster</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ModeGMaster"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeGMaster</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_LockedCalibrated"><code class="docutils literal notranslate"><span class="pre">WRstatus.LockedCalibrated</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_PtpBitmask"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpBitmask</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_PtpListening"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpListening</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_PtpUncalibratedWRSlaveLock"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpUncalibratedWRSlaveLock</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_PtpSlave"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpSlave</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_PtpMasterWRMasterLock"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpMasterWRMasterLock</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_PtpMaster"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpMaster</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ServoBitmask"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoBitmask</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ServoUninit"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoUninit</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ServoSyncSec"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoSyncSec</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ServoSyncNSec"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoSyncNSec</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ServoSyncPhase"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoSyncPhase</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ServoWaitOffset"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoWaitOffset</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_ServoTrackPhase"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoTrackPhase</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_MacSet"><code class="docutils literal notranslate"><span class="pre">WRstatus.MacSet</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_WRstatus_IsNew"><code class="docutils literal notranslate"><span class="pre">WRstatus.IsNew</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="snAPI.Main.html">snAPI.Main module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI"><code class="docutils literal notranslate"><span class="pre">snAPI</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceIDs"><code class="docutils literal notranslate"><span class="pre">snAPI.deviceIDs</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.deviceConfig</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_measDescription"><code class="docutils literal notranslate"><span class="pre">snAPI.measDescription</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_device"><code class="docutils literal notranslate"><span class="pre">snAPI.device</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_filter"><code class="docutils literal notranslate"><span class="pre">snAPI.filter</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_whiteRabbit"><code class="docutils literal notranslate"><span class="pre">snAPI.whiteRabbit</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_unfold"><code class="docutils literal notranslate"><span class="pre">snAPI.unfold</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_raw"><code class="docutils literal notranslate"><span class="pre">snAPI.raw</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_histogram"><code class="docutils literal notranslate"><span class="pre">snAPI.histogram</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_timeTrace"><code class="docutils literal notranslate"><span class="pre">snAPI.timeTrace</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_correlation"><code class="docutils literal notranslate"><span class="pre">snAPI.correlation</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_manipulators"><code class="docutils literal notranslate"><span class="pre">snAPI.manipulators</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_logPrint"><code class="docutils literal notranslate"><span class="pre">snAPI.logPrint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_logException"><code class="docutils literal notranslate"><span class="pre">snAPI.logException()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setLogLevel"><code class="docutils literal notranslate"><span class="pre">snAPI.setLogLevel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initAPI"><code class="docutils literal notranslate"><span class="pre">snAPI.initAPI()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_exitAPI"><code class="docutils literal notranslate"><span class="pre">snAPI.exitAPI()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getDeviceIDs"><code class="docutils literal notranslate"><span class="pre">snAPI.getDeviceIDs()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getDevice"><code class="docutils literal notranslate"><span class="pre">snAPI.getDevice()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getFileDevice"><code class="docutils literal notranslate"><span class="pre">snAPI.getFileDevice()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDevice"><code class="docutils literal notranslate"><span class="pre">snAPI.initDevice()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_closeDevice"><code class="docutils literal notranslate"><span class="pre">snAPI.closeDevice()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setPTUFilePath"><code class="docutils literal notranslate"><span class="pre">snAPI.setPTUFilePath()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_loadIniConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.loadIniConfig()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setIniConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.setIniConfig()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getDeviceConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.getDeviceConfig()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getMeasDescription"><code class="docutils literal notranslate"><span class="pre">snAPI.getMeasDescription()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getCountRates"><code class="docutils literal notranslate"><span class="pre">snAPI.getCountRates()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getSyncPeriod"><code class="docutils literal notranslate"><span class="pre">snAPI.getSyncPeriod()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getNumAllChannels"><code class="docutils literal notranslate"><span class="pre">snAPI.getNumAllChannels()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device"><code class="docutils literal notranslate"><span class="pre">Device</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncDiv"><code class="docutils literal notranslate"><span class="pre">Device.setSyncDiv()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncTrigMode"><code class="docutils literal notranslate"><span class="pre">Device.setSyncTrigMode()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncEdgeTrig"><code class="docutils literal notranslate"><span class="pre">Device.setSyncEdgeTrig()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncCFD"><code class="docutils literal notranslate"><span class="pre">Device.setSyncCFD()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncChannelOffset"><code class="docutils literal notranslate"><span class="pre">Device.setSyncChannelOffset()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncChannelEnable"><code class="docutils literal notranslate"><span class="pre">Device.setSyncChannelEnable()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncDeadTime"><code class="docutils literal notranslate"><span class="pre">Device.setSyncDeadTime()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputHysteresis"><code class="docutils literal notranslate"><span class="pre">Device.setInputHysteresis()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setTimingMode"><code class="docutils literal notranslate"><span class="pre">Device.setTimingMode()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setStopOverflow"><code class="docutils literal notranslate"><span class="pre">Device.setStopOverflow()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setBinning"><code class="docutils literal notranslate"><span class="pre">Device.setBinning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setOffset"><code class="docutils literal notranslate"><span class="pre">Device.setOffset()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setHistoLength"><code class="docutils literal notranslate"><span class="pre">Device.setHistoLength()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setMeasControl"><code class="docutils literal notranslate"><span class="pre">Device.setMeasControl()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setTriggerOutput"><code class="docutils literal notranslate"><span class="pre">Device.setTriggerOutput()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setMarkerEdges"><code class="docutils literal notranslate"><span class="pre">Device.setMarkerEdges()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setMarkerEnable"><code class="docutils literal notranslate"><span class="pre">Device.setMarkerEnable()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setMarkerHoldoffTime"><code class="docutils literal notranslate"><span class="pre">Device.setMarkerHoldoffTime()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setOflCompression"><code class="docutils literal notranslate"><span class="pre">Device.setOflCompression()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputTrigMode"><code class="docutils literal notranslate"><span class="pre">Device.setInputTrigMode()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputEdgeTrig"><code class="docutils literal notranslate"><span class="pre">Device.setInputEdgeTrig()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputCFD"><code class="docutils literal notranslate"><span class="pre">Device.setInputCFD()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputChannelOffset"><code class="docutils literal notranslate"><span class="pre">Device.setInputChannelOffset()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputChannelEnable"><code class="docutils literal notranslate"><span class="pre">Device.setInputChannelEnable()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputDeadTime"><code class="docutils literal notranslate"><span class="pre">Device.setInputDeadTime()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter_setRowParams"><code class="docutils literal notranslate"><span class="pre">Filter.setRowParams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter_enableRow"><code class="docutils literal notranslate"><span class="pre">Filter.enableRow()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter_setMainParams"><code class="docutils literal notranslate"><span class="pre">Filter.setMainParams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter_setMainChannels"><code class="docutils literal notranslate"><span class="pre">Filter.setMainChannels()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter_enableMain"><code class="docutils literal notranslate"><span class="pre">Filter.enableMain()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter_setTestMode"><code class="docutils literal notranslate"><span class="pre">Filter.setTestMode()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter_getRowRates"><code class="docutils literal notranslate"><span class="pre">Filter.getRowRates()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Filter_getMainRates"><code class="docutils literal notranslate"><span class="pre">Filter.getMainRates()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_mac"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.mac</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_initScript"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.initScript</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_SFPnames"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPnames</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_SFPdTxs"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPdTxs</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_SFPdRxs"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPdRxs</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_SFPalphas"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.SFPalphas</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_getMAC"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getMAC()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_setMAC"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setMAC()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_getSFPData"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getSFPData()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_getInitScript"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getInitScript()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_setInitScript"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setInitScript()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_setMode"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setMode()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_getTime"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getTime()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_setTime"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.setTime()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_initLink"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.initLink()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_getStatus"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getStatus()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_getTermOutput"><code class="docutils literal notranslate"><span class="pre">WhiteRabbit.getTermOutput()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw"><code class="docutils literal notranslate"><span class="pre">Raw</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_measure"><code class="docutils literal notranslate"><span class="pre">Raw.measure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_startBlock"><code class="docutils literal notranslate"><span class="pre">Raw.startBlock()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_getBlock"><code class="docutils literal notranslate"><span class="pre">Raw.getBlock()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_getData"><code class="docutils literal notranslate"><span class="pre">Raw.getData()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_numRead"><code class="docutils literal notranslate"><span class="pre">Raw.numRead()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_isFinished"><code class="docutils literal notranslate"><span class="pre">Raw.isFinished()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_stopMeasure"><code class="docutils literal notranslate"><span class="pre">Raw.stopMeasure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_isSpecial"><code class="docutils literal notranslate"><span class="pre">Raw.isSpecial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_timeTag_T2"><code class="docutils literal notranslate"><span class="pre">Raw.timeTag_T2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_nSync_T3"><code class="docutils literal notranslate"><span class="pre">Raw.nSync_T3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_dTime_T3"><code class="docutils literal notranslate"><span class="pre">Raw.dTime_T3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_channel"><code class="docutils literal notranslate"><span class="pre">Raw.channel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_isMarker"><code class="docutils literal notranslate"><span class="pre">Raw.isMarker()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Raw_markers"><code class="docutils literal notranslate"><span class="pre">Raw.markers()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold"><code class="docutils literal notranslate"><span class="pre">Unfold</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_measure"><code class="docutils literal notranslate"><span class="pre">Unfold.measure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_startBlock"><code class="docutils literal notranslate"><span class="pre">Unfold.startBlock()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_getBlock"><code class="docutils literal notranslate"><span class="pre">Unfold.getBlock()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_getData"><code class="docutils literal notranslate"><span class="pre">Unfold.getData()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_getTimes"><code class="docutils literal notranslate"><span class="pre">Unfold.getTimes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_getChannels"><code class="docutils literal notranslate"><span class="pre">Unfold.getChannels()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_numRead"><code class="docutils literal notranslate"><span class="pre">Unfold.numRead()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_isFinished"><code class="docutils literal notranslate"><span class="pre">Unfold.isFinished()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_stopMeasure"><code class="docutils literal notranslate"><span class="pre">Unfold.stopMeasure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_getTimesByChannel"><code class="docutils literal notranslate"><span class="pre">Unfold.getTimesByChannel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_isMarker"><code class="docutils literal notranslate"><span class="pre">Unfold.isMarker()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_markers"><code class="docutils literal notranslate"><span class="pre">Unfold.markers()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_abs_T3"><code class="docutils literal notranslate"><span class="pre">Unfold.abs_T3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_nSync_T3"><code class="docutils literal notranslate"><span class="pre">Unfold.nSync_T3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Unfold_dTime_T3"><code class="docutils literal notranslate"><span class="pre">Unfold.dTime_T3()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram"><code class="docutils literal notranslate"><span class="pre">Histogram</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram_setRefChannel"><code class="docutils literal notranslate"><span class="pre">Histogram.setRefChannel()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram_setBinWidth"><code class="docutils literal notranslate"><span class="pre">Histogram.setBinWidth()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram_measure"><code class="docutils literal notranslate"><span class="pre">Histogram.measure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram_getData"><code class="docutils literal notranslate"><span class="pre">Histogram.getData()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram_stopMeasure"><code class="docutils literal notranslate"><span class="pre">Histogram.stopMeasure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram_clearMeasure"><code class="docutils literal notranslate"><span class="pre">Histogram.clearMeasure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram_isFinished"><code class="docutils literal notranslate"><span class="pre">Histogram.isFinished()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_TimeTrace"><code class="docutils literal notranslate"><span class="pre">TimeTrace</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_TimeTrace_setNumBins"><code class="docutils literal notranslate"><span class="pre">TimeTrace.setNumBins()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_TimeTrace_setHistorySize"><code class="docutils literal notranslate"><span class="pre">TimeTrace.setHistorySize()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_TimeTrace_measure"><code class="docutils literal notranslate"><span class="pre">TimeTrace.measure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_TimeTrace_getData"><code class="docutils literal notranslate"><span class="pre">TimeTrace.getData()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_TimeTrace_isFinished"><code class="docutils literal notranslate"><span class="pre">TimeTrace.isFinished()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_TimeTrace_stopMeasure"><code class="docutils literal notranslate"><span class="pre">TimeTrace.stopMeasure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_TimeTrace_clearMeasure"><code class="docutils literal notranslate"><span class="pre">TimeTrace.clearMeasure()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation"><code class="docutils literal notranslate"><span class="pre">Correlation</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation_setG2Parameters"><code class="docutils literal notranslate"><span class="pre">Correlation.setG2Parameters()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation_setFCSParameters"><code class="docutils literal notranslate"><span class="pre">Correlation.setFCSParameters()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation_measure"><code class="docutils literal notranslate"><span class="pre">Correlation.measure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation_getG2Data"><code class="docutils literal notranslate"><span class="pre">Correlation.getG2Data()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation_getFCSData"><code class="docutils literal notranslate"><span class="pre">Correlation.getFCSData()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation_stopMeasure"><code class="docutils literal notranslate"><span class="pre">Correlation.stopMeasure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation_clearMeasure"><code class="docutils literal notranslate"><span class="pre">Correlation.clearMeasure()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Correlation_isFinished"><code class="docutils literal notranslate"><span class="pre">Correlation.isFinished()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators"><code class="docutils literal notranslate"><span class="pre">Manipulators</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_config"><code class="docutils literal notranslate"><span class="pre">Manipulators.config</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_getConfig"><code class="docutils literal notranslate"><span class="pre">Manipulators.getConfig()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_clearAll"><code class="docutils literal notranslate"><span class="pre">Manipulators.clearAll()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_coincidence"><code class="docutils literal notranslate"><span class="pre">Manipulators.coincidence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_merge"><code class="docutils literal notranslate"><span class="pre">Manipulators.merge()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_delay"><code class="docutils literal notranslate"><span class="pre">Manipulators.delay()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_herald"><code class="docutils literal notranslate"><span class="pre">Manipulators.herald()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_countrate"><code class="docutils literal notranslate"><span class="pre">Manipulators.countrate()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_getCountrates"><code class="docutils literal notranslate"><span class="pre">Manipulators.getCountrates()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="snAPI.Utils.html">snAPI.Utils module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color"><code class="docutils literal notranslate"><span class="pre">Color</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_Rst"><code class="docutils literal notranslate"><span class="pre">Color.Rst</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_Bla"><code class="docutils literal notranslate"><span class="pre">Color.Bla</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_Red"><code class="docutils literal notranslate"><span class="pre">Color.Red</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_Gre"><code class="docutils literal notranslate"><span class="pre">Color.Gre</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_Yel"><code class="docutils literal notranslate"><span class="pre">Color.Yel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_Blu"><code class="docutils literal notranslate"><span class="pre">Color.Blu</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_Pur"><code class="docutils literal notranslate"><span class="pre">Color.Pur</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_Cya"><code class="docutils literal notranslate"><span class="pre">Color.Cya</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_Whi"><code class="docutils literal notranslate"><span class="pre">Color.Whi</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BBla"><code class="docutils literal notranslate"><span class="pre">Color.BBla</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BRed"><code class="docutils literal notranslate"><span class="pre">Color.BRed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BGre"><code class="docutils literal notranslate"><span class="pre">Color.BGre</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BYel"><code class="docutils literal notranslate"><span class="pre">Color.BYel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BBlu"><code class="docutils literal notranslate"><span class="pre">Color.BBlu</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BPur"><code class="docutils literal notranslate"><span class="pre">Color.BPur</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BCya"><code class="docutils literal notranslate"><span class="pre">Color.BCya</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BWhi"><code class="docutils literal notranslate"><span class="pre">Color.BWhi</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_UBla"><code class="docutils literal notranslate"><span class="pre">Color.UBla</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_URed"><code class="docutils literal notranslate"><span class="pre">Color.URed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_UGre"><code class="docutils literal notranslate"><span class="pre">Color.UGre</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_UYel"><code class="docutils literal notranslate"><span class="pre">Color.UYel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_UBlu"><code class="docutils literal notranslate"><span class="pre">Color.UBlu</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_UPur"><code class="docutils literal notranslate"><span class="pre">Color.UPur</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_UCya"><code class="docutils literal notranslate"><span class="pre">Color.UCya</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_UWhi"><code class="docutils literal notranslate"><span class="pre">Color.UWhi</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_IBla"><code class="docutils literal notranslate"><span class="pre">Color.IBla</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_IRed"><code class="docutils literal notranslate"><span class="pre">Color.IRed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_IGre"><code class="docutils literal notranslate"><span class="pre">Color.IGre</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_IYel"><code class="docutils literal notranslate"><span class="pre">Color.IYel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_IBlu"><code class="docutils literal notranslate"><span class="pre">Color.IBlu</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_IPur"><code class="docutils literal notranslate"><span class="pre">Color.IPur</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_ICya"><code class="docutils literal notranslate"><span class="pre">Color.ICya</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_IWhi"><code class="docutils literal notranslate"><span class="pre">Color.IWhi</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BIBla"><code class="docutils literal notranslate"><span class="pre">Color.BIBla</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BIRed"><code class="docutils literal notranslate"><span class="pre">Color.BIRed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BIGre"><code class="docutils literal notranslate"><span class="pre">Color.BIGre</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BIYel"><code class="docutils literal notranslate"><span class="pre">Color.BIYel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BIBlu"><code class="docutils literal notranslate"><span class="pre">Color.BIBlu</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BIPur"><code class="docutils literal notranslate"><span class="pre">Color.BIPur</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BICya"><code class="docutils literal notranslate"><span class="pre">Color.BICya</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_BIWhi"><code class="docutils literal notranslate"><span class="pre">Color.BIWhi</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_Bla"><code class="docutils literal notranslate"><span class="pre">Color.On_Bla</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_Red"><code class="docutils literal notranslate"><span class="pre">Color.On_Red</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_Gre"><code class="docutils literal notranslate"><span class="pre">Color.On_Gre</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_Yel"><code class="docutils literal notranslate"><span class="pre">Color.On_Yel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_Blu"><code class="docutils literal notranslate"><span class="pre">Color.On_Blu</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_Pur"><code class="docutils literal notranslate"><span class="pre">Color.On_Pur</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_Cya"><code class="docutils literal notranslate"><span class="pre">Color.On_Cya</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_Whi"><code class="docutils literal notranslate"><span class="pre">Color.On_Whi</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_IBla"><code class="docutils literal notranslate"><span class="pre">Color.On_IBla</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_IRed"><code class="docutils literal notranslate"><span class="pre">Color.On_IRed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_IGre"><code class="docutils literal notranslate"><span class="pre">Color.On_IGre</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_IYel"><code class="docutils literal notranslate"><span class="pre">Color.On_IYel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_IBlu"><code class="docutils literal notranslate"><span class="pre">Color.On_IBlu</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_IPur"><code class="docutils literal notranslate"><span class="pre">Color.On_IPur</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_ICya"><code class="docutils literal notranslate"><span class="pre">Color.On_ICya</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color_On_IWhi"><code class="docutils literal notranslate"><span class="pre">Color.On_IWhi</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="#snAPI_Utils_html">snAPI.Utils module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Utils.html#snAPI_Utils_Color"><code class="docutils literal notranslate"><span class="pre">Color</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -771,8 +489,8 @@ document.write(`
               
               
               
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="prev-next-footer d-print-none">
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="install.html"
@@ -801,11 +519,14 @@ document.write(`
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
-  <nav class="bd-toc-nav page-toc">
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 </ul>
@@ -824,8 +545,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -833,6 +554,7 @@ document.write(`
     <div class="footer-items__start">
       
         <div class="footer-item">
+
   <p class="copyright">
     
       © Copyright 2024, PicoQuant.
@@ -842,8 +564,9 @@ document.write(`
 </div>
       
         <div class="footer-item">
+
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
     <br/>
   </p>
 </div>
@@ -851,10 +574,12 @@ document.write(`
     </div>
   
   
+  
     <div class="footer-items__end">
       
-        <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.4dev0.
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
 </p></div>
       
     </div>

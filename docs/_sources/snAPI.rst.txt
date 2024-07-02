@@ -5,9 +5,8 @@ Submodules
 ----------
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
    snAPI.Constants
    snAPI.Main
    snAPI.Utils
-
