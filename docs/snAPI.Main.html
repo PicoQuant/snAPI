@@ -450,8 +450,7 @@ document.write(`
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">snAPI</span></span><a class="headerlink" href="#snAPI_Main_snAPI" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This is the main class of the snAPI library. When creating the snAPI object the api is initialized.
-Here you have to select the underlying library and therefore the device family you want to work with.
-It holds the underlying device dll (dynamic link library), the <a class="reference internal" href="#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">snAPI.deviceConfig</span></code></a>, the measurement classes
+It holds the underlying snAPI.dll (dynamic link library), the <a class="reference internal" href="#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">snAPI.deviceConfig</span></code></a>, the measurement classes
 and many other API calls.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -459,13 +458,10 @@ and many other API calls.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>systemIni</strong> (<em>str</em>) – <div class="line-block">
+<dd class="field-odd"><p><strong>systemIni</strong> (<em>str</em>) – <div class="line-block">
 <div class="line">path to the system.ini file (default: “system.ini”)</div>
 </div>
-</p></li>
-<li><p><strong>libType</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LibType" title="snAPI.Constants.LibType"><em>LibType</em></a><em> (</em><em>default: LibType.MH</em><em>)</em>)</p></li>
-</ul>
+</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>the snAPI object</p>
@@ -750,19 +746,16 @@ will initially set by the <cite>system.ini</cite> defined in <a class="reference
 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI_Main_snAPI_initAPI">
-<span class="sig-name descname"><span class="pre">initAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">systemIni</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'system.ini'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">LibType.MH</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_snAPI_initAPI" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">initAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">systemIni</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'system.ini'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI_Main_snAPI_initAPI" title="Link to this definition">#</a></dt>
 <dd><p>This function is called by constructor of the snAPI class.
 It loads a system INI file where it is possible to set flags for logging
 or change the data path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>systemIni</strong> (<em>str</em>) – <div class="line-block">
+<dd class="field-odd"><p><strong>systemIni</strong> (<em>str</em>) – <div class="line-block">
 <div class="line">path to the system.ini file (default: “system.ini”)</div>
 </div>
-</p></li>
-<li><p><strong>libType</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_LibType" title="snAPI.Constants.LibType"><em>LibType</em></a><em> (</em><em>default: LibType.MH</em><em>)</em>)</p></li>
-</ul>
+</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">

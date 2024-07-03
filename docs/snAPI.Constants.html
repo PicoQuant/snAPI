@@ -445,58 +445,6 @@ document.write(`
   <section id="module-snAPI_Constants">
 <span id="snapi-constants-module"></span><h1>snAPI.Constants module<a class="headerlink" href="#module-snAPI_Constants" title="Link to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_LibType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">LibType</span></span><a class="headerlink" href="#snAPI_Constants_LibType" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>snAPI supports different library types / devices families. Which one is used has to be defined when creating a snAPI instance.
-See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initAPI" title="snAPI.Main.snAPI.initAPI"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initAPI</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LibType_Undefined">
-<span class="sig-name descname"><span class="pre">Undefined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#snAPI_Constants_LibType_Undefined" title="Link to this definition">#</a></dt>
-<dd><p>This is for internal use only.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LibType_MH">
-<span class="sig-name descname"><span class="pre">MH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_LibType_MH" title="Link to this definition">#</a></dt>
-<dd><p>This selects the library for
-<a class="reference external" href="#https://www_picoquant_com/products/category/tcspc-and-time-tagging-modules/multiharp-160">MultiHarp 160</a>
-<a class="reference external" href="#https://www_picoquant_com/products/category/tcspc-and-time-tagging-modules/multiharp-150-high-throughput-multichannel-event-timer-tcspc-unit">MultiHarp 150</a>
-(MH150/160) devices.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LibType_HH">
-<span class="sig-name descname"><span class="pre">HH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_LibType_HH" title="Link to this definition">#</a></dt>
-<dd><p>This selects the library for the
-<a class="reference external" href="#https://www_picoquant_com/products/category/tcspc-and-time-tagging-modules/hydraharp-400-multichannel-picosecond-event-timer-tcspc-module">HydraHarp 400</a>
-(HH400) devices.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LibType_TH260">
-<span class="sig-name descname"><span class="pre">TH260</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_LibType_TH260" title="Link to this definition">#</a></dt>
-<dd><p>This selects the library for the
-<a class="reference external" href="#https://www_picoquant_com/products/category/tcspc-and-time-tagging-modules/timeharp-260-tcspc-and-mcs-board-with-pcie-interface">TimeHarp 260</a>
-(TH260) devices.
-There are two versions of the
-<a class="reference external" href="#https://www_picoquant_com/products/category/tcspc-and-time-tagging-modules/timeharp-260-tcspc-and-mcs-board-with-pcie-interface">TimeHarp 260</a>
-. The PICO version (TH260P) has a resolution of 25 ps
-and a deadtime of 25 ns whereas the NANO version (TH260N) provides a time resolution of 250 ps
-with a deadtime below 2 ns.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LibType_PH330">
-<span class="sig-name descname"><span class="pre">PH330</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_LibType_PH330" title="Link to this definition">#</a></dt>
-<dd><p>This selects the library for the
-<a class="reference external" href="#https://www_picoquant_com/products/category/tcspc-and-time-tagging-modules/picoharp_330_precise_and_versatile_event_timer_and_tcspc_unit">PicoHarp 330</a>
-(PH330) devices.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="snAPI_Constants_DeviceType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">DeviceType</span></span><a class="headerlink" href="#snAPI_Constants_DeviceType" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
@@ -1111,14 +1059,6 @@ based on the error between two clocks.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType"><code class="docutils literal notranslate"><span class="pre">LibType</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_Undefined"><code class="docutils literal notranslate"><span class="pre">LibType.Undefined</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_MH"><code class="docutils literal notranslate"><span class="pre">LibType.MH</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_HH"><code class="docutils literal notranslate"><span class="pre">LibType.HH</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_TH260"><code class="docutils literal notranslate"><span class="pre">LibType.TH260</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LibType_PH330"><code class="docutils literal notranslate"><span class="pre">LibType.PH330</span></code></a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType"><code class="docutils literal notranslate"><span class="pre">DeviceType</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_Undefined"><code class="docutils literal notranslate"><span class="pre">DeviceType.Undefined</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_HW"><code class="docutils literal notranslate"><span class="pre">DeviceType.HW</span></code></a></li>
