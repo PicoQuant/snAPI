@@ -44,7 +44,7 @@ Example
     sn = snAPI()
         
     """
-    dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), '.\snAPI64.dll')))
+    dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), r'.\snAPI64.dll')))
     """
 the snAPI.dll
 
@@ -272,7 +272,7 @@ Example
 
 
     def logException(exception_type, exception, eTraceback):
-        """
+        r"""
 This function is for internal use only and captures unhandled exceptions and add them to the log.
 
 Example
@@ -287,7 +287,7 @@ Example
     230911_12:02:53.5351972 ERR                    ~~~~~~~~^^^^^^^^^^^^^^
 
         """
-        dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), '.\snAPI64.dll')))
+        dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), r'.\snAPI64.dll')))
         dll.logError.argtypes = [ct.c_char_p]
         dll.logError(f"Uncaught python exception: {exception_type.__name__}!".encode('utf-8'))
         dll.logError(f"Text: {exception}".encode('utf-8'))
@@ -328,7 +328,7 @@ Example
 
 
     def initAPI(self, systemIni: typing.Optional[str] = "system.ini"):
-        """
+        r"""
 This function is called by constructor of the snAPI class. 
 It loads a system INI file where it is possible to set flags for logging
 or change the data path.
@@ -517,7 +517,7 @@ Example
     
 
     def getFileDevice(self, path: str):
-        """
+        r"""
 This function allows opening a PTU file with a specific path. The file will be handled
 like a real device. It is possible to read the ptu header with :obj:`getDeviceConfig`.
 The measurement classes can then be used to calculate a histogram, a time trace or perform
@@ -602,7 +602,7 @@ Returns
 
 
     def setPTUFilePath(self, path: str):
-        """
+        r"""
 
 This function sets the path to the ptu file, if the measurement supports writing the `Raw` data stream to file.
 If no special path is set the file will be written to the data path defined in the INI file
@@ -631,7 +631,7 @@ Example
     
 
     def loadIniConfig(self, path: str):
-        """
+        r"""
 The device will be initialized with default parameters from intDevice. If is desired to change a
 parameter this can be done subsequently with corresponding API call.
 Alternatively multiple parameters can be conveniently loaded at once by using :meth:`loadIniConfig`. 
@@ -2272,7 +2272,7 @@ Example
         """
         syncRate =  ct.pointer(ct.c_int(0))
         countRates = ct.ARRAY(ct.c_int, 64)()
-        if ok:=  self.parent.dll.getRowFilteredRates(syncRate, countRates):
+        if ok:= self.parent.dll.getRowFilteredRates(syncRate, countRates):
             a = np.array(countRates)
             a = np.resize(a, self.parent.deviceConfig["NumChans"])
             a = np.insert(a, 0, syncRate.contents.value)
@@ -2826,7 +2826,7 @@ Warning
 
 Parameters
 ----------
-    acqTime: int (default: 1s)
+    acqTime: int (default: 1000 ms)
         | 0: means the measurement will run until :meth:`stopMeasure`
         | acquisition time [ms]
         | will be ignored if device is a FileDevice
@@ -2885,7 +2885,7 @@ Warning
 
 Parameters
 ----------
-    acqTime: int (default: 1s)
+    acqTime: int (default: 1000 ms)
         acquisition time [ms]
         will be ignored if device is a FileDevice
     size: int number of records (default: 1GB = 256 million records * 32Bit)
@@ -3344,7 +3344,7 @@ functions the :meth:`startBlock` and :meth:`getBlock` instead!
     
 Parameters
 ----------
-    acqTime: int (default: 1s)
+    acqTime: int (default: 1000 ms)
         | 0: means the measurement will run until :meth:`stopMeasure`
         | acquisition time [ms]
         | will be ignored if device is a FileDevice
@@ -3408,7 +3408,7 @@ Warning
 
 Parameters
 ----------
-    acqTime: int (default: 1s)
+    acqTime: int (default: 1000 ms)
         | 0: means the measurement will run until :meth:`stopMeasure`
         | acquisition time [ms]
         | will be ignored if device is a FileDevice
@@ -3950,7 +3950,46 @@ Example
             self.parent.logPrint( "setRefChannel is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
         self.parent.dll.setHistoT2RefChan.argtypes = [ct.c_uint8]
         self.parent.dll.setHistoT2RefChan(channel)
+        
+    def setNumBins(self, numBins: typing.Optional[int] = 10000) :
+        """
+This function sets the number of bins used to calculate the time differences with respect
+to the other channels. The histograms are then created from these calculated data.
 
+Note
+----
+    Only meaningful in :obj:`.MeasMode.T2`.
+    
+Parameters
+----------
+    numBins: int (default: 65536 bins)
+        
+Returns
+-------
+    None
+
+Example
+-------
+::
+
+    # creates a histogram in :obj:`.MeasMode.T2` with channel 1 as reference channel and 100000 bins
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T2)
+    sn.histogram.setRefChannel(1)
+    sn.histogram.setNumBins(100000)
+    sn.histogram.measure(1000)
+    data, bins = sn.histogram.getData()
+            ...
+
+        """
+        if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
+            self.parent.logPrint( "setNumBins is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+        self.parent.dll.setHistoT2NumBins.argtypes = [ct.c_uint64]
+        self.parent.dll.setHistoT2NumBins.restype = ct.c_bool
+        if ok:= self.parent.dll.setHistoT2NumBins(numBins):
+                self.parent.getDeviceConfig()
+        return ok
 
     def setBinWidth(self, binWidth: typing.Optional[int] = None):
         """
@@ -4012,7 +4051,7 @@ Warning
     
 Parameters
 ----------
-    acqTime: int (default: 1s)
+    acqTime: int (default: 1000 ms)
         | 0: means the measurement will run until :meth:`stopMeasure`
         | acquisition time [ms]
         | will be ignored if device is a FileDevice
@@ -4043,7 +4082,7 @@ Example
         self.numBins = self.parent.deviceConfig["NumBins"]
         if self.T2binWidth == 0:
             self.T2binWidth = self.parent.deviceConfig["BaseResolution"]
-        numChans = self.parent.getNumAllChannels()+2
+        numChans = self.parent.getNumAllChannels()
         self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         
         self.bins = np.array(range(self.numBins), dtype='i8')
@@ -4279,7 +4318,7 @@ Example
         
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
-        """
+        r"""
 With this function a simple `TimeTrace` measurement into RAM and/or disc is provided. When waitFinished
 is set `True` the call will block until the measurement is completed. However, in most cases you probably
 want to avoid blocking in order to retrieve and display the data in real time. the data can be accessed
@@ -4287,7 +4326,7 @@ with :meth:`getData`.
 
 Parameters
 ----------
-    acqTime: int (default: 1s)
+    acqTime: int (default: 1000 ms)
         | 0: means the measurement will run until :meth:`stopMeasure`
         | acquisition time [ms]
         | will be ignored if device is a FileDevice
@@ -4327,7 +4366,7 @@ Example
     
 
     def getData(self, normalized: typing.Optional[bool] = True):
-        """
+        r"""
 This function returns the data of the time trace measurement. The data is optimized for display in a chart and therefore held in a FIFO buffer.
 
 Parameters
@@ -4485,14 +4524,15 @@ multi-tau algorithm uses pseudo-logarithmically increasing bin widths.
 
     def __init__(self, parent):
         self.parent = parent
-        self.data = ct.ARRAY(ct.c_double, 0)()
-        self.bins = ct.ARRAY(ct.c_double, 0)()
+        self.data = np.array(range(0), dtype='double')
+        self.bins = np.array(range(0), dtype='double')
         self.startChannel = 1
         self.stopChannel = 2
-        self.numTaus = 1
+        self.startTime = 1e6
+        self.stopTime = 1e12
         self.intervalLength = 1000
         self.binWidth = 1000
-        self.numBins = 0
+        self.numBins = 30
         self.isFcs = False
         self.finished = ct.pointer(ct.c_bool(False))
         
@@ -4539,6 +4579,10 @@ Example
     sn.correlation.setG2Parameters(1, 2 , 5000, 5)
     
         """
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return False
+        
         if binWidth is None:
             if self.parent.deviceConfig["MeasMode"] == MeasMode.T2.value:
                 binWidth = self.parent.deviceConfig["BaseResolution"]
@@ -4556,29 +4600,11 @@ Example
         self.parent.dll.setG2Params(startChannel, stopChannel, windowSize, binWidth)
     
 
-    def setFCSParameters(self, startChannel: int, stopChannel: int, windowSize: typing.Optional[float] = 1e12, startTime: typing.Optional[float] = None, intervalLength: typing.Optional[int] = 8):
+    def setFCSParameters(self, startChannel: int, stopChannel: int, startTime: typing.Optional[float] = 1e6, stopTime: typing.Optional[float] = 1e12, numBins: typing.Optional[int] = 30):
         """
 This function sets the the parameters for the FCS correlation. If the `startChannel` is the same as the
 `stopChannel` an autocorrelation is calculated and if the channels are different a
 cross calculation is calculated.
-
-Note
-----
-    The FCS correlation is calculated using the multiple tau algorithm with lag times according to:
-
-.. math::
-    :label: multiTau
-    
-    \\tau_k = \\tau_0 \\cdot 2^{\\left\\lfloor \\frac{k}{p} \\right\\rfloor} \\cdot \\left(1 + (k \\bmod p) \\right)
-
-where:
-
-- :math:`\\tau_0` is the initial lag time which is defined by the :obj:`snAPI.deviceConfig` **BaseResolution**
-- :math:`k` is the index of the lag time in the sequence, with :math:`k = 0, 1, 2, \\dots, N-1`, where :math:`N` is the **numIntervals**
-- :math:`p` is the period of the sequence, which is defined by **intervalLength** between successive powers of :math:`2`. \
-For example, if :math:`\\tau_0 = 1` and :math:`p = 4`, then the sequence would include lag times of 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, and so on.
-- :math:`\\lfloor \\cdot \\rfloor` denotes the floor function, which rounds a number down to the nearest integer
-- :math:`\\bmod` is the modulus operator, which gives the remainder when dividing one number by another.
 
 Parameters
 ----------
@@ -4586,12 +4612,12 @@ Parameters
         start channel
     stopChannel: int (0 is sync channel)
         click channel
-    windowSize: float [ps]
-        size of the correlation window
     startTime: float [ps]
-        minimum tau, the left border of the correlation (Default: None - T2: BaseResolution, T3: Resolution)
-    startTime: int [ps]
-        number of sub elements, that the multiple tau algorithm uses to create  (Default: None - T2: BaseResolution, T3: Resolution)
+        minimum lag time of the correlation window
+    stopTime: float [ps]
+        maximum lag time of the correlation window
+    NumBins: int [ps]
+        number of bins
 
 Returns
 -------
@@ -4601,10 +4627,14 @@ Example
 -------
 ::
 
-    # sets the window size to 1s with a startTime of 50000ps
-    sn.correlation.setG2Parameters(1, 2 , 1e12, 5e4)
+    # sets the correlation window to start by 1ms and stop by 1s with 30 bins
+    sn.correlation.setG2Parameters(1, 2 , 1e12, 1e6, 30)
     
         """
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return False
+        
         if startTime is None:
             if self.parent.deviceConfig["MeasMode"] == MeasMode.T2.value:
                 startTime = self.parent.deviceConfig["BaseResolution"]
@@ -4614,53 +4644,35 @@ Example
         self.isFcs = True 
         self.startChannel = startChannel
         self.stopChannel = stopChannel
-        self.windowSize = windowSize
         self.startTime = startTime
-        self.intervalLength = intervalLength
+        self.stopTime = stopTime
+        self.numBins = numBins
 
         pNumTaus = ct.pointer(ct.c_int(0))
         
-        self.parent.dll.setFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_int, ct.c_double, ct.c_double]
-        self.parent.dll.setFCSParams(startChannel, stopChannel, pNumTaus, intervalLength, windowSize, startTime)
+        self.parent.dll.setFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_double, ct.c_double, ct.c_int]
+        self.parent.dll.setFCSParams(startChannel, stopChannel, pNumTaus, startTime, stopTime, numBins)
         self.numTaus = pNumTaus.contents.value
 
-    def setFFCSParameters(self, startChannel: int, stopChannel: int, windowSize: typing.Optional[float] = 1e12, startTime: typing.Optional[float] = None, intervalLength: typing.Optional[int] = 8):
+    def setFFCSParameters(self, startChannel: int, stopChannel: int, startTime: typing.Optional[float] = 1e6, stopTime: typing.Optional[float] = 1e12, numBins: typing.Optional[int] = 30):
         """
 This function sets the the parameters for the Fast-FCS correlation. This new algorithm is optimized for longer `windowSize`s.
 If you have a short `windowSize` or a low count rate it may better to use the classical :meth:`setFFCSParameters`.
 If the `startChannel` is the same as the `stopChannel` an autocorrelation is calculated and if the channels are different a
 cross calculation is calculated.
 
-Note
-----
-    The FCS correlation is calculated using the multiple tau algorithm with lag times according to:
-
-.. math::
-    :label: multiTau
-    
-    \\tau_k = \\tau_0 \\cdot 2^{\\left\\lfloor \\frac{k}{p} \\right\\rfloor} \\cdot \\left(1 + (k \\bmod p) \\right)
-
-where:
-
-- :math:`\\tau_0` is the initial lag time which is defined by the :obj:`snAPI.deviceConfig` **BaseResolution**
-- :math:`k` is the index of the lag time in the sequence, with :math:`k = 0, 1, 2, \\dots, N-1`, where :math:`N` is the **numIntervals**
-- :math:`p` is the period of the sequence, which is defined by **intervalLength** between successive powers of :math:`2`. \
-For example, if :math:`\\tau_0 = 1` and :math:`p = 4`, then the sequence would include lag times of 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, and so on.
-- :math:`\\lfloor \\cdot \\rfloor` denotes the floor function, which rounds a number down to the nearest integer
-- :math:`\\bmod` is the modulus operator, which gives the remainder when dividing one number by another.
-
 Parameters
 ----------
     startChannel: int (0 is sync channel)
         start channel
     stopChannel: int (0 is sync channel)
         click channel
-    windowSize: float [ps]
-        size of the correlation window
     startTime: float [ps]
-        minimum tau, the left border of the correlation (Default: None - T2: BaseResolution, T3: Resolution)
-    startTime: int [ps]
-        number of sub elements, that the multiple tau algorithm uses to create  (Default: None - T2: BaseResolution, T3: Resolution)
+        minimum lag time of the correlation window
+    stopTime: float [ps]
+        maximum lag time of the correlation window
+    NumBins: int [ps]
+        number of bins
 
 Returns
 -------
@@ -4670,10 +4682,14 @@ Example
 -------
 ::
 
-    # sets the window size to 1s with a startTime of 50000ps
-    sn.correlation.setG2Parameters(1, 2 , 1e12, 5e4)
+    # sets the correlation window to start by 1ms and stop by 1s with 30 bins
+    sn.correlation.setFFCSParameters(1, 2 , 1e12, 1e6, 30)
     
         """
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return False
+        
         if startTime is None:
             if self.parent.deviceConfig["MeasMode"] == MeasMode.T2.value:
                 startTime = self.parent.deviceConfig["BaseResolution"]
@@ -4683,18 +4699,18 @@ Example
         self.isFcs = True 
         self.startChannel = startChannel
         self.stopChannel = stopChannel
-        self.windowSize = windowSize
         self.startTime = startTime
-        self.intervalLength = intervalLength
+        self.stopTime = stopTime
+        self.numBins = numBins
 
         pNumTaus = ct.pointer(ct.c_int(0))
         
-        self.parent.dll.setFFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_int, ct.c_double, ct.c_double]
-        self.parent.dll.setFFCSParams(startChannel, stopChannel, pNumTaus, intervalLength, windowSize, startTime)
+        self.parent.dll.setFFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_double, ct.c_double, ct.c_int]
+        self.parent.dll.setFFCSParams(startChannel, stopChannel, pNumTaus, startTime, stopTime, numBins)
         self.numTaus = pNumTaus.contents.value
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
-        """
+        r"""
 With this function a simple `Correlation` measurement is initiated. The results are stored into
 RAM and/or disc. If `waitFinished` is set `True` the call will be blocked until the measurement
 is completed. If `waitFinished` is set `False` (default) you can get updates on the fly, and you
@@ -4703,7 +4719,7 @@ The data can be accessed with :meth:`getData`.
 
 Parameters
 ----------
-    acqTime: int (default: 1s)
+    acqTime: int (default: 1000 ms)
         | 0: means the measurement will run until :meth:`stopMeasure`
         | acquisition time [ms]
         | will be ignored if device is a FileDevice
@@ -4737,25 +4753,25 @@ Example
         break
         
         """
-        
-        if self.isFcs:
-            self.numBins = self.numTaus
-            self.data = ct.ARRAY(ct.c_double, 2 * self.numBins)(0)
-        else:
-            self.numBins = self.intervalLength
-            self.data = ct.ARRAY(ct.c_double, self.numBins)(0)
-            
-        self.bins = ct.ARRAY(ct.c_double, self.numBins)(0) 
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         
+        if self.isFcs:
+            self.numBins = self.numTaus + 1
+            self.data = ct.ARRAY(ct.c_double, 3 * (self.numBins))(0)
+            
+        else:
+            self.numBins = self.intervalLength
+            self.data = ct.ARRAY(ct.c_double, self.numBins)(0)
+
+        self.bins = ct.ARRAY(ct.c_double, self.numBins)(0) 
         self.parent.dll.getCorrelation.restype = ct.c_bool
         return self.parent.dll.getCorrelation(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.bins), self.finished)
 
 
     def getG2Data(self):
-        """
+        r"""
 This function returns the data of the g(2) correlation measurement.
 
 Parameters
@@ -4799,11 +4815,15 @@ Example
     plt.show(block=True)
     
         """
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            return [],[]
+        
         return np.lib.stride_tricks.as_strided(self.data), np.lib.stride_tricks.as_strided(self.bins)
 
 
     def getFCSData(self):
-        """
+        r"""
 This function returns the data of the FCS correlation measurement.
 
 Parameters
@@ -4814,9 +4834,9 @@ Returns
 -------
     tuple [2DArray, 1DArray]
         data: 2DArray[int]
-            data array of the FCS measurement. (A->B | B->A)
+            data array of the FCS measurement. (A->A | A->B | B->B)
         bins: 1DArray[int]
-            data array of the start times of the bins :eq:`multiTau`
+            data array of the times of the bins
 
 Example
 -------
@@ -4828,7 +4848,7 @@ Example
     sn.getDeviceIDs()
     sn.getDevice()
     sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
-    sn.correlation.setFCSparameters(1, 1, 30, 16)
+    sn.correlation.setFCSparameters(1, 2, 1e5, 1e12, 100)
     sn.correlation.measure()
 
     while True:
@@ -4836,8 +4856,9 @@ Example
         data, bins = sn.correlation.getFCSdata()
         if len(data) > 0:
             plt.clf()
-            plt.plot(bins, data[0], linewidth=2.0, label='AB')
-            plt.plot(bins, data[1], linewidth=2.0, label='BA')
+            plt.plot(bins, data[0], linewidth=2.0, label='AA')
+            plt.plot(bins, data[1], linewidth=2.0, label='AB')
+            plt.plot(bins, data[2], linewidth=2.0, label='BB')
             plt.xlabel('Time [s]')
             plt.xscale('log')
             plt.ylabel('FCS')
@@ -4851,8 +4872,8 @@ Example
     plt.show(block=True)    
     
         """
-        return np.lib.stride_tricks.as_strided(self.data, shape=(2, self.numBins),
-            strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))[:, 4:], np.lib.stride_tricks.as_strided(self.bins)[4:]
+        return np.lib.stride_tricks.as_strided(self.data, shape=(3, self.numBins),
+            strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))[:, :-1], np.lib.stride_tricks.as_strided(self.bins) [:-1]
 
 
     def stopMeasure(self):
@@ -5070,7 +5091,7 @@ Warning
         self.getConfig()
 
     def coincidence(self, chans: typing.List[int], windowTime: typing.Optional[float] = 1000, mode: typing.Optional[CoincidenceMode] = CoincidenceMode.CountAll, time: typing.Optional[CoincidenceTime] = CoincidenceTime.Last, keepChannels: typing.Optional[bool] = True):
-        """
+        r"""
 This creates a coincidence manipulator. You have to define which channels should be part of the coincidence and its window size.
 
 Note

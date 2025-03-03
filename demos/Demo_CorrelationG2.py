@@ -9,7 +9,8 @@ if(__name__ == "__main__"):
 
     sn = snAPI()
     sn.getDeviceIDs()
-    sn.getDevice()
+    #sn.getDevice()
+    sn.getFileDevice(r"D:\Data\PicoQuant\CW_Shelved.ptu") # T2 File
     sn.initDevice(MeasMode.T2)
     
     # set the configuration for your device type
@@ -19,7 +20,7 @@ if(__name__ == "__main__"):
     #sn.device.setInputChannelOffset(1, 1588)
     
     # 2. set windowSize and startTime
-    sn.correlation.setG2Parameters(1, 2, 50000, 5)
+    sn.correlation.setG2Parameters(1, 2, 50000, 50)
     sn.correlation.measure(1000,savePTU=False)
 
     while True:

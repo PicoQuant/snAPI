@@ -8,8 +8,8 @@ if(__name__ == "__main__"):
     sn = snAPI()
     sn.getDevice()
     
-    #sn.getFileDevice(r"E:\Data\PicoQuant\default.ptu")          # T2 File
-    #sn.getFileDevice(r"E:\Data\PicoQuant\G2_T3_sameTTs.ptu")   # T3 File
+    #sn.getFileDevice(r"D:\Data\PicoQuant\default.ptu")          # T2 File
+    sn.getFileDevice(r"D:\Data\PicoQuant\G2_T3_sameTTs.ptu")   # T3 File
     sn.initDevice(MeasMode.T3)
     #sn.setLogLevel(LogLevel.Config, True)
     sn.loadIniConfig("config\MH.ini")

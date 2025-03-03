@@ -15,13 +15,14 @@ if(__name__ == "__main__"):
     # temporarily enable logging of configuration
     sn.setLogLevel(LogLevel.Config, True)
     # set the configuration for your device type
-    sn.loadIniConfig("config\TH.ini")
+    sn.loadIniConfig("config\MH.ini")
     sn.setLogLevel(LogLevel.Config, False)
     
     # change histogram parameter in T2 mode
     #sn.histogram.setRefChannel(0)
-    #sn.histogram.setBinWidth(1)
-    sn.histogram.measure(acqTime=0, waitFinished=False, savePTU=True)
+    #sn.histogram.setBinWidth(5)
+    #sn.histogram.setNumBins(65536)
+    sn.histogram.measure(acqTime=1000, waitFinished=False, savePTU=True)
     
     while True:
         finished = sn.histogram.isFinished()
@@ -43,7 +44,6 @@ if(__name__ == "__main__"):
         # clear measure data
         sn.histogram.clearMeasure()
         if finished:
-            sn.setLogLevel(LogLevel.Manipulators, True)
             break
     
     plt.show(block=True)

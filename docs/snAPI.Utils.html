@@ -16,28 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=8a448e45"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'snAPI.Utils';</script>
@@ -48,6 +51,7 @@
     <link rel="prev" title="snAPI.Main module" href="snAPI.Main.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -63,19 +67,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -83,7 +76,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -91,8 +83,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,7 @@
     
     
     <img src="_static/logo-light.png" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="_static/logo-dark.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
     <p class="title logo__title">Documentation</p>
@@ -179,8 +171,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="controlConnector.html">
-    Control Connector
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
   </a>
 </li>
 
@@ -202,29 +194,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -233,15 +217,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -260,7 +240,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -311,8 +292,8 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="controlConnector.html">
-    Control Connector
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
   </a>
 </li>
 
@@ -335,15 +316,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -355,8 +332,8 @@ document.write(`
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-
-
+<li class="toctree-l1"><a class="reference internal" href="snAPI.Constants.html">snAPI.Constants module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snAPI.Main.html">snAPI.Main module</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">snAPI.Utils module</a></li>
 </ul>
 </div>
@@ -392,9 +369,14 @@ document.write(`
         </li>
   </ul>
 </nav></div>
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -412,8 +394,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -425,7 +405,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="snAPI.html" class="nav-link">snAPI package</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">snAPI.Utils module</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">snAPI.Utils module</span></li>
   </ul>
 </nav>
 </div>
@@ -442,350 +422,350 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-snAPI_Utils">
-<span id="snapi-utils-module"></span><h1>snAPI.Utils module<a class="headerlink" href="#module-snAPI_Utils" title="Link to this heading">#</a></h1>
+  <section id="module-snAPI.Utils">
+<span id="snapi-utils-module"></span><h1>snAPI.Utils module<a class="headerlink" href="#module-snAPI.Utils" title="Link to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Utils_Color">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Utils.</span></span><span class="sig-name descname"><span class="pre">Color</span></span><a class="headerlink" href="#snAPI_Utils_Color" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Utils.</span></span><span class="sig-name descname"><span class="pre">Color</span></span><a class="headerlink" href="#snAPI.Utils.Color" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_Rst">
-<span class="sig-name descname"><span class="pre">Rst</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_Rst" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.Rst">
+<span class="sig-name descname"><span class="pre">Rst</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.Rst" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_Bla">
-<span class="sig-name descname"><span class="pre">Bla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;30m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_Bla" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.Bla">
+<span class="sig-name descname"><span class="pre">Bla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;30m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.Bla" title="Link to this definition">#</a></dt>
 <dd><p>regular black</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_Red">
-<span class="sig-name descname"><span class="pre">Red</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;31m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_Red" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.Red">
+<span class="sig-name descname"><span class="pre">Red</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;31m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.Red" title="Link to this definition">#</a></dt>
 <dd><p>regular red</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_Gre">
-<span class="sig-name descname"><span class="pre">Gre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;32m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_Gre" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.Gre">
+<span class="sig-name descname"><span class="pre">Gre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;32m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.Gre" title="Link to this definition">#</a></dt>
 <dd><p>regular green</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_Yel">
-<span class="sig-name descname"><span class="pre">Yel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;33m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_Yel" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.Yel">
+<span class="sig-name descname"><span class="pre">Yel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;33m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.Yel" title="Link to this definition">#</a></dt>
 <dd><p>regular yellow</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_Blu">
-<span class="sig-name descname"><span class="pre">Blu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;34m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_Blu" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.Blu">
+<span class="sig-name descname"><span class="pre">Blu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;34m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.Blu" title="Link to this definition">#</a></dt>
 <dd><p>regular blue</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_Pur">
-<span class="sig-name descname"><span class="pre">Pur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;35m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_Pur" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.Pur">
+<span class="sig-name descname"><span class="pre">Pur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;35m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.Pur" title="Link to this definition">#</a></dt>
 <dd><p>regular purple</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_Cya">
-<span class="sig-name descname"><span class="pre">Cya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;36m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_Cya" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.Cya">
+<span class="sig-name descname"><span class="pre">Cya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;36m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.Cya" title="Link to this definition">#</a></dt>
 <dd><p>regular cyan</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_Whi">
-<span class="sig-name descname"><span class="pre">Whi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;37m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_Whi" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.Whi">
+<span class="sig-name descname"><span class="pre">Whi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;37m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.Whi" title="Link to this definition">#</a></dt>
 <dd><p>regular white</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BBla">
-<span class="sig-name descname"><span class="pre">BBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;30m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BBla" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BBla">
+<span class="sig-name descname"><span class="pre">BBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;30m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BBla" title="Link to this definition">#</a></dt>
 <dd><p>bold black</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BRed">
-<span class="sig-name descname"><span class="pre">BRed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;31m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BRed" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BRed">
+<span class="sig-name descname"><span class="pre">BRed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;31m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BRed" title="Link to this definition">#</a></dt>
 <dd><p>bold red</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BGre">
-<span class="sig-name descname"><span class="pre">BGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;32m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BGre" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BGre">
+<span class="sig-name descname"><span class="pre">BGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;32m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BGre" title="Link to this definition">#</a></dt>
 <dd><p>bold green</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BYel">
-<span class="sig-name descname"><span class="pre">BYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;33m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BYel" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BYel">
+<span class="sig-name descname"><span class="pre">BYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;33m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BYel" title="Link to this definition">#</a></dt>
 <dd><p>bold yellow</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BBlu">
-<span class="sig-name descname"><span class="pre">BBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;34m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BBlu" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BBlu">
+<span class="sig-name descname"><span class="pre">BBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;34m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BBlu" title="Link to this definition">#</a></dt>
 <dd><p>bold blue</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BPur">
-<span class="sig-name descname"><span class="pre">BPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;35m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BPur" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BPur">
+<span class="sig-name descname"><span class="pre">BPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;35m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BPur" title="Link to this definition">#</a></dt>
 <dd><p>bold purple</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BCya">
-<span class="sig-name descname"><span class="pre">BCya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;36m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BCya" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BCya">
+<span class="sig-name descname"><span class="pre">BCya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;36m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BCya" title="Link to this definition">#</a></dt>
 <dd><p>bold cyan</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BWhi">
-<span class="sig-name descname"><span class="pre">BWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;37m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BWhi" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BWhi">
+<span class="sig-name descname"><span class="pre">BWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;37m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BWhi" title="Link to this definition">#</a></dt>
 <dd><p>bold white</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_UBla">
-<span class="sig-name descname"><span class="pre">UBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;30m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_UBla" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.UBla">
+<span class="sig-name descname"><span class="pre">UBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;30m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.UBla" title="Link to this definition">#</a></dt>
 <dd><p>underline black</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_URed">
-<span class="sig-name descname"><span class="pre">URed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;31m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_URed" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.URed">
+<span class="sig-name descname"><span class="pre">URed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;31m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.URed" title="Link to this definition">#</a></dt>
 <dd><p>underline red</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_UGre">
-<span class="sig-name descname"><span class="pre">UGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;32m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_UGre" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.UGre">
+<span class="sig-name descname"><span class="pre">UGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;32m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.UGre" title="Link to this definition">#</a></dt>
 <dd><p>underline green</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_UYel">
-<span class="sig-name descname"><span class="pre">UYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;33m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_UYel" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.UYel">
+<span class="sig-name descname"><span class="pre">UYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;33m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.UYel" title="Link to this definition">#</a></dt>
 <dd><p>underline yellow</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_UBlu">
-<span class="sig-name descname"><span class="pre">UBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;34m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_UBlu" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.UBlu">
+<span class="sig-name descname"><span class="pre">UBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;34m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.UBlu" title="Link to this definition">#</a></dt>
 <dd><p>underline blue</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_UPur">
-<span class="sig-name descname"><span class="pre">UPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;35m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_UPur" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.UPur">
+<span class="sig-name descname"><span class="pre">UPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;35m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.UPur" title="Link to this definition">#</a></dt>
 <dd><p>underline purple</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_UCya">
-<span class="sig-name descname"><span class="pre">UCya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;36m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_UCya" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.UCya">
+<span class="sig-name descname"><span class="pre">UCya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;36m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.UCya" title="Link to this definition">#</a></dt>
 <dd><p>underline cyan</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_UWhi">
-<span class="sig-name descname"><span class="pre">UWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;37m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_UWhi" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.UWhi">
+<span class="sig-name descname"><span class="pre">UWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4;37m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.UWhi" title="Link to this definition">#</a></dt>
 <dd><p>underline white</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_IBla">
-<span class="sig-name descname"><span class="pre">IBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;90m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_IBla" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.IBla">
+<span class="sig-name descname"><span class="pre">IBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;90m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.IBla" title="Link to this definition">#</a></dt>
 <dd><p>high intensity black</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_IRed">
-<span class="sig-name descname"><span class="pre">IRed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;91m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_IRed" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.IRed">
+<span class="sig-name descname"><span class="pre">IRed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;91m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.IRed" title="Link to this definition">#</a></dt>
 <dd><p>high intensity red</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_IGre">
-<span class="sig-name descname"><span class="pre">IGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;92m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_IGre" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.IGre">
+<span class="sig-name descname"><span class="pre">IGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;92m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.IGre" title="Link to this definition">#</a></dt>
 <dd><p>high intensity green</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_IYel">
-<span class="sig-name descname"><span class="pre">IYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;93m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_IYel" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.IYel">
+<span class="sig-name descname"><span class="pre">IYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;93m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.IYel" title="Link to this definition">#</a></dt>
 <dd><p>high intensity yellow</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_IBlu">
-<span class="sig-name descname"><span class="pre">IBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;94m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_IBlu" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.IBlu">
+<span class="sig-name descname"><span class="pre">IBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;94m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.IBlu" title="Link to this definition">#</a></dt>
 <dd><p>high intensity blue</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_IPur">
-<span class="sig-name descname"><span class="pre">IPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;95m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_IPur" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.IPur">
+<span class="sig-name descname"><span class="pre">IPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;95m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.IPur" title="Link to this definition">#</a></dt>
 <dd><p>high intensity purple</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_ICya">
-<span class="sig-name descname"><span class="pre">ICya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;96m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_ICya" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.ICya">
+<span class="sig-name descname"><span class="pre">ICya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;96m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.ICya" title="Link to this definition">#</a></dt>
 <dd><p>high intensity cyan</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_IWhi">
-<span class="sig-name descname"><span class="pre">IWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;97m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_IWhi" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.IWhi">
+<span class="sig-name descname"><span class="pre">IWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;97m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.IWhi" title="Link to this definition">#</a></dt>
 <dd><p>high intensity white</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BIBla">
-<span class="sig-name descname"><span class="pre">BIBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;90m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BIBla" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BIBla">
+<span class="sig-name descname"><span class="pre">BIBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;90m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BIBla" title="Link to this definition">#</a></dt>
 <dd><p>bold high intensity black</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BIRed">
-<span class="sig-name descname"><span class="pre">BIRed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;91m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BIRed" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BIRed">
+<span class="sig-name descname"><span class="pre">BIRed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;91m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BIRed" title="Link to this definition">#</a></dt>
 <dd><p>bold high intensity red</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BIGre">
-<span class="sig-name descname"><span class="pre">BIGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;92m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BIGre" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BIGre">
+<span class="sig-name descname"><span class="pre">BIGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;92m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BIGre" title="Link to this definition">#</a></dt>
 <dd><p>bold high intensity green</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BIYel">
-<span class="sig-name descname"><span class="pre">BIYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;93m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BIYel" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BIYel">
+<span class="sig-name descname"><span class="pre">BIYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;93m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BIYel" title="Link to this definition">#</a></dt>
 <dd><p>bold high intensity yellow</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BIBlu">
-<span class="sig-name descname"><span class="pre">BIBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;94m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BIBlu" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BIBlu">
+<span class="sig-name descname"><span class="pre">BIBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;94m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BIBlu" title="Link to this definition">#</a></dt>
 <dd><p>bold high intensity blue</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BIPur">
-<span class="sig-name descname"><span class="pre">BIPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;95m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BIPur" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BIPur">
+<span class="sig-name descname"><span class="pre">BIPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;95m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BIPur" title="Link to this definition">#</a></dt>
 <dd><p>bold high intensity purple</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BICya">
-<span class="sig-name descname"><span class="pre">BICya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;96m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BICya" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BICya">
+<span class="sig-name descname"><span class="pre">BICya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;96m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BICya" title="Link to this definition">#</a></dt>
 <dd><p>bold high intensity cyan</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_BIWhi">
-<span class="sig-name descname"><span class="pre">BIWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;97m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_BIWhi" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.BIWhi">
+<span class="sig-name descname"><span class="pre">BIWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1;97m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.BIWhi" title="Link to this definition">#</a></dt>
 <dd><p>bold high intensity white</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_Bla">
-<span class="sig-name descname"><span class="pre">On_Bla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[40m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_Bla" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_Bla">
+<span class="sig-name descname"><span class="pre">On_Bla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[40m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_Bla" title="Link to this definition">#</a></dt>
 <dd><p>background black</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_Red">
-<span class="sig-name descname"><span class="pre">On_Red</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[41m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_Red" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_Red">
+<span class="sig-name descname"><span class="pre">On_Red</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[41m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_Red" title="Link to this definition">#</a></dt>
 <dd><p>background red</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_Gre">
-<span class="sig-name descname"><span class="pre">On_Gre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[42m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_Gre" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_Gre">
+<span class="sig-name descname"><span class="pre">On_Gre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[42m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_Gre" title="Link to this definition">#</a></dt>
 <dd><p>background green</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_Yel">
-<span class="sig-name descname"><span class="pre">On_Yel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[43m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_Yel" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_Yel">
+<span class="sig-name descname"><span class="pre">On_Yel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[43m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_Yel" title="Link to this definition">#</a></dt>
 <dd><p>background yellow</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_Blu">
-<span class="sig-name descname"><span class="pre">On_Blu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[44m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_Blu" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_Blu">
+<span class="sig-name descname"><span class="pre">On_Blu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[44m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_Blu" title="Link to this definition">#</a></dt>
 <dd><p>background blue</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_Pur">
-<span class="sig-name descname"><span class="pre">On_Pur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[45m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_Pur" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_Pur">
+<span class="sig-name descname"><span class="pre">On_Pur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[45m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_Pur" title="Link to this definition">#</a></dt>
 <dd><p>background purple</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_Cya">
-<span class="sig-name descname"><span class="pre">On_Cya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[46m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_Cya" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_Cya">
+<span class="sig-name descname"><span class="pre">On_Cya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[46m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_Cya" title="Link to this definition">#</a></dt>
 <dd><p>background cyan</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_Whi">
-<span class="sig-name descname"><span class="pre">On_Whi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[47m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_Whi" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_Whi">
+<span class="sig-name descname"><span class="pre">On_Whi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[47m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_Whi" title="Link to this definition">#</a></dt>
 <dd><p>background white</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_IBla">
-<span class="sig-name descname"><span class="pre">On_IBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;100m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_IBla" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_IBla">
+<span class="sig-name descname"><span class="pre">On_IBla</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;100m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_IBla" title="Link to this definition">#</a></dt>
 <dd><p>high intensity background black</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_IRed">
-<span class="sig-name descname"><span class="pre">On_IRed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;101m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_IRed" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_IRed">
+<span class="sig-name descname"><span class="pre">On_IRed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;101m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_IRed" title="Link to this definition">#</a></dt>
 <dd><p>high intensity background red</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_IGre">
-<span class="sig-name descname"><span class="pre">On_IGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;102m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_IGre" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_IGre">
+<span class="sig-name descname"><span class="pre">On_IGre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;102m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_IGre" title="Link to this definition">#</a></dt>
 <dd><p>high intensity background green</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_IYel">
-<span class="sig-name descname"><span class="pre">On_IYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;103m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_IYel" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_IYel">
+<span class="sig-name descname"><span class="pre">On_IYel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;103m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_IYel" title="Link to this definition">#</a></dt>
 <dd><p>high intensity background yellow</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_IBlu">
-<span class="sig-name descname"><span class="pre">On_IBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;104m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_IBlu" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_IBlu">
+<span class="sig-name descname"><span class="pre">On_IBlu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;104m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_IBlu" title="Link to this definition">#</a></dt>
 <dd><p>high intensity background blue</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_IPur">
-<span class="sig-name descname"><span class="pre">On_IPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;105m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_IPur" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_IPur">
+<span class="sig-name descname"><span class="pre">On_IPur</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;105m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_IPur" title="Link to this definition">#</a></dt>
 <dd><p>high intensity background purple</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_ICya">
-<span class="sig-name descname"><span class="pre">On_ICya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;106m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_ICya" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_ICya">
+<span class="sig-name descname"><span class="pre">On_ICya</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;106m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_ICya" title="Link to this definition">#</a></dt>
 <dd><p>high intensity background cyan</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Utils_Color_On_IWhi">
-<span class="sig-name descname"><span class="pre">On_IWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;107m'</span></em><a class="headerlink" href="#snAPI_Utils_Color_On_IWhi" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Utils.Color.On_IWhi">
+<span class="sig-name descname"><span class="pre">On_IWhi</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0;107m'</span></em><a class="headerlink" href="#snAPI.Utils.Color.On_IWhi" title="Link to this definition">#</a></dt>
 <dd><p>high intensity background white</p>
 </dd></dl>
 
@@ -828,7 +808,8 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -839,64 +820,64 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color"><code class="docutils literal notranslate"><span class="pre">Color</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_Rst"><code class="docutils literal notranslate"><span class="pre">Color.Rst</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_Bla"><code class="docutils literal notranslate"><span class="pre">Color.Bla</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_Red"><code class="docutils literal notranslate"><span class="pre">Color.Red</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_Gre"><code class="docutils literal notranslate"><span class="pre">Color.Gre</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_Yel"><code class="docutils literal notranslate"><span class="pre">Color.Yel</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_Blu"><code class="docutils literal notranslate"><span class="pre">Color.Blu</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_Pur"><code class="docutils literal notranslate"><span class="pre">Color.Pur</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_Cya"><code class="docutils literal notranslate"><span class="pre">Color.Cya</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_Whi"><code class="docutils literal notranslate"><span class="pre">Color.Whi</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BBla"><code class="docutils literal notranslate"><span class="pre">Color.BBla</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BRed"><code class="docutils literal notranslate"><span class="pre">Color.BRed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BGre"><code class="docutils literal notranslate"><span class="pre">Color.BGre</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BYel"><code class="docutils literal notranslate"><span class="pre">Color.BYel</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BBlu"><code class="docutils literal notranslate"><span class="pre">Color.BBlu</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BPur"><code class="docutils literal notranslate"><span class="pre">Color.BPur</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BCya"><code class="docutils literal notranslate"><span class="pre">Color.BCya</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BWhi"><code class="docutils literal notranslate"><span class="pre">Color.BWhi</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_UBla"><code class="docutils literal notranslate"><span class="pre">Color.UBla</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_URed"><code class="docutils literal notranslate"><span class="pre">Color.URed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_UGre"><code class="docutils literal notranslate"><span class="pre">Color.UGre</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_UYel"><code class="docutils literal notranslate"><span class="pre">Color.UYel</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_UBlu"><code class="docutils literal notranslate"><span class="pre">Color.UBlu</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_UPur"><code class="docutils literal notranslate"><span class="pre">Color.UPur</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_UCya"><code class="docutils literal notranslate"><span class="pre">Color.UCya</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_UWhi"><code class="docutils literal notranslate"><span class="pre">Color.UWhi</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_IBla"><code class="docutils literal notranslate"><span class="pre">Color.IBla</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_IRed"><code class="docutils literal notranslate"><span class="pre">Color.IRed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_IGre"><code class="docutils literal notranslate"><span class="pre">Color.IGre</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_IYel"><code class="docutils literal notranslate"><span class="pre">Color.IYel</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_IBlu"><code class="docutils literal notranslate"><span class="pre">Color.IBlu</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_IPur"><code class="docutils literal notranslate"><span class="pre">Color.IPur</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_ICya"><code class="docutils literal notranslate"><span class="pre">Color.ICya</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_IWhi"><code class="docutils literal notranslate"><span class="pre">Color.IWhi</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BIBla"><code class="docutils literal notranslate"><span class="pre">Color.BIBla</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BIRed"><code class="docutils literal notranslate"><span class="pre">Color.BIRed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BIGre"><code class="docutils literal notranslate"><span class="pre">Color.BIGre</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BIYel"><code class="docutils literal notranslate"><span class="pre">Color.BIYel</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BIBlu"><code class="docutils literal notranslate"><span class="pre">Color.BIBlu</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BIPur"><code class="docutils literal notranslate"><span class="pre">Color.BIPur</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BICya"><code class="docutils literal notranslate"><span class="pre">Color.BICya</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_BIWhi"><code class="docutils literal notranslate"><span class="pre">Color.BIWhi</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_Bla"><code class="docutils literal notranslate"><span class="pre">Color.On_Bla</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_Red"><code class="docutils literal notranslate"><span class="pre">Color.On_Red</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_Gre"><code class="docutils literal notranslate"><span class="pre">Color.On_Gre</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_Yel"><code class="docutils literal notranslate"><span class="pre">Color.On_Yel</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_Blu"><code class="docutils literal notranslate"><span class="pre">Color.On_Blu</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_Pur"><code class="docutils literal notranslate"><span class="pre">Color.On_Pur</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_Cya"><code class="docutils literal notranslate"><span class="pre">Color.On_Cya</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_Whi"><code class="docutils literal notranslate"><span class="pre">Color.On_Whi</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_IBla"><code class="docutils literal notranslate"><span class="pre">Color.On_IBla</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_IRed"><code class="docutils literal notranslate"><span class="pre">Color.On_IRed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_IGre"><code class="docutils literal notranslate"><span class="pre">Color.On_IGre</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_IYel"><code class="docutils literal notranslate"><span class="pre">Color.On_IYel</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_IBlu"><code class="docutils literal notranslate"><span class="pre">Color.On_IBlu</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_IPur"><code class="docutils literal notranslate"><span class="pre">Color.On_IPur</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_ICya"><code class="docutils literal notranslate"><span class="pre">Color.On_ICya</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Utils_Color_On_IWhi"><code class="docutils literal notranslate"><span class="pre">Color.On_IWhi</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color"><code class="docutils literal notranslate"><span class="pre">Color</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.Rst"><code class="docutils literal notranslate"><span class="pre">Color.Rst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.Bla"><code class="docutils literal notranslate"><span class="pre">Color.Bla</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.Red"><code class="docutils literal notranslate"><span class="pre">Color.Red</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.Gre"><code class="docutils literal notranslate"><span class="pre">Color.Gre</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.Yel"><code class="docutils literal notranslate"><span class="pre">Color.Yel</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.Blu"><code class="docutils literal notranslate"><span class="pre">Color.Blu</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.Pur"><code class="docutils literal notranslate"><span class="pre">Color.Pur</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.Cya"><code class="docutils literal notranslate"><span class="pre">Color.Cya</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.Whi"><code class="docutils literal notranslate"><span class="pre">Color.Whi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BBla"><code class="docutils literal notranslate"><span class="pre">Color.BBla</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BRed"><code class="docutils literal notranslate"><span class="pre">Color.BRed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BGre"><code class="docutils literal notranslate"><span class="pre">Color.BGre</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BYel"><code class="docutils literal notranslate"><span class="pre">Color.BYel</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BBlu"><code class="docutils literal notranslate"><span class="pre">Color.BBlu</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BPur"><code class="docutils literal notranslate"><span class="pre">Color.BPur</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BCya"><code class="docutils literal notranslate"><span class="pre">Color.BCya</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BWhi"><code class="docutils literal notranslate"><span class="pre">Color.BWhi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.UBla"><code class="docutils literal notranslate"><span class="pre">Color.UBla</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.URed"><code class="docutils literal notranslate"><span class="pre">Color.URed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.UGre"><code class="docutils literal notranslate"><span class="pre">Color.UGre</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.UYel"><code class="docutils literal notranslate"><span class="pre">Color.UYel</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.UBlu"><code class="docutils literal notranslate"><span class="pre">Color.UBlu</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.UPur"><code class="docutils literal notranslate"><span class="pre">Color.UPur</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.UCya"><code class="docutils literal notranslate"><span class="pre">Color.UCya</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.UWhi"><code class="docutils literal notranslate"><span class="pre">Color.UWhi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.IBla"><code class="docutils literal notranslate"><span class="pre">Color.IBla</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.IRed"><code class="docutils literal notranslate"><span class="pre">Color.IRed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.IGre"><code class="docutils literal notranslate"><span class="pre">Color.IGre</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.IYel"><code class="docutils literal notranslate"><span class="pre">Color.IYel</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.IBlu"><code class="docutils literal notranslate"><span class="pre">Color.IBlu</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.IPur"><code class="docutils literal notranslate"><span class="pre">Color.IPur</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.ICya"><code class="docutils literal notranslate"><span class="pre">Color.ICya</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.IWhi"><code class="docutils literal notranslate"><span class="pre">Color.IWhi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BIBla"><code class="docutils literal notranslate"><span class="pre">Color.BIBla</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BIRed"><code class="docutils literal notranslate"><span class="pre">Color.BIRed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BIGre"><code class="docutils literal notranslate"><span class="pre">Color.BIGre</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BIYel"><code class="docutils literal notranslate"><span class="pre">Color.BIYel</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BIBlu"><code class="docutils literal notranslate"><span class="pre">Color.BIBlu</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BIPur"><code class="docutils literal notranslate"><span class="pre">Color.BIPur</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BICya"><code class="docutils literal notranslate"><span class="pre">Color.BICya</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.BIWhi"><code class="docutils literal notranslate"><span class="pre">Color.BIWhi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_Bla"><code class="docutils literal notranslate"><span class="pre">Color.On_Bla</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_Red"><code class="docutils literal notranslate"><span class="pre">Color.On_Red</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_Gre"><code class="docutils literal notranslate"><span class="pre">Color.On_Gre</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_Yel"><code class="docutils literal notranslate"><span class="pre">Color.On_Yel</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_Blu"><code class="docutils literal notranslate"><span class="pre">Color.On_Blu</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_Pur"><code class="docutils literal notranslate"><span class="pre">Color.On_Pur</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_Cya"><code class="docutils literal notranslate"><span class="pre">Color.On_Cya</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_Whi"><code class="docutils literal notranslate"><span class="pre">Color.On_Whi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_IBla"><code class="docutils literal notranslate"><span class="pre">Color.On_IBla</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_IRed"><code class="docutils literal notranslate"><span class="pre">Color.On_IRed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_IGre"><code class="docutils literal notranslate"><span class="pre">Color.On_IGre</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_IYel"><code class="docutils literal notranslate"><span class="pre">Color.On_IYel</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_IBlu"><code class="docutils literal notranslate"><span class="pre">Color.On_IBlu</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_IPur"><code class="docutils literal notranslate"><span class="pre">Color.On_IPur</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_ICya"><code class="docutils literal notranslate"><span class="pre">Color.On_ICya</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Utils.Color.On_IWhi"><code class="docutils literal notranslate"><span class="pre">Color.On_IWhi</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -915,8 +896,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -927,7 +908,7 @@ document.write(`
 
   <p class="copyright">
     
-      © Copyright 2024, PicoQuant.
+      © Copyright 2025, PicoQuant.
       <br/>
     
   </p>
@@ -936,7 +917,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -949,7 +930,8 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

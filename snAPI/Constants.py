@@ -46,7 +46,7 @@ can be streamed to a file or PC memory and be processed later. The snAPI library
 **Histogram Mode**
 
 For the measurement class :class:`.Histogram` it is useful to initialize the device in Histogram mode.
-For devices that support hardware histogramming this will enable higher count rates than software processing
+For devices that support hardware histogramming. This will enable higher count rates than software processing
 of the raw stream of time tags.
 
 Note

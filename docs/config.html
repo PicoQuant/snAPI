@@ -16,28 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=8a448e45"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'config';</script>
@@ -48,6 +51,7 @@
     <link rel="prev" title="snAPI.Utils module" href="snAPI.Utils.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -63,19 +67,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -83,7 +76,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -91,8 +83,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,7 @@
     
     
     <img src="_static/logo-light.png" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="_static/logo-dark.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
     <p class="title logo__title">Documentation</p>
@@ -179,8 +171,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="controlConnector.html">
-    Control Connector
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
   </a>
 </li>
 
@@ -202,29 +194,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -233,15 +217,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -260,7 +240,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -311,8 +292,8 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="controlConnector.html">
-    Control Connector
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
   </a>
 </li>
 
@@ -335,15 +316,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -387,9 +364,14 @@ document.write(`
         </li>
   </ul>
 </nav></div>
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -407,8 +389,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -417,7 +397,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Configuration</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Configuration</span></li>
   </ul>
 </nav>
 </div>
@@ -436,9 +416,9 @@ document.write(`
                   
   <section id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h1>
-<p>The <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a> stores the state of the device in the API and can be updated with <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getDeviceConfig" title="snAPI.Main.snAPI.getDeviceConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDeviceConfig()</span></code></a>.
-From <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a> the parameters can only be read. To set them you need to call <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_loadIniConfig" title="snAPI.Main.snAPI.loadIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">loadIniConfig()</span></code></a> or <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setIniConfig()</span></code></a>.
-An other and more pythonesque way to change them is to use the commands defined in the <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device" title="snAPI.Main.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a> directly.
+<p>The <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a> stores the state of the device in the API and can be updated with <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.getDeviceConfig" title="snAPI.Main.snAPI.getDeviceConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDeviceConfig()</span></code></a>.
+From <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a> the parameters can only be read. To set them you need to call <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.loadIniConfig" title="snAPI.Main.snAPI.loadIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">loadIniConfig()</span></code></a> or <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setIniConfig()</span></code></a>.
+An other and more pythonesque way to change them is to use the commands defined in the <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device" title="snAPI.Main.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a> directly.
 This document will give you an overview about the configuration parameters and there corresponding functions or constants,
 where their values and/or their maximum and minimum are defined.</p>
 <div class="admonition note">
@@ -451,7 +431,7 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 <section id="read-only-parameters">
 <h3>Read only parameters<a class="headerlink" href="#read-only-parameters" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table" id="id1">
-<caption><span class="caption-text">Read only from <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a> (can’t be set via <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_loadIniConfig" title="snAPI.Main.snAPI.loadIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">loadIniConfig()</span></code></a> or <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setIniConfig()</span></code></a>)</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<caption><span class="caption-text">Read only from <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a> (can’t be set via <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.loadIniConfig" title="snAPI.Main.snAPI.loadIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">loadIniConfig()</span></code></a> or <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setIniConfig()</span></code></a>)</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 25.0%" />
@@ -465,7 +445,7 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 </thead>
 <tbody>
 <tr class="row-even"><td><p>DeviceType</p></td>
-<td><p><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_DeviceType" title="snAPI.Constants.DeviceType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceType</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.DeviceType" title="snAPI.Constants.DeviceType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceType</span></code></a></p></td>
 <td><p>real Hardware or File Device</p></td>
 </tr>
 <tr class="row-odd"><td><p>FileDevicePath</p></td>
@@ -478,7 +458,7 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 </tr>
 <tr class="row-odd"><td><p>Index</p></td>
 <td><p>int</p></td>
-<td><p>index number of the device in the list of <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceIDs" title="snAPI.Main.snAPI.deviceIDs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceIDs</span></code></a> (only valid after <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_getDeviceIDs" title="snAPI.Main.snAPI.getDeviceIDs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDeviceIDs()</span></code></a>)</p></td>
+<td><p>index number of the device in the list of <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.deviceIDs" title="snAPI.Main.snAPI.deviceIDs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceIDs</span></code></a> (only valid after <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.getDeviceIDs" title="snAPI.Main.snAPI.getDeviceIDs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDeviceIDs()</span></code></a>)</p></td>
 </tr>
 <tr class="row-even"><td><p>Model</p></td>
 <td><p>string</p></td>
@@ -513,11 +493,11 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 <td><p>number of installed modules</p></td>
 </tr>
 <tr class="row-even"><td><p>MeasMode</p></td>
-<td><p><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_MeasMode" title="snAPI.Constants.MeasMode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode" title="snAPI.Constants.MeasMode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode</span></code></a></p></td>
 <td><p>Histogram, T2, T3</p></td>
 </tr>
 <tr class="row-odd"><td><p>RefSource</p></td>
-<td><p><a class="reference internal" href="snAPI.Constants.html#snAPI_Constants_RefSource" title="snAPI.Constants.RefSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RefSource</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.RefSource" title="snAPI.Constants.RefSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RefSource</span></code></a></p></td>
 <td><p>source of the reference clock</p></td>
 </tr>
 </tbody>
@@ -541,63 +521,63 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 </thead>
 <tbody>
 <tr class="row-even"><td><p>SyncDivider</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncDiv" title="snAPI.Main.Device.setSyncDiv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncDiv()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncDiv" title="snAPI.Main.Device.setSyncDiv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncDiv()</span></code></a></p></td>
 <td><p>sync rate divider</p></td>
 </tr>
 <tr class="row-odd"><td><p>SyncTrigMode</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncTrigMode" title="snAPI.Main.Device.setSyncTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncTrigMode()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncTrigMode" title="snAPI.Main.Device.setSyncTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncTrigMode()</span></code></a></p></td>
 <td><p><cite>Edge</cite> or <cite>CFD</cite> trigger</p></td>
 </tr>
 <tr class="row-even"><td><p>SyncEdgeTrig, SyncTrigLvl , SyncTrigEdge</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncEdgeTrig" title="snAPI.Main.Device.setSyncEdgeTrig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncEdgeTrig()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncEdgeTrig" title="snAPI.Main.Device.setSyncEdgeTrig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncEdgeTrig()</span></code></a></p></td>
 <td><p>sets both parameters at once: trigger level and edge</p></td>
 </tr>
 <tr class="row-odd"><td><p>SyncCFD, SyncDiscrLvl , SyncZeroXLvL</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncCFD" title="snAPI.Main.Device.setSyncCFD"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncCFD()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncCFD" title="snAPI.Main.Device.setSyncCFD"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncCFD()</span></code></a></p></td>
 <td><p>sets both parameters at once: discriminator- and zero cross level</p></td>
 </tr>
 <tr class="row-even"><td><p>SyncChannelOffset</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncChannelOffset" title="snAPI.Main.Device.setSyncChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelOffset()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncChannelOffset" title="snAPI.Main.Device.setSyncChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelOffset()</span></code></a></p></td>
 <td><p>sync timing offset in ps</p></td>
 </tr>
 <tr class="row-odd"><td><p>SyncChannelEnable</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncChannelEnable" title="snAPI.Main.Device.setSyncChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelEnable()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncChannelEnable" title="snAPI.Main.Device.setSyncChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncChannelEnable()</span></code></a></p></td>
 <td><p>enable state of the sync channel</p></td>
 </tr>
 <tr class="row-even"><td><p>SyncDeadTime</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncDeadTime" title="snAPI.Main.Device.setSyncDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncDeadTime()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncDeadTime" title="snAPI.Main.Device.setSyncDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setSyncDeadTime()</span></code></a></p></td>
 <td><p>dead-time in ps</p></td>
 </tr>
 <tr class="row-odd"><td><p>HystCode</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputHysteresis" title="snAPI.Main.Device.setInputHysteresis"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputHysteresis()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setInputHysteresis" title="snAPI.Main.Device.setInputHysteresis"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputHysteresis()</span></code></a></p></td>
 <td><p>input hysteresis</p></td>
 </tr>
 <tr class="row-even"><td><p>StopCount</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setStopOverflow" title="snAPI.Main.Device.setStopOverflow"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setStopOverflow()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setStopOverflow" title="snAPI.Main.Device.setStopOverflow"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setStopOverflow()</span></code></a></p></td>
 <td><p>stop count for histogram</p></td>
 </tr>
 <tr class="row-odd"><td><p>Binning</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setBinning" title="snAPI.Main.Device.setBinning"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setBinning()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setBinning" title="snAPI.Main.Device.setBinning"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setBinning()</span></code></a></p></td>
 <td><p>binning factor</p></td>
 </tr>
 <tr class="row-even"><td><p>Offset</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setOffset" title="snAPI.Main.Device.setOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setOffset()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setOffset" title="snAPI.Main.Device.setOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setOffset()</span></code></a></p></td>
 <td><p>histogram time offset in ns</p></td>
 </tr>
 <tr class="row-odd"><td><p>LengthCode, NumBins</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setHistoLength" title="snAPI.Main.Device.setHistoLength"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setHistoLength()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setHistoLength" title="snAPI.Main.Device.setHistoLength"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setHistoLength()</span></code></a></p></td>
 <td><p>number of bins</p></td>
 </tr>
 <tr class="row-even"><td><p>TriggerOutput</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setTriggerOutput" title="snAPI.Main.Device.setTriggerOutput"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setTriggerOutput()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setTriggerOutput" title="snAPI.Main.Device.setTriggerOutput"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setTriggerOutput()</span></code></a></p></td>
 <td><p>programmable trigger output period in ns</p></td>
 </tr>
 <tr class="row-odd"><td><p>MarkerHoldoffTime</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setMarkerHoldoffTime" title="snAPI.Main.Device.setMarkerHoldoffTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setMarkerHoldoffTime()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setMarkerHoldoffTime" title="snAPI.Main.Device.setMarkerHoldoffTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setMarkerHoldoffTime()</span></code></a></p></td>
 <td><p>marker hold of time to remove glitches in ns</p></td>
 </tr>
 <tr class="row-even"><td><p>HoldTime</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setOflCompression" title="snAPI.Main.Device.setOflCompression"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setOflCompression()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setOflCompression" title="snAPI.Main.Device.setOflCompression"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setOflCompression()</span></code></a></p></td>
 <td><p>low data rates</p></td>
 </tr>
 </tbody>
@@ -621,27 +601,27 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 </thead>
 <tbody>
 <tr class="row-even"><td><p>TrigMode</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputTrigMode" title="snAPI.Main.Device.setInputTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputTrigMode()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setInputTrigMode" title="snAPI.Main.Device.setInputTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputTrigMode()</span></code></a></p></td>
 <td><p><cite>Edge</cite> or <cite>CFD</cite> trigger</p></td>
 </tr>
 <tr class="row-odd"><td><p>EdgeTrig, TrigLvl , TrigEdge</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputEdgeTrig" title="snAPI.Main.Device.setInputEdgeTrig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputEdgeTrig()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setInputEdgeTrig" title="snAPI.Main.Device.setInputEdgeTrig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputEdgeTrig()</span></code></a></p></td>
 <td><p>sets both values at once: trigger level and edge</p></td>
 </tr>
 <tr class="row-even"><td><p>CFD, DiscrLvl , ZeroXLvl</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputCFD" title="snAPI.Main.Device.setInputCFD"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputCFD()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setInputCFD" title="snAPI.Main.Device.setInputCFD"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputCFD()</span></code></a></p></td>
 <td><p>sets both values at once: discriminator- and zero cross level</p></td>
 </tr>
 <tr class="row-odd"><td><p>ChanOffs</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputChannelOffset" title="snAPI.Main.Device.setInputChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setInputChannelOffset" title="snAPI.Main.Device.setInputChannelOffset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code></a></p></td>
 <td><p>input channel offset timing offset in ps</p></td>
 </tr>
 <tr class="row-even"><td><p>ChanEna</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputChannelEnable" title="snAPI.Main.Device.setInputChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelEnable()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setInputChannelEnable" title="snAPI.Main.Device.setInputChannelEnable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelEnable()</span></code></a></p></td>
 <td><p>enable state of the input channel</p></td>
 </tr>
 <tr class="row-odd"><td><p>DeadTime</p></td>
-<td><p><a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputDeadTime" title="snAPI.Main.Device.setInputDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputDeadTime()</span></code></a></p></td>
+<td><p><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setInputDeadTime" title="snAPI.Main.Device.setInputDeadTime"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputDeadTime()</span></code></a></p></td>
 <td><p>dead-time in ps</p></td>
 </tr>
 </tbody>
@@ -649,7 +629,7 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 </div>
 </section>
 <section id="example-of-the-deviceconfig">
-<h3>Example of the <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a><a class="headerlink" href="#example-of-the-deviceconfig" title="Link to this heading">#</a></h3>
+<h3>Example of the <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.deviceConfig" title="snAPI.Main.snAPI.deviceConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviceConfig</span></code></a><a class="headerlink" href="#example-of-the-deviceconfig" title="Link to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="s2">&quot;DeviceType&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="s2">&quot;FileDevicePath&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -806,7 +786,8 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -841,8 +822,8 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -853,7 +834,7 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
 
   <p class="copyright">
     
-      © Copyright 2024, PicoQuant.
+      © Copyright 2025, PicoQuant.
       <br/>
     
   </p>
@@ -862,7 +843,7 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -875,7 +856,8 @@ is shown at the firs log entry: ‘loadSettingsIni: e:\path\to\system.ini’.</p
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

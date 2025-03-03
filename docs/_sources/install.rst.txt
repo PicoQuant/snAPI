@@ -10,16 +10,16 @@ Python
 To install the package, follow these steps:
 
 1. Install the Microsoft Visual C++ Redistributable(x64) if missing in the system: https://aka.ms/vs/17/release/vc_redist.x64.exe.
-2. First, download and install the latest version of Python 3.12 from the official Python website: https://www.python.org/downloads/
-3. Once you have installed Python 3.12, open a command prompt or terminal window.
+2. First, download and install the latest version of Python 3.13 from the official Python website: https://www.python.org/downloads/
+3. Once you have installed Python 3.13, open a command prompt or terminal window.
 
 4. Right-click on "Command Prompt" and select "Run as administrator".
 
 ::
 
-    setx PATH "%USERPROFILE%\AppData\Local\Programs\Python\Python312;%USERPROFILE%\AppData\Local\Programs\Python\Python312\Scripts;%PATH%" /M
+    setx PATH "%USERPROFILE%\AppData\Local\Programs\Python\Python313;%USERPROFILE%\AppData\Local\Programs\Python\Python313\Scripts;%PATH%" /M
 
-This will add the Python 3.12 installation directory to the system path variable.
+This will add the Python 3.13 installation directory to the system path variable.
 
 5. Close the Command Prompt and open a new one to ensure that the changes take effect.
 6. Check if Python is installed correctly by typing the following command:
@@ -47,7 +47,7 @@ snAPI
 
 ::
 
-    pip install .\dist\snAPI-<VERSION NUMBER x.y.z>-cp312-cp312-win_amd64.whl
+    pip install .\dist\snAPI-<VERSION NUMBER x.y.z>-cp313-cp313-win_amd64.whl
 
 Dependencies
 ------------
@@ -65,7 +65,7 @@ Dependencies
 Additional Features
 -------------------
 
-1. Colored Log is default on Windows 11 but on Windows 10 you have to enable it manually in terminal by executing the included registry key `EnableTerminalColors.reg` and restart the terminal.
+1. Colored Log is default on Windows 11 but on Windows 10 you have to enable it manually in terminal by executing the included registry key `EnableTerminalColors.reg` and restart the terminal. If it is not working in VSCode, klick on the selector next to the run button and switch to 'Run python file in dedicated Terminal'
 
 .. image:: _static/Log.png
     :class: p-2

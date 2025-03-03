@@ -15,7 +15,7 @@ if(__name__ == "__main__"):
     
     # enable this to get info about loading config
     sn.setLogLevel(logLevel=LogLevel.Config, onOff=True)
-    sn.loadIniConfig("config\PH330_Edge.ini")
+    sn.loadIniConfig("config\MH.ini")
     
     numChans = sn.deviceConfig["NumChans"]
     triggerMode = TrigMode.Edge if sn.deviceConfig["SyncTrigMode"] == "Edge" else TrigMode.CFD
@@ -40,7 +40,7 @@ if(__name__ == "__main__"):
     sn.timeTrace.setHistorySize(10)
     
     # you can set a custom file name or path
-    sn.setPTUFilePath(u"MyFileName")
+    sn.setPTUFilePath("C:\Data\PicoQuant\MyFileName.ptu")
     
     # measure 10s
     sn.timeTrace.measure(10000, waitFinished=False, savePTU=True)

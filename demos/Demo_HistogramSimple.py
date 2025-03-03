@@ -16,8 +16,11 @@ if(__name__ == "__main__"):
     sn.initDevice(MeasMode.T2)
     
     # set the configuration for your device type
-    sn.loadIniConfig("config\HH.ini")
+    sn.loadIniConfig("config\MH.ini")
     
+    sn.histogram.setRefChannel(0)
+    sn.histogram.setBinWidth(5)
+    sn.histogram.setNumBins(100000)
     # start histogram measurement
     sn.histogram.measure(acqTime=1000,savePTU=True)
     

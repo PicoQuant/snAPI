@@ -16,28 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=8a448e45"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'snAPI.Constants';</script>
@@ -48,6 +51,7 @@
     <link rel="prev" title="snAPI package" href="snAPI.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -63,19 +67,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -83,7 +76,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -91,8 +83,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,7 @@
     
     
     <img src="_static/logo-light.png" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="_static/logo-dark.png" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="_static/logo-dark.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
     <p class="title logo__title">Documentation</p>
@@ -179,8 +171,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="controlConnector.html">
-    Control Connector
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
   </a>
 </li>
 
@@ -202,29 +194,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -233,15 +217,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -260,7 +240,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -311,8 +292,8 @@ document.write(`
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="controlConnector.html">
-    Control Connector
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
   </a>
 </li>
 
@@ -335,15 +316,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -356,8 +333,8 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">snAPI.Constants module</a></li>
-
-
+<li class="toctree-l1"><a class="reference internal" href="snAPI.Main.html">snAPI.Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snAPI.Utils.html">snAPI.Utils module</a></li>
 </ul>
 </div>
 </nav></div>
@@ -392,9 +369,14 @@ document.write(`
         </li>
   </ul>
 </nav></div>
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -412,8 +394,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -425,7 +405,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="snAPI.html" class="nav-link">snAPI package</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">snAPI.Consta...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">snAPI.Constants module</span></li>
   </ul>
 </nav>
 </div>
@@ -442,40 +422,40 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-snAPI_Constants">
-<span id="snapi-constants-module"></span><h1>snAPI.Constants module<a class="headerlink" href="#module-snAPI_Constants" title="Link to this heading">#</a></h1>
+  <section id="module-snAPI.Constants">
+<span id="snapi-constants-module"></span><h1>snAPI.Constants module<a class="headerlink" href="#module-snAPI.Constants" title="Link to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_DeviceType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">DeviceType</span></span><a class="headerlink" href="#snAPI_Constants_DeviceType" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.DeviceType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">DeviceType</span></span><a class="headerlink" href="#snAPI.Constants.DeviceType" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>SnAPI doesn’t only support real Harp devices. It is also possible to use ptu-files that act as a hardware-like device.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_DeviceType_Undefined">
-<span class="sig-name descname"><span class="pre">Undefined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#snAPI_Constants_DeviceType_Undefined" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.DeviceType.Undefined">
+<span class="sig-name descname"><span class="pre">Undefined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#snAPI.Constants.DeviceType.Undefined" title="Link to this definition">#</a></dt>
 <dd><p>This is for internal use only.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_DeviceType_HW">
-<span class="sig-name descname"><span class="pre">HW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_DeviceType_HW" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.DeviceType.HW">
+<span class="sig-name descname"><span class="pre">HW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.DeviceType.HW" title="Link to this definition">#</a></dt>
 <dd><p>This is a real device, for instance a MultiHarp.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_DeviceType_File">
-<span class="sig-name descname"><span class="pre">File</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_DeviceType_File" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.DeviceType.File">
+<span class="sig-name descname"><span class="pre">File</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.DeviceType.File" title="Link to this definition">#</a></dt>
 <dd><p>This is a file device. That means a ptu file treated as a device.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">MeasMode</span></span><a class="headerlink" href="#snAPI_Constants_MeasMode" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">MeasMode</span></span><a class="headerlink" href="#snAPI.Constants.MeasMode" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>The PicoQuant TCSPC devices support different measurement modes.
 The constants defined here are specified by the measurement mode with which the device gets initialized
-when using <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
+when using <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
 <p>In histogram mode, the photon arrival time data is instantly processed to calculate the time differences
 between sync events and events on the input channels. These then get accumulated in a set of histograms,
 one for each input channel. This is typically used for classic fluorescence lifetime measurements
@@ -485,11 +465,11 @@ can be processed and analyzed. This allows more flexibility to facilitate a huge
 Data processing can be carried out directly “on the fly” while the measurement is running. Alternatively the data
 can be streamed to a file or PC memory and be processed later. The snAPI library supports both approaches.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasMode_Histogram">
-<span class="sig-name descname"><span class="pre">Histogram</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_Histogram" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasMode.Histogram">
+<span class="sig-name descname"><span class="pre">Histogram</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.MeasMode.Histogram" title="Link to this definition">#</a></dt>
 <dd><p><strong>Histogram Mode</strong></p>
-<p>For the measurement class <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Histogram" title="snAPI.Main.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a> it is useful to initialize the device in Histogram mode.
-For devices that support hardware histogramming this will enable higher count rates than software processing
+<p>For the measurement class <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram" title="snAPI.Main.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a> it is useful to initialize the device in Histogram mode.
+For devices that support hardware histogramming. This will enable higher count rates than software processing
 of the raw stream of time tags.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -499,8 +479,8 @@ does not get transmitted to the API.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasMode_T2">
-<span class="sig-name descname"><span class="pre">T2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_T2" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasMode.T2">
+<span class="sig-name descname"><span class="pre">T2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI.Constants.MeasMode.T2" title="Link to this definition">#</a></dt>
 <dd><p><strong>T2 mode</strong></p>
 <img alt="_images/T2_mode.jpg" class="p-2" src="_images/T2_mode.jpg" />
 <p>The T2 mode is PicoQuants time-tagging mode. In T2 mode, no periodic sync signal is required.
@@ -514,8 +494,8 @@ e.g., antibunching in a HBT set-up. Two pieces of information are collected for 
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasMode_T3">
-<span class="sig-name descname"><span class="pre">T3</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_MeasMode_T3" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasMode.T3">
+<span class="sig-name descname"><span class="pre">T3</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI.Constants.MeasMode.T3" title="Link to this definition">#</a></dt>
 <dd><p><strong>T3 Mode</strong></p>
 <img alt="_images/T3_mode.jpg" class="p-2" src="_images/T3_mode.jpg" />
 <p>The T3 mode is an elegant solution for performing measurements at very high synchronization rates
@@ -532,15 +512,15 @@ of information are recorded for each detected event:</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">MeasControl</span></span><a class="headerlink" href="#snAPI_Constants_MeasControl" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">MeasControl</span></span><a class="headerlink" href="#snAPI.Constants.MeasControl" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>This constant is for software or hardware starting and stopping (triggered) measurements.
 It is also necessary to set this for using White Rabbit.
-See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setMeasControl" title="snAPI.Main.Device.setMeasControl"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setMeasControl</span></code></a>.</p>
+See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setMeasControl" title="snAPI.Main.Device.setMeasControl"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setMeasControl</span></code></a>.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_SingleShotCTC">
-<span class="sig-name descname"><span class="pre">SingleShotCTC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_SingleShotCTC" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.SingleShotCTC">
+<span class="sig-name descname"><span class="pre">SingleShotCTC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.SingleShotCTC" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
 <p>Acquisition starts by software command and runs until CTC expires. The duration is set by the
 aqcTime parameter (&gt;0).
@@ -548,16 +528,16 @@ SwStartSwStop is in use if aqcTime parameter is 0.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_C1Gated">
-<span class="sig-name descname"><span class="pre">C1Gated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_C1Gated" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.C1Gated">
+<span class="sig-name descname"><span class="pre">C1Gated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.C1Gated" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
 <p>Data is collected for the period where C1 is active. This can be the logical high or low period
 dependent on the value supplied to the parameter startEdge.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_C1StartCtcStop">
-<span class="sig-name descname"><span class="pre">C1StartCtcStop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_C1StartCtcStop" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.C1StartCtcStop">
+<span class="sig-name descname"><span class="pre">C1StartCtcStop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.C1StartCtcStop" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
 <p>Data collection is started by a transition on C1 and stopped by expiration of the internal CTC.
 Which transition actually triggers the start is given by the value supplied to the parameter startEdge.
@@ -565,37 +545,37 @@ The duration is set by the aqcTime parameter (&gt;0).</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_C1StartC2Stop">
-<span class="sig-name descname"><span class="pre">C1StartC2Stop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_C1StartC2Stop" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.C1StartC2Stop">
+<span class="sig-name descname"><span class="pre">C1StartC2Stop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.C1StartC2Stop" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
 <p>Data collection is started by a transition on C1 and stopped by by a transition on C2. Which transitions
 actually trigger start and stop is given by the values supplied to the parameters startEdge and stopEdge.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_WrMaster2Slave">
-<span class="sig-name descname"><span class="pre">WrMaster2Slave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_WrMaster2Slave" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.WrMaster2Slave">
+<span class="sig-name descname"><span class="pre">WrMaster2Slave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.WrMaster2Slave" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p>White Rabbit master to slave</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_WrSlave2Master">
-<span class="sig-name descname"><span class="pre">WrSlave2Master</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_WrSlave2Master" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.WrSlave2Master">
+<span class="sig-name descname"><span class="pre">WrSlave2Master</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.WrSlave2Master" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p>White Rabbit slave to master</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_SwStartSwStop">
-<span class="sig-name descname"><span class="pre">SwStartSwStop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_SwStartSwStop" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.SwStartSwStop">
+<span class="sig-name descname"><span class="pre">SwStartSwStop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.SwStartSwStop" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160 | PH330]</p>
 <p>Software start and software stop is automatically used if aqcTime ist set to 0 in a measurement.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_ContC1Gated">
-<span class="sig-name descname"><span class="pre">ContC1Gated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_ContC1Gated" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.ContC1Gated">
+<span class="sig-name descname"><span class="pre">ContC1Gated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.ContC1Gated" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [HH400]</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -604,8 +584,8 @@ actually trigger start and stop is given by the values supplied to the parameter
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_Cont_C1_Start_CTC_Stop">
-<span class="sig-name descname"><span class="pre">Cont_C1_Start_CTC_Stop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_Cont_C1_Start_CTC_Stop" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.Cont_C1_Start_CTC_Stop">
+<span class="sig-name descname"><span class="pre">Cont_C1_Start_CTC_Stop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.Cont_C1_Start_CTC_Stop" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [HH400]</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -614,8 +594,8 @@ actually trigger start and stop is given by the values supplied to the parameter
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_MeasControl_Cont_CTC_Restart">
-<span class="sig-name descname"><span class="pre">Cont_CTC_Restart</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI_Constants_MeasControl_Cont_CTC_Restart" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.MeasControl.Cont_CTC_Restart">
+<span class="sig-name descname"><span class="pre">Cont_CTC_Restart</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.Cont_CTC_Restart" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [HH400]</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -626,16 +606,16 @@ actually trigger start and stop is given by the values supplied to the parameter
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">RefSource</span></span><a class="headerlink" href="#snAPI_Constants_RefSource" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">RefSource</span></span><a class="headerlink" href="#snAPI.Constants.RefSource" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>PicoQuant TCSPC devices can use their internal crystal clock but can be synchronized with an external
 reference clock as well. The latter is preferable when a clock drift between multiple instruments in
 an experiment needs to be avoided. The constants defined here specify the reference clock to use.
-See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
+See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.initDevice" title="snAPI.Main.snAPI.initDevice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.initDevice</span></code></a>.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Internal">
-<span class="sig-name descname"><span class="pre">Internal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Internal" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.Internal">
+<span class="sig-name descname"><span class="pre">Internal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Internal" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160 | HH400 | (TH260) | PH330]</p>
 <div class="line-block">
 <div class="line"><strong>Internal clock</strong></div>
@@ -644,8 +624,8 @@ See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDev
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_External_10MHZ">
-<span class="sig-name descname"><span class="pre">External_10MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_External_10MHZ" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.External_10MHZ">
+<span class="sig-name descname"><span class="pre">External_10MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.External_10MHZ" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160 | HH400 | PH330]</p>
 <div class="line-block">
 <div class="line"><strong>10MHz external clock</strong></div>
@@ -654,64 +634,64 @@ See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDev
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Master_Generic">
-<span class="sig-name descname"><span class="pre">Wr_Master_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Master_Generic" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Master_Generic">
+<span class="sig-name descname"><span class="pre">Wr_Master_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Master_Generic" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>White Rabbit master with generic partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Slave_Generic">
-<span class="sig-name descname"><span class="pre">Wr_Slave_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Slave_Generic" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Slave_Generic">
+<span class="sig-name descname"><span class="pre">Wr_Slave_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Slave_Generic" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>White Rabbit slave with generic partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Grandm_Generic">
-<span class="sig-name descname"><span class="pre">Wr_Grandm_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Grandm_Generic" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Grandm_Generic">
+<span class="sig-name descname"><span class="pre">Wr_Grandm_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Grandm_Generic" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>White Rabbit grand master with generic partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Extn_GPS_PPS">
-<span class="sig-name descname"><span class="pre">Extn_GPS_PPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Extn_GPS_PPS" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.Extn_GPS_PPS">
+<span class="sig-name descname"><span class="pre">Extn_GPS_PPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Extn_GPS_PPS" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>10 MHz + PPS from GPS</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Extn_GPS_PPS_UART">
-<span class="sig-name descname"><span class="pre">Extn_GPS_PPS_UART</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Extn_GPS_PPS_UART" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.Extn_GPS_PPS_UART">
+<span class="sig-name descname"><span class="pre">Extn_GPS_PPS_UART</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Extn_GPS_PPS_UART" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>10 MHz + PPS + time via UART from GPS</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Master_Harp">
-<span class="sig-name descname"><span class="pre">Wr_Master_Harp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Master_Harp" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Master_Harp">
+<span class="sig-name descname"><span class="pre">Wr_Master_Harp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Master_Harp" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>White Rabbit master with the Harp as partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Slave_Harp">
-<span class="sig-name descname"><span class="pre">Wr_Slave_Harp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Slave_Harp" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Slave_Harp">
+<span class="sig-name descname"><span class="pre">Wr_Slave_Harp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Slave_Harp" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>White Rabbit slave with the Harp as partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_Wr_Grandm_Harp">
-<span class="sig-name descname"><span class="pre">Wr_Grandm_Harp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_Wr_Grandm_Harp" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Grandm_Harp">
+<span class="sig-name descname"><span class="pre">Wr_Grandm_Harp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Grandm_Harp" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [MH150/160]</p>
 <p><strong>White Rabbit grand master with the Harp as partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_External_100MHZ">
-<span class="sig-name descname"><span class="pre">External_100MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_External_100MHZ" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.External_100MHZ">
+<span class="sig-name descname"><span class="pre">External_100MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.External_100MHZ" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [PH330]</p>
 <div class="line-block">
 <div class="line"><strong>100MHz external clock</strong></div>
@@ -719,8 +699,8 @@ See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDev
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_RefSource_External_500MHZ">
-<span class="sig-name descname"><span class="pre">External_500MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#snAPI_Constants_RefSource_External_500MHZ" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.RefSource.External_500MHZ">
+<span class="sig-name descname"><span class="pre">External_500MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.External_500MHZ" title="Link to this definition">#</a></dt>
 <dd><p>Supported devices [PH330]</p>
 <div class="line-block">
 <div class="line"><strong>500MHz external clock</strong></div>
@@ -730,76 +710,76 @@ See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_initDev
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_TrigMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">TrigMode</span></span><a class="headerlink" href="#snAPI_Constants_TrigMode" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.TrigMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">TrigMode</span></span><a class="headerlink" href="#snAPI.Constants.TrigMode" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>The PicoQuant TCSPC devices have different trigger modes. Some of them can switch between them.
-See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setSyncTrigMode" title="snAPI.Main.Device.setSyncTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setSyncTrigMode</span></code></a> and <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device_setInputTrigMode" title="snAPI.Main.Device.setInputTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setInputTrigMode</span></code></a>.</p>
+See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncTrigMode" title="snAPI.Main.Device.setSyncTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setSyncTrigMode</span></code></a> and <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setInputTrigMode" title="snAPI.Main.Device.setInputTrigMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setInputTrigMode</span></code></a>.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_TrigMode_Edge">
-<span class="sig-name descname"><span class="pre">Edge</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_TrigMode_Edge" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.TrigMode.Edge">
+<span class="sig-name descname"><span class="pre">Edge</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.TrigMode.Edge" title="Link to this definition">#</a></dt>
 <dd><p>This selects the edge trigger.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_TrigMode_CFD">
-<span class="sig-name descname"><span class="pre">CFD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_TrigMode_CFD" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.TrigMode.CFD">
+<span class="sig-name descname"><span class="pre">CFD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.TrigMode.CFD" title="Link to this definition">#</a></dt>
 <dd><p>This selects the CFD (Constant Fraction Discriminator) trigger</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_LogLevel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">LogLevel</span></span><a class="headerlink" href="#snAPI_Constants_LogLevel" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.LogLevel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">LogLevel</span></span><a class="headerlink" href="#snAPI.Constants.LogLevel" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>This is for switching the different log levels on and off with <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setLogLevel" title="snAPI.Main.snAPI.setLogLevel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.setLogLevel()</span></code></a>.</p>
+<p>This is for switching the different log levels on and off with <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.setLogLevel" title="snAPI.Main.snAPI.setLogLevel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.setLogLevel()</span></code></a>.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_Api">
-<span class="sig-name descname"><span class="pre">Api</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_Api" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.LogLevel.Api">
+<span class="sig-name descname"><span class="pre">Api</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.LogLevel.Api" title="Link to this definition">#</a></dt>
 <dd><p>This logs API commands.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_Config">
-<span class="sig-name descname"><span class="pre">Config</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_Config" title="Link to this definition">#</a></dt>
-<dd><p>This logs the loading of <a class="reference internal" href="snAPI.Main.html#snAPI_Main_snAPI_setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.setIniConfig</span></code></a> and notifies you, if something goes wrong.</p>
+<dt class="sig sig-object py" id="snAPI.Constants.LogLevel.Config">
+<span class="sig-name descname"><span class="pre">Config</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.LogLevel.Config" title="Link to this definition">#</a></dt>
+<dd><p>This logs the loading of <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.setIniConfig" title="snAPI.Main.snAPI.setIniConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">snAPI.setIniConfig</span></code></a> and notifies you, if something goes wrong.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_Device">
-<span class="sig-name descname"><span class="pre">Device</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_Device" title="Link to this definition">#</a></dt>
-<dd><p>This logs the low level device commands <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Device" title="snAPI.Main.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a>.</p>
+<dt class="sig sig-object py" id="snAPI.Constants.LogLevel.Device">
+<span class="sig-name descname"><span class="pre">Device</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI.Constants.LogLevel.Device" title="Link to this definition">#</a></dt>
+<dd><p>This logs the low level device commands <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device" title="snAPI.Main.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_DataFile">
-<span class="sig-name descname"><span class="pre">DataFile</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_DataFile" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.LogLevel.DataFile">
+<span class="sig-name descname"><span class="pre">DataFile</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI.Constants.LogLevel.DataFile" title="Link to this definition">#</a></dt>
 <dd><p>This logs loading and creating of th ptu file entries.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_LogLevel_Manipulators">
-<span class="sig-name descname"><span class="pre">Manipulators</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_LogLevel_Manipulators" title="Link to this definition">#</a></dt>
-<dd><p>This logs the creating, deleting and many more of the <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators" title="snAPI.Main.Manipulators"><code class="xref py py-class docutils literal notranslate"><span class="pre">Manipulators</span></code></a>.</p>
+<dt class="sig sig-object py" id="snAPI.Constants.LogLevel.Manipulators">
+<span class="sig-name descname"><span class="pre">Manipulators</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI.Constants.LogLevel.Manipulators" title="Link to this definition">#</a></dt>
+<dd><p>This logs the creating, deleting and many more of the <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators" title="snAPI.Main.Manipulators"><code class="xref py py-class docutils literal notranslate"><span class="pre">Manipulators</span></code></a>.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">CoincidenceMode</span></span><a class="headerlink" href="#snAPI_Constants_CoincidenceMode" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.CoincidenceMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">CoincidenceMode</span></span><a class="headerlink" href="#snAPI.Constants.CoincidenceMode" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>This defines the different coincidence modes. See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_coincidence" title="snAPI.Main.Manipulators.coincidence"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Manipulators.coincidence</span></code></a>.</p>
+<p>This defines the different coincidence modes. See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.coincidence" title="snAPI.Main.Manipulators.coincidence"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Manipulators.coincidence</span></code></a>.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceMode_CountAll">
-<span class="sig-name descname"><span class="pre">CountAll</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceMode_CountAll" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.CoincidenceMode.CountAll">
+<span class="sig-name descname"><span class="pre">CountAll</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.CoincidenceMode.CountAll" title="Link to this definition">#</a></dt>
 <dd><p>This is the standard mode. Every new event can count as coincidence if it meets the conditions of the different channel count in the defined window time.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceMode_CountOnce">
-<span class="sig-name descname"><span class="pre">CountOnce</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceMode_CountOnce" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.CoincidenceMode.CountOnce">
+<span class="sig-name descname"><span class="pre">CountOnce</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.CoincidenceMode.CountOnce" title="Link to this definition">#</a></dt>
 <dd><p>This mode allows to count every new event only one time. If count it meets the conditions of the different channel count in the defined window time it will
 generate a coincidence count and get erased for the generation of further coincidences.</p>
 </dd></dl>
@@ -807,13 +787,13 @@ generate a coincidence count and get erased for the generation of further coinci
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceTime">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">CoincidenceTime</span></span><a class="headerlink" href="#snAPI_Constants_CoincidenceTime" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.CoincidenceTime">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">CoincidenceTime</span></span><a class="headerlink" href="#snAPI.Constants.CoincidenceTime" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>This defines the position of the timetag of the calculated coincidence. See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_Manipulators_coincidence" title="snAPI.Main.Manipulators.coincidence"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Manipulators.coincidence</span></code></a>.</p>
+<p>This defines the position of the timetag of the calculated coincidence. See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.coincidence" title="snAPI.Main.Manipulators.coincidence"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Manipulators.coincidence</span></code></a>.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceTime_First">
-<span class="sig-name descname"><span class="pre">First</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceTime_First" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.CoincidenceTime.First">
+<span class="sig-name descname"><span class="pre">First</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.CoincidenceTime.First" title="Link to this definition">#</a></dt>
 <dd><p>The coincidence will get the timetag of the first event that build the coincidence.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -823,40 +803,40 @@ It will work as anti coincidence than.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_CoincidenceTime_Last">
-<span class="sig-name descname"><span class="pre">Last</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_CoincidenceTime_Last" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.CoincidenceTime.Last">
+<span class="sig-name descname"><span class="pre">Last</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.CoincidenceTime.Last" title="Link to this definition">#</a></dt>
 <dd><p>The coincidence will get the timetag of the last event that build the coincidence.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_WRmode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">WRmode</span></span><a class="headerlink" href="#snAPI_Constants_WRmode" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRmode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">WRmode</span></span><a class="headerlink" href="#snAPI.Constants.WRmode" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>This configures the role of the device onto the White Rabbit network. See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_setMode" title="snAPI.Main.WhiteRabbit.setMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">WhiteRabbit.setMode</span></code></a>.</p>
+<p>This configures the role of the device onto the White Rabbit network. See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.WhiteRabbit.setMode" title="snAPI.Main.WhiteRabbit.setMode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">WhiteRabbit.setMode</span></code></a>.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRmode_Off">
-<span class="sig-name descname"><span class="pre">Off</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_WRmode_Off" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRmode.Off">
+<span class="sig-name descname"><span class="pre">Off</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.WRmode.Off" title="Link to this definition">#</a></dt>
 <dd><p>It configures the device to be not a member onto the White Rabbit network.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRmode_Slave">
-<span class="sig-name descname"><span class="pre">Slave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_WRmode_Slave" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRmode.Slave">
+<span class="sig-name descname"><span class="pre">Slave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.WRmode.Slave" title="Link to this definition">#</a></dt>
 <dd><p>This let the device synchronize its clock with a master.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRmode_Master">
-<span class="sig-name descname"><span class="pre">Master</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_WRmode_Master" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRmode.Master">
+<span class="sig-name descname"><span class="pre">Master</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI.Constants.WRmode.Master" title="Link to this definition">#</a></dt>
 <dd><p>It implements a controller function and sends the data onto the White Rabbit network.
 Only one Master is allowed on the White Rabbit network.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRmode_Grandmaster">
-<span class="sig-name descname"><span class="pre">Grandmaster</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI_Constants_WRmode_Grandmaster" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRmode.Grandmaster">
+<span class="sig-name descname"><span class="pre">Grandmaster</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI.Constants.WRmode.Grandmaster" title="Link to this definition">#</a></dt>
 <dd><p>The device synchronizes its clock to an external reference signal and propagates
 precise timing to other devices on a White Rabbit network.</p>
 </dd></dl>
@@ -864,148 +844,148 @@ precise timing to other devices on a White Rabbit network.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">WRstatus</span></span><a class="headerlink" href="#snAPI_Constants_WRstatus" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Constants.</span></span><span class="sig-name descname"><span class="pre">WRstatus</span></span><a class="headerlink" href="#snAPI.Constants.WRstatus" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>Use this function the get the status of the WR node. See <a class="reference internal" href="snAPI.Main.html#snAPI_Main_WhiteRabbit_getStatus" title="snAPI.Main.WhiteRabbit.getStatus"><code class="xref py py-meth docutils literal notranslate"><span class="pre">WhiteRabbit.getStatus</span></code></a>.</p>
+<p>Use this function the get the status of the WR node. See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.WhiteRabbit.getStatus" title="snAPI.Main.WhiteRabbit.getStatus"><code class="xref py py-meth docutils literal notranslate"><span class="pre">WhiteRabbit.getStatus</span></code></a>.</p>
 <p>PTP: Precision Time Protocol</p>
 <p>Servo is a feedback control mechanism. It continuously adjusts the local clock
 based on the error between two clocks.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_LinkON">
-<span class="sig-name descname"><span class="pre">LinkON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_LinkON" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.LinkON">
+<span class="sig-name descname"><span class="pre">LinkON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.LinkON" title="Link to this definition">#</a></dt>
 <dd><p>WR link is switched on</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_LinkUP">
-<span class="sig-name descname"><span class="pre">LinkUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_LinkUP" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.LinkUP">
+<span class="sig-name descname"><span class="pre">LinkUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.LinkUP" title="Link to this definition">#</a></dt>
 <dd><p>WR link is established</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ModeBitmask">
-<span class="sig-name descname"><span class="pre">ModeBitmask</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ModeBitmask" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ModeBitmask">
+<span class="sig-name descname"><span class="pre">ModeBitmask</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ModeBitmask" title="Link to this definition">#</a></dt>
 <dd><p>mask for the mode bits</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ModeOff">
-<span class="sig-name descname"><span class="pre">ModeOff</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ModeOff" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ModeOff">
+<span class="sig-name descname"><span class="pre">ModeOff</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ModeOff" title="Link to this definition">#</a></dt>
 <dd><p>mode is off</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ModeSlave">
-<span class="sig-name descname"><span class="pre">ModeSlave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ModeSlave" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ModeSlave">
+<span class="sig-name descname"><span class="pre">ModeSlave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ModeSlave" title="Link to this definition">#</a></dt>
 <dd><p>mode is slave</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ModeMaster">
-<span class="sig-name descname"><span class="pre">ModeMaster</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ModeMaster" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ModeMaster">
+<span class="sig-name descname"><span class="pre">ModeMaster</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ModeMaster" title="Link to this definition">#</a></dt>
 <dd><p>mode is master</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ModeGMaster">
-<span class="sig-name descname"><span class="pre">ModeGMaster</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ModeGMaster" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ModeGMaster">
+<span class="sig-name descname"><span class="pre">ModeGMaster</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ModeGMaster" title="Link to this definition">#</a></dt>
 <dd><p>mode is grandmaster</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_LockedCalibrated">
-<span class="sig-name descname"><span class="pre">LockedCalibrated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_LockedCalibrated" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.LockedCalibrated">
+<span class="sig-name descname"><span class="pre">LockedCalibrated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.LockedCalibrated" title="Link to this definition">#</a></dt>
 <dd><p>locked and calibrated</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_PtpBitmask">
-<span class="sig-name descname"><span class="pre">PtpBitmask</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">224</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_PtpBitmask" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.PtpBitmask">
+<span class="sig-name descname"><span class="pre">PtpBitmask</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">224</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.PtpBitmask" title="Link to this definition">#</a></dt>
 <dd><p>mask for the PTP bits</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_PtpListening">
-<span class="sig-name descname"><span class="pre">PtpListening</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_PtpListening" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.PtpListening">
+<span class="sig-name descname"><span class="pre">PtpListening</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.PtpListening" title="Link to this definition">#</a></dt>
 <dd><p>waiting for packets</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_PtpUncalibratedWRSlaveLock">
-<span class="sig-name descname"><span class="pre">PtpUncalibratedWRSlaveLock</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_PtpUncalibratedWRSlaveLock" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.PtpUncalibratedWRSlaveLock">
+<span class="sig-name descname"><span class="pre">PtpUncalibratedWRSlaveLock</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.PtpUncalibratedWRSlaveLock" title="Link to this definition">#</a></dt>
 <dd><p>slave is actively attempting to synchronize</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_PtpSlave">
-<span class="sig-name descname"><span class="pre">PtpSlave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">96</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_PtpSlave" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.PtpSlave">
+<span class="sig-name descname"><span class="pre">PtpSlave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">96</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.PtpSlave" title="Link to this definition">#</a></dt>
 <dd><p>Receives synchronization information from the master clock</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_PtpMasterWRMasterLock">
-<span class="sig-name descname"><span class="pre">PtpMasterWRMasterLock</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">128</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_PtpMasterWRMasterLock" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.PtpMasterWRMasterLock">
+<span class="sig-name descname"><span class="pre">PtpMasterWRMasterLock</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">128</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.PtpMasterWRMasterLock" title="Link to this definition">#</a></dt>
 <dd><p>the White Rabbit node or switch operates as both a PTP master and a WR master, it is in a locked state</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_PtpMaster">
-<span class="sig-name descname"><span class="pre">PtpMaster</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">160</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_PtpMaster" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.PtpMaster">
+<span class="sig-name descname"><span class="pre">PtpMaster</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">160</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.PtpMaster" title="Link to this definition">#</a></dt>
 <dd><p>reference clock source for synchronization</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ServoBitmask">
-<span class="sig-name descname"><span class="pre">ServoBitmask</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1792</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ServoBitmask" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ServoBitmask">
+<span class="sig-name descname"><span class="pre">ServoBitmask</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1792</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ServoBitmask" title="Link to this definition">#</a></dt>
 <dd><p>mask for the servo bits</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ServoUninit">
-<span class="sig-name descname"><span class="pre">ServoUninit</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">256</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ServoUninit" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ServoUninit">
+<span class="sig-name descname"><span class="pre">ServoUninit</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">256</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ServoUninit" title="Link to this definition">#</a></dt>
 <dd><p>servo not initialized</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ServoSyncSec">
-<span class="sig-name descname"><span class="pre">ServoSyncSec</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">512</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ServoSyncSec" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ServoSyncSec">
+<span class="sig-name descname"><span class="pre">ServoSyncSec</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">512</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ServoSyncSec" title="Link to this definition">#</a></dt>
 <dd><p>servo seconds synchronization</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ServoSyncNSec">
-<span class="sig-name descname"><span class="pre">ServoSyncNSec</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">768</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ServoSyncNSec" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ServoSyncNSec">
+<span class="sig-name descname"><span class="pre">ServoSyncNSec</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">768</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ServoSyncNSec" title="Link to this definition">#</a></dt>
 <dd><p>servo nano seconds synchronization</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ServoSyncPhase">
-<span class="sig-name descname"><span class="pre">ServoSyncPhase</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1024</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ServoSyncPhase" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ServoSyncPhase">
+<span class="sig-name descname"><span class="pre">ServoSyncPhase</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1024</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ServoSyncPhase" title="Link to this definition">#</a></dt>
 <dd><p>servo phase alignment process</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ServoWaitOffset">
-<span class="sig-name descname"><span class="pre">ServoWaitOffset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1280</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ServoWaitOffset" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ServoWaitOffset">
+<span class="sig-name descname"><span class="pre">ServoWaitOffset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1280</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ServoWaitOffset" title="Link to this definition">#</a></dt>
 <dd><p>servo control loop detects a significant offset between the local clock and the master clock.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_ServoTrackPhase">
-<span class="sig-name descname"><span class="pre">ServoTrackPhase</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1536</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_ServoTrackPhase" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.ServoTrackPhase">
+<span class="sig-name descname"><span class="pre">ServoTrackPhase</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1536</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.ServoTrackPhase" title="Link to this definition">#</a></dt>
 <dd><p>servo actively adjusts clock frequencies to minimize phase discrepancies</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_MacSet">
-<span class="sig-name descname"><span class="pre">MacSet</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2048</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_MacSet" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.MacSet">
+<span class="sig-name descname"><span class="pre">MacSet</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2048</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.MacSet" title="Link to this definition">#</a></dt>
 <dd><p>user defined mac address is set</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="snAPI_Constants_WRstatus_IsNew">
-<span class="sig-name descname"><span class="pre">IsNew</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483648</span></em><a class="headerlink" href="#snAPI_Constants_WRstatus_IsNew" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Constants.WRstatus.IsNew">
+<span class="sig-name descname"><span class="pre">IsNew</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483648</span></em><a class="headerlink" href="#snAPI.Constants.WRstatus.IsNew" title="Link to this definition">#</a></dt>
 <dd><p>status updated since last check</p>
 </dd></dl>
 
@@ -1048,7 +1028,8 @@ based on the error between two clocks.</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1059,100 +1040,100 @@ based on the error between two clocks.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType"><code class="docutils literal notranslate"><span class="pre">DeviceType</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_Undefined"><code class="docutils literal notranslate"><span class="pre">DeviceType.Undefined</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_HW"><code class="docutils literal notranslate"><span class="pre">DeviceType.HW</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_DeviceType_File"><code class="docutils literal notranslate"><span class="pre">DeviceType.File</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.DeviceType"><code class="docutils literal notranslate"><span class="pre">DeviceType</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.DeviceType.Undefined"><code class="docutils literal notranslate"><span class="pre">DeviceType.Undefined</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.DeviceType.HW"><code class="docutils literal notranslate"><span class="pre">DeviceType.HW</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.DeviceType.File"><code class="docutils literal notranslate"><span class="pre">DeviceType.File</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasMode"><code class="docutils literal notranslate"><span class="pre">MeasMode</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasMode_Histogram"><code class="docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasMode_T2"><code class="docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasMode_T3"><code class="docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasMode"><code class="docutils literal notranslate"><span class="pre">MeasMode</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasMode.Histogram"><code class="docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasMode.T2"><code class="docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasMode.T3"><code class="docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl"><code class="docutils literal notranslate"><span class="pre">MeasControl</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_SingleShotCTC"><code class="docutils literal notranslate"><span class="pre">MeasControl.SingleShotCTC</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_C1Gated"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1Gated</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_C1StartCtcStop"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1StartCtcStop</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_C1StartC2Stop"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1StartC2Stop</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_WrMaster2Slave"><code class="docutils literal notranslate"><span class="pre">MeasControl.WrMaster2Slave</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_WrSlave2Master"><code class="docutils literal notranslate"><span class="pre">MeasControl.WrSlave2Master</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_SwStartSwStop"><code class="docutils literal notranslate"><span class="pre">MeasControl.SwStartSwStop</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_ContC1Gated"><code class="docutils literal notranslate"><span class="pre">MeasControl.ContC1Gated</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_Cont_C1_Start_CTC_Stop"><code class="docutils literal notranslate"><span class="pre">MeasControl.Cont_C1_Start_CTC_Stop</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_MeasControl_Cont_CTC_Restart"><code class="docutils literal notranslate"><span class="pre">MeasControl.Cont_CTC_Restart</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl"><code class="docutils literal notranslate"><span class="pre">MeasControl</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.SingleShotCTC"><code class="docutils literal notranslate"><span class="pre">MeasControl.SingleShotCTC</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.C1Gated"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1Gated</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.C1StartCtcStop"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1StartCtcStop</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.C1StartC2Stop"><code class="docutils literal notranslate"><span class="pre">MeasControl.C1StartC2Stop</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.WrMaster2Slave"><code class="docutils literal notranslate"><span class="pre">MeasControl.WrMaster2Slave</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.WrSlave2Master"><code class="docutils literal notranslate"><span class="pre">MeasControl.WrSlave2Master</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.SwStartSwStop"><code class="docutils literal notranslate"><span class="pre">MeasControl.SwStartSwStop</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.ContC1Gated"><code class="docutils literal notranslate"><span class="pre">MeasControl.ContC1Gated</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.Cont_C1_Start_CTC_Stop"><code class="docutils literal notranslate"><span class="pre">MeasControl.Cont_C1_Start_CTC_Stop</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.MeasControl.Cont_CTC_Restart"><code class="docutils literal notranslate"><span class="pre">MeasControl.Cont_CTC_Restart</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource"><code class="docutils literal notranslate"><span class="pre">RefSource</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Internal"><code class="docutils literal notranslate"><span class="pre">RefSource.Internal</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_External_10MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_10MHZ</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Master_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Generic</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Slave_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Generic</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Grandm_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Grandm_Generic</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Extn_GPS_PPS"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Extn_GPS_PPS_UART"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS_UART</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Master_Harp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Harp</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Slave_Harp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Harp</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_Wr_Grandm_Harp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Grandm_Harp</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_External_100MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_100MHZ</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_RefSource_External_500MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_500MHZ</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource"><code class="docutils literal notranslate"><span class="pre">RefSource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.Internal"><code class="docutils literal notranslate"><span class="pre">RefSource.Internal</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.External_10MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_10MHZ</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.Wr_Master_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Generic</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.Wr_Slave_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Generic</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.Wr_Grandm_Generic"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Grandm_Generic</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.Extn_GPS_PPS"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.Extn_GPS_PPS_UART"><code class="docutils literal notranslate"><span class="pre">RefSource.Extn_GPS_PPS_UART</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.Wr_Master_Harp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Harp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.Wr_Slave_Harp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Harp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.Wr_Grandm_Harp"><code class="docutils literal notranslate"><span class="pre">RefSource.Wr_Grandm_Harp</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.External_100MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_100MHZ</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.RefSource.External_500MHZ"><code class="docutils literal notranslate"><span class="pre">RefSource.External_500MHZ</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_TrigMode"><code class="docutils literal notranslate"><span class="pre">TrigMode</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_TrigMode_Edge"><code class="docutils literal notranslate"><span class="pre">TrigMode.Edge</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_TrigMode_CFD"><code class="docutils literal notranslate"><span class="pre">TrigMode.CFD</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.TrigMode"><code class="docutils literal notranslate"><span class="pre">TrigMode</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.TrigMode.Edge"><code class="docutils literal notranslate"><span class="pre">TrigMode.Edge</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.TrigMode.CFD"><code class="docutils literal notranslate"><span class="pre">TrigMode.CFD</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel"><code class="docutils literal notranslate"><span class="pre">LogLevel</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_Api"><code class="docutils literal notranslate"><span class="pre">LogLevel.Api</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_Config"><code class="docutils literal notranslate"><span class="pre">LogLevel.Config</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_Device"><code class="docutils literal notranslate"><span class="pre">LogLevel.Device</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_DataFile"><code class="docutils literal notranslate"><span class="pre">LogLevel.DataFile</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_LogLevel_Manipulators"><code class="docutils literal notranslate"><span class="pre">LogLevel.Manipulators</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.LogLevel"><code class="docutils literal notranslate"><span class="pre">LogLevel</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.LogLevel.Api"><code class="docutils literal notranslate"><span class="pre">LogLevel.Api</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.LogLevel.Config"><code class="docutils literal notranslate"><span class="pre">LogLevel.Config</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.LogLevel.Device"><code class="docutils literal notranslate"><span class="pre">LogLevel.Device</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.LogLevel.DataFile"><code class="docutils literal notranslate"><span class="pre">LogLevel.DataFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.LogLevel.Manipulators"><code class="docutils literal notranslate"><span class="pre">LogLevel.Manipulators</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceMode"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceMode_CountAll"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountAll</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceMode_CountOnce"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountOnce</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.CoincidenceMode"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.CoincidenceMode.CountAll"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountAll</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.CoincidenceMode.CountOnce"><code class="docutils literal notranslate"><span class="pre">CoincidenceMode.CountOnce</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceTime"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceTime_First"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime.First</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_CoincidenceTime_Last"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime.Last</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.CoincidenceTime"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.CoincidenceTime.First"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime.First</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.CoincidenceTime.Last"><code class="docutils literal notranslate"><span class="pre">CoincidenceTime.Last</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRmode"><code class="docutils literal notranslate"><span class="pre">WRmode</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRmode_Off"><code class="docutils literal notranslate"><span class="pre">WRmode.Off</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRmode_Slave"><code class="docutils literal notranslate"><span class="pre">WRmode.Slave</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRmode_Master"><code class="docutils literal notranslate"><span class="pre">WRmode.Master</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRmode_Grandmaster"><code class="docutils literal notranslate"><span class="pre">WRmode.Grandmaster</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRmode"><code class="docutils literal notranslate"><span class="pre">WRmode</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRmode.Off"><code class="docutils literal notranslate"><span class="pre">WRmode.Off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRmode.Slave"><code class="docutils literal notranslate"><span class="pre">WRmode.Slave</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRmode.Master"><code class="docutils literal notranslate"><span class="pre">WRmode.Master</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRmode.Grandmaster"><code class="docutils literal notranslate"><span class="pre">WRmode.Grandmaster</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus"><code class="docutils literal notranslate"><span class="pre">WRstatus</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_LinkON"><code class="docutils literal notranslate"><span class="pre">WRstatus.LinkON</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_LinkUP"><code class="docutils literal notranslate"><span class="pre">WRstatus.LinkUP</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ModeBitmask"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeBitmask</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ModeOff"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeOff</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ModeSlave"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeSlave</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ModeMaster"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeMaster</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ModeGMaster"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeGMaster</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_LockedCalibrated"><code class="docutils literal notranslate"><span class="pre">WRstatus.LockedCalibrated</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_PtpBitmask"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpBitmask</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_PtpListening"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpListening</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_PtpUncalibratedWRSlaveLock"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpUncalibratedWRSlaveLock</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_PtpSlave"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpSlave</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_PtpMasterWRMasterLock"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpMasterWRMasterLock</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_PtpMaster"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpMaster</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ServoBitmask"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoBitmask</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ServoUninit"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoUninit</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ServoSyncSec"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoSyncSec</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ServoSyncNSec"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoSyncNSec</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ServoSyncPhase"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoSyncPhase</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ServoWaitOffset"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoWaitOffset</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_ServoTrackPhase"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoTrackPhase</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_MacSet"><code class="docutils literal notranslate"><span class="pre">WRstatus.MacSet</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI_Constants_WRstatus_IsNew"><code class="docutils literal notranslate"><span class="pre">WRstatus.IsNew</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus"><code class="docutils literal notranslate"><span class="pre">WRstatus</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.LinkON"><code class="docutils literal notranslate"><span class="pre">WRstatus.LinkON</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.LinkUP"><code class="docutils literal notranslate"><span class="pre">WRstatus.LinkUP</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ModeBitmask"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeBitmask</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ModeOff"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeOff</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ModeSlave"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeSlave</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ModeMaster"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeMaster</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ModeGMaster"><code class="docutils literal notranslate"><span class="pre">WRstatus.ModeGMaster</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.LockedCalibrated"><code class="docutils literal notranslate"><span class="pre">WRstatus.LockedCalibrated</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.PtpBitmask"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpBitmask</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.PtpListening"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpListening</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.PtpUncalibratedWRSlaveLock"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpUncalibratedWRSlaveLock</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.PtpSlave"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpSlave</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.PtpMasterWRMasterLock"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpMasterWRMasterLock</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.PtpMaster"><code class="docutils literal notranslate"><span class="pre">WRstatus.PtpMaster</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ServoBitmask"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoBitmask</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ServoUninit"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoUninit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ServoSyncSec"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoSyncSec</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ServoSyncNSec"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoSyncNSec</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ServoSyncPhase"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoSyncPhase</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ServoWaitOffset"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoWaitOffset</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.ServoTrackPhase"><code class="docutils literal notranslate"><span class="pre">WRstatus.ServoTrackPhase</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.MacSet"><code class="docutils literal notranslate"><span class="pre">WRstatus.MacSet</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Constants.WRstatus.IsNew"><code class="docutils literal notranslate"><span class="pre">WRstatus.IsNew</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1171,8 +1152,8 @@ based on the error between two clocks.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1183,7 +1164,7 @@ based on the error between two clocks.</p>
 
   <p class="copyright">
     
-      © Copyright 2024, PicoQuant.
+      © Copyright 2025, PicoQuant.
       <br/>
     
   </p>
@@ -1192,7 +1173,7 @@ based on the error between two clocks.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1205,7 +1186,8 @@ based on the error between two clocks.</p>
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>
