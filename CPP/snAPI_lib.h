@@ -1,6 +1,7 @@
 #ifndef _WIN32
 #define _stdcall
 #endif
+#include "snapi.h"
 
 /********** snAPI **********/
 extern bool _stdcall initAPI(char* systemIni);
@@ -52,14 +53,15 @@ extern bool _stdcall setInputDeadTime(int iChan, int deadTime);
 extern void _stdcall getCountRates(int* syncRate, int* cntRates);
 extern void _stdcall getSyncPeriod(double* syncPeriod);
 extern bool _stdcall getHistogram(int tAcq, bool waitFinished, bool savePTU, unsigned int* data, bool* finished);
-extern void _stdcall setHistoT2RefChan(unsigned char iChan);
-extern void _stdcall setHistoT2BinWidth(unsigned long long binWidth);
-extern bool _stdcall getTimeTrace(int tAcq, bool waitFinished, bool savePTU, unsigned int* data, unsigned long long* t0, bool* finished);
+extern void _stdcall setHistoT2RefChan(uint8_t iChan);
+extern void _stdcall setHistoT2BinWidth(uint64_t numBins);
+extern void _stdcall setHistoT2NumBins(uint64_t numBins);
+extern bool _stdcall getTimeTrace(int tAcq, bool waitFinished, bool savePTU, unsigned int* data, uint64_t* t0, bool* finished);
 extern void _stdcall setTimeTraceNumBins(int numBins);
 extern void _stdcall setTimeTraceHistorySize(double historySize);
-extern void _stdcall setG2Params(unsigned long long startChannel, unsigned long long clickChannel, double windowSize, double binWidth);
-extern void _stdcall setFCSParams(unsigned long long startChannel, unsigned long long clickChannel, unsigned long long* numTaus, unsigned long long intervalLength, double windowSize, double startTime);
-extern void _stdcall setFFCSParams(unsigned long long startChannel, unsigned long long clickChannel, unsigned long long* numTaus, unsigned long long intervalLength, double windowSize, double startTime);
+extern void _stdcall setG2Params(uint64_t startChannel, uint64_t clickChannel, double windowSize, double binWidth);
+extern void _stdcall setFCSParams(uint64_t startChannel, uint64_t clickChannel, uint64_t* numTaus, double startTime, double stopTime, uint64_t numBins);
+extern void _stdcall setFFCSParams(uint64_t startChannel, uint64_t clickChannel, uint64_t* numTaus, double startTime, double stopTime, uint64_t numBins);
 extern bool _stdcall getCorrelation(int tAcq, bool waitFinished, bool savePTU, double* data, double* bins, bool* finished);
 extern bool _stdcall rawMeasure(int tAcq, bool waitFinished, bool savePTU, unsigned int* data, unsigned long long* dataIdx, unsigned long long dataSize, bool* finished);
 extern bool _stdcall rawStartBlock(int tAcq, bool savePTU, unsigned int* data, unsigned long long dataSize, bool* finished);
@@ -68,8 +70,8 @@ extern bool _stdcall stopMeasure();
 extern bool _stdcall clearMeasure();
 extern bool _stdcall ufMeasure(int tAcq, bool waitFinished, bool savePTU, unsigned long long* times, unsigned char* chans, unsigned long long* idx, unsigned long long dataSize, bool* finished);
 extern bool _stdcall ufStartBlock(int tAcq, bool savePTU, unsigned long long* time, unsigned char* chan, unsigned long long dataSize, bool* finished);
-extern bool _stdcall ufGetBlock(unsigned long long* times, unsigned char* chans, unsigned long long* size);
-extern bool _stdcall getTimesFromChannelUF(unsigned char* channels, unsigned long long* times, unsigned long long* timesOut, int channel, size_t* size);
+extern bool _stdcall ufGetBlock(uint64_t* times, unsigned char* chans, unsigned long long* size);
+extern bool _stdcall getTimesFromChannelUF(unsigned char* channels, uint64_t* times, uint64_t* timesOut, int channel, size_t* size);
 
 /********** Manipulators **********/
 extern int _stdcall getNumAllChans(void);
@@ -77,7 +79,7 @@ extern void _stdcall clearManis(void);
 extern int _stdcall addMCoincidence(int* chans, int numChans, double windowTime, int mode, int time, bool keepChannels);
 extern int _stdcall addMMerge(int* chans, int numChans, bool keepChannels);
 extern int _stdcall addMDelay(int chan, double delayTime, bool keepChannel);
-extern int _stdcall addMHerald(unsigned char herald, int* chans, int numChans, int delayTime, int windowTime, bool inverted, bool keepChannels);
+extern int _stdcall addMHerald(uint8_t herald, int* chans, int32_t numChans, int32_t delayTime, int32_t windowTime, bool inverted, bool keepChannels);
 extern int _stdcall addMCountRate(double windowTime);
 extern bool _stdcall getMCountRates(int manisIdx, int* countRatess);
 
@@ -105,8 +107,8 @@ extern bool _stdcall WRabbitSetInitScript(char* script);
 extern bool _stdcall WRabbitGetSFPData(char* sfpNames, int* dTxs, int* dRxs, int* alphas);
 extern bool _stdcall WRabbitSetSFPData(char* sfpNames, int* dTxs, int* dRxs, int* alphas);
 extern bool _stdcall WRabbitSetMode(int bootFromScript, int reinitWithMode, int mode);
-extern bool _stdcall WRabbitSetTime(unsigned long long time);
-extern bool _stdcall WRabbitGetTime(unsigned long long* time, unsigned char* subSec16ns);
-extern bool _stdcall WRabbitGetStatus(unsigned char* status);
+extern bool _stdcall WRabbitSetTime(uint64_t time);
+extern bool _stdcall WRabbitGetTime(uint64_t* time, uint32_t* subSec16ns);
+extern bool _stdcall WRabbitGetStatus(uint32_t* status);
 extern bool _stdcall WRabbitGetTermOutput(char* termOutput);
 extern bool _stdcall WRabbitInitLink(int onOff);
