@@ -12,6 +12,7 @@ if(__name__ == "__main__"):
     #sn.getDevice()
     sn.getFileDevice(r"D:\Data\PicoQuant\CW_Shelved.ptu") # T2 File
     sn.initDevice(MeasMode.T2)
+    sn.setPTUFilePath(asdasdsa);
     
     # set the configuration for your device type
     sn.loadIniConfig("config\MH.ini")

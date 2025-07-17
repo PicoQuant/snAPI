@@ -1674,7 +1674,7 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.Meas
 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI.Main.Device.setMeasControl">
-<span class="sig-name descname"><span class="pre">setMeasControl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measControl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MeasControl.SingleShotCTC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Device.setMeasControl" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setMeasControl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measControl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MeasControl.SingleShotCTC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Device.setMeasControl" title="Link to this definition">#</a></dt>
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160 | HH400 | TH260 | PH330]</p>
 </div></blockquote>
@@ -1686,13 +1686,13 @@ through TTL signals at the control port or through White Rabbit.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>measControl</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasControl" title="snAPI.Constants.MeasControl"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.MeasControl</span></code></a>)</p></li>
 <li><p><strong>startEdge</strong> (<em>int</em>) – <div class="line-block">
-<div class="line">0: falling (default)</div>
-<div class="line">1: rising</div>
+<div class="line">0: falling</div>
+<div class="line">1: rising (default)</div>
 </div>
 </p></li>
 <li><p><strong>stopEdge</strong> (<em>int</em><em> | </em><em>None</em>) – <div class="line-block">
-<div class="line">0: falling (default)</div>
-<div class="line">1: rising</div>
+<div class="line">0: falling</div>
+<div class="line">1: rising (default)</div>
 </div>
 </p></li>
 </ul>
@@ -3660,32 +3660,12 @@ means that this part of data is lost! To prevent this you should reduce the coun
 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI.Main.Unfold.getTimes">
-<span class="sig-name descname"><span class="pre">getTimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numRead</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Unfold.getTimes" title="Link to this definition">#</a></dt>
-<dd><p>This function returns an arrays holding the timetags of an <cite>Unfold</cite> measurement.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function is part of the <a class="reference internal" href="#snAPI.Main.Unfold.getData" title="snAPI.Main.Unfold.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> function.</p>
-</div>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">getTimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numRead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Unfold.getTimes" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> (</em><em>default: None</em><em>)</em>) – number of data to read (default: all data available)</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>times</strong> – <cite>Unfold</cite> data array of timetags</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1DArray[int]</p>
+<dd class="field-odd"><p><strong>numRead</strong> (<em>int</em><em> | </em><em>None</em>)</p>
 </dd>
 </dl>
-<p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># reads `Unfold` data every second for 10 seconds in :obj:`.MeasMode.T2`</span>
-<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T2</span><span class="p">)</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">times</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">unfold</span><span class="o">.</span><span class="n">getTimes</span><span class="p">()</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py method">
@@ -5042,7 +5022,7 @@ This will reduce the data stream and therefore the processor load and memory con
 <dd><p>This manipulator, gives you the ability to add a delay to the specified channels. Its generally
 better to use <code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code> because it does the same but on a hardware level and
 therefore it doesn’t uses any resources of the PC. But if you handle data of a ptu file this is
-the only.</p>
+the only way to do that.</p>
 <a class="only-light reference internal image-reference" href="_images/05_Delay.png"><img alt="_images/05_Delay.png" class="only-light" src="_images/05_Delay.png" style="width: 600px;" />
 </a>
 <a class="only-dark reference internal image-reference" href="_images/05_Delay_dark.png"><img alt="_images/05_Delay_dark.png" class="only-dark" src="_images/05_Delay_dark.png" style="width: 600px;" />

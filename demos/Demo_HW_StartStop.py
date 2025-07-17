@@ -11,7 +11,7 @@ if(__name__ == "__main__"):
     sn.initDevice(MeasMode.T2)
     
     # a trigger signal on C1 starts and one on C2 stops the measurement
-    sn.device.setMeasControl(MeasControl.C1StartC2Stop)
+    sn.device.setMeasControl(MeasControl.C1StartC2Stop, startEdge = 1, stopEdge = 1)
     sn.loadIniConfig("config\MH.ini")
     
     # configure timetrace

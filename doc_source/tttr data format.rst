@@ -28,8 +28,8 @@ TCSPC specific record formats
 
 Currently the following formats are defined:
 
-| PicoHarp T3: 0x00010303
-| PicoHarp T2: 0x00010203
+| PicoHarp 300 T3: 0x00010303
+| PicoHarp 300 T2: 0x00010203
 | HydraHarp V1.x T3: 0x00010304
 | HydraHarp V1.x T2: 0x00010204
 | HydraHarp V2.x T3: 0x01010304
@@ -38,16 +38,17 @@ Currently the following formats are defined:
 | TimeHarp 260N T3: 0x00010305
 | TimeHarp 260P T2: 0x00010206
 | TimeHarp 260P T3: 0x00010306
-| MultiHarp T2: 0x00010207
-| MultiHarp T3: 0x00010307
+| Generic T2: 0x00010207
+| Generic T3: 0x00010307
 
-HydraHarp, MultiHarp and TimeHarp260 T2 Format
-""""""""""""""""""""""""""""""""""""""""""""""
-
+HydraHarp, TimeHarp260 und Generic T2 Format
+""""""""""""""""""""""""""""""""""""""""""""
+HydraHarp V1.x:
 | RecType: 0x00010204 (not supported)
 | Overflow period: 33552000  (0x1FFF680)
 | Record Size: 32 Bit = 4 Byte
 
+other:
 | RecTypes:	0x01010204, 0x01010205, 0x01010206, 0x01010207
 | Overflow period: 33554432 (0x2000000)
 | Record Size: 32 Bit = 4 Byte
@@ -65,8 +66,8 @@ channel code 63 (0x3F) identifies a timetag overflow, increment the overflow tim
 channel code 0 (0x00) identifies a sync event,
 channel codes from 1 to 15 (4 bit = 4 marker) identify markers, the individual bits are external markers.
 
-HydraHarp, MultiHarp and TimeHarp260 T3 Format
-""""""""""""""""""""""""""""""""""""""""""""""
+HydraHarp, TimeHarp260 and Generic T3 Format
+""""""""""""""""""""""""""""""""""""""""""""
 
 | RecType: 0x00010304, 0x01010304, 0x00010305, 0x00010306, 0x00010307
 | Overflow period: 1024
@@ -85,8 +86,8 @@ channel code 63 (0x3F) identifies a sync count overflow, increment the sync coun
 For HydraHarp V1 (0x00010304) it means always one overflow. For all other types the number of overflows can be read from nSync value.
 channel codes from 1 to 15 (4 bit = 4 marker) identify markers, the individual bits are external markers.
 
-PicoHarp T2 Format (not supported)
-""""""""""""""""""""""""""""""""""
+PicoHarp 300 T2 Format (not supported)
+""""""""""""""""""""""""""""""""""""""
 
 | RecType: 0x00010203
 | Overflow period: 210698240 (0xC8F0000)
@@ -103,8 +104,8 @@ Special records can be overflows or external markers. To differentiate this, the
 If they are all zero, the record marks an overflow.
 If they are >=1 the individual bits are external markers.
 
-PicoHarp T3 Format (not supported)
-""""""""""""""""""""""""""""""""""
+PicoHarp 300 T3 Format (not supported)
+""""""""""""""""""""""""""""""""""""""
 
 | RecType: 0x00010303
 | Overflow period: 65536 (0x10000)

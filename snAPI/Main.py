@@ -1,4 +1,4 @@
-# Torsten Krause, PicoQuant GmbH, 2023
+# Torsten Krause, PicoQuant GmbH, 2025
 
 import ctypes as ct
 import inspect
@@ -1422,7 +1422,7 @@ Example
         return ok
 
 
-    def setMeasControl(self, measControl: typing.Optional[MeasControl] = MeasControl.SingleShotCTC, startEdge: typing.Optional[int] = 0, stopEdge: typing.Optional[int] = 0):
+    def setMeasControl(self, measControl: typing.Optional[MeasControl] = MeasControl.SingleShotCTC, startEdge: typing.Optional[int] = 1, stopEdge: typing.Optional[int] = 1):
         """
     Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
@@ -1434,11 +1434,11 @@ Parameters
 ----------
     measControl: :class:`snAPI.Constants.MeasControl`
     startEdge: int
-        | 0: falling (default)
-        | 1: rising
+        | 0: falling
+        | 1: rising (default)
     stopEdge:
-        | 0: falling (default)
-        | 1: rising
+        | 0: falling
+        | 1: rising (default)
     
 Returns
 -------
@@ -3535,7 +3535,9 @@ Example
         return self.getTimes(numRead), self.getChannels(numRead)
     
 
-    def getTimes(self, numRead: int):
+    def getTimes(self, numRead: typing.Optional[int] = None):
+        if not numRead:
+            numRead = self.numRead()
         """
 This function returns an arrays holding the timetags of an `Unfold` measurement.
 
@@ -3995,8 +3997,8 @@ Example
         """
 This function sets the `binWidth` of the time differences for the histograms are to be build.
 
-Warning
--------
+Note
+----
     Only meaningful in :obj:`.MeasMode.T2`.
     
 Parameters
@@ -5231,7 +5233,7 @@ Example
 This manipulator, gives you the ability to add a delay to the specified channels. Its generally
 better to use :meth:`setInputChannelOffset` because it does the same but on a hardware level and
 therefore it doesn't uses any resources of the PC. But if you handle data of a ptu file this is
-the only.
+the only way to do that.
 
 .. image:: _static/05_Delay.png
     :width: 600px

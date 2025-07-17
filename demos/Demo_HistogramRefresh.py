@@ -19,9 +19,9 @@ if(__name__ == "__main__"):
     sn.setLogLevel(LogLevel.Config, False)
     
     # change histogram parameter in T2 mode
-    #sn.histogram.setRefChannel(0)
-    #sn.histogram.setBinWidth(5)
-    #sn.histogram.setNumBins(65536)
+    sn.histogram.setRefChannel(0)
+    sn.histogram.setBinWidth(1000)
+    sn.histogram.setNumBins(10000)
     sn.histogram.measure(acqTime=1000, waitFinished=False, savePTU=True)
     
     while True:

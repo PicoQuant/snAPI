@@ -41,22 +41,27 @@ This will install or upgrade `pip` to the latest version.
 snAPI
 -----
 
-1. Download the latest release from `github.com/picoQuant/snAPI/releases <https://github.com/picoQuant/snapi/releases>`_ from the repository: https://github.com/picoquant/snapi
-
-2. Finally, you can unpack the files and install your package using `pip`. Navigate to the directory where your package is located, and type the following command:
+Install:
 
 ::
 
-    pip install .\dist\snAPI-<VERSION NUMBER x.y.z>-cp313-cp313-win_amd64.whl
+    pip install snapi
+
+Upgrade:
+
+::
+
+    pip install --upgrade snapi
 
 Dependencies
 ------------
 
 1. Download and install the software for the product you need:
-    - https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
+    - https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp_Release_v4.0.0.0.zip
     - https://www.picoquant.com/dl_software/HydraHarp400/HydraHarp400_SW_and_DLL_v3_0_0_4.zip
     - https://www.picoquant.com/dl_software/TimeHarp260/TimeHarp260_SW_and_DLL_V3_2.zip
-    - https://www.picoquant.com/dl_software/PicoHarp330/PicoHarp330_SW_and_DLL_v1_0.zip
+    - https://www.picoquant.com/dl_software/PicoHarp330/PicoHarp330_SW_and_DLL_v2_0.zip
+    - or look at https://www.picoquant.com/downloads
 
 2. Start the Harp Software and check if the device is working.
 
