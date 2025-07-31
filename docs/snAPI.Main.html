@@ -1674,7 +1674,7 @@ In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.Meas
 
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI.Main.Device.setMeasControl">
-<span class="sig-name descname"><span class="pre">setMeasControl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measControl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MeasControl.SingleShotCTC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Device.setMeasControl" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setMeasControl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measControl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MeasControl.SingleShotCTC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopEdge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Device.setMeasControl" title="Link to this definition">#</a></dt>
 <dd><blockquote>
 <div><p>Supported devices: [MH150/160 | HH400 | TH260 | PH330]</p>
 </div></blockquote>
@@ -1686,13 +1686,13 @@ through TTL signals at the control port or through White Rabbit.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>measControl</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasControl" title="snAPI.Constants.MeasControl"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.MeasControl</span></code></a>)</p></li>
 <li><p><strong>startEdge</strong> (<em>int</em>) – <div class="line-block">
-<div class="line">0: falling</div>
-<div class="line">1: rising (default)</div>
+<div class="line">0: falling (default)</div>
+<div class="line">1: rising</div>
 </div>
 </p></li>
 <li><p><strong>stopEdge</strong> (<em>int</em><em> | </em><em>None</em>) – <div class="line-block">
-<div class="line">0: falling</div>
-<div class="line">1: rising (default)</div>
+<div class="line">0: falling (default)</div>
+<div class="line">1: rising</div>
 </div>
 </p></li>
 </ul>
@@ -3007,7 +3007,7 @@ and run other code. In order to check later if the measurement is completed you 
 the <a class="reference internal" href="#snAPI.Main.Raw.isFinished" title="snAPI.Main.Raw.isFinished"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isFinished()</span></code></a> function. The data can be accessed with <a class="reference internal" href="#snAPI.Main.Raw.getData" title="snAPI.Main.Raw.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a>.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>If a <cite>Raw Buffer overrun - clearing!</cite> warning or <cite>Raw Buffer full - waiting!</cite> info means, that data cant be stored
+<p>If a <cite>Raw Buffer overrun - clearing!</cite> warning or <cite>Raw Buffer full - waiting!</cite> info means, that data can’t be stored
 in the allocated memory <cite>size</cite>. Increase the memory <cite>size</cite>, to resolve this issue by using the non blocking measure
 or the <a class="reference internal" href="#snAPI.Main.Raw.startBlock" title="snAPI.Main.Raw.startBlock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">startBlock()</span></code></a> and <a class="reference internal" href="#snAPI.Main.Raw.getBlock" title="snAPI.Main.Raw.getBlock"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getBlock()</span></code></a>!</p>
 </div>
@@ -4477,7 +4477,7 @@ multi-tau algorithm uses pseudo-logarithmically increasing bin widths.</p>
 <p><span class="figure-caption">This figure shows the principle of the Correlation measurement.</span></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI.Main.Correlation.setG2Parameters">
-<span class="sig-name descname"><span class="pre">setG2Parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Correlation.setG2Parameters" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setG2Parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopChannel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binWidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Correlation.setG2Parameters" title="Link to this definition">#</a></dt>
 <dd><p>This function sets the the parameters for the g(2) correlation. If the <cite>startChannel</cite> is the same as the
 <cite>stopChannel</cite> an autocorrelation is performed and if the channels are different a
 cross calculation is done instead.</p>
@@ -4497,6 +4497,7 @@ during this time span.</p>
 <li><p><strong>stopChannel</strong> (<em>int</em><em> (</em><em>0 is sync channel</em><em>)</em>) – click channel</p></li>
 <li><p><strong>windowSize</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em>) – size of the correlation window</p></li>
 <li><p><strong>binWidth</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em>) – width of bins (Default: None - T2: BaseResolution, T3: Resolution)</p></li>
+<li><p><strong>normalization</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – allows to disable normalization (for quantum experiments to count coincidences)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -5022,7 +5023,7 @@ This will reduce the data stream and therefore the processor load and memory con
 <dd><p>This manipulator, gives you the ability to add a delay to the specified channels. Its generally
 better to use <code class="xref py py-meth docutils literal notranslate"><span class="pre">setInputChannelOffset()</span></code> because it does the same but on a hardware level and
 therefore it doesn’t uses any resources of the PC. But if you handle data of a ptu file this is
-the only way to do that.</p>
+the only.</p>
 <a class="only-light reference internal image-reference" href="_images/05_Delay.png"><img alt="_images/05_Delay.png" class="only-light" src="_images/05_Delay.png" style="width: 600px;" />
 </a>
 <a class="only-dark reference internal image-reference" href="_images/05_Delay_dark.png"><img alt="_images/05_Delay_dark.png" class="only-dark" src="_images/05_Delay_dark.png" style="width: 600px;" />

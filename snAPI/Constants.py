@@ -368,6 +368,11 @@ Note
 The coincidence will get the timetag of the last event that build the coincidence.
 
     """
+    Average = 2
+    """
+This builds the average of the timetags that builds the coincidence.
+
+    """
 
 class WRmode(Enum):
     """

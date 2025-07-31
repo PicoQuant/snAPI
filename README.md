@@ -5,7 +5,6 @@ Instruments (TCSPC devices). It harnesses the advantages of C++ for optimal spee
 performance and bridges the gap between the high-speed capabilities of your PicoQuant
 TCSPC device and the ease of use and versatility of Python.
 
-
 ## Getting Started
 To get started with snAPI, follow the [Install](https://picoquant.github.io/snAPI/install.html) section of the online documentation.
 

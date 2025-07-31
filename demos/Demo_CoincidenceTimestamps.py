@@ -10,26 +10,26 @@ if(__name__ == "__main__"):
     
     # offline processing:
     # sn.getFileDevice(r"E:\Data\PicoQuant\G2_T3_sameTTs.ptu")
-    sn.initDevice(MeasMode.T2)
+    sn.initDevice(MeasMode.T3)
     
     # set the trigger level
-    sn.loadIniConfig("config\MH.ini")
+    sn.loadIniConfig("config\TH260N.ini")
     
     #list of channels to build the coincidence from
     chans= [1,2]
-    ciIndex = sn.manipulators.coincidence(chans, 1000, mode = CoincidenceMode.CountOnce, 
-                                time = CoincidenceTime.Last,
+    ciIndex = sn.manipulators.coincidence(chans, 1000000, mode = CoincidenceMode.CountAll, 
+                                time = CoincidenceTime.Average,
                                 keepChannels=True) #set keepChannels to false to get the coincidences only
     # ciIndex is the 'channel number' where the coincidences are stored
     sn.logPrint(f"coincidence index: {ciIndex}")
 
     # block measurement for continuous (acqTime = 0 is until stop) measurement
-    sn.unfold.startBlock(acqTime=1000, size=1024*1024*1024, savePTU=False)
+    sn.unfold.startBlock(acqTime=10, size=1024*1024*1024, savePTU=False)
     
     while(True):
         times, channels  = sn.unfold.getBlock()
         
-        if(len(times) > 9):
+        if(len(times) > 99):
             sn.logPrint("new data block:")
             sn.logPrint("  channel | time tag") 
             sn.logPrint("--------------------")
@@ -37,7 +37,7 @@ if(__name__ == "__main__"):
             # only print the first 10 time tags per block out
             # for performance reasons
             # but it here should all data be stored to disc
-            for i in range(10):
+            for i in range(100):
                 sn.logPrint(f"{channels[i]:9} | {times[i]:8}")
                 
                 

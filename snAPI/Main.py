@@ -1,4 +1,4 @@
-# Torsten Krause, PicoQuant GmbH, 2025
+# Torsten Krause, PicoQuant GmbH, 2023
 
 import ctypes as ct
 import inspect
@@ -1422,7 +1422,7 @@ Example
         return ok
 
 
-    def setMeasControl(self, measControl: typing.Optional[MeasControl] = MeasControl.SingleShotCTC, startEdge: typing.Optional[int] = 1, stopEdge: typing.Optional[int] = 1):
+    def setMeasControl(self, measControl: typing.Optional[MeasControl] = MeasControl.SingleShotCTC, startEdge: typing.Optional[int] = 0, stopEdge: typing.Optional[int] = 0):
         """
     Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
     
@@ -1434,11 +1434,11 @@ Parameters
 ----------
     measControl: :class:`snAPI.Constants.MeasControl`
     startEdge: int
-        | 0: falling
-        | 1: rising (default)
+        | 0: falling (default)
+        | 1: rising
     stopEdge:
-        | 0: falling
-        | 1: rising (default)
+        | 0: falling (default)
+        | 1: rising
     
 Returns
 -------
@@ -2810,7 +2810,7 @@ the :meth:`isFinished` function. The data can be accessed with :meth:`getData`.
 
 Caution
 -------
-If a `Raw Buffer overrun - clearing!` warning or `Raw Buffer full - waiting!` info means, that data cant be stored
+If a `Raw Buffer overrun - clearing!` warning or `Raw Buffer full - waiting!` info means, that data can't be stored
 in the allocated memory `size`. Increase the memory `size`, to resolve this issue by using the non blocking measure
 or the :meth:`startBlock` and :meth:`getBlock`!
 
@@ -2860,7 +2860,7 @@ Example
         """
         self.data = ct.ARRAY(ct.c_uint32, size)()
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "measurement is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "measurement is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         self.parent.dll.rawMeasure.restype = ct.c_bool
         return self.parent.dll.rawMeasure(acqTime, waitFinished, savePTU, ct.byref(self.data), self.idx, ct.c_uint64(size), self.finished)
@@ -2917,7 +2917,7 @@ Example
         self.storeData = ct.ARRAY(ct.c_uint32, size)()
         self.data = ct.ARRAY(ct.c_uint32, size)()
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "startBlock is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Read + "startBlock is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         self.parent.dll.rawStartBlock.restype = ct.c_bool
         return self.parent.dll.rawStartBlock(acqTime, savePTU, ct.byref(self.storeData), ct.c_uint64(size), self.finished)
@@ -2954,7 +2954,7 @@ Example
         """
         size = ct.pointer(ct.c_uint64(0))
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "startBlock is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "startBlock is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             self.idx.contents.value = 0
         else:
             self.parent.dll.rawGetBlock(ct.byref(self.data), size)
@@ -3000,7 +3000,7 @@ Example
             numRead = self.numRead()
             
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "getData is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "getData is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return []
         return np.lib.stride_tricks.as_strided(self.data, shape=(1, numRead),
             strides=(ct.sizeof(self.data._type_) * numRead, ct.sizeof(self.data._type_)))[0]
@@ -3380,7 +3380,7 @@ Example
         self.channels = ct.ARRAY(ct.c_uint8, size)()
         self.idx = ct.pointer(ct.c_uint64(0))
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "measurement is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "measurement is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         self.parent.dll.ufMeasure.restype = ct.c_bool
         return self.parent.dll.ufMeasure(acqTime, waitFinished, savePTU, ct.byref(self.times), ct.byref(self.channels), self.idx, ct.c_uint64(size), self.finished)
@@ -3443,7 +3443,7 @@ Example
         self.times = ct.ARRAY(ct.c_uint64, size)()
         self.channels = ct.ARRAY(ct.c_uint8, size)()
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "startBlock is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "startBlock is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         self.parent.dll.ufStartBlock.restype = ct.c_bool
         return self.parent.dll.ufStartBlock(acqTime, savePTU, ct.byref(self.storeTimes), ct.byref(self.storeChannels), ct.c_uint64(size), self.finished)
@@ -3483,7 +3483,7 @@ Example
         """
         size = ct.pointer(ct.c_uint64(0))
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "startBlock is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "startBlock is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             self.idx.contents.value = 0
         else:
             self.parent.dll.ufGetBlock(ct.byref(self.times), ct.byref(self.channels), size)
@@ -3949,7 +3949,7 @@ Example
 
         """
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
-            self.parent.logPrint( "setRefChannel is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "setRefChannel is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
         self.parent.dll.setHistoT2RefChan.argtypes = [ct.c_uint8]
         self.parent.dll.setHistoT2RefChan(channel)
         
@@ -3986,7 +3986,7 @@ Example
 
         """
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
-            self.parent.logPrint( "setNumBins is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "setNumBins is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
         self.parent.dll.setHistoT2NumBins.argtypes = [ct.c_uint64]
         self.parent.dll.setHistoT2NumBins.restype = ct.c_bool
         if ok:= self.parent.dll.setHistoT2NumBins(numBins):
@@ -4027,7 +4027,7 @@ Example
         if not binWidth:
             binWidth = self.parent.deviceConfig["BaseResolution"]
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
-            self.parent.logPrint( "setBinWidth is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "setBinWidth is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
         self.T2binWidth = binWidth
         self.parent.dll.setHistoT2BinWidth.argtypes = [ct.c_uint64]
         self.parent.dll.setHistoT2BinWidth(binWidth)
@@ -4359,7 +4359,7 @@ Example
         self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "measure is not supported for TimeTrace class in MeasMode:", 
+            self.parent.logPrint( Color.Red + "measure is not supported for TimeTrace class in MeasMode:", 
                 MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         
@@ -4537,9 +4537,10 @@ multi-tau algorithm uses pseudo-logarithmically increasing bin widths.
         self.numBins = 30
         self.isFcs = False
         self.finished = ct.pointer(ct.c_bool(False))
+        self.normalization = True
         
 
-    def setG2Parameters(self, startChannel: int, stopChannel: int, windowSize: float, binWidth: typing.Optional[float] = None):
+    def setG2Parameters(self, startChannel: int, stopChannel: int, windowSize: float, binWidth: typing.Optional[float] = None, normalization: typing.Optional[bool] = True):
         """
 This function sets the the parameters for the g(2) correlation. If the `startChannel` is the same as the
 `stopChannel` an autocorrelation is performed and if the channels are different a
@@ -4567,7 +4568,9 @@ Parameters
     windowSize: int [ps]
         size of the correlation window
     binWidth: int [ps]
-        width of bins (Default: None - T2: BaseResolution, T3: Resolution) 
+        width of bins (Default: None - T2: BaseResolution, T3: Resolution)
+    normalization: bool (default: True)
+        allows to disable normalization (for quantum experiments to count coincidences)
 
 Returns
 -------
@@ -4582,7 +4585,7 @@ Example
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         
         if binWidth is None:
@@ -4590,6 +4593,8 @@ Example
                 binWidth = self.parent.deviceConfig["BaseResolution"]
             elif self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value:
                 binWidth = self.parent.deviceConfig["Resolution"]
+        if binWidth < self.parent.deviceConfig["Resolution"]:
+            self.parent.logPrint( Color.Red + f"binWidth ({binWidth}ps can't be less than Resolution ({self.parent.deviceConfig["Resolution"]}ps)")
                 
         self.startChannel = startChannel
         self.stopChannel = stopChannel
@@ -4597,9 +4602,10 @@ Example
         self.binWidth = binWidth
         self.intervalLength = int(2 * windowSize / binWidth)
         self.isFcs = False
+        self.normalization = normalization
         
-        self.parent.dll.setG2Params.argtypes = [ct.c_int, ct.c_int, ct.c_double, ct.c_double]
-        self.parent.dll.setG2Params(startChannel, stopChannel, windowSize, binWidth)
+        self.parent.dll.setG2Params.argtypes = [ct.c_int, ct.c_int, ct.c_double, ct.c_double, ct.c_bool]
+        self.parent.dll.setG2Params(startChannel, stopChannel, windowSize, binWidth, normalization)
     
 
     def setFCSParameters(self, startChannel: int, stopChannel: int, startTime: typing.Optional[float] = 1e6, stopTime: typing.Optional[float] = 1e12, numBins: typing.Optional[int] = 30):
@@ -4634,7 +4640,7 @@ Example
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         
         if startTime is None:
@@ -4689,7 +4695,7 @@ Example
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         
         if startTime is None:
@@ -4756,7 +4762,7 @@ Example
         
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return False
         
         if self.isFcs:
@@ -4818,7 +4824,7 @@ Example
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
             return [],[]
         
         return np.lib.stride_tricks.as_strided(self.data), np.lib.stride_tricks.as_strided(self.bins)
@@ -5233,7 +5239,7 @@ Example
 This manipulator, gives you the ability to add a delay to the specified channels. Its generally
 better to use :meth:`setInputChannelOffset` because it does the same but on a hardware level and
 therefore it doesn't uses any resources of the PC. But if you handle data of a ptu file this is
-the only way to do that.
+the only.
 
 .. image:: _static/05_Delay.png
     :width: 600px
