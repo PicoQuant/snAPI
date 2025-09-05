@@ -525,7 +525,7 @@ See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setMea
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.SingleShotCTC">
 <span class="sig-name descname"><span class="pre">SingleShotCTC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.SingleShotCTC" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
+<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330 | HH500]</p>
 <p>Acquisition starts by software command and runs until CTC expires. The duration is set by the
 aqcTime parameter (&gt;0).
 SwStartSwStop is in use if aqcTime parameter is 0.</p>
@@ -534,7 +534,7 @@ SwStartSwStop is in use if aqcTime parameter is 0.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.C1Gated">
 <span class="sig-name descname"><span class="pre">C1Gated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.C1Gated" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
+<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330 | HH500]</p>
 <p>Data is collected for the period where C1 is active. This can be the logical high or low period
 dependent on the value supplied to the parameter startEdge.</p>
 </dd></dl>
@@ -542,7 +542,7 @@ dependent on the value supplied to the parameter startEdge.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.C1StartCtcStop">
 <span class="sig-name descname"><span class="pre">C1StartCtcStop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.C1StartCtcStop" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
+<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330 | HH500]</p>
 <p>Data collection is started by a transition on C1 and stopped by expiration of the internal CTC.
 Which transition actually triggers the start is given by the value supplied to the parameter startEdge.
 The duration is set by the aqcTime parameter (&gt;0).</p>
@@ -551,7 +551,7 @@ The duration is set by the aqcTime parameter (&gt;0).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.C1StartC2Stop">
 <span class="sig-name descname"><span class="pre">C1StartC2Stop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.C1StartC2Stop" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330]</p>
+<dd><p>Supported devices [MH150/160 | HH400 | TH260 | PH330 | HH500]</p>
 <p>Data collection is started by a transition on C1 and stopped by by a transition on C2. Which transitions
 actually trigger start and stop is given by the values supplied to the parameters startEdge and stopEdge.</p>
 </dd></dl>
@@ -559,28 +559,28 @@ actually trigger start and stop is given by the values supplied to the parameter
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.WrMaster2Slave">
 <span class="sig-name descname"><span class="pre">WrMaster2Slave</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.WrMaster2Slave" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p>White Rabbit master to slave</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.WrSlave2Master">
 <span class="sig-name descname"><span class="pre">WrSlave2Master</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.WrSlave2Master" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p>White Rabbit slave to master</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.SwStartSwStop">
 <span class="sig-name descname"><span class="pre">SwStartSwStop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.SwStartSwStop" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160 | PH330]</p>
+<dd><p>Supported devices [MH150/160 | PH330 | HH500]</p>
 <p>Software start and software stop is automatically used if aqcTime ist set to 0 in a measurement.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.ContC1Gated">
 <span class="sig-name descname"><span class="pre">ContC1Gated</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.ContC1Gated" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [HH400]</p>
+<dd><p>Supported devices [HH400 | HH500]</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The continuous mode is currently not supported in snAPI.</p>
@@ -590,7 +590,7 @@ actually trigger start and stop is given by the values supplied to the parameter
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.Cont_C1_Start_CTC_Stop">
 <span class="sig-name descname"><span class="pre">Cont_C1_Start_CTC_Stop</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.Cont_C1_Start_CTC_Stop" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [HH400]</p>
+<dd><p>Supported devices [HH400 | HH500]</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The continuous mode is currently not supported in snAPI.</p>
@@ -600,7 +600,7 @@ actually trigger start and stop is given by the values supplied to the parameter
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.MeasControl.Cont_CTC_Restart">
 <span class="sig-name descname"><span class="pre">Cont_CTC_Restart</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI.Constants.MeasControl.Cont_CTC_Restart" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [HH400]</p>
+<dd><p>Supported devices [HH400 | HH500]</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The continuous mode is currently not supported in snAPI.</p>
@@ -620,7 +620,7 @@ See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.initDev
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.Internal">
 <span class="sig-name descname"><span class="pre">Internal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Internal" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160 | HH400 | (TH260) | PH330]</p>
+<dd><p>Supported devices [MH150/160 | HH400 | (TH260) | PH330 | HH500]</p>
 <div class="line-block">
 <div class="line"><strong>Internal clock</strong></div>
 <div class="line">This is the default and normally selected by most users when only one device is being used.</div>
@@ -630,7 +630,7 @@ See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.initDev
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.External_10MHZ">
 <span class="sig-name descname"><span class="pre">External_10MHZ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.External_10MHZ" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160 | HH400 | PH330]</p>
+<dd><p>Supported devices [MH150/160 | HH400 | PH330 | HH500]</p>
 <div class="line-block">
 <div class="line"><strong>10MHz external clock</strong></div>
 <div class="line">This is for use with an industry standard 10MHz reference such as an atomic clock or another Harp.</div>
@@ -640,56 +640,56 @@ See <a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.initDev
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Master_Generic">
 <span class="sig-name descname"><span class="pre">Wr_Master_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Master_Generic" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p><strong>White Rabbit master with generic partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Slave_Generic">
 <span class="sig-name descname"><span class="pre">Wr_Slave_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Slave_Generic" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p><strong>White Rabbit slave with generic partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Grandm_Generic">
 <span class="sig-name descname"><span class="pre">Wr_Grandm_Generic</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Grandm_Generic" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p><strong>White Rabbit grand master with generic partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.Extn_GPS_PPS">
 <span class="sig-name descname"><span class="pre">Extn_GPS_PPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Extn_GPS_PPS" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p><strong>10 MHz + PPS from GPS</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.Extn_GPS_PPS_UART">
 <span class="sig-name descname"><span class="pre">Extn_GPS_PPS_UART</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Extn_GPS_PPS_UART" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p><strong>10 MHz + PPS + time via UART from GPS</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Master_Harp">
 <span class="sig-name descname"><span class="pre">Wr_Master_Harp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Master_Harp" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p><strong>White Rabbit master with the Harp as partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Slave_Harp">
 <span class="sig-name descname"><span class="pre">Wr_Slave_Harp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Slave_Harp" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p><strong>White Rabbit slave with the Harp as partner</strong></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Constants.RefSource.Wr_Grandm_Harp">
 <span class="sig-name descname"><span class="pre">Wr_Grandm_Harp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#snAPI.Constants.RefSource.Wr_Grandm_Harp" title="Link to this definition">#</a></dt>
-<dd><p>Supported devices [MH150/160]</p>
+<dd><p>Supported devices [MH150/160 | HH500]</p>
 <p><strong>White Rabbit grand master with the Harp as partner</strong></p>
 </dd></dl>
 

@@ -15,14 +15,16 @@ if(__name__ == "__main__"):
     # temporarily enable logging of configuration
     sn.setLogLevel(LogLevel.Config, True)
     # set the configuration for your device type
-    sn.loadIniConfig("config\MH.ini")
+    sn.loadIniConfig(r"config\TH260N.ini")
     sn.setLogLevel(LogLevel.Config, False)
+    sn.setLogLevel(LogLevel.Api, True)
+    sn.setLogLevel(LogLevel.Device, True)
     
     # change histogram parameter in T2 mode
     sn.histogram.setRefChannel(0)
-    sn.histogram.setBinWidth(1000)
+    sn.histogram.setBinWidth(250)
     sn.histogram.setNumBins(10000)
-    sn.histogram.measure(acqTime=1000, waitFinished=False, savePTU=True)
+    sn.histogram.measure(acqTime=10000, waitFinished=True, savePTU=False)
     
     while True:
         finished = sn.histogram.isFinished()

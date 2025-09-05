@@ -9,20 +9,22 @@ if(__name__ == "__main__"):
 
     sn = snAPI()
     sn.getDeviceIDs()
-    #sn.getDevice()
+    sn.getDevice()
     sn.getFileDevice(r"D:\Data\PicoQuant\CW_Shelved.ptu") # T2 File
-    sn.initDevice(MeasMode.T2)
-    sn.setPTUFilePath(asdasdsa);
-    
+    #sn.initDevice(MeasMode.T2)
+        
     # set the configuration for your device type
     sn.loadIniConfig("config\MH.ini")
     
     # 1. shift the signals to max correlation max at tau = 0
     #sn.device.setInputChannelOffset(1, 1588)
     
+    # only process data from 70s to end of file 
+    sn.manipulators.subStream(70)
+    
     # 2. set windowSize and startTime
-    sn.correlation.setG2Parameters(1, 2, 50000, 50)
-    sn.correlation.measure(1000,savePTU=False)
+    sn.correlation.setG2Parameters(1, 2, 500000, 250, True)
+    sn.correlation.measure(0,savePTU=False)
 
     while True:
         finished = sn.correlation.isFinished()

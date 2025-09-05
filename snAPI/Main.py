@@ -975,7 +975,7 @@ Parameters
     syncDiv: int
         | sync rate divider 
         | 1(default)
-        | MH150/160, HH400  [1, 2, 4, 8, 16]
+        | MH150/160, HH400, HH500  [1, 2, 4, 8, 16]
         | TH260 | PH330: [1, 2, 4, 8]
     
 Returns
@@ -997,7 +997,7 @@ Example
 
     def setSyncTrigMode(self, syncTrigMode: typing.Optional[TrigMode] = TrigMode.Edge):
         """
-    Supported devices: [PH330]
+    Supported devices: [PH330 | HH500]
     
 The function sets the trigger mode of the sync channel.
 For the trigger mode of the input channels use :meth:`setInputTrigMode`.
@@ -1031,7 +1031,7 @@ Example
 
     def setSyncEdgeTrig(self, syncTrigLvl: typing.Optional[int] = -50, syncTrigEdge: typing.Optional[int] = 1):
         """
-    Supported devices: [MH150/160 | TH260N | PH330]
+    Supported devices: [MH150/160 | TH260N | PH330 | HH500]
     
 This function sets the trigger level and trigger slope of the sync channel.
 The hardware uses a 10 bit DAC that can resolve the level value only
@@ -1043,7 +1043,7 @@ Parameters
     syncTrigLvl: int
         | trigger level [mV] 
         | (default:-50mV)
-        | MH150/160, TH260N : [-1200..1200]
+        | MH150/160, TH260N, HH500 : [-1200..1200]
         | PH330: [-1500..1500]
     syncTrigEdge: int
         | trigger edge 
@@ -1071,7 +1071,7 @@ Example
 
     def setSyncCFD(self, syncDiscrLvl: typing.Optional[int] = 50, syncZeroXLvL: typing.Optional[int] = 20):
         """
-    Supported devices: [HH400 | TH260P | PH330]
+    Supported devices: [HH400 | TH260P | PH330 | HH500]
     
 This function configures the CFD (Constant Fraction Discriminator) of the sync channel.
 For the input CFD of the input channels use :meth:`setInputCFD`.
@@ -1081,13 +1081,13 @@ Parameters
     syncDiscrLvl: int
         | discriminator level [mV] (default:50mV)
         | HH400: [0..1000]
-        | TH260P: [-1200..0]
+        | TH260P, HH500: [-1200..0]
         | PH330: [-1500..0]
     syncZeroXLvL: int
         | zero cross level [mV] (default:20mV)
         | HH400: [0..40]
         | TH260P: [-40..0]
-        | PH330: [-100..0]
+        | PH330, HH500: [-100..0]
     
 Returns
 -------
@@ -1110,7 +1110,7 @@ Example
     
     def setSyncChannelOffset(self, syncChannelOffset: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330]
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500]
     
 This sets a virtual delay time to the sync pulse. This is equivalent to changing
 the cable length on the sync input. The current resolution is the device's base resolution.
@@ -1120,7 +1120,7 @@ Parameters
     syncChannelOffset: int
         | sync timing offset [ps]
         | (0: default)
-        | MH150/160, HH400, TH260, PH330: [-99999..99999]
+        | MH150/160, HH400, TH260, PH330, HH500: [-99999..99999]
     
 Returns
 -------
@@ -1142,7 +1142,7 @@ Example
 
     def setSyncChannelEnable(self, syncChannelEnable: typing.Optional[int] = 1):
         """
-    Supported devices: [MH150/160 | PH330]
+    Supported devices: [MH150/160 | PH330 | HH500]
     
 This enables or disables the sync channel. This is only useful in :obj:`.MeasMode.T2`.
 Histogram and :obj:`.MeasMode.T3` always need an active sync signal.
@@ -1174,7 +1174,7 @@ Example
 
     def setSyncDeadTime(self, syncDeadTime: typing.Optional[int] = 800):
         """
-    Supported devices: [MH150/160 | PH330] 
+    Supported devices: [MH150/160 | TH206P | PH330 | HH500] 
     
 This call is primarily intended for the suppression of afterpulsing artifacts caused by some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
@@ -1191,7 +1191,7 @@ Parameters
     syncDeadTime:
         | extended dead-time [ps]
         | 800 (default)
-        | MH150/160, PH330: [801..160000], <=800: disabled
+        | MH150/160, PH330, HH500: [801..160000], <=800: disabled
         | TH206P only [24000, 44000, 66000, 88000, 112000, 135000, 160000 or 180000]
     
 Returns
@@ -1214,7 +1214,7 @@ Example
 
     def setInputHysteresis(self, hystCode: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | PH330] 
+    Supported devices: [MH150/160 | PH330 | HH500] 
     
 This function is intended for the suppression of noise or pulse shape artifacts caused by some detectors by setting
 a higher input hysteresis.
@@ -1283,7 +1283,7 @@ Example
 
     def setStopOverflow(self, stopCount: typing.Optional[int] = 4294967295):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This setting causes the measurement to stop if any channel reaches the maximum set by `stopCount`.
 The maximum value that could be count is 4294967295, which is the equivalent to the 32 bit storage.
@@ -1318,7 +1318,7 @@ Example
 
     def setBinning(self, binning: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This sets the with of the time bins.
 Binning only applies in Histogram and :obj:`.MeasMode.T3`. 
@@ -1328,7 +1328,7 @@ Parameters
 ----------
     binning: 
         | (default: 0 - 1*br)
-        | MH150/160, PH330: [1: 2*br, 2: 4*br, .., 24: 16777216*br]
+        | MH150/160, PH330, HH500: [1: 2*br, 2: 4*br, .., 24: 16777216*br]
         | HH400: [1: 2*br, 2: 4*br, .., 26: 67108864*br]
         | TH260: [1: 2*br, 2: 4*br, .., 22: 4194304*br]
         | this means: n*br = 2^binning
@@ -1354,7 +1354,7 @@ Example
 
     def setOffset(self, offset: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This offset only applies in Histogram and :obj:`.MeasMode.T3`. It affects only the difference between start
 and stop before it is put into the T3 record or is used when allocating the corresponding histogram bin.
@@ -1367,7 +1367,7 @@ Parameters
     offset:
         | histogram time offset [ns]
         | (0: default)
-        | MH150/160, TH260, PH330: [0..100000000]
+        | MH150/160, TH260, PH330, HH500: [0..100000000]
         | HH400: [0..500000]
     
 Returns
@@ -1390,17 +1390,24 @@ Example
 
     def setHistoLength(self, lengthCode: typing.Optional[int] = 6):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This function sets the number of bins of the collected histograms in :obj:`.MeasMode.Histogram`.
-The maximum histogram length obtained is 65536 which is also the default after initialization.
-In :obj:`.MeasMode.T2` the number of bins is fixed 65536 and in :obj:`.MeasMode.T3` it is 32768. 
+The maximum histogram length obtained is 65536 which is the default after initialization.
+In In :obj:`.MeasMode.T3` maximum histogram length obtained is 32768 which is also the default after initialization.
+In :obj:`.MeasMode.T2` the number of bins is  65536 and in :obj:`.histogram.setNumBins` it is 32768. 
 
 Parameters
 ----------
     lengthCode: int
+    In :obj:`.MeasMode.Hist`
         | number of bins that can be calculated by :math:`2^{(10 + \\mathrm{lengthCode})}`
-        | MH150/160: [0..6] (default: 65536 bins = lengthCode 6)
+        | MH150/160, HH400 : [0..6] (default: 65536 bins = lengthCode 6)
+        | TH260, PH330: [0..5] (default: 32768 bins = lengthCode 5)
+        | PH330: [0..9] (default: 65536 bins = lengthCode 6, max: 524288 bins = lengthCode 9)
+        | HP500: [0..7] (default: 65536 bins = lengthCode 6, max: 131072 bins = lengthCode 7)
+    
+    In :obj:`.MeasMode.T3`
         | HH400, TH260, PH330: [0..5] (default: 32768 bins = lengthCode 5)
     
 Returns
@@ -1424,7 +1431,7 @@ Example
 
     def setMeasControl(self, measControl: typing.Optional[MeasControl] = MeasControl.SingleShotCTC, startEdge: typing.Optional[int] = 0, stopEdge: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This sets the measurement control mode and for other than the default it must be called before starting a measurement.
 The default is 0: CTC controlled acquisition time. The modes 1..5 allow hardware triggered measurements
@@ -1462,7 +1469,7 @@ Example
 
     def setTriggerOutput(self, trigOutput: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | TH260 | PH330] 
+    Supported devices: [MH150/160 | TH260 | PH330 | HH500] 
     
 This can be used to set the period of the programmable trigger output. A period zero (0) switches it off.
 
@@ -1474,7 +1481,7 @@ Parameters
 ----------
     trigOutput: int [units of 100ns]
     | 0: switch output off (default)
-    | MH150/160, TH260, PH330: [0..16777215]
+    | MH150/160, TH260, PH330, HH500: [0..16777215]
     
 Returns
 -------
@@ -1496,7 +1503,7 @@ Example
 
     def setMarkerEdges(self, edge1: typing.Optional[int] = 0, edge2: typing.Optional[int] = 0, edge3: typing.Optional[int] = 0, edge4: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This can be used to change the active edge on which the external TTL signals are connected to the marker inputs trigger.
 
@@ -1533,7 +1540,7 @@ Example
 
     def setMarkerEnable(self, ena1: typing.Optional[int] = 0, ena2: typing.Optional[int] = 0, ena3: typing.Optional[int] = 0, ena4: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This can be used to enable or disable the external TTL marker inputs.
 
@@ -1570,7 +1577,7 @@ Example
 
     def setMarkerHoldoffTime(self, holdofftime: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This setting is normally not required but it can be used to deal with glitches
 on the marker lines. Using this function causes the suppression of markers following
@@ -1585,7 +1592,7 @@ Parameters
 ----------
     holdofftime: int [ns]
         | (0: default)
-        | MH150/160, PH330: [0.. 25500]
+        | MH150/160, PH330, HH500: [0.. 25500]
         | HH400: [0.. 524296]
     
 Returns
@@ -1608,7 +1615,7 @@ Example
 
     def setOflCompression(self, holdtime: typing.Optional[int] = 2):
         """
-    Supported devices: [MH150/160 | PH330] 
+    Supported devices: [MH150/160 | PH330 | HH500] 
     
 This setting is normally not required but it can be useful when data rates are very low and the overflows is high compared to the number of
 photons. If used the hardware will count overflows and only transfer them to the FiFo when the holdtime has elapsed. The default
@@ -1649,7 +1656,7 @@ Example
 
     def setInputTrigMode(self, channel: typing.Optional[int] = -1, trigMode: typing.Optional[TrigMode] = TrigMode.Edge):
         """
-    Supported devices: [PH330] 
+    Supported devices: [PH330 | HH500] 
     
 This sets the input trigger mode.
 For the input edge trigger of the sync channel use :meth:`setSyncTrigMode`.
@@ -1698,7 +1705,7 @@ Example
 
     def setInputEdgeTrig(self, channel: typing.Optional[int] = -1, trigLvl: typing.Optional[int] = -50, trigEdge: typing.Optional[int] = 1):
         """
-    Supported devices: [MH150/160 | TH260 | PH330] 
+    Supported devices: [MH150/160 | TH260 | PH330 | HH500] 
     
 This command sets the input trigger. Both the trigger level and the trigger slope have to be configured.
 For the input edge trigger of the sync channel use :meth:`setSyncEdgeTrig`.
@@ -1715,7 +1722,8 @@ Parameters
         | -1: all channels (default)
     trigLvl: int [mV]
         | (default: -50mV)
-        | MH150/160, TH260: [-1200..1200]
+        | MH150/160, TH260, HH500: [-1200..1200]
+        | PH330: [-1500..1500]
     trigEdge: int
         | 0: falling
         | 1: rising (default)
@@ -1747,7 +1755,7 @@ Example
 
     def setInputCFD(self, channel: typing.Optional[int] = -1, discrLvl: typing.Optional[int] = 50, zeroXLvl: typing.Optional[int] = 20):
         """
-    Supported devices: [HH400 | TH260P | PH330] 
+    Supported devices: [HH400 | TH260P | PH330 | HH500] 
     
 This function can be used to configure the CFD (Constant Fraction Discriminator) of the sync channel.
 For the input CFD of the input channels use :meth:`setSyncCFD`.
@@ -1760,11 +1768,13 @@ Parameters
     discrLvlSync: int
         | level [mV] (default:50mV)
         | HH400: [0..1000]
-        | TH260P: [-1200..0]
+        | TH260P, HH500: [-1200..0]
+        | PH330: [-1500..0]
     syncZeroXLvL: int
         | zero cross level [mV]
         | HH400: [0..40]
         | TH260P: [-40..0]
+        | HH500: [-100..0]
     
 Returns
 -------
@@ -1793,7 +1803,7 @@ Example
 
     def setInputChannelOffset(self, channel: typing.Optional[int] = -1, chanOffs: typing.Optional[int] = 0):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This operation equivalent to changing the cable length (delay) on the chosen input. The offset resolution is equal to the device base resolution.
 For the input channel offset of the sync channel use :meth:`setSyncChannelOffset`.
@@ -1809,7 +1819,7 @@ Parameters
         | -1: all channels (default)
     chanOffs: int channel timing offset [ps]
         | (default: 0)
-        | MH150/160, HH400, TH260, PH330 [-99999..99999] 
+        | MH150/160, HH400, TH260, PH330, HH500 [-99999..99999] 
     
 Returns
 -------
@@ -1835,7 +1845,7 @@ Example
 
     def setInputChannelEnable(self, channel: typing.Optional[int] = -1, chanEna: typing.Optional[int] = 1):
         """
-    Supported devices: [MH150/160 | HH400 | TH260 | PH330] 
+    Supported devices: [MH150/160 | HH400 | TH260 | PH330 | HH500] 
     
 This function enables or disables the input channels.
 To enable the sync channel use :meth:`setSyncChannelEnable`.
@@ -1877,7 +1887,7 @@ Example
 
     def setInputDeadTime(self, channel: typing.Optional[int] = -1, deadTime: typing.Optional[int] = 800):
         """
-    Supported devices: [MH150/160 | TH260 | PH330] 
+    Supported devices: [MH150/160 | TH260 | PH330 | HH500] 
     
 This call is primarily intended for the suppression of afterpulsing artifacts of some detectors.
 An extended dead-time does not prevent the TDC from measuring the next event and hence enter a
@@ -1896,7 +1906,7 @@ Parameters
         -1: all channels (default)
     deadTime:
         | extended dead-time [ps]
-        | MH150/160, TH260, PH330 [800..160000] (default: 800) (<=800: disabled)
+        | MH150/160, TH260, PH330, HH500 [800..160000] (default: 800) (<=800: disabled)
         | TH260 [24000 | 44000 | 66000 | 88000 | 112000 | 135000 | 160000 | 180000] (default: 24000)
     
 Returns
@@ -1965,42 +1975,44 @@ Note
 
     def setRowParams(self, row: int, timeRange: int, matchCount: int, inverse: bool, useChans:typing.List[int], passChans:typing.List[int]):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
-This sets the parameters for one Row Filter implemented in the local FPGA processing that row of input channels. Each
-Row Filter can act only on the input channels within its own row and never on the sync channel. The parameter `timeRange` determines
+This sets the parameters for one Row (Group) Filter implemented in the local FPGA processing that row (group) of input channels. Each
+Row (Group) Filter can act only on the input channels within its own row (group) and never on the sync channel. The parameter `timeRange` determines
 the time window the filter is acting on. The parameter `matchCount` specifies how many other events must fall into the
 chosen time window for the filter condition to act on the event at hand. The parameter `inverse` inverts the filter action, i.e.
 when the filter would regularly have eliminated an event it will then keep it instead and vice versa. For the typical case, let it be not
 inverted. Then, if `matchCount` is 1 we will obtain a simple 'singles filter'. This is the most straight forward and most useful filter
 in typical quantum optics experiments. It will suppress all events that do not have at least one coincident event within the
-chosen time range, be this in the same or any other channel marked as 'use' in this row. The list `passChans` is used
+chosen time range, be this in the same or any other channel marked as 'use' in this row (group). The list `passChans` is used
 to indicate if a channel is to be passed through the filter unconditionally, whether it is marked as 'use' or not. The events on a
 channel that is marked neither as 'use' nor as 'pass' will not pass the filter, provided the filter is enabled. The parameter
-settings are irrelevant as long as the filter is not enabled. The output from the Row Filters is fed to the Main Filter. The overall
+settings are irrelevant as long as the filter is not enabled. The output from the Row (Group) Filters is fed to the Main Filter. The overall
 filtering result depends on their combined action. Only the Main Filter can act on all channels of the PicoQuant TCSPC device including
 the sync channel. 
 
 Note
 ----
-    It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row Filter(s)
+    It is usually sufficient and easier to use the Main Filter alone. The only reasons for using the Row (Group) Filter(s)
     are early data reduction, so as to not overload the Main Filter, and the possible need for more complex filters, e.g. with
     different time ranges.
     
 Parameters
 ----------
-    row: int [0..8]
-        | index of the row of input channels, counts bottom to top
-    timeRange: int [0..160000ps]
+    row: int [0..7]
+        | index of the row (group) of input channels, counts bottom to top
+    timeRange: int 
+        | MH150: [0..160000ps]
+        | HH500: [0..32000ps]
         | time distance in ps to other events to meet filter condition
     matchCount: int [1..6]
         | number of other events needed to meet filter condition
     inverse: bool
         | set regular or inverse filter logic
         | false: regular, true: inverse
-    useChans: List[int] [0..8] (8 is sync channel, T2 Mode only)
+    useChans: List[int] [0..7]
         | List of channels to use
-    passChans: List[int] [0..8] (8 is sync channel, T2 Mode only)
+    passChans: List[int] [0..7]
         | List of channels to pass
     
 Returns
@@ -2038,8 +2050,8 @@ filtered out according to the parameters set with :meth:`setRowParams`.
     
 Parameters
 ----------
-    row: int [0..8]
-        | index of the row of input channels, counts bottom to top
+    row: int [0..7]
+        | index of the row (group) of input channels, counts bottom to top
     enable: bool
         | desired enable state of the filter
     
@@ -2063,7 +2075,7 @@ Example
 
     def setMainParams(self, timeRange: int, matchCount: int, inverse: bool):
         """
-    Supported devices: [MH150/160 | PH330] 
+    Supported devices: [MH150/160 | PH330 | HH500] 
     
 This sets the parameters for the Main Filter implemented in the main FPGA processing the aggregated events arriving from
 the row FPGAs. The Main Filter can therefore act on all channels of the device including the sync channel. The
@@ -2084,7 +2096,9 @@ Note
     
 Parameters
 ----------
-    timeRange: int [0..160000ps]
+    timeRange: int
+        | MH150, PH330: [0..160000ps]
+        | HH500: [0..32000ps]
         | time distance in ps to other events to meet filter condition
     matchCount: int [1..6]
         | number of other events needed to meet filter condition
@@ -2111,7 +2125,7 @@ Example
 
     def setMainChannels(self, row: int, useChans:typing.List[int], passChans:typing.List[int]):
         """
-    Supported devices: [MH150/160 | PH330] 
+    Supported devices: [MH150/160 | PH330 | HH500] 
     
 This selects the Main Filter channels for one row of input channels. Doing this row by row is to address the fact that the various
 device models have different numbers of rows. The list `useChans` is used to to indicate if a channel is to be
@@ -2133,7 +2147,7 @@ Note
     
 Parameters
 ----------
-    row: int [0..8]
+    row: int [0..7]
         | index of the row of input channels, counts bottom to top
     useChans: List[int] [0..8] (8 is sync channel, T2 Mode only)
         | List of channels to use
@@ -2167,7 +2181,7 @@ Example
 
     def enableMain(self, enable: typing.Optional[bool] = True):
         """
-    Supported devices: [MH150/160 | PH330] 
+    Supported devices: [MH150/160 | PH330 | HH500] 
     
 When the filter is disabled all events will pass. This is the default after initialization. When it is enabled, events may be
 filtered out according to the parameters set with :meth:`setMainParams` and :meth:`setMainParams`.
@@ -2206,7 +2220,7 @@ Example
     
     def setTestMode(self, testMode: typing.Optional[bool] = True):
         """
-    Supported devices: [MH150/160 | PH330] 
+    Supported devices: [MH150/160 | PH330 | HH500] 
     
 One important purpose of the event filters is to reduce USB load. When the input data rates are higher than the USB bandwith,
 there will  be a FiFo overrun at some point. Under such conditions can be difficult to empirically optimize the filter settings.
@@ -2243,7 +2257,7 @@ Example
     
     def getRowRates(self):
         """
-    Supported devices: [MH150/160 | PH330] 
+    Supported devices: [MH150/160 | PH330 | HH500] 
     
 This call retrieves the count rates after the Row Filter before entering the FiFO. A measurement must be running to obtain
 valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The list which is returned
@@ -2284,7 +2298,7 @@ Example
     
     def getMainRates(self):
         """
-    Supported devices: [MH150/160 | PH330] 
+    Supported devices: [MH150/160 | PH330 | HH500] 
     
 This call retrieves the count rates after the Main Filter before entering the FiFO. A measurement must be running to obtain
 valid results. Allow at least 100 ms to get a new reading. This is the gate time of the rate counters. The list which is returned
@@ -2351,7 +2365,7 @@ See:
 
     def getMAC(self, ):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This gets the MAC-Address of the sfp module and writes it to :obj:`WhiteRabbit.mac<.mac>`
 
@@ -2381,7 +2395,7 @@ Example
     
     def setMAC(self, mac: str):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This sets the MAC-Address of the sfp module.
     
@@ -2410,7 +2424,7 @@ Example
 
     def getSFPData(self, ):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This gets the SFP-Calibration-Parameters and writes them to and writes it to :obj:`WhiteRabbit.SFPalphas<.SFPnames>`,
 :obj:`WhiteRabbit.SFPalphas<.SFPdTxs>`, :obj:`WhiteRabbit.SFPalphas<.SFPdRxs>` and :obj:`WhiteRabbit.SFPalphas<.SFPalphas>`.
@@ -2452,7 +2466,7 @@ Example
     
     def getInitScript(self, ):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This function reads the init script from the EEPROM and writes it to :obj:`WhiteRabbit.initScript<.initScript>`.
     
@@ -2480,7 +2494,7 @@ Example
     
     def setInitScript(self, script: str):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This function reads the init script. It will be written to the EEPROM. After starting the
 Harp Device will automatically boot with this script. 
@@ -2515,7 +2529,7 @@ Example
 
     def setMode(self, bootFromScript: typing.Optional[bool] = False, reinitWithMode: typing.Optional[bool] = False, mode: typing.Optional[WRmode] = WRmode.Off):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This function temporarily sets the mode of the WR node with or without initializing it. The mode will not be
 stored to the EEPROM.
@@ -2558,7 +2572,7 @@ Example
     
     def getTime(self,):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This function returns the current UTC time of the WR node.
     
@@ -2585,7 +2599,7 @@ Example
 
     def setTime(self, time: datetime):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This can be used to set the current UTC time of a WR node configured as WR master. If a slave is connected it
 will be set to the same time.
@@ -2615,7 +2629,7 @@ Example
     
     def initLink(self, onOff: bool):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This can be used to switch the WR link on and off.
     
@@ -2643,7 +2657,7 @@ Example
     
     def getStatus(self,):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 This function gives you the status of the WR ptp state machine, the link and servo state.
 It must be interpreted as a 32bit field. The bits are defined in refSrc: :class:`snAPI.Constants.WRstatus`
@@ -2678,7 +2692,7 @@ Example
     
     def getTermOutput(self, VT100: typing.Optional[bool] = False):
         """
-    Supported devices: [MH150/160] 
+    Supported devices: [MH150/160 | HH500] 
     
 When the Harp WR core has received the commend gui (should be the last line of the init script) it sends terminal
 output describing its state. This function can then be used to retrieve that terminal as string. If the VT100 flag
@@ -2860,7 +2874,8 @@ Example
         """
         self.data = ct.ARRAY(ct.c_uint32, size)()
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "measurement is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "measurement is not supported for Raw class in MeasMode:", name)
             return False
         self.parent.dll.rawMeasure.restype = ct.c_bool
         return self.parent.dll.rawMeasure(acqTime, waitFinished, savePTU, ct.byref(self.data), self.idx, ct.c_uint64(size), self.finished)
@@ -2917,7 +2932,8 @@ Example
         self.storeData = ct.ARRAY(ct.c_uint32, size)()
         self.data = ct.ARRAY(ct.c_uint32, size)()
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Read + "startBlock is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "startBlock is not supported for Raw class in MeasMode:", name)
             return False
         self.parent.dll.rawStartBlock.restype = ct.c_bool
         return self.parent.dll.rawStartBlock(acqTime, savePTU, ct.byref(self.storeData), ct.c_uint64(size), self.finished)
@@ -2954,7 +2970,8 @@ Example
         """
         size = ct.pointer(ct.c_uint64(0))
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "startBlock is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "startBlock is not supported for Raw class in MeasMode:", name)
             self.idx.contents.value = 0
         else:
             self.parent.dll.rawGetBlock(ct.byref(self.data), size)
@@ -3000,7 +3017,8 @@ Example
             numRead = self.numRead()
             
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "getData is not supported for Raw class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "getData is not supported for Raw class in MeasMode:", name)
             return []
         return np.lib.stride_tricks.as_strided(self.data, shape=(1, numRead),
             strides=(ct.sizeof(self.data._type_) * numRead, ct.sizeof(self.data._type_)))[0]
@@ -3380,7 +3398,8 @@ Example
         self.channels = ct.ARRAY(ct.c_uint8, size)()
         self.idx = ct.pointer(ct.c_uint64(0))
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "measurement is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "measurement is not supported for Unfold class in MeasMode:", name)
             return False
         self.parent.dll.ufMeasure.restype = ct.c_bool
         return self.parent.dll.ufMeasure(acqTime, waitFinished, savePTU, ct.byref(self.times), ct.byref(self.channels), self.idx, ct.c_uint64(size), self.finished)
@@ -3443,7 +3462,8 @@ Example
         self.times = ct.ARRAY(ct.c_uint64, size)()
         self.channels = ct.ARRAY(ct.c_uint8, size)()
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "startBlock is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "startBlock is not supported for Unfold class in MeasMode:", name)
             return False
         self.parent.dll.ufStartBlock.restype = ct.c_bool
         return self.parent.dll.ufStartBlock(acqTime, savePTU, ct.byref(self.storeTimes), ct.byref(self.storeChannels), ct.c_uint64(size), self.finished)
@@ -3483,7 +3503,8 @@ Example
         """
         size = ct.pointer(ct.c_uint64(0))
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "startBlock is not supported for Unfold class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "startBlock is not supported for Unfold class in MeasMode:", name)
             self.idx.contents.value = 0
         else:
             self.parent.dll.ufGetBlock(ct.byref(self.times), ct.byref(self.channels), size)
@@ -3949,7 +3970,8 @@ Example
 
         """
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
-            self.parent.logPrint( Color.Red + "setRefChannel is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "setRefChannel is not supported in MeasMode:", name)
         self.parent.dll.setHistoT2RefChan.argtypes = [ct.c_uint8]
         self.parent.dll.setHistoT2RefChan(channel)
         
@@ -3986,7 +4008,8 @@ Example
 
         """
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
-            self.parent.logPrint( Color.Red + "setNumBins is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "setNumBins is not supported in MeasMode:", name)
         self.parent.dll.setHistoT2NumBins.argtypes = [ct.c_uint64]
         self.parent.dll.setHistoT2NumBins.restype = ct.c_bool
         if ok:= self.parent.dll.setHistoT2NumBins(numBins):
@@ -4027,7 +4050,8 @@ Example
         if not binWidth:
             binWidth = self.parent.deviceConfig["BaseResolution"]
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
-            self.parent.logPrint( Color.Red + "setBinWidth is not supported in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "setBinWidth is not supported in MeasMode:", name)
         self.T2binWidth = binWidth
         self.parent.dll.setHistoT2BinWidth.argtypes = [ct.c_uint64]
         self.parent.dll.setHistoT2BinWidth(binWidth)
@@ -4359,8 +4383,8 @@ Example
         self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
         
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "measure is not supported for TimeTrace class in MeasMode:", 
-                MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "measure is not supported for TimeTrace class in MeasMode:", name)
             return False
         
         self.parent.dll.getTimeTrace.restype = ct.c_bool
@@ -4585,7 +4609,8 @@ Example
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", name)
             return False
         
         if binWidth is None:
@@ -4594,7 +4619,8 @@ Example
             elif self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value:
                 binWidth = self.parent.deviceConfig["Resolution"]
         if binWidth < self.parent.deviceConfig["Resolution"]:
-            self.parent.logPrint( Color.Red + f"binWidth ({binWidth}ps can't be less than Resolution ({self.parent.deviceConfig["Resolution"]}ps)")
+            resolution = self.parent.deviceConfig['Resolution']
+            self.parent.logPrint( Color.Red + f"binWidth {binWidth}ps can't be less than Resolution ({resolution}ps)")
                 
         self.startChannel = startChannel
         self.stopChannel = stopChannel
@@ -4640,7 +4666,8 @@ Example
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", name)
             return False
         
         if startTime is None:
@@ -4695,7 +4722,8 @@ Example
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", name)
             return False
         
         if startTime is None:
@@ -4762,7 +4790,8 @@ Example
         
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", name)
             return False
         
         if self.isFcs:
@@ -4824,7 +4853,8 @@ Example
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
-            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", MeasMode(self.parent.deviceConfig["MeasMode"]).name)
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", name)
             return [],[]
         
         return np.lib.stride_tricks.as_strided(self.data), np.lib.stride_tricks.as_strided(self.bins)
@@ -5278,12 +5308,11 @@ Example
     # creates a delay of channel 1 with 1ms and stores it in cd
     
     sn = snAPI()
-    sn.getDevice()
-    sn.initDevice(MeasMode.T2)
+    sn.getFileDevice(r"D:\Data\PicoQuant\CW_Shelved.ptu")
     sn.timeTrace.setNumBins(10000)
     sn.timeTrace.setHistorySize(10)
 
-    cd = sn.manipulators.delay(1, 1000000000)
+    sn.manipulators.delay(1, 1000000000)
     
     sn.timeTrace.measure(10000, False, False)
     
@@ -5311,6 +5340,71 @@ Example
         chanOut = self.parent.dll.addMDelay(channel, delayTime, keepSourceChannel)
         self.getConfig()
         return chanOut
+
+    def subStream(self, startTime: typing.Optional[float] = 0, stopTime: typing.Optional[float] = 360000):
+        """
+The `Sub-Stream Manipulator` filters the datastream by a defined start and stop time.  
+Only events whose timetags fall within this range will pass through.  
+
+This is useful when you want to analyze only a specific segment of a measurement or exclude irrelevant data.  
+
+
+Note
+----
+    The filter applies directly to `all channels`!
+    
+Parameters
+----------
+    startTime: [s] double
+        | The lower boundary in seconds of the interval.  
+        | Events with timestamps equal to or greater than this are passed through.  
+    stopTime: [s] double 
+        | The upper boundary of the interval.  
+        | Events with timestamps greater than this are discarded.  
+        
+
+Returns
+-------
+    None 
+
+Example
+-------
+::
+
+    # creates a delay of channel 1 with 1ms and stores it in cd
+    
+    sn = snAPI()
+    sn.getFileDevice(r"D:\Data\PicoQuant\CW_Shelved.ptu")
+    sn.timeTrace.setNumBins(10000)
+    sn.timeTrace.setHistorySize(10)
+
+    subStream(70) # ignore the first 70 seconds oof the measurement file
+    
+    sn.timeTrace.measure(10000, False, False)
+    
+    while True:
+        finished = sn.timeTrace.isFinished()
+        counts, times = sn.timeTrace.getData() 
+        plt.clf()
+        plt.plot(times, counts[1], linewidth=2.0, label='chan1')
+
+        plt.xlabel('Time [s]')
+        plt.ylabel('Counts[Cts/s]')
+        plt.legend()
+        plt.title("TimeTrace")
+        plt.pause(0.1)
+        
+        if finished:
+            break
+    
+    plt.show(block=True)
+    
+        """
+        startT = ct.c_uint64(round(startTime * 1e12))
+        stopT = ct.c_uint64(round(stopTime * 1e12))
+        self.parent.dll.addMSubStream.argtypes = [ct.c_uint64, ct.c_uint64]
+        self.parent.dll.addMSubStream(startT, stopT)
+        self.getConfig()
 
 
     def herald(self, herald:int, gateChans: typing.List[int], delayTime: typing.Optional[int] = 0, gateTime: typing.Optional[int] = 1000, inverted: typing.Optional[bool] = False, keepChannels: typing.Optional[bool] = True):

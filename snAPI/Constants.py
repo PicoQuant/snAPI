@@ -101,7 +101,7 @@ See :meth:`Device.setMeasControl<snAPI.Main.Device.setMeasControl>`.
     SingleShotCTC = 0
     """
     
-Supported devices [MH150/160 | HH400 | TH260 | PH330]
+Supported devices [MH150/160 | HH400 | TH260 | PH330 | HH500]
         
 Acquisition starts by software command and runs until CTC expires. The duration is set by the
 aqcTime parameter (>0).
@@ -111,7 +111,7 @@ SwStartSwStop is in use if aqcTime parameter is 0.
     
     C1Gated = 1
     """
-Supported devices [MH150/160 | HH400 | TH260 | PH330]
+Supported devices [MH150/160 | HH400 | TH260 | PH330 | HH500]
 
 Data is collected for the period where C1 is active. This can be the logical high or low period
 dependent on the value supplied to the parameter startEdge.
@@ -120,7 +120,7 @@ dependent on the value supplied to the parameter startEdge.
     
     C1StartCtcStop = 2
     """
-Supported devices [MH150/160 | HH400 | TH260 | PH330]
+Supported devices [MH150/160 | HH400 | TH260 | PH330 | HH500]
 
 Data collection is started by a transition on C1 and stopped by expiration of the internal CTC.
 Which transition actually triggers the start is given by the value supplied to the parameter startEdge.
@@ -130,14 +130,14 @@ The duration is set by the aqcTime parameter (>0).
     
     C1StartC2Stop = 3
     """
-Supported devices [MH150/160 | HH400 | TH260 | PH330]
+Supported devices [MH150/160 | HH400 | TH260 | PH330 | HH500]
 
 Data collection is started by a transition on C1 and stopped by by a transition on C2. Which transitions
 actually trigger start and stop is given by the values supplied to the parameters startEdge and stopEdge."""
     
     WrMaster2Slave = 4
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
 
 White Rabbit master to slave
     
@@ -145,7 +145,7 @@ White Rabbit master to slave
     
     WrSlave2Master = 5
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
 
 White Rabbit slave to master
     
@@ -153,7 +153,7 @@ White Rabbit slave to master
     
     SwStartSwStop = 6
     """
-Supported devices [MH150/160 | PH330]
+Supported devices [MH150/160 | PH330 | HH500]
 
 Software start and software stop is automatically used if aqcTime ist set to 0 in a measurement.
 
@@ -161,7 +161,7 @@ Software start and software stop is automatically used if aqcTime ist set to 0 i
     
     ContC1Gated = 7
     """
-Supported devices [HH400]
+Supported devices [HH400 | HH500]
 
 Warning
 -------
@@ -171,7 +171,7 @@ The continuous mode is currently not supported in snAPI.
     
     Cont_C1_Start_CTC_Stop = 8
     """
-Supported devices [HH400]
+Supported devices [HH400 | HH500]
 
 Warning
 -------
@@ -181,7 +181,7 @@ The continuous mode is currently not supported in snAPI.
 	
     Cont_CTC_Restart = 9
     """
-Supported devices [HH400]
+Supported devices [HH400 | HH500]
 
 Warning
 -------
@@ -199,7 +199,7 @@ See :meth:`snAPI.initDevice<snAPI.Main.snAPI.initDevice>`.
 
     Internal = 0
     """
-Supported devices [MH150/160 | HH400 | (TH260) | PH330]
+Supported devices [MH150/160 | HH400 | (TH260) | PH330 | HH500]
     
 | **Internal clock**
 | This is the default and normally selected by most users when only one device is being used. 
@@ -207,7 +207,7 @@ Supported devices [MH150/160 | HH400 | (TH260) | PH330]
     """
     External_10MHZ = 1
     """
-Supported devices [MH150/160 | HH400 | PH330]
+Supported devices [MH150/160 | HH400 | PH330 | HH500]
         
 | **10MHz external clock**
 | This is for use with an industry standard 10MHz reference such as an atomic clock or another Harp.
@@ -215,56 +215,56 @@ Supported devices [MH150/160 | HH400 | PH330]
     """
     Wr_Master_Generic = 2
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
         
 **White Rabbit master with generic partner**
     
     """
     Wr_Slave_Generic = 3
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
         
 **White Rabbit slave with generic partner**
     
     """
     Wr_Grandm_Generic = 4
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
         
 **White Rabbit grand master with generic partner**
     
     """
     Extn_GPS_PPS = 5
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
         
 **10 MHz + PPS from GPS**
     
     """
     Extn_GPS_PPS_UART = 6
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
         
 **10 MHz + PPS + time via UART from GPS**
     
     """
     Wr_Master_Harp = 7
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
         
 **White Rabbit master with the Harp as partner**
     
     """
     Wr_Slave_Harp = 8
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
         
 **White Rabbit slave with the Harp as partner**
     
     """
     Wr_Grandm_Harp = 9
     """
-Supported devices [MH150/160]
+Supported devices [MH150/160 | HH500]
 
 **White Rabbit grand master with the Harp as partner**
     
