@@ -9,9 +9,9 @@ if(__name__ == "__main__"):
 
     sn = snAPI()
     sn.getDeviceIDs()
-    sn.getFileDevice(r"D:\Data\PicoQuant\OpenCLTest\Atto655+Cy5_diff_FCS+FLCS_Conv.ptu")
-    #sn.getDevice()
-    sn.initDevice(MeasMode.T2)
+    #sn.getFileDevice(r"\mnt\d\Data\PicoQuant\OpenCLTest\Atto655+Cy5_diff_FCS+FLCS_Conv.ptu")
+    sn.getDevice()
+    sn.initDevice(MeasMode.T3)
     
     # set the configuration for your device type
     sn.loadIniConfig(r"config\MH.ini")
@@ -21,7 +21,7 @@ if(__name__ == "__main__"):
     
     # 2. set windowSize and startTime
     sn.correlation.setFFCSParameters(1, 2, 1e6, 1e12, 100)
-    sn.correlation.measure(2000,savePTU=False)
+    sn.correlation.measure(2000,savePTU=False, waitFinished=True)
 
     while True:
         finished = sn.correlation.isFinished()

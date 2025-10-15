@@ -7,15 +7,18 @@ print("Switched to:",matplotlib.get_backend())
 if(__name__ == "__main__"):
 
     sn = snAPI()
+    sn.setLogLevel(LogLevel.Config, True)
     sn.getDevice()
+    sn.initDevice(MeasMode.T3)
     
     # alternatively read data from file
     sn.setLogLevel(LogLevel.DataFile, True)
-    sn.initDevice(MeasMode.T2)
+    #sn.getFileDevice(r"\mnt\d\Data\PicoQuant\CW_Shelved.ptu") # T2 File
+    #sn.getFileDevice(r"D:\Data\PicoQuant\CW_Shelved.ptu") # T2 File
     
     # enable this to get info about loading config
     sn.setLogLevel(logLevel=LogLevel.Config, onOff=True)
-    sn.loadIniConfig("config\MH.ini")
+    #sn.loadIniConfig(r"config\MH.ini")
     
     numChans = sn.deviceConfig["NumChans"]
     triggerMode = TrigMode.Edge if sn.deviceConfig["SyncTrigMode"] == "Edge" else TrigMode.CFD
@@ -36,18 +39,18 @@ if(__name__ == "__main__"):
             sn.device.setInputEdgeTrig(-1, -50, 0)
         
     # configure timetrace
-    sn.timeTrace.setNumBins(10000)
-    sn.timeTrace.setHistorySize(10)
+    sn.timeTrace.setNumBins(1000)
+    sn.timeTrace.setHistorySize(1)
     
     # you can set a custom file name or path
-    sn.setPTUFilePath("C:\Data\PicoQuant\MyFileName.ptu")
+    sn.setPTUFilePath("MyFileName.ptu")
     
     # measure 10s
-    sn.timeTrace.measure(10000, waitFinished=False, savePTU=True)
+    sn.timeTrace.measure(1000, waitFinished=False, savePTU=True)
     
     while True: 
         finished = sn.timeTrace.isFinished()
-        counts, times = sn.timeTrace.getData() 
+        counts, times = sn.timeTrace.getData(normalized=True) 
         plt.clf()
         plt.plot(times, counts[0], linewidth=2.0, label='sync')
         for c in range(1, 1+sn.deviceConfig["NumChans"]):
@@ -55,6 +58,7 @@ if(__name__ == "__main__"):
 
         plt.xlabel('Time [s]')
         plt.ylabel('Counts[Cts/s]')
+        plt.yscale('log', base=10, nonpositive='clip')
         plt.legend()
         plt.title("TimeTrace")
         plt.pause(0.1)

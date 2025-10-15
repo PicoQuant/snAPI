@@ -10,14 +10,16 @@ if(__name__ == "__main__"):
     sn = snAPI()
     sn.getDeviceIDs()
     sn.getDevice()
-    sn.getFileDevice(r"D:\Data\PicoQuant\CW_Shelved.ptu") # T2 File
-    #sn.initDevice(MeasMode.T2)
+    #sn.getFileDevice(r"D:\Data\PicoQuant\CW_Shelved.ptu") # T2 File
+    #sn.getFileDevice(r"\mnt\d\Data\PicoQuant\CW_Shelved.ptu") # T2 File
+
+    sn.initDevice(MeasMode.T2)
         
     # set the configuration for your device type
     sn.loadIniConfig("config\MH.ini")
     
     # 1. shift the signals to max correlation max at tau = 0
-    #sn.device.setInputChannelOffset(1, 1588)
+    sn.device.setInputChannelOffset(1, 1588)
     
     # only process data from 70s to end of file 
     sn.manipulators.subStream(70)

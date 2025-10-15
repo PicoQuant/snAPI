@@ -457,6 +457,16 @@ and many other API calls.</p>
 </pre></div>
 </div>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.is_win">
+<span class="sig-name descname"><span class="pre">is_win</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#snAPI.Main.snAPI.is_win" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.is_linux">
+<span class="sig-name descname"><span class="pre">is_linux</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#snAPI.Main.snAPI.is_linux" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Main.snAPI.deviceIDs">
 <span class="sig-name descname"><span class="pre">deviceIDs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#snAPI.Main.snAPI.deviceIDs" title="Link to this definition">#</a></dt>
 <dd><p>This list contains the IDs serial numbers of the connected devices or the file names of
@@ -1651,29 +1661,30 @@ In In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.M
 In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> the number of bins is  65536 and in <code class="xref py py-obj docutils literal notranslate"><span class="pre">histogram.setNumBins</span></code> it is 32768.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lengthCode</strong> (<em>int</em>)</p>
-</dd>
-</dl>
-<dl>
-<dt>:param In <code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Hist</span></code>: | number of bins that can be calculated by <span class="math notranslate nohighlight">\(2^{(10 + \mathrm{lengthCode})}\)</span></dt><dd><div class="line-block">
-<div class="line">MH150/160, HH400 : [0..6] (default: 65536 bins = lengthCode 6)</div>
+<dd class="field-odd"><p><strong>lengthCode</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">number of bins that can be calculated by <span class="math notranslate nohighlight">\(2^{(10 + \mathrm{lengthCode})}\)</span></div>
+<div class="line"><br /></div>
+<div class="line">In <code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Hist</span></code>:</div>
+<div class="line-block">
+<div class="line">MH150/160, HH400: [0..6] (default: 65536 bins = lengthCode 6)</div>
 <div class="line">TH260, PH330: [0..5] (default: 32768 bins = lengthCode 5)</div>
 <div class="line">PH330: [0..9] (default: 65536 bins = lengthCode 6, max: 524288 bins = lengthCode 9)</div>
 <div class="line">HP500: [0..7] (default: 65536 bins = lengthCode 6, max: 131072 bins = lengthCode 7)</div>
+<div class="line"><br /></div>
 </div>
+<div class="line">In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>:</div>
+<div class="line-block">
+<div class="line">TH260, HH400, TH260, PH330, HP500: [0..5] (default: 32768 bins = lengthCode 5)</div>
+</div>
+</div>
+</p>
 </dd>
-</dl>
-<p>:param In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>: | HH400, TH260, PH330: [0..5] (default: 32768 bins = lengthCode 5)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><ul class="simple">
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
 <li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
 <li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
 </ul>
 </p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>lengthCode</strong> (<em>int</em><em> | </em><em>None</em>)</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -4553,7 +4564,7 @@ cross calculation is calculated.</p>
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the correlation window to start by 1ms and stop by 1s with 30 bins</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2Parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mf">1e12</span><span class="p">,</span> <span class="mf">1e6</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setG2Parameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mf">1e6</span><span class="p">,</span> <span class="mf">1e12</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -4582,7 +4593,7 @@ cross calculation is calculated.</p>
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the correlation window to start by 1ms and stop by 1s with 30 bins</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setFFCSParameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mf">1e12</span><span class="p">,</span> <span class="mf">1e6</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">correlation</span><span class="o">.</span><span class="n">setFFCSParameters</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mf">1e6</span><span class="p">,</span> <span class="mf">1e12</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -5381,6 +5392,8 @@ count in the defined windowTime.</p>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI"><code class="docutils literal notranslate"><span class="pre">snAPI</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.is_win"><code class="docutils literal notranslate"><span class="pre">snAPI.is_win</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.is_linux"><code class="docutils literal notranslate"><span class="pre">snAPI.is_linux</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.deviceIDs"><code class="docutils literal notranslate"><span class="pre">snAPI.deviceIDs</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.deviceConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.deviceConfig</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.measDescription"><code class="docutils literal notranslate"><span class="pre">snAPI.measDescription</span></code></a></li>

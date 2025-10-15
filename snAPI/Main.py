@@ -1,4 +1,4 @@
-# Torsten Krause, PicoQuant GmbH, 2023
+# Torsten Krause, PicoQuant GmbH, 2025
 
 import ctypes as ct
 import inspect
@@ -44,7 +44,15 @@ Example
     sn = snAPI()
         
     """
-    dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), r'.\snAPI64.dll')))
+    is_win   = sys.platform.startswith("win")
+    is_linux = sys.platform.startswith("linux")
+    if is_win:
+        dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), r'.\snAPI64.dll')))
+    if is_linux:
+        libdir = os.path.abspath(os.path.join(os.path.dirname(__file__), r'./libsnAPI4Linux.so'))
+        ct.cdll.LoadLibrary(libdir)
+        dll = ct.CDLL(libdir, mode=ct.RTLD_GLOBAL)
+    
     """
 the snAPI.dll
 
@@ -200,7 +208,10 @@ Example
 
     def __init__(self, systemIni: typing.Union[str, None] = None):
         if systemIni is None:
-            systemIni = "\\".join(inspect.getfile(snAPI).split("\\")[:-1])+'\\system.ini'
+            if self.is_win:
+                systemIni = "\\".join(inspect.getfile(snAPI).split("\\")[:-1])+'\\system.ini'
+            if self.is_linux:
+                systemIni = "/".join(inspect.getfile(snAPI).split("/")[:-1])+'/system_linux.ini'
         self.device = Device(self)
         """This is the object to the device configuration :class:`Device` class"""
         self.filter = Filter(self)
@@ -287,7 +298,14 @@ Example
     230911_12:02:53.5351972 ERR                    ~~~~~~~~^^^^^^^^^^^^^^
 
         """
-        dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), r'.\snAPI64.dll')))
+        is_win   = sys.platform.startswith("win")
+        is_linux = sys.platform.startswith("linux")
+        if is_win:
+            dll = ct.WinDLL(os.path.abspath(os.path.join(os.path.dirname(__file__), r'.\snAPI64.dll')))
+        if is_linux:
+            libdir = os.path.abspath(os.path.join(os.path.dirname(__file__), r'./libsnAPI4Linux.so'))
+            ct.cdll.LoadLibrary(libdir)
+            dll = ct.CDLL(libdir, mode=ct.RTLD_GLOBAL)
         dll.logError.argtypes = [ct.c_char_p]
         dll.logError(f"Uncaught python exception: {exception_type.__name__}!".encode('utf-8'))
         dll.logError(f"Text: {exception}".encode('utf-8'))
@@ -1400,16 +1418,17 @@ In :obj:`.MeasMode.T2` the number of bins is  65536 and in :obj:`.histogram.setN
 Parameters
 ----------
     lengthCode: int
-    In :obj:`.MeasMode.Hist`
         | number of bins that can be calculated by :math:`2^{(10 + \\mathrm{lengthCode})}`
-        | MH150/160, HH400 : [0..6] (default: 65536 bins = lengthCode 6)
-        | TH260, PH330: [0..5] (default: 32768 bins = lengthCode 5)
-        | PH330: [0..9] (default: 65536 bins = lengthCode 6, max: 524288 bins = lengthCode 9)
-        | HP500: [0..7] (default: 65536 bins = lengthCode 6, max: 131072 bins = lengthCode 7)
-    
-    In :obj:`.MeasMode.T3`
-        | HH400, TH260, PH330: [0..5] (default: 32768 bins = lengthCode 5)
-    
+        |
+        | In :obj:`.MeasMode.Hist`:
+        |   MH150/160, HH400: [0..6] (default: 65536 bins = lengthCode 6)
+        |   TH260, PH330: [0..5] (default: 32768 bins = lengthCode 5)
+        |   PH330: [0..9] (default: 65536 bins = lengthCode 6, max: 524288 bins = lengthCode 9)
+        |   HP500: [0..7] (default: 65536 bins = lengthCode 6, max: 131072 bins = lengthCode 7)
+        |
+        | In :obj:`.MeasMode.T3`:
+        |   TH260, HH400, TH260, PH330, HP500: [0..5] (default: 32768 bins = lengthCode 5)
+
 Returns
 -------
     True:  operation successful
@@ -3929,7 +3948,7 @@ to use the :obj:`.MeasMode.T2` instead.
 
     def __init__(self, parent):
         self.parent = parent
-        self.data = ct.ARRAY(ct.c_long, 0)()
+        self.data = ct.ARRAY(ct.c_uint32, 0)()
         self.numBins = 0
         self.T2binWidth = 0
         self.bins = np.array(range(self.numBins), dtype='i8')
@@ -4109,7 +4128,7 @@ Example
         if self.T2binWidth == 0:
             self.T2binWidth = self.parent.deviceConfig["BaseResolution"]
         numChans = self.parent.getNumAllChannels()
-        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
+        self.data = ct.ARRAY(ct.c_uint32, numChans * self.numBins)(0)
         
         self.bins = np.array(range(self.numBins), dtype='i8')
         if (self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
@@ -4269,7 +4288,7 @@ Note
 
     def __init__(self, parent):
         self.parent = parent
-        self.data = ct.ARRAY(ct.c_long, 0)()
+        self.data = ct.ARRAY(ct.c_uint32, 0)()
         self.t0 = ct.c_uint64(0)
         self.numBins = 10000
         self.historySize = 10
@@ -4380,7 +4399,7 @@ Example
     
         """
         numChans = self.parent.getNumAllChannels()
-        self.data = ct.ARRAY(ct.c_long, numChans * self.numBins)(0)
+        self.data = ct.ARRAY(ct.c_uint32, numChans * self.numBins)(0)
         
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
@@ -4662,7 +4681,7 @@ Example
 ::
 
     # sets the correlation window to start by 1ms and stop by 1s with 30 bins
-    sn.correlation.setG2Parameters(1, 2 , 1e12, 1e6, 30)
+    sn.correlation.setG2Parameters(1, 2 , 1e6, 1e12, 30)
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
@@ -4718,7 +4737,7 @@ Example
 ::
 
     # sets the correlation window to start by 1ms and stop by 1s with 30 bins
-    sn.correlation.setFFCSParameters(1, 2 , 1e12, 1e6, 30)
+    sn.correlation.setFFCSParameters(1, 2 , 1e6, 1e12, 30)
     
         """
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
@@ -4731,6 +4750,10 @@ Example
                 startTime = self.parent.deviceConfig["BaseResolution"]
             elif self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value:
                 startTime = self.parent.deviceConfig["Resolution"]
+        
+        if(startTime >= stopTime):
+            self.parent.logPrint( Color.Red + "startTime: " + startTime + " must be less then stopTime: " + stopTime)
+            return False
         
         self.isFcs = True 
         self.startChannel = startChannel

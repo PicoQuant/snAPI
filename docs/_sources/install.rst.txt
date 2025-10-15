@@ -67,6 +67,18 @@ Dependencies
 
 3. Once the installation is complete, verify that the package is installed by running the command `import snAPI` in a Python interpreter. If no error message is shown, the installation was successful.
 
+On Linux
+--------
+
+1. Go to the linux sub directory
+
+2. Execute commands
+
+::
+
+    chmod +x install.sh
+    sudo ./install.sh
+
 Additional Features
 -------------------
 

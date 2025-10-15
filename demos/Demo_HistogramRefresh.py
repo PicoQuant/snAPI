@@ -22,16 +22,16 @@ if(__name__ == "__main__"):
     
     # change histogram parameter in T2 mode
     sn.histogram.setRefChannel(0)
-    sn.histogram.setBinWidth(250)
+    sn.histogram.setBinWidth(100)
     sn.histogram.setNumBins(10000)
-    sn.histogram.measure(acqTime=10000, waitFinished=True, savePTU=False)
+    sn.histogram.measure(acqTime=10000, waitFinished=False, savePTU=True)
     
     while True:
         finished = sn.histogram.isFinished()
         data, bins = sn.histogram.getData()
         
         # 1s refresh time
-        plt.pause(1)
+        plt.pause(.1)
         plt.clf()
         plt.plot(bins, data[0], linewidth=2.0, label='sync')
         for c in range(1, 1+sn.deviceConfig["NumChans"]):
