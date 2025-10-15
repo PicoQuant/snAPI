@@ -1,0 +1,147 @@
+#!/bin/sh
+# install.sh — POSIX sh
+# Copies udev rules and (optionally) builds/installs the th260pcie driver.
+# Adds a check for whether the module is already installed/loaded.
+
+set -eu
+
+MODULE_NAME="th260pcie"
+KREL="$(uname -r)"
+
+# --- require root ---
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Please run as root, e.g. sudo ./install.sh" >&2
+  exit 1
+fi
+
+# --- resolve script dir (so we can run from anywhere) ---
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+
+# --- copy udev rules with proper permissions ---
+copy_rule() {
+  src="$1"
+  dst="/etc/udev/rules.d/$(basename "$src")"
+  if [ -f "$SCRIPT_DIR/$src" ]; then
+    install -m 0644 "$SCRIPT_DIR/$src" "$dst"
+    echo "Installed $dst"
+  else
+    echo "Warning: $src not found in $SCRIPT_DIR" >&2
+  fi
+}
+
+copy_rule "HydraHarp400.rules"
+copy_rule "HydraHarp500.rules"
+copy_rule "MultiHarp.rules"
+copy_rule "PicoHarp330.rules"
+copy_rule "TimeHarp260.rules"
+
+# --- reload udev rules (best effort) ---
+if command -v udevadm >/dev/null 2>&1; then
+  udevadm control --reload-rules || true
+  udevadm trigger || true
+fi
+
+# --- check module status (installed? loaded?) ---
+INSTALLED="no"
+INSTALLED_PATH=""
+
+if command -v modinfo >/dev/null 2>&1; then
+  # modinfo -n prints the installed module path or fails if unknown
+  if INSTALLED_PATH="$(modinfo -n "$MODULE_NAME" 2>/dev/null)" && [ -e "$INSTALLED_PATH" ]; then
+    INSTALLED="yes"
+  fi
+fi
+
+# Fallback search if modinfo didn't find it
+if [ "$INSTALLED" = "no" ]; then
+  # handle compressed modules (*.ko, *.ko.xz, *.ko.zst)
+  INSTALLED_PATH="$(find "/lib/modules/$KREL" -type f \( -name "${MODULE_NAME}.ko" -o -name "${MODULE_NAME}.ko.xz" -o -name "${MODULE_NAME}.ko.zst" \) 2>/dev/null | head -n 1 || true)"
+  if [ -n "$INSTALLED_PATH" ] && [ -e "$INSTALLED_PATH" ]; then
+    INSTALLED="yes"
+  fi
+fi
+
+# Is it currently loaded?
+LOADED="no"
+if lsmod 2>/dev/null | awk '{print $1}' | grep -qx "$MODULE_NAME"; then
+  LOADED="yes"
+fi
+
+echo "Driver status: installed=$INSTALLED${INSTALLED_PATH:+ ($INSTALLED_PATH)}, loaded=$LOADED"
+
+# --- ask about building/installing only if useful (or if user insists) ---
+DRV_DIR="$SCRIPT_DIR/th260pcie_driver"
+
+if [ "$INSTALLED" = "yes" ]; then
+  printf "Module '%s' appears installed%s. Rebuild/reinstall anyway? [y/N]: " "$MODULE_NAME" "${INSTALLED_PATH:+ at $INSTALLED_PATH}"
+  read -r REPLY
+  case "$REPLY" in
+    y|Y|yes|YES) BUILD_DO=1 ;;
+    *)           BUILD_DO=0 ;;
+  esac
+else
+  printf "Module '%s' is not installed. Build and install now? [Y/n]: " "$MODULE_NAME"
+  read -r REPLY || true
+  case "$REPLY" in
+    n|N|no|NO) BUILD_DO=0 ;;
+    *)         BUILD_DO=1 ;;
+  esac
+fi
+
+if [ "${BUILD_DO:-0}" -eq 1 ]; then
+  if [ ! -d "$DRV_DIR" ]; then
+    echo "Error: Driver directory not found: $DRV_DIR" >&2
+    exit 1
+  fi
+  if ! command -v make >/dev/null 2>&1; then
+    echo "Error: 'make' not found. Install build-essential first." >&2
+    exit 1
+  fi
+
+  echo "Building ${MODULE_NAME}..."
+  make -C "$DRV_DIR" all
+
+  # If build succeeded, offer to install into /lib/modules/$(uname -r)
+  MODULE_BUILT="$DRV_DIR/${MODULE_NAME}.ko"
+  if [ -f "$MODULE_BUILT" ]; then
+    printf "Build completed (%s). Install to /lib/modules/%s now? [Y/n]: " "$MODULE_BUILT" "$KREL"
+    read -r REPLY || true
+    case "$REPLY" in
+      n|N|no|NO)
+        echo "Skipped installation."
+        ;;
+      *)
+        echo "Installing module..."
+        make -C "$DRV_DIR" install
+        # Refresh module dependency maps (usually done by modules_install, but safe to run)
+        if command -v depmod >/dev/null 2>&1; then
+          depmod -a "$KREL" || true
+        fi
+        echo "Installation done."
+        ;;
+    esac
+  else
+    echo "Warning: build finished but ${MODULE_BUILT} was not found. Check build logs." >&2
+  fi
+else
+  echo "Skipped driver build/install."
+fi
+
+# Optional: offer to load if installed but not loaded
+if [ "$INSTALLED" = "yes" ] && [ "$LOADED" = "no" ]; then
+  if command -v modprobe >/dev/null 2>&1; then
+    printf "Module is installed but not loaded. Load it now with modprobe %s? [y/N]: " "$MODULE_NAME"
+    read -r REPLY
+    case "$REPLY" in
+      y|Y|yes|YES)
+        if modprobe "$MODULE_NAME"; then
+          echo "Module loaded."
+        else
+          echo "Failed to load module. Check dmesg for details." >&2
+        fi
+        ;;
+      *) echo "Skipped loading.";;
+    esac
+  fi
+fi
+
