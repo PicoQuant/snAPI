@@ -618,7 +618,205 @@ Returns
     """
         self.dll.closeDevice(allDevices)
 
+    def setMeasurementSubMode(self, subMode:typing.Optional[MeasSubMode] = MeasSubMode.Default):
+        """
+The PTU-File-Header contains numerous tags that describe the measurement configuration. These can be used for further analysis.
+For example, to use the PTU file with SymPhoTime 64 for FLIM analysis, the mandatory parameter `Measurement_SubMode` must be set to `Image`.
 
+Parameters
+----------
+    subMode: :class:`snAPI.Constants.MeasSubMode`
+    startEdge: int
+    
+Returns
+-------
+    None
+    
+Example
+-------
+::
+    
+    # set Image Tag
+    sn.setMeasurementSubMode(subMode=MeasSubMode.Image)
+    
+        """
+        return self.dll.setMeasSubMode(subMode.value)
+    
+    def addBoolTag(self, name:str, value: bool, idx:typing.Optional[int] = -1):
+        """
+    This adds a boolean tag to the PTU-Header.
+    
+Parameters
+----------
+    name: str
+        name of the tag
+    value: bool
+        True | False
+        
+Returns
+-------
+    None
+    
+Example
+-------
+::
+    
+    # sets the scan pattern
+    sn.addBoolTag("ImgHdr_BiDirect", False)
+    
+        """
+        SBuf = name.encode('utf-8')
+        return self.dll.addBoolTag(SBuf, value, idx)
+    
+    def addIntTag(self, name:str, value: int, idx:typing.Optional[int] = -1):
+        """
+    This adds a 64-Bit-Integer tag to the PTU-Header.
+    
+Parameters
+----------
+    name: str
+        name of the tag
+    value: int
+        
+Returns
+-------
+    None
+    
+Example
+-------
+::
+    
+    # sets the scan pattern
+    sn.addBoolTag("ImgHdr_BiDirect", False)
+    
+        """
+        SBuf = name.encode('utf-8')
+        self.dll.addDblTag.argtypes = [ct.c_char_p, ct.c_int64, ct.c_int32]
+        return self.dll.addIntTag(SBuf, ct.c_uint64(value), idx)
+    
+    # def addI64Tag(self, name:str, value: int, idx:typing.Optional[int] = -1):
+    #     """ 
+        
+    #     """
+    #     SBuf = name.encode('utf-8')
+    #     return self.dll.addI64Tag(SBuf, value, idx)
+    
+    def addFloatTag(self, name:str, value: float, idx:typing.Optional[int] = -1):
+        """
+    This adds a Floating-Point-Number tag to the PTU-Header.
+    
+Parameters
+----------
+    name: str
+        name of the tag
+    value: float
+        
+Returns
+-------
+    None
+    
+Example
+-------
+::
+    
+    #  Sets the Resolution of a single pixel to 0.5µm (line and image measurements)
+    sn.addFloatTag("ImgHdr_PixResol", 0.5)
+    
+        """
+        SBuf = name.encode('utf-8')
+        self.dll.addDblTag.argtypes = [ct.c_char_p, ct.c_double, ct.c_int]
+        return self.dll.addDblTag(SBuf, value, idx)
+        
+    def addStringTag(self, name:str, value: str, idx:typing.Optional[int] = -1):
+        """
+    This adds a boolean tag to the PTU-Header.
+    
+Parameters
+----------
+    name: str
+        name of the tag
+    value: str
+        
+Returns
+-------
+    None
+    
+Example
+-------
+::
+    
+    # sets the name of the objective used on measurement
+    sn.addStringTag("ImgHdr_ObjectiveName", "20x")
+    
+        """
+        SBuf = name.encode('utf-8')
+        SBufVal = value.encode('utf-8')
+        return self.dll.addStringTag(SBuf, SBufVal, idx)
+    
+    def addByteArrayTag(self, name:str, value: typing.List[int], idx:typing.Optional[int] = -1):
+        """
+    This adds an Array of Integers tag to the PTU-Header.
+    
+Parameters
+----------
+    name: str
+        name of the tag
+    value: List[int]
+        
+Returns
+-------
+    None
+    
+Example
+-------
+::
+    
+    # sets the scan pattern
+    sn.addBoolTag("ImgHdr_BiDirect", False)
+    
+        """
+        SBuf = name.encode('utf-8')
+        length = len(value)
+        val = (ct.c_int8 * length)()
+        for i in range(length):
+            val[i] = value[i]
+        return self.dll.addBBTag(SBuf, ct.pointer(val), length, idx)
+    
+    def addFloatArrayTag(self, name:str, value: typing.List[float], idx:typing.Optional[int] = -1):
+        """
+    This adds an Array of Floats tag to the PTU-Header.
+    
+Parameters
+----------
+    name: str
+        name of the tag
+    value: List[float]
+        
+Returns
+-------
+    None
+    
+Example
+-------
+::
+    
+    # sets the scan pattern
+    sn.addBoolTag("ImgHdr_BiDirect", False)
+    
+        """
+        SBuf = name.encode('utf-8')
+        length = len(value)
+        val = (ct.c_double * length)()
+        for i in range(length):
+            val[i] = value[i]
+        return self.dll.addFloatArrayTag(SBuf, ct.pointer(val), length, idx)
+    
+    def clearCustomTags(self):
+        """ 
+This clears all custom Tags, that should be written to the Header of the PTU-File!
+        """
+        return self.dll.clearTags()
+    
     def setPTUFilePath(self, path: str):
         r"""
 

@@ -15,8 +15,10 @@ Welcome to snAPI's documentation!
    install
    snAPI
    config
-   tttr data format
    hardware
+   tttr data format
+   PQTag_Dictionary
+   PQTag_Types
 
 Indices and tables
 ==================

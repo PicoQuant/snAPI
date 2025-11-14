@@ -452,3 +452,41 @@ based on the error between two clocks.
     """user defined mac address is set"""
     IsNew = 0x80000000				
     """status updated since last check"""
+    
+class MeasSubMode(Enum):
+    """
+The PTU-File-Header contains numerous tags that describe the measurement configuration. These can be used for further analysis.
+For example, to use the PTU file with SymPhoTime 64 for FLIM analysis, the mandatory parameter `Measurement_SubMode` must be set to `Image`.
+Set this option with :meth:`snAPI.setMeasSubMode<snAPI.Main.snAPI.setMeasSubMode>`.
+    """
+
+    Default = 0
+    """
+**Default**
+
+    This is the default value and applies to all measurements that are not location-specific.
+
+    """
+    
+    Point = 1
+    """
+**Point**
+
+    Use this to indicate that the measurement refers to a single location.
+    """
+    Line = 2
+    """
+**Line**
+
+    Use this to indicate that the measurement is being performed using line scanning.
+    """
+
+    Image = 3
+    """
+**Image**
+
+    Use this to indicate that the measurement is being performed using image scanning.
+    To analyze the data with `SymPhoTime64 <https://www.picoquant.com/products/category/software/symphotime-64-fluorescence-lifetime-imaging-and-correlation-software>`_
+    you have to set a lot of tags using the :meth:`snAPI.addIntTag<snAPI.Main.snAPI.addIntTag>`.
+    See also the :octicon:`mark-github` `Demo_Imaging_PTU.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_Imaging_PTU.py>`_
+    """

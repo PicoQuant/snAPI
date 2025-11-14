@@ -1,0 +1,4595 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PQ Tag Dictionary &#8212; snAPI  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=8a448e45"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PQTag_Dictionary';</script>
+    <link rel="icon" href="_static/favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PQ Tag Types" href="PQTag_Types.html" />
+    <link rel="prev" title="TTTR Record Format" href="tttr%20data%20format.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo-light.png" class="logo__image only-light" alt=""/>
+    <img src="_static/logo-dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="introduction.html">
+    Introduction
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="snAPI.html">
+    snAPI package
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+    TTTR Record Format
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="#">
+    PQ Tag Dictionary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="PQTag_Types.html">
+    PQ Tag Types
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://PicoQuant.com">
+    PicoQuant
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="introduction.html">
+    Introduction
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="snAPI.html">
+    snAPI package
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+    TTTR Record Format
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    PQ Tag Dictionary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="PQTag_Types.html">
+    PQ Tag Types
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://PicoQuant.com">
+    PicoQuant
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+    <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Quick Links</p>
+    <ul class="indices-link">
+          <li class="toctree-l1">
+            <a class="reference internal" href="snAPI.Constants.html">Constants</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="snAPI.Main.html">Main</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="snAPI.Utils.html">Utils</a>
+          </li>
+    </ul>
+  </nav></div>
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">PQ Tag Dictionary</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="pq-tag-dictionary">
+<h1>PQ Tag Dictionary<a class="headerlink" href="#pq-tag-dictionary" title="Link to this heading">#</a></h1>
+<p>&nbsp;&nbsp;&nbsp;(V1.1.05 as valid at &nbsp;&nbsp;2025-11-13&nbsp;&nbsp;&nbsp;11:29:29)</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <td>Field Identifier</td>
+      <td>Indexed</td>
+      <td><a href="PQTag_Types.html#tag-type-definition"><b>Field Type</b></a></td>
+      <td>File&nbsp;Types</td>
+      <td>Loading</td>
+      <td>Oblig.</td>
+      <td>Remarks</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>&lt;File Preamble 1 (no tag)&gt;</td>
+      <td>no</td>
+      <td>Preamble</td>
+      <td>all</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td><a href="PQTag_Types.html#file-magic"><b>File Magic</b></a> e.g. &quot;PQTTTR&quot;, &quot;PQRESLT&quot; or &quot;PQCOMNT&quot;<br>filled up with char(0)</td>
+    </tr>
+    <tr>
+      <td>&lt;File Preamble 2 (no tag)&gt;</td>
+      <td>no</td>
+      <td>Preamble</td>
+      <td>all</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>Format Version</td>
+    </tr>
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;File Header&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>File_GUID</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>Used as global identifier for all kind of tagged files;<br>Given in standard Windows GUID format: {%8.8X-%4.4X-%4.4X-%4.4X-%12.12X}</td>
+    </tr>
+
+    <tr>
+      <td>File_DictVersionIdent</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Just an optional declaration</td>
+    </tr>
+
+    <tr>
+      <td>File_AssuredContent</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, PTU</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>for Harps SW: fast content classification;<br>&lt;TCSPC-Type&gt; followed by content groups included;<br> e.g.  'PicoHarp 300: HWSETG SWSETG BinDATA'</td>
+    </tr>
+
+    <tr>
+      <td>File_Comment</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>File Comment (ANSI string)</td>
+    </tr>
+
+    <tr>
+      <td>File_Comment</td>
+      <td>no</td>
+      <td>WideString</td>
+      <td>all</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>File Comment (wide string)</td>
+    </tr>
+
+    <tr>
+      <td>File_CreatingTime</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>Date and Time the File was created (ANSI string);<br>(strongly recommended to use ISO8601 format YYYY-MM-DDThh:mm:ss)</td>
+    </tr>
+
+    <tr>
+      <td>File_CreatingTime</td>
+      <td>no</td>
+      <td>TDateTime</td>
+      <td>all</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>Date and Time the File was created (TDateTime);<br>(prefer this format)</td>
+    </tr>
+
+    <tr>
+      <td>File_ParentResult_GUID</td>
+      <td>0&hellip;2147483646</td>
+      <td>AnsiString</td>
+      <td>PCO, PHU, PQUNI, PQRES</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>Used as global Identifier for underlying result files;<br>Given in standard Windows GUID format: {%8.8X-%4.4X-%4.4X-%4.4X-%12.12X}</td>
+    </tr>
+
+    <tr>
+      <td>File_RawData_GUID</td>
+      <td>0&hellip;2147483646</td>
+      <td>AnsiString</td>
+      <td>PCO, PCK, PQRES, SPQR, PTU</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>Used as global Identifier for underlying raw data files;<br>Given in standard Windows GUID format: {%8.8X-%4.4X-%4.4X-%4.4X-%12.12X} <br> SPQR: e.g. if raw data file was converted from PTU <br> PTU: e.g. if raw data file was cropped by use of PTUCutter.exe</td>
+    </tr>
+
+    <tr>
+      <td>File_EditedBy</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Identifies the last person who edited this file</td>
+    </tr>
+
+    <tr>
+      <td>Measurement_Mode</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>Kind of TCSPC Measurement  <br> PHU: 0 = Histogram mode;<br>8 = "ContiMode" <br> SPQR: 2 = T2 mode;<br>3 = T3 mode <br> PTU: 2 = T2 mode;<br>3 = T3 mode</td>
+    </tr>
+
+    <tr>
+      <td>Measurement_SubMode</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, PTU</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>Kind of Measurement  <br> PHU: 0 = Oscilloscope mode;<br>1 = Integrating mode;<br>2 = TRES;<br>3 = SEQ mode <br> PTU: 0 or 1 = Point;<br>2 = Line;<br>3 = Image</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Creator Software&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>CreatorSW_ContentVersion</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>for Harps SW: File Format Version</td>
+    </tr>
+
+    <tr>
+      <td>CreatorSW_Name</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>Name of Software created the file</td>
+    </tr>
+
+    <tr>
+      <td>CreatorSW_Version</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>Version of Software created the file</td>
+    </tr>
+
+    <tr>
+      <td>CreatorSW_LicenceGUID</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Used as global Identifier for underlying licence;<br>Given in standard Windows GUID format: {%8.8X-%4.4X-%4.4X-%4.4X-%12.12X}</td>
+    </tr>
+
+    <tr>
+      <td>CreatorSW_Modules</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Count of the SW modules following (These could be DLLs, PlugIns, drivers, scripts, etc.)</td>
+    </tr>
+
+    <tr>
+      <td>CreatorSW_ModuleName</td>
+      <td class="td-truncate">0&hellip;CreatorSW_Modules&minus;1</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>(underliner in symbol for sorting reasons)</td>
+    </tr>
+
+    <tr>
+      <td>CreatorSW_ModuleVers</td>
+      <td class="td-truncate">0&hellip;CreatorSW_Modules&minus;1</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>(underliner in symbol for sorting reasons)</td>
+    </tr>
+
+    <tr>
+      <td>CreatorSW_SVNBuild</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Build number of the software, that created the file</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Remote Request Data&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>$StartedByRemoteInterface</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>SPQR: Identifies if received as remote request via TCP/IP <br> PTU: Identifies if received as remote request via TCP/IP</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Remote Request Header mand.&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>$ReqHdr_MeasurementType</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Identifies measurement type: 0: Point;<br>1: Image;<br>128: Point Testmeasurement;<br>129: Image Testmeasurement <br> PTU: Identifies measurement type: 0: Point;<br>1: Image;<br>128: Point Testmeasurement;<br>129: Image Testmeasurement</td>
+    </tr>
+
+    <tr>
+      <td>$ReqHdr_PixelNumber_X</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [px];&nbsp;number of pixels in X as sent in request <br> PTU: [px];&nbsp;number of pixels in X as sent in request</td>
+    </tr>
+
+    <tr>
+      <td>$ReqHdr_PixelNumber_Y</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [px];&nbsp;number of pixels in Y as sent in request <br> PTU: [px];&nbsp;number of pixels in Y as sent in request</td>
+    </tr>
+
+    <tr>
+      <td>$ReqHdr_RecordVersion</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Identifies TCP/IP record format transferred;<br>Currently 1.0.2.0  (i.e. 0x00, 0x02, 0x00, 0x01  on stream) <br> PTU: Identifies TCP/IP record format transferred;<br>Currently 1.0.2.0  (i.e. 0x00, 0x02, 0x00, 0x01  on stream)</td>
+    </tr>
+
+    <tr>
+      <td>$ReqHdr_ScanningPattern</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Scan pattern as sent in request: 0: monodirectional;<br>1: bi-directional <br> PTU: Scan pattern as sent in request: 0: monodirectional;<br>1: bi-directional</td>
+    </tr>
+
+    <tr>
+      <td>$ReqHdr_SpatialResolution</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [m/px];&nbsp;Pixel width as transfered in request (refers to fast scanning direction) <br> PTU: [m/px];&nbsp;Pixel width as transfered in request (refers to fast scanning direction)</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Remote Request Header opt.&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>$Comment</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Comment as sent in request;<br>May contain linebreaks, though they aren't shown in all presentations (e.g. in tables) <br> PTU: Comment as sent in request;<br>May contain linebreaks, though they aren't shown in all presentations (e.g. in tables)</td>
+    </tr>
+
+    <tr>
+      <td>$Filename</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Name for file sent in request <br> PTU: Name for file sent in request</td>
+    </tr>
+
+    <tr>
+      <td>$Groupname</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Name for group measurement as sent in request;<br>Subdirectory with this name is created in current working directory, if not existing <br> PTU: Name for group measurement as sent in request;<br>Subdirectory with this name is created in current working directory, if not existing</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Remote Request Header undef.&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>$&lt;Ident&gt;</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: optional remote interface ASCII-string parameter <br> PTU: optional remote interface ASCII-string parameter</td>
+    </tr>
+
+    <tr>
+      <td>$&lt;Ident&gt;</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: optional remote interface float parameter <br> PTU: optional remote interface float parameter</td>
+    </tr>
+
+    <tr>
+      <td>$&lt;Ident&gt;</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: optional remote interface integer parameter <br> PTU: optional remote interface integer parameter</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Hardware Header&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>HW_InpChannels</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of phys. Inputs (without SYNC, e.g. PicoHarp = 1)</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_CFDLevel</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;CFD level for channel</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_CFDZeroCross</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;Zero cross for channel</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_Enabled</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if channel was enabled on measurement</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_ModuleIdx</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for HH400: Indicates on which module the channel is situated</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_Name</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of the input channel <br> SPQR: Custom HW Input Channel Name <br> PTU: Custom HW Input Channel Name</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_Offset</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ps];&nbsp;Offset for channel</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_TdCode</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Deadtime classification</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_TrgEdge</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Triggers on 0 = falling edge;<br>1 = rising edge;<br>(only if not CFD input)</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_TrgLevel</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;trigger level for input channel;<br>(only if not CFD input)</td>
+    </tr>
+
+    <tr>
+      <td>HWInpChan_TrgMode</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Kind of input type (Edge Trigger = 0 vs. CFD = 1;<br>default depends on HW_Type)</td>
+    </tr>
+
+    <tr>
+      <td>HW_Markers</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of hardware markers</td>
+    </tr>
+
+    <tr>
+      <td>HWMarkers_Enabled</td>
+      <td class="td-truncate">0&hellip;HW_Markers&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if marker was enabled on measurement</td>
+    </tr>
+
+    <tr>
+      <td>HWMarkers_HoldOff</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ns];&nbsp;once for all markers</td>
+    </tr>
+
+    <tr>
+      <td>HWMarkers_RisingEdge</td>
+      <td class="td-truncate">0&hellip;HW_Markers&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if the marker was triggered on the rising edge (= TRUE)</td>
+    </tr>
+
+    <tr>
+      <td>HW_Modules</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of hardware modules of the TCSPC device</td>
+    </tr>
+
+    <tr>
+      <td>HWModule_TypeCode</td>
+      <td class="td-truncate">0&hellip;HW_Modules&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Type code of each hardware module;<br>e.g. PicoHarp: 1000 = digital;<br>1040 = Analog</td>
+    </tr>
+
+    <tr>
+      <td>HWModule_VersCode</td>
+      <td class="td-truncate">0&hellip;HW_Modules&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Version code of each hardware module (e.g. for PicoHarp coded as BCD)</td>
+    </tr>
+
+    <tr>
+      <td>HWRouter_Channels</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of routing channels: 4 for all currently supported router models, 0 else;<br>Don't mix-up with RoutingChannels!</td>
+    </tr>
+
+    <tr>
+      <td>HWRouterChan_CFDLevel</td>
+      <td class="td-truncate">0&hellip;HWRouter_Channels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;&nbsp;only if CFDPresent</td>
+    </tr>
+
+    <tr>
+      <td>HWRouterChan_CFDPresent</td>
+      <td class="td-truncate">0&hellip;HWRouter_Channels&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HWRouterChan_CFDZeroCross</td>
+      <td class="td-truncate">0&hellip;HWRouter_Channels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;&nbsp;only if CFDPresent</td>
+    </tr>
+
+    <tr>
+      <td>HWRouterChan_InputLevel</td>
+      <td class="td-truncate">0&hellip;HWRouter_Channels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV]</td>
+    </tr>
+
+    <tr>
+      <td>HWRouterChan_InputType</td>
+      <td class="td-truncate">0&hellip;HWRouter_Channels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>0 = Custom;<br>1 = NIM;<br>2 = TTL</td>
+    </tr>
+
+    <tr>
+      <td>HWRouterChan_Offset</td>
+      <td class="td-truncate">0&hellip;HWRouter_Channels&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ps]</td>
+    </tr>
+
+    <tr>
+      <td>HWRouterChan_RisingEdge</td>
+      <td class="td-truncate">0&hellip;HWRouter_Channels&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HWRouter_Enabled</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if a router is present and enabled</td>
+    </tr>
+
+    <tr>
+      <td>HWRouter_ModelCode</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Model code of Router: 0 = None;<br>1 = PHR_402;<br>2 = PHR_403;<br>3 = PHR_800</td>
+    </tr>
+
+    <tr>
+      <td>HWRouter_Version</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Version of router</td>
+    </tr>
+
+    <tr>
+      <td>HWSync_CFDLevel</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;CFD level of sync channel</td>
+    </tr>
+
+    <tr>
+      <td>HWSync_CFDZeroCross</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;Zero cross level for sync channel</td>
+    </tr>
+
+    <tr>
+      <td>HWSync_Divider</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Sync divider of TCSPC device;<br>(as dividing factor, not as power of two, e.g. 32, not 5)</td>
+    </tr>
+
+    <tr>
+      <td>HWSync_Offset</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ps];&nbsp;Offset of sync channel</td>
+    </tr>
+
+    <tr>
+      <td>HWSync_TdCode</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Deadtime classification</td>
+    </tr>
+
+    <tr>
+      <td>HWSync_TrgEdge</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Triggers on 0 = falling edge;<br>1 = rising edge;<br>(only if not CFD sync input)</td>
+    </tr>
+
+    <tr>
+      <td>HWSync_TrgLevel</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;trigger level for sync input;<br>(only if not CFD sync input)</td>
+    </tr>
+
+    <tr>
+      <td>HWSync_TrgMode</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Kind of input type (Edge Trigger = 0 vs. CFD = 1;<br>default depends on HW_Type)</td>
+    </tr>
+
+    <tr>
+      <td>HWTriggerOut_On</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HWTriggerOut_Period</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[s]</td>
+    </tr>
+
+    <tr>
+      <td>HW_BaseResolution</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[s];&nbsp;Base resolution of TCSPC device (not binned resolution of decay time)</td>
+    </tr>
+
+    <tr>
+      <td>HW_ExternalDevices</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HW_ExternalRefClock</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HW_Features</td>
+      <td>no</td>
+      <td>BitSet64</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>$001 = DLL;<br>$002 = TTTR;<br>$004 = Markers;<br>$008 = low Res.;<br>$010 = Trig.Out.;<br>$020 = prog. DeadTime;<br>$040 = ext FPGA interf.;<br>$080 = prog. hysteresis;<br>$100 = coincidence filtering;<br>$200 = prog. input modes</td>
+    </tr>
+
+    <tr>
+      <td>HW_InputHysteresis</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>true = long hysteresis;<br>Value goes for all input channels in common</td>
+    </tr>
+
+    <tr>
+      <td>HW_PartNo</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Part number of TCSPC device</td>
+    </tr>
+
+    <tr>
+      <td>HW_RefClockSource</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates (in coded form), what kind of reference clock was used</td>
+    </tr>
+
+    <tr>
+      <td>HW_RoutingChannels</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>obsolete now (&gt;= V1.0.00);<br>Equals &lt;HWRouter_Channels&gt; if &lt;HWRouter_Enabled&gt;, 1 else;<br>Don't mix-up with HWRouter_Channels! <br> PHU: deprecated <br> SPQR: deprecated <br> PTU: deprecated</td>
+    </tr>
+
+    <tr>
+      <td>HW_SerialNo</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Serial number of TCSPC device</td>
+    </tr>
+
+    <tr>
+      <td>HW_SerialNo</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>only used in converted files: Serial number of TCSPC device</td>
+    </tr>
+
+    <tr>
+      <td>HW_Timingmode</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>0 = HiRes;<br>1 = LoRes;<br>(only used for TH260)</td>
+    </tr>
+
+    <tr>
+      <td>HW_Type</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of TCSPC device;<br>(e.g. "PicoHarp", "HydraHarp", "TimeHarp260N", "TimeHarp260P", "MultiHarp", "PicoHarp330", &hellip;)</td>
+    </tr>
+
+    <tr>
+      <td>HW_Version</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Hardware version of TCSPC device</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;MultiHarp HW-Eventfilter Data&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>HW_MainFiltChan_Pass</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if events from this channel are passed through the filter</td>
+    </tr>
+
+    <tr>
+      <td>HW_MainFiltChan_Used</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if this channel is used in the filter</td>
+    </tr>
+
+    <tr>
+      <td>HW_MainFiltSync_Pass</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if events from the SYNC channel are passed through the filter</td>
+    </tr>
+
+    <tr>
+      <td>HW_MainFiltSync_Used</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if the SYNC channel is used in the filter</td>
+    </tr>
+
+    <tr>
+      <td>HW_MainFilt_Enabled</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if the main filter was enabled on measurement</td>
+    </tr>
+
+    <tr>
+      <td>HW_MainFilt_Inverse</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if the filter works logically inverse</td>
+    </tr>
+
+    <tr>
+      <td>HW_MainFilt_MatchCount</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[cnts/interval];&nbsp;Defines the amount of events, that have to occur in coincidence to let the filter pass them (0&hellip;6)</td>
+    </tr>
+
+    <tr>
+      <td>HW_MainFilt_TimeRange</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[nsec];&nbsp;Defines the length of the coincidence interval (0&hellip;160000)</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Measurement Description&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_AcquisitionTime</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ms]</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_BinningFactor</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_GlobalResolution</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>[s];&nbsp;Resolution of time tag(s)</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_InvalidSync</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Sync was invalid (= 0) on measurement start</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Offset</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ns]</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Resolution</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>[s];&nbsp;Resolution of TCSPC: BaseResolution * iBinningFactor</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Restart</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_StartTime</td>
+      <td>0&hellip;2</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>start time of a measurement with picosecond resolution Indexed 3 DWord Values [0] = least significant DWord [2] = most significat DWord</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_StopAt</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[cnt]</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_StopOnOvfl</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Measurement Sequence Descr.&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Params</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Curve Parameter Count <br> PHU: = 3 for SubMode is SEQ</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Param_Device</td>
+      <td class="td-truncate">0&hellip;MeasDesc_Params&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Curve Parameter Device (e.g. monochromator type)</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Param_Name</td>
+      <td class="td-truncate">0&hellip;MeasDesc_Params&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Curve Parameter Name</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Param_Start</td>
+      <td class="td-truncate">0&hellip;MeasDesc_Params&minus;1</td>
+      <td>Float8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Curve Parameter Startvalue</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Param_Step</td>
+      <td class="td-truncate">0&hellip;MeasDesc_Params&minus;1</td>
+      <td>Float8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Curve Parameter Stepwidth</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Param_Stop</td>
+      <td class="td-truncate">0&hellip;MeasDesc_Params&minus;1</td>
+      <td>Float8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Curve Parameter Stopvalue</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Param_TagName</td>
+      <td class="td-truncate">0&hellip;MeasDesc_Params&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Curve Parameter Value Tag Name</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_Param_Unit</td>
+      <td class="td-truncate">0&hellip;MeasDesc_Params&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Curve Parameter Unit</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_SeqExecutablePath</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Full path (as ANSI string) to executable for measurement sequence;<br>can be .exe as well as .bat</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_SeqExecutablePath</td>
+      <td>no</td>
+      <td>WideString</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Full path (as wide string) to executable for measurement sequence;<br>can be .exe as well as .bat</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_SeqHideExecutableWnd</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if the executable's window should be hidden during sequence</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_SeqNCycles</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Sequence count:  number of cycles</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_SeqPause</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ms];&nbsp;&nbsp;Pause between individual runs in a measurement sequence</td>
+    </tr>
+
+    <tr>
+      <td>MeasDesc_SeqRunExecutable</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Indicates if an executable is called for each measurement in sequence</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Image Header&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_Acceleration</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_BiDirect</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Scan pattern: TRUE identifies bidirectional scanning (1st line forward scan;<br>2nd line backward scan;<br>3rd line forward;<br>4th line backward;<br>&hellip;);<br>FALSE identifies monodirectional scanning (all lines forward) <br> PTU: Scan pattern: TRUE identifies bidirectional scanning (1st line forward scan;<br>2nd line backward scan;<br>3rd line forward;<br>4th line backward;<br>&hellip;);<br>FALSE identifies monodirectional scanning (all lines forward)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_Dimensions</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Dimension of the measurement: 1 = Point;<br>2 = Line;<br>3 = Image;<br>4 = Stack <br> PTU: Dimension of the measurement: 1 = Point;<br>2 = Line;<br>3 = Image;<br>4 = Stack</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_Frame</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Marker in TTTR stream defining a frame change <br> PTU: Marker in TTTR stream defining a frame change</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_Ident</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Identifies the scanner hardware: (1 = PI E-710;<br>3 = LSM;<br>5 = PI Line WBS;<br>6 = PI E-725;<br>7 = PI E-727;<br>8 = MCL;<br>9 = FLIMBee;<br>10 = ScanBox) <br> PTU: Identifies the scanner hardware: (1 = PI E-710;<br>3 = LSM;<br>5 = PI Line WBS;<br>6 = PI E-725;<br>7 = PI E-727;<br>8 = MCL;<br>9 = FLIMBee;<br>10 = ScanBox)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_LearningTime</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [s];&nbsp;Learning Time used for PI Piezo Controllers <br> PTU: [s];&nbsp;Learning Time used for PI Piezo Controllers</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_LineFrequency</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Frequency for a Line on image and line measurements (from line start marker to next line start marker) <br> PTU: Frequency for a Line on image and line measurements (from line start marker to next line start marker)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_LineStart</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Marker in TTTR stream defining a line start <br> PTU: Marker in TTTR stream defining a line start</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_LineStop</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Marker in TTTR stream defining a line end <br> PTU: Marker in TTTR stream defining a line end</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_MaxFrames</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Image was recorded with a maximum number of frames to scan and automatically stop <br> PTU: Image was recorded with a maximum number of frames to scan and automatically stop</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_ObjectiveName</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Name of the objective used on measurement <br> PTU: Name of the objective used on measurement</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_PixResol</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [µm];&nbsp;Resolution of a single pixel (line and image measurements) <br> PTU: [µm];&nbsp;Resolution of a single pixel (line and image measurements)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_PixResolZ</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [µm];&nbsp;Resolution of a single pixel along the stack direction (stack measurements) <br> PTU: [µm];&nbsp;Resolution of a single pixel along the stack direction (stack measurements)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_PixX</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Number of pixels in the fast scan direction (for image measurements) <br> PTU: Number of pixels in the fast scan direction (for image measurements)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_PixY</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Number of pixels in the slow scan direction (for image measurements) <br> PTU: Number of pixels in the slow scan direction (for image measurements)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_PixZ</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Number of pixels in the stack scan direction (for stack measurements) <br> PTU: Number of pixels in the stack scan direction (for stack measurements)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_PrevPix</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Line measurements: number of pixels per line used for the preview image <br> PTU: Line measurements: number of pixels per line used for the preview image</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_ScanDirection</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Scan direction, defining the configuration of fast and slowscan axis;<br>(First Axis = Fast Scan axis, Second Axis = SlowAxis;<br>PI_SCANMODE_XY(0) = X-Y Scan;<br>PI_SCANMODE_XZ(1) = X-Z Scan;<br>PI_SCANMODE_YZ(2) = Y-Z Scan) <br> PTU: Scan direction, defining the configuration of fast and slowscan axis;<br>(First Axis = Fast Scan axis, Second Axis = SlowAxis;<br>PI_SCANMODE_XY(0) = X-Y Scan;<br>PI_SCANMODE_XZ(1) = X-Z Scan;<br>PI_SCANMODE_YZ(2) = Y-Z Scan)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_SinCorrection</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: If &gt; 0, the image was recorded using a sinuidal instead of a linear movement;<br>Value represents percentage of the sinus wave used for the measurement (0-100%) <br> PTU: If &gt; 0, the image was recorded using a sinuidal instead of a linear movement;<br>Value represents percentage of the sinus wave used for the measurement (0-100%)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_StackDesc</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Type of the stack measurement: 0 = fast z scan <br> PTU: Type of the stack measurement: 0 = fast z scan</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_TimePerLine</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [ms];&nbsp;Line measurements, time to measure one line (from start to end marker) <br> PTU: [ms];&nbsp;Line measurements, time to measure one line (from start to end marker)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_TimePerPixel</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [ms];&nbsp;Integration time per pixel for image measurements <br> PTU: [ms];&nbsp;Integration time per pixel for image measurements</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_TStartFro</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Deprecated value for image reconstruction (converted image file only) <br> PTU: Deprecated value for image reconstruction (converted image file only)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_TStartTo</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Deprecated value for image reconstruction (converted image file only) <br> PTU: Deprecated value for image reconstruction (converted image file only)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_TStopFro</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Deprecated value for image reconstruction (converted image file only) <br> PTU: Deprecated value for image reconstruction (converted image file only)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_TStopTo</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: Deprecated value for image reconstruction (converted image file only) <br> PTU: Deprecated value for image reconstruction (converted image file only)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_Velocity</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_X0</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [µm];&nbsp;X Position of measurement (interpretation depends on ImgHdr_Dimensions;<br>for point measurements: the coordinate of measurement;<br>for line: the start point;<br>for images: the offset of the upper left edge of the image) <br> PTU: [µm];&nbsp;X Position of measurement (interpretation depends on ImgHdr_Dimensions;<br>for point measurements: the coordinate of measurement;<br>for line: the start point;<br>for images: the offset of the upper left edge of the image)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_X1</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [µm];&nbsp;X end position of line measurement <br> PTU: [µm];&nbsp;X end position of line measurement</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_XCalibOffset</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [V];&nbsp;Calibration offset of the X Axis <br> PTU: [V];&nbsp;Calibration offset of the X Axis</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_XCalibration</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [m/V];&nbsp;Calibration of the X Axis from axis movement to voltage <br> PTU: [m/V];&nbsp;Calibration of the X Axis from axis movement to voltage</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_Y0</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [µm];&nbsp;Y Position of measurement (interpretation depends on ImgHdr_Dimensions;<br>for point measurements: the coordinate of measurement;<br>for line: the start point;<br>for images: the offset of the upper left edge of the image) <br> PTU: [µm];&nbsp;Y Position of measurement (interpretation depends on ImgHdr_Dimensions;<br>for point measurements: the coordinate of measurement;<br>for line: the start point;<br>for images: the offset of the upper left edge of the image)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_Y1</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [µm];&nbsp;Y end position of line measurement <br> PTU: [µm];&nbsp;Y end position of line measurement</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_YCalibOffset</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [V];&nbsp;Calibration offset of the Y Axis <br> PTU: [V];&nbsp;Calibration offset of the Y Axis</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_YCalibration</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [m/V];&nbsp;Calibration of the Y Axis from axis movement to voltage <br> PTU: [m/V];&nbsp;Calibration of the Y Axis from axis movement to voltage</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_Z0</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [µm];&nbsp;Z Position of measurement (interpretation depends on ImgHdr_Dimensions;<br>for point measurements: the coordinate of measurement;<br>for line: the start point;<br>for images: the offset of the upper left edge of the image) <br> PTU: [µm];&nbsp;Z Position of measurement (interpretation depends on ImgHdr_Dimensions;<br>for point measurements: the coordinate of measurement;<br>for line: the start point;<br>for images: the offset of the upper left edge of the image)</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_Z1</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [µm];&nbsp;Z end position of line measurement <br> PTU: [µm];&nbsp;Z end position of line measurement</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_ZCalibOffset</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [V];&nbsp;Calibration offset of the Z Axis <br> PTU: [V];&nbsp;Calibration offset of the Z Axis</td>
+    </tr>
+
+    <tr>
+      <td>ImgHdr_ZCalibration</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>SPQR: [m/V];&nbsp;Calibration of the Z Axis from axis movement to voltage <br> PTU: [m/V];&nbsp;Calibration of the Z Axis from axis movement to voltage</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;TT Measurement Results&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>TTResult_StopReason</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>Reason for measurement end: <br> SPQR: srTimeOver(0) = TimeOver, ScanDone;<br>srManual(1) = Stopped by user;<br>srOverFlow(2) = Overflow condition;<br>srError(3) = Error (old style, converted Files);<br>srUnkown(-1) = Unknown Reason;<br>srFiFoOverrun(-2)= FiFo Overrun;<br>srLegacyErr(-3) = Legacy converted;<br>srTCSPCError(-4) = TCSPC Error;<br>srFileError(-5) = File writing Error (e.g. disk full);<br>srOutOfMem(-6) = Out of memory on recording file;<br>srSuspend(-7) = Computer sent to suspend in measurement;<br>srSYSERROR(-8) = SysError Flag of TCSPC appeared;<br>srQueueOverrun(-9) = Software FiFo overrun;<br>srDataXferFail(-10) = Read FiFo Error, typically bad USB connection;<br>srDataCheckFail(-11) = Illegal Dataentry found;<br>srRefClkLost(-12) = Reference clock signal lost;<br>srSyncLost(-13) = Sync Signal Lost <br> PTU: srTimeOver(0) = TimeOver, ScanDone;<br>srManual(1) = Stopped by user;<br>srOverFlow(2) = Overflow condition;<br>srError(3) = Error (old style, converted Files);<br>srUnkown(-1) = Unknown Reason;<br>srFiFoOverrun(-2)= FiFo Overrun;<br>srLegacyErr(-3) =</td>
+    </tr>
+
+    <tr>
+      <td>TTResult_InputRate</td>
+      <td class="td-truncate">0&hellip;HW_InpChannels&minus;1</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[counts/s]</td>
+    </tr>
+
+    <tr>
+      <td>TTResult_MDescWarningFlags</td>
+      <td>no</td>
+      <td>BitSet64</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Warnings during measurement <br> SPQR: 0x001 = SyncRateZero;<br>0x002 = SyncRateTooLow;<br>0x004 = SyncRateTooHigh;<br>0x010 = InptRateZero;<br>0x040 = InptRateTooHigh;<br>0x080 = EventsDropped;<br>0x100 = InptRateRatio;<br>0x200 = DividerGTOne;<br>0x400 = TimeSpanToSmall;<br>0x800 = OffsetUnnecessary;<br> <br> PTU: 0x001 = SyncRateZero;<br>0x002 = SyncRateTooLow;<br>0x004 = SyncRateTooHigh;<br>0x010 = InptRateZero;<br>0x040 = InptRateTooHigh;<br>0x080 = EventsDropped;<br>0x100 = InptRateRatio;<br>0x200 = DividerGTOne;<br>0x400 = TimeSpanToSmall;<br>0x800 = OffsetUnnecessary;</td>
+    </tr>
+
+    <tr>
+      <td>TTResult_NumberOfRecords</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td> Number of Records in the binary part</td>
+    </tr>
+
+    <tr>
+      <td>TTResult_StopAfter</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ms]</td>
+    </tr>
+
+    <tr>
+      <td>TTResult_SyncRate</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>[counts/s] <br> SPQR: as recorded at the beginning of a measurement <br> PTU: as recorded at the beginning of a measurement</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;TT Results Format&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_BitsPerRecord</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td> Currently containing 32 for all PicoQuant TCSPC devices;<br>Nevertheless mandatory!</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_ChannelMask</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Binary mask to isolate the channels data field from the TTTR record by means of a binary AND operation;<br>(Refer to your TCSPC device manual for more information)</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_ChannelShift</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Shift the isolated channels data field by this number of bits to the right to get the channel number as integer;<br>(Refer to your TCSPC device manual for more information)</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_DTimeMask</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Binary mask to isolate the DTime data field from the TTTR record by means of a binary AND operation;<br>(Refer to your TCSPC device manual for more information)</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_DTimeShift</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Shift the isolated DTime data field by this number of bits to the right to get the DTime value as integer;<br>(Refer to your TCSPC device manual for more information)</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_MarkerMask</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Binary mask to isolate the marker data field from the TTTR record by means of a binary AND operation;<br>(Refer to your TCSPC device manual for more information)</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_MarkerShift</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Shift the isolated marker data field by this number of bits to the right to get the marker pattern as integer;<br>Consider: markers are bitset coded and may even coincide;<br>(Refer to your TCSPC device manual for more information)</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_NSyncMask</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Binary mask to isolate the NSync data field from the TTTR record by means of a binary AND operation;<br>(Refer to your TCSPC device manual for more information)</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_NSyncShift</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Shift the isolated NSync data field by this number of bits to the right to get the NSync value as integer;<br>(Refer to your TCSPC device manual for more information)</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_SpecialMask</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Binary mask to isolate the special record field from the TTTR record by means of a binary AND operation;<br>If the isolated field equals the mask, we recognize a special record;<br>(Refer to your TCSPC device manual for more information)</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_TTTRRecType</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td> Contains TTResultFormat information in coded form;<br>mandatory!</td>
+    </tr>
+
+    <tr>
+      <td>TTResultFormat_WrapAround</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td> Add this value to your global counter on each arriving of an overflow record;<br>If your TCSPC device is able to compress overflows, multiply by the value of the unshifted (rightmost) datafield in TTTR record before addition.</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Histo Measurement Results&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>HistoResult_BitsPerBin</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistoResult_NumberOfCurves</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>Number of Curves</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Histo Result Descriptor&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_CurveIndex</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_CurveName</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of the curve</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_DataOffset</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_DataType</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Histogram = 0;<br>TimeTrace = 1;<br>G2 = 2;<br>FCS = 3;<br>Raw = 4;<br>Unfold = 5;<br>TauPos = 1000;<br>TauBounds = 1001</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_DataType_SubIdx</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Index of the curve inside the DataType</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_DeviceType</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>HW = 0;<br>File = 1</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_FilePath</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>AnsiString</td>
+      <td>PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Path of File</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HistCountRate</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HistogramBins</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWBaseResolution</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Float8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[s]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWExternalDevices</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>BitSet64</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWExternalRefClock</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWFeatures</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>BitSet64</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>$001 = DLL;<br>$002 = TTTR;<br>$004 = Markers;<br>$008 = low Res.;<br>$010 = Trig.Out.;<br>$020 = prog. DeadTime;<br>$040 = ext FPGA interf.;<br>$080 = prog. hysteresis;<br>$100 = coincidence filtering;<br>$200 = prog. input modes</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChanCFDLevel</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;refers to the input identified by HistResDscr_HWInpChanIdx</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChanCFDZCross</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;refers to the input identified by HistResDscr_HWInpChanIdx</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChanIdx</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>identifies the input that collected the events of this histogram</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChanModuleIdx</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>1 &hellip; HW_Modules;<br>refers to the input identified by HistResDscr_HWInpChanIdx</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChannels</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChannelsEnabld</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>BitSet64</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChanOffset</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ps];&nbsp;refers to the input identified by HistResDscr_HWInpChanIdx</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChanTdCode</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Deadtime classification;<br>refers to the input identified by HistResDscr_HWInpChanIdx</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChanTrgEdge</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Triggers on 0 = falling edge;<br>1 = rising edge;<br>(only if not CFD input);<br>refers to the input identified by HistResDscr_HWInpChanIdx</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChanTrgLevel</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;trigger level for input channel;<br>(only if not CFD input);<br>refers to the input identified by HistResDscr_HWInpChanIdx</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInpChanTrgMode</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Kind of input type (Edge Trigger = 0 vs. CFD = 1, default depends on HW_Type);<br>refers to the input identified by HistResDscr_HWInpChanIdx</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWInputHysteresis</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>true = long hysteresis;<br>Value goes for all input channels in common</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWMarkers</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWMarkers_Enabled</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>BitSet64</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>LSB = Marker[0]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWMarkers_Rising</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>BitSet64</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>LSB = Marker[0]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWModules</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for PicoHarp = 1</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWModuleTypeCode&lt;m&gt;</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;m&gt;: %2.2d = 00 &hellip; HW_Modules - 1;<br>for PicoHarp = 0</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWModuleVersCode&lt;m&gt;</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;m&gt;: %2.2d = 00 &hellip; HW_Modules - 1;<br>for PicoHarp = HW_Version</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWPartNo</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRouterChannelIdx</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRouterEnabled</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRouterModelCode</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Model code of Router:  0 = None;<br>1 = PHR_402;<br>2 = PHR_403;<br>3 = PHR_800</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRtChanCFDLevel</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;only present if HistResDscr_HWRtChanCFDPresent[idx] = TRUE</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRtChanCFDPresent</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRtChanCFDZCross</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;only present if HistResDscr_HWRtChanCFDPresent[idx] = TRUE</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRtChanInputLevel</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRtChanInputType</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>0 = Custom;<br>1 = NIM;<br>2 = TTL</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRtChanOffset</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ps]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWRtChanRisingEdge</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWSerialNo</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWSyncCFDLevel</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWSyncCFDZeroCross</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWSyncDivider</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWSyncOffset</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ps]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWSyncTdCode</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Deadtime classification</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWSyncTrgEdge</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Triggers on 0 = falling edge;<br>1 = rising edge;<br>(only if not CFD sync input)</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWSyncTrgLevel</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[mV];&nbsp;trigger level for sync input;<br>(only if not CFD sync input)</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWSyncTrgMode</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Kind of input type (Edge Trigger = 0 vs. CFD = 1;<br>default depends on HW_Type)</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWTimingmode</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>0 = HiRes;<br>1 = LoRes;<br>(only used for TH260)</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWTriggerOutOn</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWTriggerOutPeriod</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Float8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[s]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWType</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>"PicoHarp", "HydraHarp", "TH260N", "TH260P", "MultiHarp", "PicoHarp330", &hellip;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_HWVersion</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_InputRate</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_IntegralCount</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_IsMem</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Bool8</td>
+      <td>PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Is Memory Curve</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescAcquisTime</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ms]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescBinningFactor</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>expanded, to also support non-binary factors</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescMode</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Kind of TCSPC Measurement</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescOffset</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ns]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescResolution</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Float8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>[s];&nbsp;&nbsp;BaseResolution*iBinningFactor</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescRestart</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescStopAfter</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[ms]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescStopReason</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>0 = timeover;<br>1 = manual;<br>2 = overflow</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescSubMode</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Kind of Measurement</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_MDescWarningFlags</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>BitSet64</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Warnings during measurement <br> PHU: 0x001 = SyncRateZero;<br>0x002 = SyncRateTooLow;<br>0x004 = SyncRateTooHigh;<br>0x010 = InptRateZero;<br>0x040 = InptRateTooHigh;<br>0x080 = EventsDropped;<br>0x100 = InptRateRatio;<br>0x200 = DividerGTOne;<br>0x400 = TimeSpanToSmall;<br>0x800 = OffsetUnnecessary;<br> <br> PQUNI: 0x001 = SyncRateZero;<br>0x002 = SyncRateTooLow;<br>0x004 = SyncRateTooHigh;<br>0x010 = InptRateZero;<br>0x040 = InptRateTooHigh;<br>0x080 = EventsDropped;<br>0x100 = InptRateRatio;<br>0x200 = DividerGTOne;<br>0x400 = TimeSpanToSmall;<br>0x800 = OffsetUnnecessary;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_NameChanA</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>AnsiString</td>
+      <td>PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of Channel A</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_NameChanB</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>AnsiString</td>
+      <td>PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of Channel B</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_RawData_GUID</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>AnsiString</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Used as global Identifier for underlying raw data files;<br>Given in standard Windows GUID format: {%8.8X-%4.4X-%4.4X-%4.4X-%12.12X} <br> PHU: only used if generated / imported from other sources <br> PQUNI: only used if generated / imported from other sources</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_SyncRate</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_t0</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Float8</td>
+      <td>PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Start Time of Curve [s]</td>
+    </tr>
+
+    <tr>
+      <td>HistResDscr_TimeOfRecording</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>TDateTime</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Parameter Data&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>Par&lt;Ident&gt;</td>
+      <td class="td-truncate">0&hellip;HistoResult_NumberOfCurves&minus;1</td>
+      <td>Float8</td>
+      <td>PHU, PQUNI</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>float parameter as named in MeasDesc_Param_TagName <br> PHU: indexed by number of curves in PHU files <br> PQUNI: indexed by number of curves in PHU files</td>
+    </tr>
+
+    <tr>
+      <td>Par&lt;Ident&gt;</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>float parameter as named in MeasDesc_Param_TagName <br> SPQR: not indexed in PTU files <br> PTU: not indexed in PTU files</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Current SoftwareSettings&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>CurSWSetting_ActiveCurve</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for Harps SW only</td>
+    </tr>
+
+    <tr>
+      <td>CurSWSetting_DispAxisCountFrom</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for Harps SW only</td>
+    </tr>
+
+    <tr>
+      <td>CurSWSetting_DispAxisCountTo</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for Harps SW only</td>
+    </tr>
+
+    <tr>
+      <td>CurSWSetting_DispAxisTimeFrom</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for Harps SW only</td>
+    </tr>
+
+    <tr>
+      <td>CurSWSetting_DispAxisTimeTo</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for Harps SW only</td>
+    </tr>
+
+    <tr>
+      <td>CurSWSetting_DispCurves</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for Harps SW only</td>
+    </tr>
+
+    <tr>
+      <td>CurSWSetting_DispCurve_MapTo</td>
+      <td class="td-truncate">0&hellip;CurSWSetting_DispCurves&minus;1</td>
+      <td>Int8</td>
+      <td>PHU, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for Harps SW only</td>
+    </tr>
+
+    <tr>
+      <td>CurSWSetting_DispCurve_Show</td>
+      <td class="td-truncate">0&hellip;CurSWSetting_DispCurves&minus;1</td>
+      <td>Bool8</td>
+      <td>PHU, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for Harps SW only</td>
+    </tr>
+
+    <tr>
+      <td>CurSWSetting_DispLog</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>for Harps SW only</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Sepia2 Data&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>Sep2_FirmwareVersion</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SerialNo</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SCM_&lt;Slot&gt;_SerialNo</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SLM_&lt;Slot&gt;_CW_PulseDisable</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989;<br>depending on laser head, true means either CW or disable</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SLM_&lt;Slot&gt;_FineIntensity</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989;<br>[per mille];&nbsp;indirect: as ratio of the controlling voltage</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SLM_&lt;Slot&gt;_HeadType</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989;<br>as recognised by the SLM module</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SLM_&lt;Slot&gt;_Intensity</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>obsolete (&lt;Slot&gt;: 000 &hellip; 989;<br>[%];&nbsp;indirect: as ratio of the controlling voltage) <br> PHU: obsolete <br> SPQR: obsolete <br> PTU: obsolete</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SLM_&lt;Slot&gt;_SerialNo</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SLM_&lt;Slot&gt;_TriggerIndex</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_BaseOscFreq</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989;<br>[Hz];&nbsp;only present if internal triggered</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_Divider</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_InvSyncMask</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_PreSync</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_Seq_BurstLen</td>
+      <td>0&hellip;7</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989;<br> 0 &hellip; 16777215</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_Seq_EnaOutput</td>
+      <td>0&hellip;7</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_Seq_EnaSync</td>
+      <td>0&hellip;7</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_SerialNo</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_SyncMask</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_TrigEdge</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989;<br>only present if external triggered</td>
+    </tr>
+
+    <tr>
+      <td>Sep2_SOM_&lt;Slot&gt;_TrigLevel</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PHU, SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;Slot&gt;: 000 &hellip; 989;<br>[mV];&nbsp;only present if external triggered</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Luminosa&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>AnaChColor</td>
+      <td class="td-truncate">0&hellip;AnaChCount&minus;1</td>
+      <td>Color8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>The color of this analysis channel</td>
+    </tr>
+
+    <tr>
+      <td>AnaChCount</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of analysis channels defined in the measurement</td>
+    </tr>
+
+    <tr>
+      <td>AnaChDetectors</td>
+      <td class="td-truncate">0&hellip;AnaChCount&minus;1</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>One char for every detector ("V" means detector is active, "." means detector off)</td>
+    </tr>
+
+    <tr>
+      <td>AnaChLgChannel</td>
+      <td class="td-truncate">0&hellip;AnaChCount&minus;1</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Logical channel (i.e., combination of TCSPC channel and PIE window) associated with this analysis channel ("V" means chan is active, "." means chan off) <br> SPQR: No meaning in PTU files as PIE windows are not separated <br> PTU: No meaning in PTU files as PIE windows are not separated</td>
+    </tr>
+
+    <tr>
+      <td>AnaChName</td>
+      <td class="td-truncate">0&hellip;AnaChCount&minus;1</td>
+      <td>WideString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of the analysis channel</td>
+    </tr>
+
+    <tr>
+      <td>AnaChPIEIdx</td>
+      <td class="td-truncate">0&hellip;AnaChCount&minus;1</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Index of the PIE window (0-based, first PIE window = 0, second PIE window = 1)</td>
+    </tr>
+
+    <tr>
+      <td>AnaChTCSPCCh</td>
+      <td class="td-truncate">0&hellip;AnaChCount&minus;1</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>One char for every TCSPC channel ("V" means TCSPC chan is active, "." means TCSPC chan off)</td>
+    </tr>
+
+    <tr>
+      <td>AssociatedImageGUID</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>GUID of associated raw image data in the smImaging workflow</td>
+    </tr>
+
+    <tr>
+      <td>ChromophoreCount</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of selected chromophores in the measurement</td>
+    </tr>
+
+    <tr>
+      <td>Chromophore</td>
+      <td class="td-truncate">0&hellip;ChromophoreCount&minus;1</td>
+      <td>WideString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of the chromophore</td>
+    </tr>
+
+    <tr>
+      <td>DetectorCount</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of detectors in the measurement system</td>
+    </tr>
+
+    <tr>
+      <td>Detector</td>
+      <td class="td-truncate">0&hellip;DetectorCount&minus;1</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of this detector</td>
+    </tr>
+
+    <tr>
+      <td>DetectorNumTCSPCChan</td>
+      <td class="td-truncate">0&hellip;DetectorCount&minus;1</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of TCSPC channels connected to this detector (only for PDA-23)</td>
+    </tr>
+
+    <tr>
+      <td>DetectorTCSPCChan</td>
+      <td class="td-truncate">0&hellip;DetectorCount&minus;1</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>First TCSPC channel connected to this detector (only for PDA-23)</td>
+    </tr>
+
+    <tr>
+      <td>DetectorInUse</td>
+      <td class="td-truncate">0&hellip;DetectorCount&minus;1</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>If this detector was in use during the measurement</td>
+    </tr>
+
+    <tr>
+      <td>FCSCorrelationChannels</td>
+      <td>0&hellip;1</td>
+      <td>AnsiString</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Logical channel(s) for FCS channel A or B ("x" means channel is in use, "." means not in use)</td>
+    </tr>
+
+    <tr>
+      <td>FCSCorrelationChannelName</td>
+      <td>0&hellip;1</td>
+      <td>WideString</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of analysis channel used as input for correlation</td>
+    </tr>
+
+    <tr>
+      <td>FCSMaxLagTime</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Maximum lag time used for the calculation of the correlation curve</td>
+    </tr>
+
+    <tr>
+      <td>FCSNSub</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Parameter controlling the logarithmic spacing of lag times for the calculation of the correlation curve</td>
+    </tr>
+
+    <tr>
+      <td>ImgSamplePosX</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[µm];&nbsp;X position of the sample stage</td>
+    </tr>
+
+    <tr>
+      <td>ImgSamplePosY</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[µm];&nbsp;Y position of the sample stage</td>
+    </tr>
+
+    <tr>
+      <td>LaserCount</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of active lasers</td>
+    </tr>
+
+    <tr>
+      <td>LaserName</td>
+      <td class="td-truncate">0&hellip;LaserCount&minus;1</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Name of this laser</td>
+    </tr>
+
+    <tr>
+      <td>LaserWL</td>
+      <td class="td-truncate">0&hellip;LaserCount&minus;1</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[nm];&nbsp;Wavelength of this laser</td>
+    </tr>
+
+    <tr>
+      <td>LSDDevice</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Description of the measurement system configuration in XML format</td>
+    </tr>
+
+    <tr>
+      <td>MeasurementType</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>A list of measurement contents for this measurement, separated by ";". E.g., "FLIM", "FLIM;Anisotropy", "Trace;FRET", "FCS", or "FRET;BenchmarkStudy"</td>
+    </tr>
+
+    <tr>
+      <td>PIEMaxChannel</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of logical channels (i.e., combination of TCSPC channel and PIE window) per PIE window</td>
+    </tr>
+
+    <tr>
+      <td>PIENumPIEWindows</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of PIE windows in this measurement</td>
+    </tr>
+
+    <tr>
+      <td>PIETimeGate</td>
+      <td class="td-truncate">0&hellip;PIENumPIEWindows&minus;1</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Start of the time gate for this PIE window index in TCSPC time bins</td>
+    </tr>
+
+    <tr>
+      <td>SeriesAsRange</td>
+      <td class="td-truncate">0&hellip;SeriesDimension&minus;1</td>
+      <td>Bool8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>True: Series position can be calculated from SeriesStart, SeriesEnd, and SeriesSteps;<br>False: Series positions are given in SeriesValues</td>
+    </tr>
+
+    <tr>
+      <td>SeriesCurrent</td>
+      <td class="td-truncate">0&hellip;SeriesDimension&minus;1</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Index of the current measurement along this dimension in the series measurement</td>
+    </tr>
+
+    <tr>
+      <td>SeriesDimension</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of dimensions in this series measurement (e.g., 1 for time series or z-scan, 2 for xy tiling)</td>
+    </tr>
+
+    <tr>
+      <td>SeriesEnd</td>
+      <td class="td-truncate">0&hellip;SeriesDimension&minus;1</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Last value of the series measurement along this dimension</td>
+    </tr>
+
+    <tr>
+      <td>SeriesIdent</td>
+      <td class="td-truncate">0&hellip;SeriesDimension&minus;1</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Header tag that contains the current series position for this dimension index</td>
+    </tr>
+
+    <tr>
+      <td>SeriesIdentUnit</td>
+      <td class="td-truncate">0&hellip;SeriesDimension&minus;1</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Unit for this dimension of the series measurement</td>
+    </tr>
+
+    <tr>
+      <td>SeriesLabel</td>
+      <td class="td-truncate">0&hellip;SeriesDimension&minus;1</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Label for this dimension of the series measurement</td>
+    </tr>
+
+    <tr>
+      <td>SeriesStart</td>
+      <td class="td-truncate">0&hellip;SeriesDimension&minus;1</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>First value of the series measurement along this dimension</td>
+    </tr>
+
+    <tr>
+      <td>SeriesSteps</td>
+      <td class="td-truncate">0&hellip;SeriesDimension&minus;1</td>
+      <td>Int8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of values between SeriesStart and SeriesEnd (must be &gt; 1)</td>
+    </tr>
+
+    <tr>
+      <td>SeriesTimePoint</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>[s];&nbsp;the current series measurement was started this many seconds after the start of the series</td>
+    </tr>
+
+    <tr>
+      <td>SeriesValues</td>
+      <td>no</td>
+      <td>Float8Array</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Individual values for each series position. Length = number of measurements in the series</td>
+    </tr>
+
+    <tr>
+      <td>SeriesWaitTime</td>
+      <td class="td-truncate">0&hellip;SeriesDimension&minus;1</td>
+      <td>Float8</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Waiting time between series measurements in ms along this dimension</td>
+    </tr>
+
+    <tr>
+      <td>SystemSerial</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Serial number of the measurement system</td>
+    </tr>
+
+    <tr>
+      <td>UseFLCSBkgr</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>True if FLCS background correction was used</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;SPQR-specific Data&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>SPQRAccumulateFrames</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>SPQR</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>True if frames are summed up (accumulated).</td>
+    </tr>
+
+    <tr>
+      <td>SPQRBinWidths</td>
+      <td>no</td>
+      <td>Float8Array</td>
+      <td>SPQR</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>Array with the width (in TCSPC time bins) of the smart-binned histograms</td>
+    </tr>
+
+    <tr>
+      <td>SPQRChannels</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>One char for every channel ("V" means chan has photons, "." means chan not used)</td>
+    </tr>
+
+    <tr>
+      <td>SPQRDirectoryPosition</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>File offset to find the data directory</td>
+    </tr>
+
+    <tr>
+      <td>SPQRPrevImage</td>
+      <td>no</td>
+      <td>BinaryBlob</td>
+      <td>SPQR</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Icon as raw 128x128x32bit image (as xy array of 4-byte with R as LSB)</td>
+    </tr>
+
+    <tr>
+      <td>SPQRPrevImageLink</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>File offset to the SPQRTagPrevImage tag in the normal tag area</td>
+    </tr>
+
+    <tr>
+      <td>SPQRRecordFormat</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>SPQR</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>record format version</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Variables Data&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>VarResultType</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PQRES</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>VarScriptIdent</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PCO, PQRES</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>Identifies the generating script</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>AnsiString</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined ANSI string variable</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Bool8</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined boolean variable</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>BinaryBlob</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined binary blob variable</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Color8</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined color variable</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Float8</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined float variable</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Float8Array</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined float array variable</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Int8</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined integer variable</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>BitSet64</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined bitset variable</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>TDateTime</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined date/time variable</td>
+    </tr>
+
+    <tr>
+      <td>Var&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>WideString</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>User defined wide string variable</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Context Data&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>Ctx&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Int8</td>
+      <td>PQRES</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Context for a variable with same name (Ctx replaced by Var)</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;User Data&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>UsrOverviewGUID</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>SPQR, PTU</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Used as global Identifier for an result file containing the underlying overview;<br>Given in standard Windows GUID format: {%8.8X-%4.4X-%4.4X-%4.4X-%12.12X}</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>AnsiString</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined ANSI string content</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Bool8</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined boolean content</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>BinaryBlob</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined binary blob content</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Color8</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined color content</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Float8</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined float content</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Float8Array</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined float array content</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>Int8</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined integer content</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>BitSet64</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined bitset content</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>TDateTime</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined date / time content</td>
+    </tr>
+
+    <tr>
+      <td>Usr&lt;Ident&gt;</td>
+      <td>maybe</td>
+      <td>WideString</td>
+      <td>all</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>additional user defined wide string content</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Misc. Tags&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>ChkChannels</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PCK</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of channels with photons in the raw data file</td>
+    </tr>
+
+    <tr>
+      <td>ChkFrameMarkers</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PCK</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Number of Framemarker in the raw data file;<br>also the number of Frame Records in the checkpoint file</td>
+    </tr>
+
+    <tr>
+      <td>ChkFrameRecord</td>
+      <td class="td-truncate">0&hellip;ChkFrameMarkers&minus;1</td>
+      <td>Int8</td>
+      <td>PCK</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>record number of a frame start in the raw data file</td>
+    </tr>
+
+    <tr>
+      <td>ChkHistogram</td>
+      <td>no</td>
+      <td>BinaryBlob</td>
+      <td>PCK</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Overall histogram of the raw data file, array of Int64 Values</td>
+    </tr>
+
+    <tr>
+      <td>ChkMaxTimeTag</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PCK</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>last valid timetag in the raw data file</td>
+    </tr>
+
+    <tr>
+      <td>ChkUsedChannel</td>
+      <td class="td-truncate">0&hellip;ChkChannels&minus;1</td>
+      <td>Int8</td>
+      <td>PCK</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>Channel has photon events in the raw data file</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Defaults / Settings&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+
+    <tr>
+      <td>Defaults_Begin</td>
+      <td>no</td>
+      <td>Empty8</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td>PQHT_&lt;HashId&gt;_Group</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>&lt;HashId&gt;: (8 hex char.) identifying the setting;<br>Group to associate the setting to</td>
+    </tr>
+
+    <tr>
+      <td>PQHT_&lt;HashId&gt;_ValidSince</td>
+      <td>no</td>
+      <td>TDateTime</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>&lt;HashId&gt;: (8 hex char.) identifying the setting;<br>Date of registering the setting</td>
+    </tr>
+
+    <tr>
+      <td>&lt;FactoryOrUserSettingIdent&gt;</td>
+      <td>no</td>
+      <td>AnsiString</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>PFS: factory setting with ANSI string value <br> PUS: user defined setting with ANSI string value</td>
+    </tr>
+
+    <tr>
+      <td>&lt;FactoryOrUserSettingIdent&gt;</td>
+      <td>no</td>
+      <td>Bool8</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>PFS: factory setting with boolean value <br> PUS: user defined setting with boolean value</td>
+    </tr>
+
+    <tr>
+      <td>&lt;FactoryOrUserSettingIdent&gt;</td>
+      <td>no</td>
+      <td>Color8</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>PFS: factory setting with color value <br> PUS: user defined setting with color value</td>
+    </tr>
+
+    <tr>
+      <td>&lt;FactoryOrUserSettingIdent&gt;</td>
+      <td>no</td>
+      <td>Float8</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>PFS: factory setting with float value <br> PUS: user defined setting with float value</td>
+    </tr>
+
+    <tr>
+      <td>&lt;FactoryOrUserSettingIdent&gt;</td>
+      <td>no</td>
+      <td>Int8</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>PFS: factory setting with integer value <br> PUS: user defined setting with integer value</td>
+    </tr>
+
+    <tr>
+      <td>&lt;FactoryOrUserSettingIdent&gt;</td>
+      <td>no</td>
+      <td>BitSet64</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>PFS: factory setting with bitset value <br> PUS: user defined setting with bitset value</td>
+    </tr>
+
+    <tr>
+      <td>&lt;FactoryOrUserSettingIdent&gt;</td>
+      <td>no</td>
+      <td>WideString</td>
+      <td>PFS, PUS</td>
+      <td>std.</td>
+      <td>opt.</td>
+      <td>PFS: factory setting with wide string value <br> PUS: user defined setting with wide string value</td>
+    </tr>
+
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Special Tags&gt;</B></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+    </tr>
+    <tr>
+      <td>Fast_Load_End</td>
+      <td>no</td>
+      <td>Empty8</td>
+      <td>all</td>
+      <td><font style="color:limegreen;font-weight:bold;font-style:italic;">fast</td>
+      <td>opt.</td>
+      <td>All tags intended to be loaded in "fast" mode have to be stored preceding this tag. For a preview
+        of files, only the tags onto this tag are loaded (useful e.g. for shell extensions or workspace loading).<br>
+        <b>Take care to minimize the amount of tags preceding this tag!<br>
+        If omitted, always the whole number of tags are loaded.</b></td>
+    </tr>
+    <tr>
+      <td>Header_End</td>
+      <td>no</td>
+      <td>Empty8</td>
+      <td>all</td>
+      <td>std.</td>
+      <td><font style="color:red;font-weight:bold">mand.</td>
+      <td>End of Header; Below this point, only binary data is situated</td>
+    </tr>
+    <tr>
+      <td align=left bgcolor="silver"><B>&lt;Binary Data&gt;</B></td>
+      <td bgcolor="silver" ><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver">PHU, PTU</td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver"><br></td>
+      <td bgcolor="silver">Contains the TTTR records, must be positioned at the end of file <br>
+        Length of this block in Bytes = TTResultFormat_BitsPerRecord / 8 * 
+        TTResult_NumberOfRecords</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="tttr%20data%20format.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">TTTR Record Format</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="PQTag_Types.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PQ Tag Types</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, PicoQuant.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

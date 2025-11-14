@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<!--  **************************************************************************************************************  -->
+<!--  *                                                                                                            *  -->
+<!--  *   TTTR Records (Appendix)                                                                                  *  -->
+<!--  *                                                                                                            *  -->
+<!--  **************************************************************************************************************  -->
+  <head>
+    <meta http-equiv="content-type"        content="text/html;charset=utf-8" >
+    <meta http-equiv="Content-Style-Type"  content="text/css" >
+    <meta name="Generator"                 content="SPT64 Documentation Crew">
+    <meta name="Topic"            id="10"  content="Appendices|TTTR Record Format">
+    <meta name="IconCode"         id="11"  content="i" />
+    <meta name="PositionIndex"    id="12"  content="26" />
+    <meta name="AddGroupToTitle"  id="13"  content="False" />
+
+    <meta name="Group"                     content="Appendix" />
+    <meta name="Key"                       content="APX_TTTRRecords"> <!-- Key (mandatory)  -->
+    <meta name="Keywords"                  content="tttr records (appendix), unified tag file format (fundamentals), PTU files, files, tags, TTTR, T3, T2, PicoHarp, HydraHarp"> <!-- Keywords (optional)  -->
+<!--  ==============================================================================================================  -->
+    <title>TTTR Record Format (Appendix)</title>                               <!--          Page Title  (mandatory)  -->
+<!--  ==============================================================================================================  -->
+
+    <style>
+      body {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      h1   {
+             position:relative;
+             left:1.3cm;
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:20pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h2   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:14pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h3   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:12pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h4   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:11pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      h5   {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:bold;
+             text-decoration:none
+           }
+      table{
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      p    {
+             font-family:sans-serif;
+             font-style:normal;
+             font-size:10pt;
+             font-weight:normal;
+             text-decoration:none
+           }
+      a    {
+             font-family:sans-serif;
+             font-size:10pt;
+             font-weight:normal;
+           }
+    </style>
+  </head>
+  <body bgcolor=WHITE >
+    <a name="Top"></a>                                                         <!--   as a jump-target (top of page): -->
+    <table width=100% cellpadding=0 >
+      <tr valign=BOTTOM>
+        <td align=left >
+          <h5>
+<!--  ==============================================================================================================  -->
+            Appendix                                                           <!--           Group-Title (optional)  -->
+<!--  ==============================================================================================================  -->
+            &nbsp;
+          </h5>
+        </td>
+      </tr>
+      <tr valign=middle>
+        <td align=left>
+          <h1>
+<!--  ==============================================================================================================  -->
+            TTTR Record Format                                                 <!--                Title (mandatory)  -->
+<!--  ==============================================================================================================  -->
+          </h1>
+        </td>
+      </tr>
+    </table>
+    <table width=100% cellpadding=0 >
+      <tr valign=TOP>
+        <td align=left >
+<!--  ==============================================================================================================  -->
+          &nbsp;&nbsp;[<a href="#RelatedTopics">Related Topics</a>]            <!--      Nav.-Button left (optional)  -->
+<!--  ==============================================================================================================  -->
+        </td>
+        <td align=right>
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+<hr>                                                                           <!--                              BODY -->
+<p/>
+<H3>Basic record format</H3>
+<p>
+	This page describes the format of the TTTR data saved in the <Binary Data> section of raw data files.
+</p>
+<p>
+	Due to performance reasons the TTTR data are saved exactly as received from TCSPC device, hence the
+  format of the TTTR records depends on the kind of TCSPC device and the type of measurement.
+  The record format used in a particular file is denoted in the mandatory tag
+  <font style="font-weight:bold;color:indigo">TTResultFormat_TTTRRecType</font>.
+</p>
+<p>
+  Even though the record formats differ, the formal algorithms for the calculations on them don't:
+  To get the global arrival time of a photon or a marker in seconds, count the overflows until
+  the current position and multiply with the overflow period, then add the timetag (for T2) or nsync (for T3)
+  and multiply with the <font style="font-weight:bold;color:indigo">MeasDesc_GlobalResolution</font>.
+</p>
+<p>
+  The arrival time since the last sync event in T3 measurements is denoted in dtime. To get the time in seconds
+  multiply dtime with <font style="font-weight:bold;color:indigo">MeasDesc_Resolution</font>.
+</p>
+<H3>Images</H3>
+<p>
+  (all Formats)<BR>
+  To reconstruct the image one needs marker defined as a line start, line stop and frame trigger. The corresponding
+  header entries are <font style="font-weight:bold;color:indigo">ImgHdr_LineStart</font>, <font style="font-weight:bold;color:indigo">ImgHdr_LineStop</font> and
+  <font style="font-weight:bold;color:indigo">ImgHdr_Frame</font>. The line start and line stop markers mark the real
+  start and stop of image line, a frame marker define a change of the frame.
+  <UL>
+  <LI>The default setting is a linear movement of the scanner between line start and line stop marker, the length of one
+  pixel in this case is given by the length of line (arrival time of line stop marker - arrival time of line start marker)
+  divided by the number of pixels in the line.
+  <LI>Some scanner have a sinusoidal movement, such files have the header entry <font style="font-weight:bold;color:indigo">ImgHdr_SinCorrection</font>
+  which defines the percentage of a sinus curve is covered by the line and must be used to calculate the length of every pixel.
+</UL>
+  The number of pixels in a line is defined by <font style="font-weight:bold;color:indigo">ImgHdr_PixX</font>.
+  The number of lines is given by <font style="font-weight:bold;color:indigo">ImgHdr_PixY</font>.
+  Attention, in some images one will find a different number of lines than defined by PixY (less or more, even different in every frame),
+  so do not trust this value.</p><p>
+  <b>Notice&nbsp;1:</b> The markers are bit coded in the TTTR records (see below), multiple markers can appear at once;
+  Especially the frame marker often overlay with a line start or line stop marker.<BR>
+  <b>Notice&nbsp;2:</b> The marker positions in MicroTime200 images are different than before in the SymPhoTime&nbsp;32. When
+  a MicroTime200 image is converted for the new software the markers are relocated to match the real line start, line stop
+  position.</p>
+<hr>
+<H2>TCSPC specific record formats</H2>
+<p>Currently the following formats are defined:
+</p>
+ <ul>
+   <li>PicoHarp&emsp;&ensp;&ensp;&ensp;&thinsp;&thinsp;&thinsp;&thinsp;T2 &ensp;=&ensp; $00010203</li>
+   <li>PicoHarp&emsp;&ensp;&ensp;&ensp;&thinsp;&thinsp;&thinsp;&thinsp;T3 &ensp;=&ensp; $00010303</li>
+   <li>HydraHarp V1.x &thinsp;T2 &ensp;=&ensp; $00010204</li>
+   <li>HydraHarp V1.x &thinsp;T3 &ensp;=&ensp; $00010304</li>
+   <li>HydraHarp V2.x &thinsp;T2 &ensp;=&ensp; $01010204</li>
+   <li>HydraHarp V2.x &thinsp;T3 &ensp;=&ensp; $01010304</li>
+   <li>TimeHarp 260N&thinsp;&thinsp; T2 &ensp;=&ensp; $00010205</li>
+   <li>TimeHarp 260N&thinsp;&thinsp; T3 &ensp;=&ensp; $00010305</li>
+   <li>TimeHarp 260P&thinsp;&thinsp; T2 &ensp;=&ensp; $00010206</li>
+   <li>TimeHarp 260P&thinsp;&thinsp; T3 &ensp;=&ensp; $00010306</li>
+   <li>MultiHarp xxx&emsp;&thinsp;&thinsp;T2 &ensp;=&ensp; $00010207</li>
+   <li>MultiHarp xxx&emsp;&thinsp;&thinsp;T3 &ensp;=&ensp; $00010307<br>&thinsp;--- or ---</li>
+   <li><b>Generic&emsp;&emsp;&emsp;&thinsp;&thinsp;&thinsp;T2</b> &ensp;=&ensp; $00010207</li>
+   <li><b>Generic&emsp;&emsp;&emsp;&thinsp;&thinsp;&thinsp;T3</b> &ensp;=&ensp; $00010307</li>
+ </ul>
+<br>
+<H3>PicoHarp T2 Format</h3>
+<Table cellspacing=0 border=0>
+<TR>
+  <TD><b>RecType:</b><TD>$00010203<TD>&nbsp;
+  <TD><b>Overflow period:</b><TD>210698240<TD>&nbsp;
+  <TD><b>Record Size:</b><TD>32 Bit = 4 Byte
+</TR>
+</Table><p>
+The bit allocation in the record is, starting from the MSB:<BR>
+<code>
+&nbsp;channel: 4 <BR>
+&nbsp;timetag: 28 <BR>
+</code>
+The channel code 15 (all bits ones) marks a special record.<BR>
+Special records can be overflows or external markers. To differentiate this, the lower 4 bits of <code>timetag</code> must be checked.
+<UL>
+  <LI>If they are all zero, the record marks an overflow.
+  <LI>If they are >=1 the individual bits are external markers.
+</UL>
+
+<H3>PicoHarp T3 Format</h3>
+<Table cellspacing=0 border=0>
+<TR>
+  <TD><b>RecType:</b><TD>$00010303<TD>&nbsp;
+  <TD><b>Overflow period:</b><TD>65536<TD>&nbsp;
+  <TD><b>Record Size:</b><TD>32 Bit = 4 Byte
+</TR>
+</Table><p>
+The bit allocation in the record is, starting from the MSB:<BR>
+<code>
+&nbsp;channel: 4 <BR>
+&nbsp;dtime: 12 <BR>
+&nbsp;nsync: 16 <BR>
+</code>
+The <code>channel</code> code 15 (all bits ones) marks a special record. <BR>
+Special records can be overflows or external markers. To differentiate this, <code>dtime</code> must be checked.
+<UL>
+  <LI>If it is zero, the record marks an overflow.
+  <LI>If it is >=1 the individual bits are external markers.
+</UL>
+
+<H3>HydraHarp, TimeHarp260, MultiHarp and Generic T2 Format</h3>
+<Table cellspacing=0 border=0>
+<TR>
+  <TD><b>RecType:</b><TD>$00010204<TD>&nbsp;
+  <TD><b>Overflow period:</b><TD>33552000<TD>&nbsp;
+  <TD><b>Record Size:</b><TD>32 Bit = 4 Byte
+</TR>
+<TR>
+  <TD><b>RecTypes:</b><TD>$01010204, $00010205, $00010206, $00010207<TD>&nbsp;
+  <TD><b>Overflow period:</b><TD>33554432<TD>&nbsp;
+  <TD><b>Record Size:</b><TD>32 Bit = 4 Byte
+</TR>
+</Table><p>
+
+The bit allocation in the record is, starting from the MSB:<BR>
+<code>
+&nbsp;special: 1<BR>
+&nbsp;channel: 6 <BR>
+&nbsp;timetag: 25 <BR>
+</code>
+If the <code>special</code> bit is clear, it's a regular event record.<BR>
+If the <code>special</code> bit is set, the following interpretation of the <code>channel</code> code is given:
+<UL>
+	<LI><code>channel</code> code 63 (all bits ones) identifies a timetag overflow, increment the overflow timetag accumulator.
+		For HydraHarp V1 ($00010204) it always means one overflow. For all other types the number of overflows
+		can be read from <code>timetag</code> value.
+	<LI><code>channel</code> code 0 (all bits zeroes) identifies a sync event,
+	<LI><code>channel</code> codes from 1 to 15 (4 bit = 4 marker) identify markers, the individual bits are external markers.
+</UL>
+
+<H3>HydraHarp, TimeHarp260, MultiHarp and Generic T3 Format</h3>
+<Table cellspacing=0 border=0>
+<TR>
+  <TD><b>RecType:</b><TD>$00010304, $01010304, $00010305, $00010306, $00010307<TD>&nbsp;
+  <TD><b>Overflow period:</b><TD>1024<TD>&nbsp;
+  <TD><b>Record Size:</b><TD>32 Bit = 4 Byte
+</TR>
+</Table><p>
+The bit allocation in the record is, starting from the MSB:<BR>
+<code>
+&nbsp;special: 1 <BR>
+&nbsp;channel: 6 <BR>
+&nbsp;dtime: 15 <BR>
+&nbsp;nsync: 10 <BR>
+</code>
+If the <code>special</code> bit is clear, it's a regular event record.<BR>
+If the <code>special</code> bit is set, the following interpretation of the <code>channel</code> code is given:<BR>
+<UL>
+	<LI><code>channel</code> code 63 (all bits ones) identifies a sync count overflow, increment the sync count overflow accumulator.
+		For HydraHarp V1 ($00010304) it means always one overflow. For all other types the number of overflows
+		can be read from <code>nsync</code> value.
+   <LI><code>channel</code> codes from 1 to 15 (4 bit = 4 marker) identify markers, the individual bits are external markers.
+</UL>
+    <hr>                                                                       <!--                            FOOTER -->
+    <a name="RelatedTopics"></a>                                               <!-- as a jump-target (bottom of page) -->
+    <table width=100%>
+      <tr>
+        <td align=left>
+          <b>Related Topics:</b>
+        </td>
+        <td align=right>
+<!--      [<a href="#Top">Top</a>]                                             <!--  as navigation-button back to top -->
+          &nbsp;&nbsp;
+        </td>
+      </tr>
+    </table>
+    &nbsp;&nbsp;&nbsp;<nobr>[<a href="apx_tagdictionary.html">Tag Dictionary</a>]</nobr>
+    <br>&nbsp;&nbsp;&nbsp;[<a href="apx_support.html">Support</a>]
+    <br><font color=WHITE size=1></font> <!-- spoiled words repeated -->
+  </body>
+</html>

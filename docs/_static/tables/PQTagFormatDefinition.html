@@ -1,0 +1,63 @@
+<table class="table">
+    <thead>
+        <th>Field Name</th>
+        <th>Length [Byte]</th>
+        <th>Field Type</th>
+        <th>Remarks</th>
+    </thead>
+    <tbody>
+        <tr>
+        <th>Tag_Id</th>
+        <th>32</td>
+        <th>ASCII-String</td>
+        <th>case sensitive<br>terminated by at least one &amp; filled up to full length with chr(0)</td>
+        </tr><tr>
+        <th>Tag_Idx</th>
+        <th>4</td>
+        <th>Int32</td>
+        <th><table class="table" >
+            <tr>
+                <td>array element</td>
+                <th>single value</td>
+            </tr>
+            <tr>
+                <th>&lt;Idx&gt;<br>(0..)</td>
+                <td>-1</td>
+            </tr>
+            </table></td>
+        </tr><tr>
+        <th>Tag_TypeCode</th>
+        <th>4</td>
+        <th>UInt32</td>
+        <th>see table below</td>
+        </tr><tr>
+        <th>Tag_Value</th>
+        <th>8</td>
+        <th>depends on &lt;TypeCode&gt;</td>
+        <th><table class="table" >
+            <tr>
+                <td>array element</td>
+                <th>single value</td>
+            </tr>
+            <tr>
+                <th>Size of<br>Array / String<br>(multiple of 8)</td>
+                <th>&lt;Value&gt;</td>
+            </tr>
+            </table></td>
+        </tr><tr>
+        <th>Tag_Enhancement</th>
+        <th>see below</td>
+        <th>String of type according to &lt;TypeCode&gt;</td>
+        <th><table class="table" >
+            <tr>
+                <td>array element</td>
+                <th>single value</td>
+            </tr>
+            <tr>
+                <th>Array Values /<br>Char of String</td>
+                <td>don't exists</td>
+            </tr>
+            </table></td>
+        </tr>
+    </tbody>
+    </table>

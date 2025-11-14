@@ -1,0 +1,102 @@
+<table class="table">
+  <thead>
+    <th>Type Name</th>
+    <th>Type Code</th>
+    <th>Range (From)</th>
+    <th>Range (To)</th>
+    <th>Length&nbsp;=&nbsp;48+x</th>
+    <th>Remarks</th>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Empty8</th>
+      <td>0xFFFF0008</td>
+      <td>&minus;</td>
+      <td>&minus;</td>
+      <td>0</td>
+      <td>to group tags only</td>
+    </tr>
+    <tr>
+      <th>Bool8</th>
+      <td>0x00000008</td>
+      <td>False (i.e.<code> == 0)</td>
+      <td>True (i.e. <code> &lt;&gt;0)</td>
+      <td>0</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>Int8</th>
+      <td>0x10000008</td>
+      <td>&minus;10,000,000,000,000,000</td>
+      <td>10,000,000,000,000,000</td>
+      <td>0</td>
+      <td>Subset of Int64</td>
+    </tr>
+    <tr>
+      <th>BitSet64</th>
+      <td>0x11000008</td>
+      <td>[0000000000000000]</td>
+      <td>[FFFFFFFFFFFFFFFF]</td>
+      <td>0</td>
+      <td>Bit-coded; MSB is 64, LSB is 1</td>
+    </tr>
+    <tr>
+      <th>Color8</th>
+      <td>0x12000008</td>
+      <td>[0000000000000000]<br>[00000000FF000000]</td>
+      <td>[0000000000FFFFFF]<br>[00000000FF00001E]</td>
+      <td>0</td>
+      <td>ARGB</td>
+    </tr>
+    <tr>
+      <th>Float8</th>
+      <td>0x20000008</td>
+      <td>&minus;5.0E+324</td>
+      <td>1.7E+308</td>
+      <td>0</td>
+      <td>Double; 15 significant digits</td>
+    </tr>
+    <tr>
+      <th>TDateTime</th>
+      <td>0x21000008</td>
+      <td>30.12.1899;&nbsp;0:00</td>
+      <td>&hellip;</td>
+      <td>0</td>
+      <td>Float8; integral part: number of days since 30.12.1899</td>
+    </tr>
+    <tr>
+      <th>Float8Array</th>
+      <td>0x2001FFFF</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&lt;TagValue&gt;</td>
+      <td>enhanced with 32bit length descriptor in byte<br>in &lt;TagValue&gt;</td>
+    </tr>
+    <tr>
+      <th>ASCII&minus;String</th>
+      <td>0x4001FFFF</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&lt;TagValue&gt;</td>
+      <td>enhanced with 32bit length descriptor in byte<br>in &lt;TagValue&gt;<br>
+        incl. '\0' as terminator</td>
+    </tr>
+    <tr>
+      <th>Wide&minus;String</th>
+      <td>0x4002FFFF</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&lt;TagValue&gt;</td>
+      <td>enhanced with 32bit length descriptor in byte<br>in &lt;TagValue&gt;<br>
+        incl. '\0' as terminator</td>
+    </tr>
+    <tr>
+      <th>BinaryBlob</th>
+      <td>0xFFFFFFFF</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&lt;TagValue&gt;</td>
+      <td>enhanced with 32bit length descriptor in byte<br>in &lt;TagValue&gt;<br>
+    </tr>
+  </tbody>
+</table>

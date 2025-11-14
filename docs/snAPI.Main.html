@@ -169,13 +169,6 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="tttr%20data%20format.html">
-    TTTR Record Format
-  </a>
-</li>
-
-
-<li class="nav-item ">
   <a class="nav-link nav-internal" href="hardware.html">
     Hardware
   </a>
@@ -183,11 +176,42 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-external" href="https://PicoQuant.com">
+  <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+    TTTR Record Format
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="PQTag_Dictionary.html">
+    PQ Tag Dictionary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="PQTag_Types.html">
+    PQ Tag Types
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://PicoQuant.com">
     PicoQuant
   </a>
 </li>
 
+                </ul>
+            </li>
+            
   </ul>
 </nav></div>
       
@@ -290,6 +314,13 @@
 
 
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="tttr%20data%20format.html">
     TTTR Record Format
   </a>
@@ -297,8 +328,15 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="hardware.html">
-    Hardware
+  <a class="nav-link nav-internal" href="PQTag_Dictionary.html">
+    PQ Tag Dictionary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="PQTag_Types.html">
+    PQ Tag Types
   </a>
 </li>
 
@@ -951,6 +989,185 @@ If the current device is a file device it closes the file.</p>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.setMeasurementSubMode">
+<span class="sig-name descname"><span class="pre">setMeasurementSubMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MeasSubMode.Default</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.setMeasurementSubMode" title="Link to this definition">#</a></dt>
+<dd><p>The PTU-File-Header contains numerous tags that describe the measurement configuration. These can be used for further analysis.
+For example, to use the PTU file with SymPhoTime 64 for FLIM analysis, the mandatory parameter <cite>Measurement_SubMode</cite> must be set to <cite>Image</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasSubMode" title="snAPI.Constants.MeasSubMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.MeasSubMode</span></code></a>)</p></li>
+<li><p><strong>startEdge</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># set Image Tag</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">setMeasurementSubMode</span><span class="p">(</span><span class="n">subMode</span><span class="o">=</span><span class="n">MeasSubMode</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.addBoolTag">
+<span class="sig-name descname"><span class="pre">addBoolTag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.addBoolTag" title="Link to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>This adds a boolean tag to the PTU-Header.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the tag</p></li>
+<li><p><strong>value</strong> (<em>bool</em>) – True | False</p></li>
+<li><p><strong>idx</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the scan pattern</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">addBoolTag</span><span class="p">(</span><span class="s2">&quot;ImgHdr_BiDirect&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.addIntTag">
+<span class="sig-name descname"><span class="pre">addIntTag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.addIntTag" title="Link to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>This adds a 64-Bit-Integer tag to the PTU-Header.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the tag</p></li>
+<li><p><strong>value</strong> (<em>int</em>)</p></li>
+<li><p><strong>idx</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the scan pattern</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">addBoolTag</span><span class="p">(</span><span class="s2">&quot;ImgHdr_BiDirect&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.addFloatTag">
+<span class="sig-name descname"><span class="pre">addFloatTag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.addFloatTag" title="Link to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>This adds a Floating-Point-Number tag to the PTU-Header.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the tag</p></li>
+<li><p><strong>value</strong> (<em>float</em>)</p></li>
+<li><p><strong>idx</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#  Sets the Resolution of a single pixel to 0.5µm (line and image measurements)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">addFloatTag</span><span class="p">(</span><span class="s2">&quot;ImgHdr_PixResol&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.addStringTag">
+<span class="sig-name descname"><span class="pre">addStringTag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.addStringTag" title="Link to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>This adds a boolean tag to the PTU-Header.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the tag</p></li>
+<li><p><strong>value</strong> (<em>str</em>)</p></li>
+<li><p><strong>idx</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the name of the objective used on measurement</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">addStringTag</span><span class="p">(</span><span class="s2">&quot;ImgHdr_ObjectiveName&quot;</span><span class="p">,</span> <span class="s2">&quot;20x&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.addByteArrayTag">
+<span class="sig-name descname"><span class="pre">addByteArrayTag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.addByteArrayTag" title="Link to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>This adds an Array of Integers tag to the PTU-Header.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the tag</p></li>
+<li><p><strong>value</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>idx</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the scan pattern</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">addBoolTag</span><span class="p">(</span><span class="s2">&quot;ImgHdr_BiDirect&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.addFloatArrayTag">
+<span class="sig-name descname"><span class="pre">addFloatArrayTag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.addFloatArrayTag" title="Link to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>This adds an Array of Floats tag to the PTU-Header.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the tag</p></li>
+<li><p><strong>value</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>)</p></li>
+<li><p><strong>idx</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the scan pattern</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">addBoolTag</span><span class="p">(</span><span class="s2">&quot;ImgHdr_BiDirect&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.clearCustomTags">
+<span class="sig-name descname"><span class="pre">clearCustomTags</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.clearCustomTags" title="Link to this definition">#</a></dt>
+<dd><p>This clears all custom Tags, that should be written to the Header of the PTU-File!</p>
 </dd></dl>
 
 <dl class="py method">
@@ -5416,6 +5633,14 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.getFileDevice"><code class="docutils literal notranslate"><span class="pre">snAPI.getFileDevice()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.initDevice"><code class="docutils literal notranslate"><span class="pre">snAPI.initDevice()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.closeDevice"><code class="docutils literal notranslate"><span class="pre">snAPI.closeDevice()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.setMeasurementSubMode"><code class="docutils literal notranslate"><span class="pre">snAPI.setMeasurementSubMode()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.addBoolTag"><code class="docutils literal notranslate"><span class="pre">snAPI.addBoolTag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.addIntTag"><code class="docutils literal notranslate"><span class="pre">snAPI.addIntTag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.addFloatTag"><code class="docutils literal notranslate"><span class="pre">snAPI.addFloatTag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.addStringTag"><code class="docutils literal notranslate"><span class="pre">snAPI.addStringTag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.addByteArrayTag"><code class="docutils literal notranslate"><span class="pre">snAPI.addByteArrayTag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.addFloatArrayTag"><code class="docutils literal notranslate"><span class="pre">snAPI.addFloatArrayTag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.clearCustomTags"><code class="docutils literal notranslate"><span class="pre">snAPI.clearCustomTags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.setPTUFilePath"><code class="docutils literal notranslate"><span class="pre">snAPI.setPTUFilePath()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.loadIniConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.loadIniConfig()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.setIniConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.setIniConfig()</span></code></a></li>

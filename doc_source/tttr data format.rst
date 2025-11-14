@@ -1,15 +1,22 @@
 TTTR Record Format
 ==================
 
+This describes the structure of the PTU-Files with its header, tags and time tag data. 
+
+Important Documents
+-------------------
+
+- `Tag Dictionary <PQTag_Dictionary.html#pq-tag-dictionary>`_
+- `Tag Types <PQTag_Types.html#tag-type-definition>`_
+- `Tag Format <PQTag_Types.html#tag-format-definition>`_
+- `File Magic <PQTag_Types.html#file-magic>`_
+
 Basic record format
----------------------
+-------------------
 
 This page describes the format of the TTTR data named as raw data in ptu files.
-
 Due to performance reasons the TTTR data are saved exactly as received from TCSPC device, hence the format of the TTTR records depends on the kind of TCSPC device and the type of measurement. The record format used in a particular file is denoted in the mandatory tag TTResultFormat_TTTRRecType.
-
 Even though the record formats differ, the formal algorithms for the calculations on them don't: To get the global arrival time of a photon or a marker in seconds, count the overflows until the current position and multiply with the overflow period, then add the timetag (for T2) or nSync (for T3) and multiply with the MeasDesc_GlobalResolution.
-
 The arrival time since the last sync event in T3 measurements is denoted in dTime. To get the time in seconds multiply dTime with MeasDesc_Resolution.
 
 Images

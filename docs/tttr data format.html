@@ -47,8 +47,8 @@
     <link rel="icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Hardware" href="hardware.html" />
-    <link rel="prev" title="Configuration" href="config.html" />
+    <link rel="next" title="PQ Tag Dictionary" href="PQTag_Dictionary.html" />
+    <link rel="prev" title="Control Connector" href="hardware.controlConnector.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -167,13 +167,6 @@
 </li>
 
 
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
-    TTTR Record Format
-  </a>
-</li>
-
-
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="hardware.html">
     Hardware
@@ -181,12 +174,43 @@
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-external" href="https://PicoQuant.com">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    TTTR Record Format
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="PQTag_Dictionary.html">
+    PQ Tag Dictionary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="PQTag_Types.html">
+    PQ Tag Types
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://PicoQuant.com">
     PicoQuant
   </a>
 </li>
 
+                </ul>
+            </li>
+            
   </ul>
 </nav></div>
       
@@ -288,6 +312,13 @@
 </li>
 
 
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="#">
     TTTR Record Format
@@ -296,8 +327,15 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="hardware.html">
-    Hardware
+  <a class="nav-link nav-internal" href="PQTag_Dictionary.html">
+    PQ Tag Dictionary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="PQTag_Types.html">
+    PQ Tag Types
   </a>
 </li>
 
@@ -420,12 +458,22 @@
                   
   <section id="tttr-record-format">
 <h1>TTTR Record Format<a class="headerlink" href="#tttr-record-format" title="Link to this heading">#</a></h1>
+<p>This describes the structure of the PTU-Files with its header, tags and time tag data.</p>
+<section id="important-documents">
+<h2>Important Documents<a class="headerlink" href="#important-documents" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="PQTag_Dictionary.html#pq-tag-dictionary">Tag Dictionary</a></p></li>
+<li><p><a class="reference external" href="PQTag_Types.html#tag-type-definition">Tag Types</a></p></li>
+<li><p><a class="reference external" href="PQTag_Types.html#tag-format-definition">Tag Format</a></p></li>
+<li><p><a class="reference external" href="PQTag_Types.html#file-magic">File Magic</a></p></li>
+</ul>
+</section>
 <section id="basic-record-format">
 <h2>Basic record format<a class="headerlink" href="#basic-record-format" title="Link to this heading">#</a></h2>
-<p>This page describes the format of the TTTR data named as raw data in ptu files.</p>
-<p>Due to performance reasons the TTTR data are saved exactly as received from TCSPC device, hence the format of the TTTR records depends on the kind of TCSPC device and the type of measurement. The record format used in a particular file is denoted in the mandatory tag TTResultFormat_TTTRRecType.</p>
-<p>Even though the record formats differ, the formal algorithms for the calculations on them don’t: To get the global arrival time of a photon or a marker in seconds, count the overflows until the current position and multiply with the overflow period, then add the timetag (for T2) or nSync (for T3) and multiply with the MeasDesc_GlobalResolution.</p>
-<p>The arrival time since the last sync event in T3 measurements is denoted in dTime. To get the time in seconds multiply dTime with MeasDesc_Resolution.</p>
+<p>This page describes the format of the TTTR data named as raw data in ptu files.
+Due to performance reasons the TTTR data are saved exactly as received from TCSPC device, hence the format of the TTTR records depends on the kind of TCSPC device and the type of measurement. The record format used in a particular file is denoted in the mandatory tag TTResultFormat_TTTRRecType.
+Even though the record formats differ, the formal algorithms for the calculations on them don’t: To get the global arrival time of a photon or a marker in seconds, count the overflows until the current position and multiply with the overflow period, then add the timetag (for T2) or nSync (for T3) and multiply with the MeasDesc_GlobalResolution.
+The arrival time since the last sync event in T3 measurements is denoted in dTime. To get the time in seconds multiply dTime with MeasDesc_Resolution.</p>
 <section id="images">
 <h3>Images<a class="headerlink" href="#images" title="Link to this heading">#</a></h3>
 <p>(all Formats)
@@ -545,20 +593,20 @@ If it is &gt;=1 the individual bits are external markers.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="config.html"
+       href="hardware.controlConnector.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Configuration</p>
+        <p class="prev-next-title">Control Connector</p>
       </div>
     </a>
     <a class="right-next"
-       href="hardware.html"
+       href="PQTag_Dictionary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Hardware</p>
+        <p class="prev-next-title">PQ Tag Dictionary</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -581,6 +629,7 @@ If it is &gt;=1 the individual bits are external markers.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#important-documents">Important Documents</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-record-format">Basic record format</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#images">Images</a></li>
 </ul>

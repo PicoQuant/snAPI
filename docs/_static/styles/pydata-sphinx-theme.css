@@ -7092,6 +7092,13 @@ textarea.form-control-lg {
     white-space: nowrap
 }
 
+.td-truncate {
+  max-width: 50px;        /* required */
+  white-space: nowrap;     /* required */
+  overflow: hidden;        /* required */
+  text-overflow: ellipsis; /* adds “…” */
+}
+
 .vr {
     align-self: stretch;
     background-color: currentcolor;
