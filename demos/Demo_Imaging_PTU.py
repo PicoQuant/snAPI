@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 if __name__ == "__main__":
 
     sn = snAPI()
-    sn.getDevice("1000509")
+    sn.getDevice()
     sn.initDevice(MeasMode.T2)
 
     sn.loadIniConfig(r"config\HH500.ini")
