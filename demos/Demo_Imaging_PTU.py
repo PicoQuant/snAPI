@@ -26,7 +26,7 @@ if __name__ == "__main__":
     sn.setMeasurementSubMode(subMode=MeasSubMode.Image)
     # Marker (1) in TTTR stream defining a line start
     sn.addIntTag("ImgHdr_LineStart", 1)
-    # Marker (2) in TTTR stream defining a line start
+    # Marker (2) in TTTR stream defining a line end
     sn.addIntTag("ImgHdr_LineStop", 2)
     # Marker (3) in TTTR stream defining a frame change
     sn.addIntTag("ImgHdr_Frame", 3)
