@@ -40,7 +40,7 @@ if(__name__ == "__main__"):
     sn.initDevice(MeasMode.T2)
         
     # Poll the WR status until the Harp device is ready to use.
-    readyState = WRstatus.LockedCalibrated.value | WRstatus.ModeSlave.value | WRstatus.ModeSlave.value | WRstatus.ServoTrackPhase.value
+    readyState = WRstatus.LockedCalibrated.value | WRstatus.ModeSlave.value | WRstatus.ServoTrackPhase.value
     for i in range(100):
         status = sn.whiteRabbit.getStatus()
         sn.logPrint(f"{status:08x}")

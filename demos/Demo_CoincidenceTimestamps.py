@@ -54,7 +54,4 @@ if(__name__ == "__main__"):
         if sn.unfold.finished.contents:
             break
         
-        # if otherBreakCondition:
-            sn.unfold.stopMeasure
-
     sn.logPrint("end")

@@ -1,4 +1,4 @@
-# Torsten Krause, PicoQuant GmbH, 2025
+# Torsten Krause, PicoQuant GmbH, 2026
 
 import ctypes as ct
 import inspect
@@ -686,12 +686,12 @@ Example
 -------
 ::
     
-    # sets the scan pattern
-    sn.addBoolTag("ImgHdr_BiDirect", False)
+    # sets the dimension of the measurement to 3 for a image
+    sn.addIntTag("ImgHdr_Dimensions", 3)
     
         """
         SBuf = name.encode('utf-8')
-        self.dll.addDblTag.argtypes = [ct.c_char_p, ct.c_int64, ct.c_int32]
+        self.dll.addIntTag.argtypes = [ct.c_char_p, ct.c_int64, ct.c_int32]
         return self.dll.addIntTag(SBuf, ct.c_uint64(value), idx)
     
     # def addI64Tag(self, name:str, value: int, idx:typing.Optional[int] = -1):

@@ -7,13 +7,13 @@ Configuration
 
 The :obj:`.deviceConfig` stores the state of the device in the API and can be updated with :meth:`.getDeviceConfig`.
 From :obj:`.deviceConfig` the parameters can only be read. To set them you need to call :meth:`.loadIniConfig` or :meth:`.setIniConfig`.
-An other and more pythonesque way to change them is to use the commands defined in the :class:`.Device` directly.
-This document will give you an overview about the configuration parameters and there corresponding functions or constants,
+Another and more pythonesque way to change them is to use the commands defined in the :class:`.Device` directly.
+This document will give you an overview about the configuration parameters and their corresponding functions or constants,
 where their values and/or their maximum and minimum are defined.
 
 .. note::
     If you encounter any issues reading a config.ini file enable the config log level in the system.ini. The file location 
-    is shown at the firs log entry: 'loadSettingsIni: e:\\path\\to\\system.ini'.
+    is shown at the first log entry: 'loadSettingsIni: e:\\path\\to\\system.ini'.
 
 
 Parameter Description

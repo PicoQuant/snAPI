@@ -23,7 +23,7 @@ if(__name__ == "__main__"):
 
     # Now the master starts the measurement of itself and the slave synchronously
     # over White Rabbit.
-    sn.setPTUFilePath("C:\Data\PicoQuant\master.ptu")
+    sn.setPTUFilePath(r"C:\Data\PicoQuant\master.ptu")
     # The line `sn.timeTrace.measure(10000, waitFinished=False, savePTU=False)` is initiating a
     # measurement using the time trace feature of the device.
     sn.timeTrace.measure(10000, waitFinished=False, savePTU=True)

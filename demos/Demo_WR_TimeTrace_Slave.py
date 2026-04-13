@@ -21,7 +21,7 @@ if(__name__ == "__main__"):
     sn.timeTrace.setHistorySize(10)
 
     # This enables the measurement on the slave.
-    sn.setPTUFilePath("C:\Data\PicoQuant\slave.ptu")
+    sn.setPTUFilePath(r"C:\Data\PicoQuant\slave.ptu")
     sn.timeTrace.measure(10000, waitFinished=False, savePTU=True)
     
     # Now the slave waits for the start of the measurement of the master.

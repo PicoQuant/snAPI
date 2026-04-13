@@ -82,7 +82,7 @@ On Linux
 Additional Features
 -------------------
 
-1. Colored Log is default on Windows 11 but on Windows 10 you have to enable it manually in terminal by executing the included registry key `EnableTerminalColors.reg` and restart the terminal. If it is not working in VSCode, klick on the selector next to the run button and switch to 'Run python file in dedicated Terminal'
+1. Colored Log is default on Windows 11 but on Windows 10 you have to enable it manually in terminal by executing the included registry key `EnableTerminalColors.reg` and restart the terminal. If it is not working in VSCode, click on the selector next to the run button and switch to 'Run python file in dedicated Terminal'
 
 .. image:: _static/Log.png
     :class: p-2
