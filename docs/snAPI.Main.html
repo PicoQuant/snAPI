@@ -622,8 +622,8 @@ For detailed information read <a class="reference internal" href="config.html#co
 <dl class="simple">
 <dt>Parameters</dt><dd><ul class="simple">
 <li><p>AcqTime: acquisition time</p></li>
-<li><p>AveSyncRate: if measured with <a class="reference internal" href="#snAPI.Main.snAPI.getCountRates" title="snAPI.Main.snAPI.getCountRates"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getCountRates()</span></code></a></p></li>
-<li><p>AveSyncPeriod: if measured with <a class="reference internal" href="#snAPI.Main.snAPI.getSyncPeriod" title="snAPI.Main.snAPI.getSyncPeriod"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getSyncPeriod()</span></code></a></p></li>
+<li><p>AveSyncRate: if measured with <code class="xref py py-meth docutils literal notranslate"><span class="pre">getCountRates()</span></code></p></li>
+<li><p>AveSyncPeriod: if measured with <code class="xref py py-meth docutils literal notranslate"><span class="pre">getSyncPeriod()</span></code></p></li>
 <li><p>StopReason: why the measurement was stopped</p></li>
 <li><p>StopAfter: the determined time after the measurement was stopped</p></li>
 <li><p>WarningsFlag: currently not supported</p></li>
@@ -680,6 +680,12 @@ For detailed information read <a class="reference internal" href="config.html#co
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Main.snAPI.histogram">
 <span class="sig-name descname"><span class="pre">histogram</span></span><a class="headerlink" href="#snAPI.Main.snAPI.histogram" title="Link to this definition">#</a></dt>
+<dd><p>This is the object to <a class="reference internal" href="#snAPI.Main.Histogram2D" title="snAPI.Main.Histogram2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram2D</span></code></a>. class</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="snAPI.Main.snAPI.histogram2d">
+<span class="sig-name descname"><span class="pre">histogram2d</span></span><a class="headerlink" href="#snAPI.Main.snAPI.histogram2d" title="Link to this definition">#</a></dt>
 <dd><p>This is the object to <a class="reference internal" href="#snAPI.Main.Histogram" title="snAPI.Main.Histogram"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram</span></code></a>. class</p>
 </dd></dl>
 
@@ -1058,8 +1064,8 @@ For example, to use the PTU file with SymPhoTime 64 for FLIM analysis, the manda
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the scan pattern</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">addBoolTag</span><span class="p">(</span><span class="s2">&quot;ImgHdr_BiDirect&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the dimension of the measurement to 3 for a image</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">addIntTag</span><span class="p">(</span><span class="s2">&quot;ImgHdr_Dimensions&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1175,7 +1181,7 @@ For example, to use the PTU file with SymPhoTime 64 for FLIM analysis, the manda
 <span class="sig-name descname"><span class="pre">setPTUFilePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.setPTUFilePath" title="Link to this definition">#</a></dt>
 <dd><p>This function sets the path to the ptu file, if the measurement supports writing the <cite>Raw</cite> data stream to file.
 If no special path is set the file will be written to the data path defined in the INI file
-that was called with <code class="xref py py-meth docutils literal notranslate"><span class="pre">initAPi()</span></code>. The default file name ist default.ptu.</p>
+that was called with <code class="xref py py-meth docutils literal notranslate"><span class="pre">initAPi()</span></code>. The default file name is default.ptu.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – absolute path to the ptu file destination</p>
@@ -1357,9 +1363,17 @@ update the device configuration manually. For detailed information read <a class
 </div>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="snAPI.Main.Device">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">Device</span></span><a class="headerlink" href="#snAPI.Main.Device" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the low level device configuration class. It has to be noted that the functions and parameters you can use
+depend on the connected device. Therefore, the correct library must be chosen when creating the snAPI object.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="snAPI.Main.snAPI.getCountRates">
-<span class="sig-name descname"><span class="pre">getCountRates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.getCountRates" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Main.Device.getCountRates">
+<span class="sig-name descname"><span class="pre">getCountRates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Device.getCountRates" title="Link to this definition">#</a></dt>
 <dd><p>This function retrieves the count rates. This measurement is first performed by the hardware by counting with a
 gate time of 100ms. You will therefore obtain new values only after this time has elapsed.
 Afterwards the function will return an array of count rates, where the first element is the sync rate, followed
@@ -1384,8 +1398,8 @@ by the count rates of the channels.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="snAPI.Main.snAPI.getSyncPeriod">
-<span class="sig-name descname"><span class="pre">getSyncPeriod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.getSyncPeriod" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Main.Device.getSyncPeriod">
+<span class="sig-name descname"><span class="pre">getSyncPeriod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Device.getSyncPeriod" title="Link to this definition">#</a></dt>
 <dd><p>This function only gives meaningful results while a measurement is running and after two sync periods have elapsed.
 The return value is <cite>0.0</cite> in all other cases. Resolution is the device base resolution. Accuracy is determined by
 single shot jitter and clock stability.</p>
@@ -1407,8 +1421,8 @@ single shot jitter and clock stability.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="snAPI.Main.snAPI.getNumAllChannels">
-<span class="sig-name descname"><span class="pre">getNumAllChannels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.snAPI.getNumAllChannels" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="snAPI.Main.Device.getNumAllChannels">
+<span class="sig-name descname"><span class="pre">getNumAllChannels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Device.getNumAllChannels" title="Link to this definition">#</a></dt>
 <dd><p>This functions returns the number of available channels from the active device has plus the number of channels for
 the <a class="reference internal" href="#snAPI.Main.Manipulators" title="snAPI.Main.Manipulators"><code class="xref py py-class docutils literal notranslate"><span class="pre">Manipulators</span></code></a> and one for the sync channel. It describes the number of channels a measurement returns
 and is used for memory allocation.</p>
@@ -1429,14 +1443,6 @@ and is used for memory allocation.</p>
 </div>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="snAPI.Main.Device">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">Device</span></span><a class="headerlink" href="#snAPI.Main.Device" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This is the low level device configuration class. It has to be noted that the functions and parameters you can use
-depend on the connected device. Therefore, the correct library must be chosen when creating the snAPI object.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI.Main.Device.setSyncDiv">
 <span class="sig-name descname"><span class="pre">setSyncDiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syncDiv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Device.setSyncDiv" title="Link to this definition">#</a></dt>
@@ -1753,8 +1759,8 @@ a higher input hysteresis.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the input hysteresis to approximately 3mV</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setInputHysteresis</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets the timing mode to Hires (25ps)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setTimingMode</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2358,7 +2364,7 @@ To enable the sync channel use <a class="reference internal" href="#snAPI.Main.D
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># disables the input channel 4</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setInputEdgeTrig</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">setInputChannelEnable</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -4315,7 +4321,7 @@ to the other channels. The histograms are then created from these calculated dat
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI.Main.Histogram.measure">
 <span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acqTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">waitFinished</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savePTU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Histogram.measure" title="Link to this definition">#</a></dt>
-<dd><p>With this function a measurement and creation of a histogram us initiated, which ist stored
+<dd><p>With this function a measurement and creation of a histogram us initiated, which is stored
 into RAM and/or disc. If <cite>waitFinished</cite> is set <cite>True</cite> the call will be blocked until the measurement
 is completed. If <cite>waitFinished</cite> is set to <cite>False</cite> (default) you can get updates on the fly,
 and you can access the execution status with the <a class="reference internal" href="#snAPI.Main.Histogram.isFinished" title="snAPI.Main.Histogram.isFinished"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isFinished()</span></code></a> function.
@@ -4323,12 +4329,6 @@ If you wish to obtain updates on the fly the data can be accessed with <a class=
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you want to write the data to disc only, set the size to zero.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If the colleted data exceeds the buffer size a warning will be added to the log:
-‘WRN UfStore buffer overrun - clearing!’ and the internal buffer will be cleared. This
-means that this part of data is lost! To prevent this, you should reduce the count rate.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4339,7 +4339,6 @@ means that this part of data is lost! To prevent this, you should reduce the cou
 <div class="line">will be ignored if device is a FileDevice</div>
 </div>
 </p></li>
-<li><p><strong>size</strong> (<em>int number</em><em> of </em><em>records</em><em> (</em><em>default: 128 million records = 1GB</em><em>)</em>) – memory size for the data array</p></li>
 <li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
 <li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
 </ul>
@@ -4480,6 +4479,328 @@ Check out the example of a possible implementation below.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="snAPI.Main.Histogram2D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">Histogram2D</span></span><a class="headerlink" href="#snAPI.Main.Histogram2D" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This measurement class provides you with 2 dimensional histogram of time differences between a reference channel
+and a X- and a Y-channel.
+The <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> always calculate the differences between the sync and other channels. However, in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> you
+can change the reference channel. The <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a> is not supported by this class.</p>
+<a class="only-light reference internal image-reference" href="_images/Histogram2d.png"><img alt="_images/Histogram2d.png" class="only-light" src="_images/Histogram2d.png" style="width: 600px;" />
+</a>
+<a class="only-dark reference internal image-reference" href="_images/Histogram2d_dark.png"><img alt="_images/Histogram2d_dark.png" class="only-dark" src="_images/Histogram2d_dark.png" style="width: 600px;" />
+</a>
+<p><span class="figure-caption">This figure shows the generation of a 2D-Histogram measurement.</span></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Histogram2D.setHisto2dParams">
+<span class="sig-name descname"><span class="pre">setHisto2dParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refChannel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channelX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channelY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offsetX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offsetY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binWidthX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binWidthY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numBinsX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numBinsY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Histogram2D.setHisto2dParams" title="Link to this definition">#</a></dt>
+<dd><p>Configure parameters for a 2D diffTime histogram built from <em>paired</em> events on two channels.</p>
+<dl class="simple">
+<dt>Pairing rule</dt><dd><p>Histogramming is performed in repeated “reference windows”:
+- A new window starts when an event on the <strong>reference channel</strong> occurs.
+- Within that window, the <strong>first</strong> event on <cite>channelX</cite> and the <strong>first</strong> event on <cite>channelY</cite> are taken as a pair.
+- Once both have been found, exactly <strong>one</strong> histogram increment is produced and the window is closed (additional events in the same window are ignored).</p>
+</dd>
+<dt>Reference channel behavior</dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>: The reference channel is fixed to <strong>SYNC</strong>. <cite>refChannel</cite> is ignored.</p></li>
+<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>: The reference channel can be selected via <cite>refChannel</cite>.</p></li>
+</ul>
+</dd>
+<dt>Binning</dt><dd><p>For each accepted pair, diffTimes are mapped to histogram bins:
+x_bin = (diffTimeX - offsetX) / binWidthX
+y_bin = (diffTimeY - offsetY) / binWidthY
+and accumulated into a 2D array of shape (numBinsY, numBinsX).</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>refChannel</strong> (<em>int</em><em> (</em><em>default: 0 sync channel</em><em>)</em>) – Reference channel (0 is sync channel, 1 is channel 1.. )
+used for pairing in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a>.
+Ignored in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> where SYNC is the fixed reference.</p></li>
+<li><p><strong>channelX</strong> (<em>int</em>) – Input channel mapped to the X axis (horizontal) of the histogram.</p></li>
+<li><p><strong>channelY</strong> (<em>int</em><em>, </em><em>optional</em>) – Input channel mapped to the Y axis (vertical) of the histogram.</p></li>
+<li><p><strong>offsetX</strong> (<em>int</em><em>, </em><em>optional</em>) – Offset applied to diffTimeX before binning (same unit as diffTime in ps).</p></li>
+<li><p><strong>offsetY</strong> (<em>int</em><em>, </em><em>optional</em>) – Offset applied to diffTimeY before binning (same unit as diffTime in ps).</p></li>
+<li><p><strong>binWidthX</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Bin width for the X axis (same unit as diffTime in ps).
+If None, BaseResolution in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> | Resolution in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> is used.</p></li>
+<li><p><strong>binWidthY</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Bin width for the Y axis (same unit as diffTime in ps).
+If None, BaseResolution in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> | Resolution in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> is used.</p></li>
+<li><p><strong>numBinsX</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of bins along the X axis.</p></li>
+<li><p><strong>numBinsY</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of bins along the Y axis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creates a 2D-Histogram in :obj:`.MeasMode.T3` from 0ps up to 100ns in 100ps bins</span>
+<span class="c1"># This is useful to find the sweet spot</span>
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T3</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">setHisto2dParams</span><span class="p">(</span><span class="n">refChannel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channelX</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">channelY</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">offsetX</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offsetY</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                     <span class="n">binWidthX</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">binWidthY</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">numBinsX</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">numBinsY</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Histogram2D.setHisto2dTotMode">
+<span class="sig-name descname"><span class="pre">setHisto2dTotMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">totMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timewalkFactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Histogram2D.setHisto2dTotMode" title="Link to this definition">#</a></dt>
+<dd><p>Enable/disable pulse-width (ToT) mode for the 2D histogram.</p>
+<p>When totMode is True, the Y value is formed from the difference between the
+trailing-edge timestamp and the leading-edge timestamp of the same event
+(i.e. pulse width / time-over-threshold), instead of using a second arrival
+time relative to the reference channel.</p>
+<p>The timewalkFactor applies an optional linear time-walk correction (in ps per ps)
+to compensate systematic shifts of the extracted timestamps caused by pulse-shape
+variations (e.g. detector recovery). Set to 0 to disable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>totMode</strong> (<em>bool</em><em>, </em><em>optional</em><em> (</em><em>default: 0 - only after executing this function</em><em>)</em>) – Time over Threshold mode</p></li>
+<li><p><strong>timewalkFactor</strong> (<em>float</em><em>, </em><em>optional</em><em> (</em><em>default 0: off</em><em>)</em>) – a linear increasing compensation factor</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># creates a 2D-Histogram in :obj:`.MeasMode.T3` from 10ns up to 11ns in 1ps bins</span>
+<span class="c1"># suppress late or accidental coincidences below 50ns.</span>
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T3</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">setHisto2dParams</span><span class="p">(</span><span class="n">refChannel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channelX</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">channelY</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">offsetX</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">offsetY</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+                     <span class="n">binWidthX</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">binWidthY</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">numBinsX</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">numBinsY</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Histogram2D.setHisto2dRecoveryTimingCorrection">
+<span class="sig-name descname"><span class="pre">setHisto2dRecoveryTimingCorrection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diffTimeMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffTimeMax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18446744073709551615</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correctionX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correctionY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timewalkCorrectionFactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Histogram2D.setHisto2dRecoveryTimingCorrection" title="Link to this definition">#</a></dt>
+<dd><p>Configure timing corrections for 2D histograms to compensate detector recovery artifacts.</p>
+<blockquote>
+<div><p>Some detectors (e.g. SNSPDs) can produce delayed or distorted events when they are not
+fully recovered (baseline-shift). This can appear as shifted/tilted “ghost” clusters in 2D histograms.
+This function applies per-event timestamp corrections before binning.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffTimeMin</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em><em>, </em><em>optional</em>) – Lower bound for the accepted time difference window. Only events with a time
+difference &gt;= diffTimeMin are corrected/used (default: 0).</p></li>
+<li><p><strong>diffTimeMax</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em><em>, </em><em>optional</em>) – Upper bound for the accepted time difference window. Only events with a time
+difference &lt;= diffTimeMax are corrected/used (default: infinity).</p></li>
+<li><p><strong>correctionX</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em><em>, </em><em>optional</em>) – Constant timing offset added to the X timestamp before histogramming (default: 0).</p></li>
+<li><p><strong>correctionY</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em><em>, </em><em>optional</em>) – Constant timing offset added to the Y timestamp before histogramming (default: 0).</p></li>
+<li><p><strong>timewalkCorrectionFactor</strong> (<em>float</em><em>, </em><em>optional</em>) – Linear time-walk correction factor applied as a function of pulse-shape proxy
+(e.g. pulse width / edge difference). Use 0 to disable (default: 0).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><cite>diffTimeMin</cite> and <cite>diffTimeMax</cite> are interpreted in the same units as diffTime</dt><dd><p>(typically picoseconds, depending on device/mode).</p>
+</dd>
+</dl>
+</li>
+<li><p>If <cite>diffTimeMin &gt; diffTimeMax</cite>, the filter window is empty and no pairs will pass.</p></li>
+<li><p>Only meaningful in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>diffTimeMin</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>diffTimeMax</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>correctionX</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>correctionY</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>timewalkCorrectionFactor</strong> (<em>float</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># creates a 2D-Histogram in :obj:`.MeasMode.T3` from 10ns up to 11ns in 1ps bins</span>
+<span class="c1"># suppress late or accidental coincidences below 50ns.</span>
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T3</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">setHisto2dParams</span><span class="p">(</span><span class="n">refChannel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channelX</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">channelY</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">offsetX</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">offsetY</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+                     <span class="n">binWidthX</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">binWidthY</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">numBinsX</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">numBinsY</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="c1"># activate ToT mode and</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">setHisto2dTotMode</span><span class="p">(</span><span class="n">totMode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timewalkFactor</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">setHisto2dRecoveryTimingCorrection</span><span class="p">(</span><span class="n">diffTimeMin</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span> <span class="n">correctionX</span><span class="o">=-</span><span class="mi">33</span><span class="p">,</span> <span class="n">correctionY</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">timewalkCorrectionFactor</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Histogram2D.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acqTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">waitFinished</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savePTU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Histogram2D.measure" title="Link to this definition">#</a></dt>
+<dd><p>With this function a measurement and creation of a 2D-Histogram us initiated, which is stored
+into RAM and/or disc. If <cite>waitFinished</cite> is set <cite>True</cite> the call will be blocked until the measurement
+is completed. If <cite>waitFinished</cite> is set to <cite>False</cite> (default) you can get updates on the fly,
+and you can access the execution status with the <a class="reference internal" href="#snAPI.Main.Histogram2D.isFinished" title="snAPI.Main.Histogram2D.isFinished"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isFinished()</span></code></a> function.
+If you wish to obtain updates on the fly the data can be accessed with <a class="reference internal" href="#snAPI.Main.Histogram2D.getData" title="snAPI.Main.Histogram2D.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to write the data to disc only, set the size to zero.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acqTime</strong> (<em>int</em><em> (</em><em>default: 1000 ms</em><em>)</em>) – <div class="line-block">
+<div class="line">0: means the measurement will run until <a class="reference internal" href="#snAPI.Main.Histogram2D.stopMeasure" title="snAPI.Main.Histogram2D.stopMeasure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stopMeasure()</span></code></a></div>
+<div class="line">acquisition time [ms]</div>
+<div class="line">will be ignored if device is a FileDevice</div>
+</div>
+</p></li>
+<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
+<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creates a 2D-Histogram in :obj:`.MeasMode.T3` from 0ps up to 100ns in 100ps bins</span>
+<span class="c1"># This is useful to find the sweet spot</span>
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T3</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">setHisto2dParams</span><span class="p">(</span><span class="n">refChannel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channelX</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">channelY</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">offsetX</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offsetY</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                     <span class="n">binWidthX</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">binWidthY</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">numBinsX</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">numBinsY</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Histogram2D.getData">
+<span class="sig-name descname"><span class="pre">getData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Histogram2D.getData" title="Link to this definition">#</a></dt>
+<dd><p>This function returns the data of the histogram measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>[2DArray]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creates a 2D-Histogram in :obj:`.MeasMode.T3` from 0ps up to 100ns in 100ps bins</span>
+<span class="c1"># This is useful to find the sweet spot</span>
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T3</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">setHisto2dParams</span><span class="p">(</span><span class="n">refChannel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channelX</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">channelY</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">offsetX</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offsetY</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                     <span class="n">binWidthX</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">binWidthY</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">numBinsX</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">numBinsY</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Histogram2D.stopMeasure">
+<span class="sig-name descname"><span class="pre">stopMeasure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Histogram2D.stopMeasure" title="Link to this definition">#</a></dt>
+<dd><p>After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Histogram2D.clearMeasure">
+<span class="sig-name descname"><span class="pre">clearMeasure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Histogram2D.clearMeasure" title="Link to this definition">#</a></dt>
+<dd><p>Some measurements calculate their results on large sets of historical data. When conditions have changed,
+the old data may need to be deleted to get an unobstructed view of the new data. This function deletes the internal
+data without having to restart the measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Histogram2D.isFinished">
+<span class="sig-name descname"><span class="pre">isFinished</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Histogram2D.isFinished" title="Link to this definition">#</a></dt>
+<dd><p>This function reports whether the measurement is finished.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the measurement is finished, there might be some data available, which was not retrieved yet. It may be necessary to
+call <a class="reference internal" href="#snAPI.Main.Histogram2D.getData" title="snAPI.Main.Histogram2D.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> once again after <cite>isFinished</cite> returns <cite>True</cite>.
+Check out the example of a possible implementation below.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>the measurement is finished</em>)</p></li>
+<li><p><strong>False</strong> (<em>the measurement is running</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># runs a while loop until the measurement is finished</span>
+    <span class="k">while</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">isFinished</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+        <span class="o">...</span>
+
+<span class="c1"># break a while loop if the measurement is finished and reads the last data</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">isFinished</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+        <span class="o">...</span>
+
+    <span class="k">if</span> <span class="n">finished</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="snAPI.Main.TimeTrace">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">TimeTrace</span></span><a class="headerlink" href="#snAPI.Main.TimeTrace" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -4520,30 +4841,42 @@ calibration of and optimization ae measurement setup.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="snAPI.Main.TimeTrace.setHistorySize">
 <span class="sig-name descname"><span class="pre">setHistorySize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">historySize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.TimeTrace.setHistorySize" title="Link to this definition">#</a></dt>
-<dd><p>This function sets the length or duration of the recorded data in the time domain in which
-the counts are collected.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>It is possible to set the history size to nanoseconds to see the individual photons.
-However, because the data is processed in real time this may not be sustainable for live measurements at high count rates.
-If the data is read from a file it will work at any rate, but processing the file may take
-longer than it took to record it.</p>
-</div>
+<dd><p>Set the histogram time span (time range) that is binned.</p>
+<p>The history size defines the total time interval covered by the histogram
+(from the first to the last bin). It therefore controls the time resolution
+together with the number of bins.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The bin width can calculated as <span class="math notranslate nohighlight">\(binWidth = historySize / numBins\)</span>.</p>
+<ul class="simple">
+<li><p>Bin width is derived from: <span class="math notranslate nohighlight">\(binWidth = historySize / numBins\)</span></p></li>
+<li><p>Smaller historySize -&gt; finer time resolution (smaller binWidth), but a shorter time window.</p></li>
+<li><p>Larger historySize -&gt; coarser resolution, but a longer time window.</p></li>
+</ul>
+<p>Using very small historySize (down to the ns range) can make individual photons
+visible, but increases update rate and CPU load for live processing at high
+count rates. Offline processing from a file works at any rate, but may take
+longer than the acquisition time.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>historySize</strong> (<em>float</em><em> [</em><em>s</em><em>] </em><em>(</em><em>default: 1s</em><em>)</em>) – length or duration of the recorded data in the time domain</p>
+<dd class="field-odd"><p><strong>historySize</strong> (<em>float</em><em> [</em><em>s</em><em>]</em><em>, </em><em>optional</em>) – Total time span covered by the histogram (default: 1 s).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sets a history size of 10s</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets real time data with a history size of 10s</span>
+<span class="o">...</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T2</span><span class="p">)</span>
+<span class="c1"># 10000 bins</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setNumBins</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="c1"># the timetrace now will show the last 10 seconds measured</span>
+<span class="c1"># that means 1 bin has a width of 10s / 10000 = 1ms</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setHistorySize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -4582,8 +4915,13 @@ with <a class="reference internal" href="#snAPI.Main.TimeTrace.getData" title="s
 <span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">getFileDevice</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;E:\Data\PicoQuant\HH400-PMT-cw-1MHz.ptu&quot;</span><span class="p">)</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T2</span><span class="p">)</span>
+<span class="c1"># 10000 bins</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setNumBins</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="c1"># the timetrace now will show the last 10 seconds measured</span>
+<span class="c1"># that means 1 bin has a width of 10s / 10000 = 1ms</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setHistorySize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -4611,13 +4949,14 @@ with <a class="reference internal" href="#snAPI.Main.TimeTrace.getData" title="s
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># plots a time trace from a file</span>
-<span class="o">...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
 <span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">getFileDevice</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;E:\Data\PicoQuant\CW_Shelved.ptu&quot;</span><span class="p">)</span>
+<span class="c1"># 10000 bins</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setNumBins</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setHistorySize</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="c1"># the timetrace now will show the last 10 seconds measured</span>
+<span class="c1"># that means 1 bin has a width of 10s / 10000 = 1ms</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">setHistorySize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span>
 <span class="n">counts</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">timeTrace</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
@@ -5041,6 +5380,116 @@ Check out the example of a possible implementation below.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="snAPI.Main.ExportStream">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">ExportStream</span></span><a class="headerlink" href="#snAPI.Main.ExportStream" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the <cite>Raw</cite> measurement class.</p>
+<p>can be used to export data channels to other unfolded (time-tagged) data streams. To do this, the Manipulator <code class="xref py py-meth docutils literal notranslate"><span class="pre">importStream()</span></code> must be used for the other data stream.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is working only in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> and is not supported in <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.Histogram" title="snAPI.Constants.MeasMode.Histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.Histogram</span></code></a> and <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.ExportStream.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acqTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">waitFinished</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savePTU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.ExportStream.measure" title="Link to this definition">#</a></dt>
+<dd><p>With this function a simple measurement of <cite>Unfold</cite> data records into RAM (and disc) is provided. Normally you don’t need to call this function, because the measurement of
+the exporting device will automatically start when the <code class="xref py py-meth docutils literal notranslate"><span class="pre">importStream()</span></code> function of the Manipulator <code class="xref py py-meth docutils literal notranslate"><span class="pre">ImportStream()</span></code> is used with the remoteStartStop parameter set to <cite>True</cite>.
+However, if you want to start the measurement of the exporting device manually, you can use this function. If <cite>waitFinished</cite> is set <cite>True</cite> the call will block until the measurement is completed.
+If <cite>waitFinished</cite> is set <cite>False</cite> (default) you can get updates on the fly, and you can access the execution status with the <a class="reference internal" href="#snAPI.Main.ExportStream.isFinished" title="snAPI.Main.ExportStream.isFinished"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isFinished()</span></code></a> function.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If a <cite>Unfold Buffer overrun - clearing!</cite> warning or <cite>Unfold Buffer full - waiting!</cite> info means, that data can’t be stored
+in the allocated memory <cite>size</cite>. Increase the memory <cite>size</cite>!</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>acqTime</strong> (<em>int</em><em> (</em><em>default: 1000 ms</em><em>)</em>) – <div class="line-block">
+<div class="line">0: means the measurement will run until <a class="reference internal" href="#snAPI.Main.ExportStream.stopMeasure" title="snAPI.Main.ExportStream.stopMeasure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">stopMeasure()</span></code></a></div>
+<div class="line">acquisition time [ms]</div>
+<div class="line">will be ignored if device is a FileDevice</div>
+</div>
+</p></li>
+<li><p><strong>waitFinished</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – True: block execution until finished (will be False on acqTime = 0)</p></li>
+<li><p><strong>savePTU</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – Save data to ptu file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>operation successful</em>)</p></li>
+<li><p><strong>False</strong> (<em>operation failed</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="line-block">
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_2Harps_1_stream.py">Demo_WR_2Harps_1_stream.py</a></div>
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_2Harps_1_stream_RefIn_RefOut.py">Demo_2Harps_1_stream_RefIn_RefOut.py</a></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.ExportStream.isFinished">
+<span class="sig-name descname"><span class="pre">isFinished</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.ExportStream.isFinished" title="Link to this definition">#</a></dt>
+<dd><p>This function tells you if the measurement is finished.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the measurement is finished, there might be some data available, which was not retrieved yet. It may be necessary to
+call <code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code> or <code class="xref py py-meth docutils literal notranslate"><span class="pre">getBlock()</span></code> once again after <cite>isFinished</cite> returns <cite>True</cite>.
+Check out the example of a possible implementation below.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>True</strong> (<em>the measurement is finished</em>)</p></li>
+<li><p><strong>False</strong> (<em>the measurement is running</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># runs a while loop until the measurement is finished (wrong)</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">sn</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">isFinished</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="o">...</span>
+
+<span class="c1"># break a while loop if the measurement is finished and reads the last data</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">isFinished</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="k">if</span> <span class="n">finished</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.ExportStream.stopMeasure">
+<span class="sig-name descname"><span class="pre">stopMeasure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.ExportStream.stopMeasure" title="Link to this definition">#</a></dt>
+<dd><p>After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="snAPI.Main.Manipulators">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">Manipulators</span></span><a class="headerlink" href="#snAPI.Main.Manipulators" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -5223,6 +5672,69 @@ This will reduce the data stream and therefore the processor load and memory con
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Manipulators.coincidences">
+<span class="sig-name descname"><span class="pre">coincidences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CoincidenceMode.CountAll</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CoincidenceTime.Last</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepChannels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Manipulators.coincidences" title="Link to this definition">#</a></dt>
+<dd><p>This creates multiple coincidence manipulators at once - one per channel group.
+Each group runs in its own thread for maximum performance on multi-core systems.</p>
+<p>Use this manipulator whenever you need to detect coincidences between several
+channel pairs or groups simultaneously — for example in Bell state measurements,
+multi-photon experiments, or quantum key distribution, where all pairwise
+correlations must be recorded in a single pass over the data stream.
+Each virtual coincidence channel is added to the stream and can be used in
+downstream manipulators or measurement classes just like a physical channel.</p>
+<a class="only-light reference internal image-reference" href="_images/Coincidences.png"><img alt="_images/Coincidences.png" class="only-light" src="_images/Coincidences.png" style="width: 600px;" />
+</a>
+<a class="only-dark reference internal image-reference" href="_images/Coincidences_dark.png"><img alt="_images/Coincidences_dark.png" class="only-dark" src="_images/Coincidences_dark.png" style="width: 600px;" />
+</a>
+<p><span class="figure-caption">This figure shows the principle of the Coincidences.</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>groups</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – list of channel groups, e.g. [[1,2], [1,3], [2,3]]</p></li>
+<li><p><strong>windowTime</strong> (<em>float</em>) – window size [ps]</p></li>
+<li><p><strong>mode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.CoincidenceMode" title="snAPI.Constants.CoincidenceMode"><em>CoincidenceMode</em></a><em> (</em><em>default: CoincidenceMode.CountAll</em><em>)</em>) – coincidence counting mode</p></li>
+<li><p><strong>time</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.CoincidenceTime" title="snAPI.Constants.CoincidenceTime"><em>CoincidenceTime</em></a><em> (</em><em>default: CoincidenceTime.Last</em><em>)</em>) – timestamp mode</p></li>
+<li><p><strong>keepChannels</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – <div class="line-block">
+<div class="line">True: the coincidence channels are integrated in the data stream as additional channels</div>
+<div class="line">False: only the coincidence channels are in the data stream</div>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of channel indices, one per group</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># detect all pairwise coincidences of channels 1, 2, 3 within 1 ns</span>
+
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T2</span><span class="p">)</span>
+
+<span class="n">ci</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">coincidences</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]],</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># ci[0] = coincidence index for {1,2}</span>
+<span class="c1"># ci[1] = coincidence index for {1,3}</span>
+<span class="c1"># ci[2] = coincidence index for {2,3}</span>
+</pre></div>
+</div>
+<dl>
+<dt>See:</dt><dd><div class="line-block">
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_BellState.py">Demo_BellState.py</a></div>
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_BosonSampling.py">Demo_BosonSampling.py</a></div>
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_GHZState.py">Demo_GHZState.py</a></div>
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_QKD.py">Demo_QKD.py</a></div>
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_CoincidenceTimestamps.py">Demo_CoincidenceTimestamps.py</a></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="snAPI.Main.Manipulators.merge">
 <span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepChannels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Manipulators.merge" title="Link to this definition">#</a></dt>
 <dd><p>This manipulator combines the data steam of the specified channels. You only have to define
@@ -5339,6 +5851,11 @@ This will reduce the data stream and therefore the processor load and memory con
 <dd><p>The <cite>Sub-Stream Manipulator</cite> filters the datastream by a defined start and stop time.
 Only events whose timetags fall within this range will pass through.</p>
 <p>This is useful when you want to analyze only a specific segment of a measurement or exclude irrelevant data.</p>
+<a class="only-light reference internal image-reference" href="_images/06_Merge.png"><img alt="_images/06_Merge.png" class="only-light" src="_images/06_Merge.png" style="width: 600px;" />
+</a>
+<a class="only-dark reference internal image-reference" href="_images/06_Merge_dark.png"><img alt="_images/06_Merge_dark.png" class="only-dark" src="_images/06_Merge_dark.png" style="width: 600px;" />
+</a>
+<p><span class="figure-caption">This figure shows the principles of the Sub-Stream operator.</span></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The filter applies directly to <cite>all channels</cite>!</p>
@@ -5440,7 +5957,7 @@ default behaviour you have to use the <a class="reference internal" href="snAPI.
 <dd class="field-even"><p>the channel indices of the gated channels</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p>List[int]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -5557,6 +6074,54 @@ count in the defined windowTime.</p>
 </div>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Manipulators.importStream">
+<span class="sig-name descname"><span class="pre">importStream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deviceName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remoteStartStop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayTime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Manipulators.importStream" title="Link to this definition">#</a></dt>
+<dd><p>The manipulator brings data channels from another device’s data stream into the current measurement. This enables synchronized multi-device acquisition and cross-device correlations.
+To import data, the selected device must use the <a class="reference internal" href="#snAPI.Main.ExportStream" title="snAPI.Main.ExportStream"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExportStream</span></code></a> measurement class. The Import manipulator can also automatically configure the source device to ensure correct synchronization.
+Both import and export must run in one instance of snAPI.</p>
+<p>### 🧠 How It Works
+The Import manipulator listens to a chosen device that is operating in Export mode. It receives one or more of its channels and inserts them into the current data stream.
+Imported channels behave like native hardware channels and can be used by all subsequent manipulators.
+To import data from another device connected to the same PC, you must open it in the same instance of snAPI.</p>
+<p>You can configure:</p>
+<ul class="simple">
+<li><p>Which device to import from</p></li>
+<li><p>Whether the importer should remotely start and stop the other device</p></li>
+<li><p>Which channels from the other device should be included</p></li>
+<li><p>An optional Delay Time to align timestamps</p></li>
+</ul>
+<dl>
+<dt>See:</dt><dd><div class="line-block">
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_2Harps_1_stream.py">Demo_WR_2Harps_1_stream.py</a></div>
+<div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_2Harps_1_stream_RefIn_RefOut.py">Demo_2Harps_1_stream_RefIn_RefOut.py</a></div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>deviceName</strong> (<em>float</em><em> (</em><em>default: 100ms</em><em>)</em>) – window size [ps]</p></li>
+<li><p><strong>chans</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – channel indices to be imported from the other device</p></li>
+<li><p><strong>delayTime</strong> (<em>int</em><em> (</em><em>default: 0ps</em><em>)</em>) – time offset to align the imported channels with the current data stream [ps]</p></li>
+<li><p><strong>remoteStartStop</strong> (<em>bool</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the channel indices of the imported channels</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># import channels from slave into master manipulator</span>
+<span class="c1"># and enable the starting and stopping of the measurement via the master device (remoteStartStop=True)</span>
+<span class="n">importChans</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">importStream</span><span class="p">(</span><span class="n">slave</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">remoteStartStop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -5620,6 +6185,7 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.unfold"><code class="docutils literal notranslate"><span class="pre">snAPI.unfold</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.raw"><code class="docutils literal notranslate"><span class="pre">snAPI.raw</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.histogram"><code class="docutils literal notranslate"><span class="pre">snAPI.histogram</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.histogram2d"><code class="docutils literal notranslate"><span class="pre">snAPI.histogram2d</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.timeTrace"><code class="docutils literal notranslate"><span class="pre">snAPI.timeTrace</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.correlation"><code class="docutils literal notranslate"><span class="pre">snAPI.correlation</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.manipulators"><code class="docutils literal notranslate"><span class="pre">snAPI.manipulators</span></code></a></li>
@@ -5646,12 +6212,12 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.setIniConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.setIniConfig()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.getDeviceConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.getDeviceConfig()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.getMeasDescription"><code class="docutils literal notranslate"><span class="pre">snAPI.getMeasDescription()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.getCountRates"><code class="docutils literal notranslate"><span class="pre">snAPI.getCountRates()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.getSyncPeriod"><code class="docutils literal notranslate"><span class="pre">snAPI.getSyncPeriod()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.snAPI.getNumAllChannels"><code class="docutils literal notranslate"><span class="pre">snAPI.getNumAllChannels()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Device"><code class="docutils literal notranslate"><span class="pre">Device</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Device.getCountRates"><code class="docutils literal notranslate"><span class="pre">Device.getCountRates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Device.getSyncPeriod"><code class="docutils literal notranslate"><span class="pre">Device.getSyncPeriod()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Device.getNumAllChannels"><code class="docutils literal notranslate"><span class="pre">Device.getNumAllChannels()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Device.setSyncDiv"><code class="docutils literal notranslate"><span class="pre">Device.setSyncDiv()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Device.setSyncTrigMode"><code class="docutils literal notranslate"><span class="pre">Device.setSyncTrigMode()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Device.setSyncEdgeTrig"><code class="docutils literal notranslate"><span class="pre">Device.setSyncEdgeTrig()</span></code></a></li>
@@ -5756,6 +6322,17 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram.isFinished"><code class="docutils literal notranslate"><span class="pre">Histogram.isFinished()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram2D"><code class="docutils literal notranslate"><span class="pre">Histogram2D</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram2D.setHisto2dParams"><code class="docutils literal notranslate"><span class="pre">Histogram2D.setHisto2dParams()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram2D.setHisto2dTotMode"><code class="docutils literal notranslate"><span class="pre">Histogram2D.setHisto2dTotMode()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram2D.setHisto2dRecoveryTimingCorrection"><code class="docutils literal notranslate"><span class="pre">Histogram2D.setHisto2dRecoveryTimingCorrection()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram2D.measure"><code class="docutils literal notranslate"><span class="pre">Histogram2D.measure()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram2D.getData"><code class="docutils literal notranslate"><span class="pre">Histogram2D.getData()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram2D.stopMeasure"><code class="docutils literal notranslate"><span class="pre">Histogram2D.stopMeasure()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram2D.clearMeasure"><code class="docutils literal notranslate"><span class="pre">Histogram2D.clearMeasure()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Histogram2D.isFinished"><code class="docutils literal notranslate"><span class="pre">Histogram2D.isFinished()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.TimeTrace"><code class="docutils literal notranslate"><span class="pre">TimeTrace</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.TimeTrace.setNumBins"><code class="docutils literal notranslate"><span class="pre">TimeTrace.setNumBins()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.TimeTrace.setHistorySize"><code class="docutils literal notranslate"><span class="pre">TimeTrace.setHistorySize()</span></code></a></li>
@@ -5778,17 +6355,25 @@ count in the defined windowTime.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Correlation.isFinished"><code class="docutils literal notranslate"><span class="pre">Correlation.isFinished()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.ExportStream"><code class="docutils literal notranslate"><span class="pre">ExportStream</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.ExportStream.measure"><code class="docutils literal notranslate"><span class="pre">ExportStream.measure()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.ExportStream.isFinished"><code class="docutils literal notranslate"><span class="pre">ExportStream.isFinished()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.ExportStream.stopMeasure"><code class="docutils literal notranslate"><span class="pre">ExportStream.stopMeasure()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators"><code class="docutils literal notranslate"><span class="pre">Manipulators</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.config"><code class="docutils literal notranslate"><span class="pre">Manipulators.config</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.getConfig"><code class="docutils literal notranslate"><span class="pre">Manipulators.getConfig()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.clearAll"><code class="docutils literal notranslate"><span class="pre">Manipulators.clearAll()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.coincidence"><code class="docutils literal notranslate"><span class="pre">Manipulators.coincidence()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.coincidences"><code class="docutils literal notranslate"><span class="pre">Manipulators.coincidences()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.merge"><code class="docutils literal notranslate"><span class="pre">Manipulators.merge()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.delay"><code class="docutils literal notranslate"><span class="pre">Manipulators.delay()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.subStream"><code class="docutils literal notranslate"><span class="pre">Manipulators.subStream()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.herald"><code class="docutils literal notranslate"><span class="pre">Manipulators.herald()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.countrate"><code class="docutils literal notranslate"><span class="pre">Manipulators.countrate()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.getCountrates"><code class="docutils literal notranslate"><span class="pre">Manipulators.getCountrates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.importStream"><code class="docutils literal notranslate"><span class="pre">Manipulators.importStream()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -5819,7 +6404,7 @@ count in the defined windowTime.</p>
 
   <p class="copyright">
     
-      © Copyright 2025, PicoQuant.
+      © Copyright 2026, PicoQuant.
       <br/>
     
   </p>

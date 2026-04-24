@@ -588,6 +588,7 @@
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.unfold"><code class="docutils literal notranslate"><span class="pre">snAPI.unfold</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.raw"><code class="docutils literal notranslate"><span class="pre">snAPI.raw</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.histogram"><code class="docutils literal notranslate"><span class="pre">snAPI.histogram</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.histogram2d"><code class="docutils literal notranslate"><span class="pre">snAPI.histogram2d</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.timeTrace"><code class="docutils literal notranslate"><span class="pre">snAPI.timeTrace</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.correlation"><code class="docutils literal notranslate"><span class="pre">snAPI.correlation</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.manipulators"><code class="docutils literal notranslate"><span class="pre">snAPI.manipulators</span></code></a></li>
@@ -614,12 +615,12 @@
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.setIniConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.setIniConfig()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.getDeviceConfig"><code class="docutils literal notranslate"><span class="pre">snAPI.getDeviceConfig()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.getMeasDescription"><code class="docutils literal notranslate"><span class="pre">snAPI.getMeasDescription()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.getCountRates"><code class="docutils literal notranslate"><span class="pre">snAPI.getCountRates()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.getSyncPeriod"><code class="docutils literal notranslate"><span class="pre">snAPI.getSyncPeriod()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.snAPI.getNumAllChannels"><code class="docutils literal notranslate"><span class="pre">snAPI.getNumAllChannels()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device"><code class="docutils literal notranslate"><span class="pre">Device</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.getCountRates"><code class="docutils literal notranslate"><span class="pre">Device.getCountRates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.getSyncPeriod"><code class="docutils literal notranslate"><span class="pre">Device.getSyncPeriod()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.getNumAllChannels"><code class="docutils literal notranslate"><span class="pre">Device.getNumAllChannels()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncDiv"><code class="docutils literal notranslate"><span class="pre">Device.setSyncDiv()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncTrigMode"><code class="docutils literal notranslate"><span class="pre">Device.setSyncTrigMode()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Device.setSyncEdgeTrig"><code class="docutils literal notranslate"><span class="pre">Device.setSyncEdgeTrig()</span></code></a></li>
@@ -724,6 +725,17 @@
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram.isFinished"><code class="docutils literal notranslate"><span class="pre">Histogram.isFinished()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram2D"><code class="docutils literal notranslate"><span class="pre">Histogram2D</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram2D.setHisto2dParams"><code class="docutils literal notranslate"><span class="pre">Histogram2D.setHisto2dParams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram2D.setHisto2dTotMode"><code class="docutils literal notranslate"><span class="pre">Histogram2D.setHisto2dTotMode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram2D.setHisto2dRecoveryTimingCorrection"><code class="docutils literal notranslate"><span class="pre">Histogram2D.setHisto2dRecoveryTimingCorrection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram2D.measure"><code class="docutils literal notranslate"><span class="pre">Histogram2D.measure()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram2D.getData"><code class="docutils literal notranslate"><span class="pre">Histogram2D.getData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram2D.stopMeasure"><code class="docutils literal notranslate"><span class="pre">Histogram2D.stopMeasure()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram2D.clearMeasure"><code class="docutils literal notranslate"><span class="pre">Histogram2D.clearMeasure()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Histogram2D.isFinished"><code class="docutils literal notranslate"><span class="pre">Histogram2D.isFinished()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.TimeTrace"><code class="docutils literal notranslate"><span class="pre">TimeTrace</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.TimeTrace.setNumBins"><code class="docutils literal notranslate"><span class="pre">TimeTrace.setNumBins()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.TimeTrace.setHistorySize"><code class="docutils literal notranslate"><span class="pre">TimeTrace.setHistorySize()</span></code></a></li>
@@ -746,17 +758,25 @@
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Correlation.isFinished"><code class="docutils literal notranslate"><span class="pre">Correlation.isFinished()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.ExportStream"><code class="docutils literal notranslate"><span class="pre">ExportStream</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.ExportStream.measure"><code class="docutils literal notranslate"><span class="pre">ExportStream.measure()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.ExportStream.isFinished"><code class="docutils literal notranslate"><span class="pre">ExportStream.isFinished()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.ExportStream.stopMeasure"><code class="docutils literal notranslate"><span class="pre">ExportStream.stopMeasure()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators"><code class="docutils literal notranslate"><span class="pre">Manipulators</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.config"><code class="docutils literal notranslate"><span class="pre">Manipulators.config</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.getConfig"><code class="docutils literal notranslate"><span class="pre">Manipulators.getConfig()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.clearAll"><code class="docutils literal notranslate"><span class="pre">Manipulators.clearAll()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.coincidence"><code class="docutils literal notranslate"><span class="pre">Manipulators.coincidence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.coincidences"><code class="docutils literal notranslate"><span class="pre">Manipulators.coincidences()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.merge"><code class="docutils literal notranslate"><span class="pre">Manipulators.merge()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.delay"><code class="docutils literal notranslate"><span class="pre">Manipulators.delay()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.subStream"><code class="docutils literal notranslate"><span class="pre">Manipulators.subStream()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.herald"><code class="docutils literal notranslate"><span class="pre">Manipulators.herald()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.countrate"><code class="docutils literal notranslate"><span class="pre">Manipulators.countrate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.getCountrates"><code class="docutils literal notranslate"><span class="pre">Manipulators.getCountrates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="snAPI.Main.html#snAPI.Main.Manipulators.importStream"><code class="docutils literal notranslate"><span class="pre">Manipulators.importStream()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -909,7 +929,7 @@
 
   <p class="copyright">
     
-      © Copyright 2025, PicoQuant.
+      © Copyright 2026, PicoQuant.
       <br/>
     
   </p>

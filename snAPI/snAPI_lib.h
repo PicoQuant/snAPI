@@ -1,7 +1,7 @@
 #ifndef _WIN32
 #define _stdcall
 #endif
-#include "snapi.h"
+#include "snAPI.h"
 
 /********** snAPI **********/
 extern bool _stdcall initAPI(char* systemIni);
@@ -56,6 +56,10 @@ extern bool _stdcall getHistogram(int tAcq, bool waitFinished, bool savePTU, uns
 extern void _stdcall setHistoT2RefChan(uint8_t iChan);
 extern void _stdcall setHistoT2BinWidth(uint64_t numBins);
 extern void _stdcall setHistoT2NumBins(uint64_t numBins);
+extern void _stdcall setHisto2dParams(uint64_t refChannel, uint64_t channelX, uint64_t channelY, uint64_t offsetX, uint64_t offsetY, uint64_t binWidthX, uint64_t binWidthY, uint64_t numBinsX, uint64_t numBinsY);
+extern void _stdcall setHisto2dTotMode(bool totMode, double timewalkFactor);
+extern void _stdcall setHisto2dRecoveryTimingCorrection(uint64_t diffTimeMin, uint64_t diffTimeMax, uint64_t xCorr, uint64_t yCorr, double timewalkCorrFactor);
+extern void _stdcall get2dHistogram(int tAcq, bool waitFinished, bool savePTU, unsigned int* data, bool* finished);
 extern bool _stdcall getTimeTrace(int tAcq, bool waitFinished, bool savePTU, unsigned int* data, uint64_t* t0, bool* finished);
 extern void _stdcall setTimeTraceNumBins(int numBins);
 extern void _stdcall setTimeTraceHistorySize(double historySize);
@@ -80,7 +84,9 @@ extern int _stdcall addMCoincidence(int* chans, int numChans, double windowTime,
 extern int _stdcall addMMerge(int* chans, int numChans, bool keepChannels);
 extern int _stdcall addMDelay(int chan, double delayTime, bool keepChannel);
 extern int _stdcall addMHerald(uint8_t herald, int* chans, int32_t numChans, int32_t delayTime, int32_t windowTime, bool inverted, bool keepChannels);
+extern int _stdcall addMSubStream(uint64_t startTime, uint64_t stopTime);
 extern int _stdcall addMCountRate(double windowTime);
+extern int _stdcall addMImport(char* deviceName, bool remoteStartStop, int* chans, int numChans, uint64_t delayTime);
 extern bool _stdcall getMCountRates(int manisIdx, int* countRatess);
 
 /********** Marker **********/

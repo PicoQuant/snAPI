@@ -6,10 +6,10 @@ if(__name__ == "__main__"):
     length = 10
     
     sn = snAPI()
-    sn.getDevice()
+    #sn.getDevice()
     
     # offline processing:
-    # sn.getFileDevice(r"E:\Data\PicoQuant\G2_T3_sameTTs.ptu")
+    sn.getFileDevice(r"mnt\d\Data\PicoQuant\Test2.ptu")
     sn.initDevice(MeasMode.T3)
     
     # set the trigger level
@@ -17,7 +17,7 @@ if(__name__ == "__main__"):
     
     #list of channels to build the coincidence from
     chans= [1,2]
-    ciIndex = sn.manipulators.coincidence(chans, 1000000, mode = CoincidenceMode.CountAll, 
+    ciIndex = sn.manipulators.coincidence(chans, 100000000, mode = CoincidenceMode.CountAll, 
                                 time = CoincidenceTime.Average,
                                 keepChannels=True) #set keepChannels to false to get the coincidences only
     # ciIndex is the 'channel number' where the coincidences are stored
@@ -51,7 +51,7 @@ if(__name__ == "__main__"):
                     sn.logPrint(f"{ciTimes[i]:8}")
             
             
-        if sn.unfold.finished.contents:
-            break
+        #if sn.unfold.finished.contents:
+            #break
         
     sn.logPrint("end")

@@ -43,9 +43,10 @@ if(__name__ == "__main__"):
         plt.legend()
         plt.title("Histogram")
         
-        # clear measure data
-        sn.histogram.clearMeasure()
         if finished:
             break
+    
+        # clear measure data
+        sn.histogram.clearMeasure()
     
     plt.show(block=True)

@@ -223,6 +223,8 @@ Example
         self.raw = Raw(self)
         """This is the object to :class:`Raw` class"""
         self.histogram = Histogram(self)
+        """This is the object to :class:`Histogram2D`. class"""
+        self.histogram2d = Histogram2D(self)
         """This is the object to :class:`Histogram`. class"""
         self.timeTrace = TimeTrace(self)
         """This is the object to :class:`TimeTrace`. class"""
@@ -822,7 +824,7 @@ This clears all custom Tags, that should be written to the Header of the PTU-Fil
 
 This function sets the path to the ptu file, if the measurement supports writing the `Raw` data stream to file.
 If no special path is set the file will be written to the data path defined in the INI file
-that was called with :meth:`initAPi`. The default file name ist default.ptu.
+that was called with :meth:`initAPi`. The default file name is default.ptu.
 
 Parameters
 ----------
@@ -1037,7 +1039,7 @@ Example
             self.parent.logPrint(conf)
             return False
 
-    def _stopMeasure(self):
+    def _stopMeasure(self, ID):
         """
 After a measurement is started it will normally be left running until the defined acquisition
 time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
@@ -1056,10 +1058,10 @@ Returns
     None
     
         """
-        self.dll.stopMeasure()
+        self.dll.stopMeasure(ID)
         
 
-    def _clearMeasure(self):
+    def _clearMeasure(self, ID):
         """
 Some measurements calculate their results on large sets of historical data. When conditions have changed,
 the old data must be deleted to get a fresh view of the new data. Therefore this function was created.
@@ -1078,10 +1080,22 @@ Returns
     None
     
         """
-        self.dll.clearMeasure()
+        self.dll.clearMeasure(ID)
 
+class Device():
+    """
+This is the low level device configuration class. It has to be noted that the functions and parameters you can use
+depend on the connected device. Therefore, the correct library must be chosen when creating the snAPI object. 
 
-    def getCountRates(self,):
+    """
+    
+
+    def __init__(self, parent):
+        self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""
+        self.numChans = -1
+                
+    def getCountRates(self):
         """
 This function retrieves the count rates. This measurement is first performed by the hardware by counting with a
 gate time of 100ms. You will therefore obtain new values only after this time has elapsed.
@@ -1107,14 +1121,17 @@ Example
         """
         syncRate =  ct.pointer(ct.c_int(0))
         countRates = ct.ARRAY(ct.c_int, 64)()
-        ok = self.dll.getCountRates(syncRate, countRates)
+        ok = self.parent.dll.getCountRates(self.ID, syncRate, countRates)
         a = np.array(countRates)
-        a = np.resize(a, self.deviceConfig["NumChans"])
+        if self.numChans == -1:
+            self.parent.getDeviceConfig()
+            self.numChans = self.parent.deviceConfig["NumChans"]    
+        a = np.resize(a, self.parent.deviceConfig["NumChans"])
         a = np.insert(a, 0, syncRate.contents.value)
         return a
     
     
-    def getSyncPeriod(self,):
+    def getSyncPeriod(self):
         """
 This function only gives meaningful results while a measurement is running and after two sync periods have elapsed.
 The return value is `0.0` in all other cases. Resolution is the device base resolution. Accuracy is determined by
@@ -1136,12 +1153,12 @@ Example
     
         """
         syncPeriod =  ct.c_double(0)
-        self.dll.getSyncPeriod.argtypes = [ct.POINTER(ct.c_double)]
-        ok = self.dll.getSyncPeriod(ct.pointer(syncPeriod))
+        self.parent.dll.getSyncPeriod.argtypes = [ct.c_wchar_p, ct.POINTER(ct.c_double)]
+        ok = self.parent.dll.getSyncPeriod(self.ID, ct.pointer(syncPeriod))
         return syncPeriod.value
 
 
-    def getNumAllChannels(self,):
+    def getNumAllChannels(self):
         """
 This functions returns the number of available channels from the active device has plus the number of channels for
 the :class:`Manipulators` and one for the sync channel. It describes the number of channels a measurement returns
@@ -1162,22 +1179,8 @@ Example
     numChans = sn.getNumAllChannels();
     
         """
-        return self.dll.getNumAllChans()
-
-
-
-class Device():
-    """
-This is the low level device configuration class. It has to be noted that the functions and parameters you can use
-depend on the connected device. Therefore, the correct library must be chosen when creating the snAPI object. 
-
-    """
+        return self.parent.dll.getNumAllChans(self.ID)
     
-
-    def __init__(self, parent):
-        self.parent = parent
-
-
     def setSyncDiv(self, syncDiv: typing.Optional[int] = 1):
         """
     Supported devices: [MH150/160 | HH400 | PH330]
@@ -1206,7 +1209,7 @@ Example
     sn.device.setSyncDiv(1)
     
         """
-        if ok:= self.parent.dll.setSyncDiv(syncDiv):
+        if ok:= self.parent.dll.setSyncDiv(self.ID, syncDiv):
             self.parent.deviceConfig["SyncDiv"] = syncDiv
         return ok
 
@@ -1237,7 +1240,7 @@ Example
     sn.device.setSyncTrigMode(TriggerMode.Edge)
     
         """
-        if ok:= self.parent.dll.setSyncTrigMode(syncTrigMode.value):
+        if ok:= self.parent.dll.setSyncTrigMode(self.ID, syncTrigMode.value):
             if syncTrigMode == TrigMode.Edge:
                 self.parent.deviceConfig["SyncTrigMode"] = "Edge"
             elif syncTrigMode == TrigMode.CFD:
@@ -1279,7 +1282,7 @@ Example
     sn.device.setSyncEdgeTrig(-50,1)
     
         """
-        if ok:= self.parent.dll.setSyncEdgeTrig(syncTrigLvl, syncTrigEdge):
+        if ok:= self.parent.dll.setSyncEdgeTrig(self.ID, syncTrigLvl, syncTrigEdge):
             self.parent.deviceConfig["SyncTrigLvl"] = syncTrigLvl
             self.parent.deviceConfig["SyncTrigEdge"] = syncTrigEdge
         return ok
@@ -1318,7 +1321,7 @@ Example
     sn.device.setSyncCFD(100, 30)
     
         """
-        if ok:= self.parent.dll.setSyncCFD(syncDiscrLvl, syncZeroXLvL):
+        if ok:= self.parent.dll.setSyncCFD(self.ID, syncDiscrLvl, syncZeroXLvL):
             self.parent.deviceConfig["SyncZeroXLvL"] = syncZeroXLvL
             self.parent.deviceConfig["SyncDiscrLvl"] = syncDiscrLvl
         return ok
@@ -1351,7 +1354,7 @@ Example
     sn.device.setSyncChannelOffset(10)
     
         """
-        if ok := self.parent.dll.setSyncChannelOffset(syncChannelOffset):
+        if ok := self.parent.dll.setSyncChannelOffset(self.ID, syncChannelOffset):
             self.parent.deviceConfig["SyncChannelOffset"] = syncChannelOffset
         return ok
 
@@ -1383,7 +1386,7 @@ Example
     sn.device.setSyncChannelEnable(1)
     
         """
-        if ok:= self.parent.dll.setSyncChannelEnable(syncChannelEnable):
+        if ok:= self.parent.dll.setSyncChannelEnable(self.ID, syncChannelEnable):
             self.parent.deviceConfig["SyncChannelEnable"] = syncChannelEnable
         return ok
 
@@ -1423,7 +1426,7 @@ Example
     sn.device.setSyncDeadTime(1000)
     
         """
-        if ok := self.parent.dll.setSyncDeadTime(syncDeadTime):
+        if ok := self.parent.dll.setSyncDeadTime(self.ID, syncDeadTime):
             self.parent.deviceConfig["SyncDeadTime"] = syncDeadTime
         return ok
     
@@ -1458,7 +1461,7 @@ Example
     sn.device.setInputHysteresis(0)
     
         """
-        if ok := self.parent.dll.setInputHysteresis(hystCode):
+        if ok := self.parent.dll.setInputHysteresis(self.ID, hystCode):
             self.parent.deviceConfig["HystCode"] = hystCode
         return ok
 
@@ -1488,11 +1491,11 @@ Example
 -------
 ::
     
-    # sets the input hysteresis to approximately 3mV
-    sn.device.setInputHysteresis(0)
+    # sets the timing mode to Hires (25ps)
+    sn.device.setTimingMode(0)
     
         """
-        if ok := self.parent.dll.setTimingMode(timingMode):
+        if ok := self.parent.dll.setTimingMode(self.ID, timingMode):
             self.parent.deviceConfig["TimingMode"] = timingMode
         return ok
 
@@ -1527,7 +1530,7 @@ Example
     sn.device.setStopOverflow(1000000000)
     
         """
-        if ok := self.parent.dll.setStopOverflow(stopCount):
+        if ok := self.parent.dll.setStopOverflow(self.ID, stopCount):
             self.parent.deviceConfig["StopCount"] = stopCount
         return ok
 
@@ -1563,7 +1566,7 @@ Example
     sn.device.setBinning(0)
     
         """
-        if ok := self.parent.dll.setBinning(binning):
+        if ok := self.parent.dll.setBinning(self.ID, binning):
             self.parent.getDeviceConfig()
         return ok
     
@@ -1599,7 +1602,7 @@ Example
     sn.device.setOffset(0)
     
         """
-        if ok:= self.parent.dll.setOffset(offset):
+        if ok:= self.parent.dll.setOffset(self.ID, offset):
             self.parent.deviceConfig["Offset"] = offset
         return ok
 
@@ -1640,7 +1643,7 @@ Example
     sn.device.setHistoLength(10000)
     
         """
-        if ok:= self.parent.dll.setHistoLength(lengthCode):
+        if ok:= self.parent.dll.setHistoLength(self.ID, lengthCode):
             self.parent.deviceConfig["NumBins"] = pow(2, 10 + lengthCode)
             self.parent.deviceConfig["LengthCode"] = lengthCode
         return ok
@@ -1677,7 +1680,7 @@ Example
     sn.device.setMeasControl(MeasControl.SingleShotCTC, 0, 0)
     
         """
-        if ok:= self.parent.dll.setMeasControl(measControl.value, startEdge, stopEdge):
+        if ok:= self.parent.dll.setMeasControl(self.ID, measControl.value, startEdge, stopEdge):
             self.parent.deviceConfig["MeasControl"] = measControl
             self.parent.deviceConfig["StartEdge"] = startEdge
             self.parent.deviceConfig["StopEdge"] = stopEdge
@@ -1713,7 +1716,7 @@ Example
     sn.device.setTriggerOutput(10)
     
         """
-        if ok:= self.parent.dll.setTriggerOutput(trigOutput):
+        if ok:= self.parent.dll.setTriggerOutput(self.ID, trigOutput):
             self.parent.deviceConfig["TriggerOutput"] = trigOutput
         return ok
     
@@ -1750,7 +1753,7 @@ Example
     sn.device.setMarkerEdges(1,0,0,0)
     
         """
-        if ok:= self.parent.dll.setMarkerEdges(edge1, edge2, edge3, edge4):
+        if ok:= self.parent.dll.setMarkerEdges(self.ID, edge1, edge2, edge3, edge4):
             self.parent.deviceConfig["MarkerEdges"] = [edge1, edge2, edge3, edge4]
         return ok
     
@@ -1787,7 +1790,7 @@ Example
     sn.device.setMarkerEnable(1,0,0,0)
     
         """
-        if ok:= self.parent.dll.setMarkerEnable(ena1, ena2, ena3, ena4):
+        if ok:= self.parent.dll.setMarkerEnable(self.ID, ena1, ena2, ena3, ena4):
             self.parent.deviceConfig["MarkerEna"] = [ena1, ena2, ena3, ena4]
         return ok
     
@@ -1825,7 +1828,7 @@ Example
     sn.device.setMarkerHoldoffTime(100)
     
         """
-        if ok:= self.parent.dll.setMarkerHoldoffTime(holdofftime):
+        if ok:= self.parent.dll.setMarkerHoldoffTime(self.ID, holdofftime):
             self.parent.deviceConfig["Holdofftime"] = holdofftime
         return ok
     
@@ -1866,7 +1869,7 @@ Example
     sn.device.setOflCompression(10)
     
         """
-        if ok:= self.parent.dll.setOflCompression(holdtime):
+        if ok:= self.parent.dll.setOflCompression(self.ID, holdtime):
             self.parent.deviceConfig["Holdtime"] = holdtime
         return ok
 
@@ -1904,7 +1907,7 @@ Example
     sn.device.setInputTrigMode(0, TriggerMode.Edge)
     
         """
-        if ok:= self.parent.dll.setInputTrigMode(channel, trigMode.value):
+        if ok:= self.parent.dll.setInputTrigMode(self.ID, channel, trigMode.value):
             trigModeS = ""
             if trigMode == TrigMode.CFD:
                 trigModeS = "CFD"
@@ -1958,7 +1961,7 @@ Example
     sn.device.setInputEdgeTrig(0, -100, 0)
     
         """
-        if ok:= self.parent.dll.setInputEdgeTrig(channel, trigLvl, trigEdge):
+        if ok:= self.parent.dll.setInputEdgeTrig(self.ID, channel, trigLvl, trigEdge):
             if channel == -1:
                 for chan in range(self.parent.deviceConfig["NumChans"]):
                     self.parent.deviceConfig["ChansCfg"][chan]["TrigLvl"] = trigLvl
@@ -2006,7 +2009,7 @@ Example
     sn.device.setInputEdgeTrig(0, 100, 30)
     
         """
-        if ok:= self.parent.dll.setInputCFD(channel, discrLvl, zeroXLvl):
+        if ok:= self.parent.dll.setInputCFD(self.ID, channel, discrLvl, zeroXLvl):
             if channel == -1:
                 for chan in range(self.parent.deviceConfig["NumChans"]):
                     self.parent.deviceConfig["ChansCfg"][chan]["DiscrLvl"] = discrLvl
@@ -2051,7 +2054,7 @@ Example
     sn.device.setInputChannelOffset(0, 100)
     
         """
-        if ok:= self.parent.dll.setInputChannelOffset(channel, chanOffs):
+        if ok:= self.parent.dll.setInputChannelOffset(self.ID, channel, chanOffs):
             if channel == -1:
                 for chan in range(self.parent.deviceConfig["NumChans"]):
                     self.parent.deviceConfig["ChansCfg"][chan]["ChanOffs"] = chanOffs
@@ -2090,10 +2093,10 @@ Example
 ::
     
     # disables the input channel 4
-    sn.device.setInputEdgeTrig(3, 0)
+    sn.device.setInputChannelEnable(3, 0)
     
         """
-        if ok:= self.parent.dll.setInputChannelEnable(channel, chanEna):
+        if ok:= self.parent.dll.setInputChannelEnable(self.ID, channel, chanEna):
             if channel == -1:
                 for chan in range(self.parent.deviceConfig["NumChans"]):
                     self.parent.deviceConfig["ChansCfg"][chan]["ChanEna"] = chanEna
@@ -2139,7 +2142,7 @@ Example
     sn.device.setInputDeadTime(1000)
     
         """
-        if ok:= self.parent.dll.setInputDeadTime(channel, deadTime):
+        if ok:= self.parent.dll.setInputDeadTime(self.ID, channel, deadTime):
             if channel == -1:
                 for chan in range(self.parent.deviceConfig["NumChans"]):
                     self.parent.deviceConfig["ChansCfg"][chan]["DeadTime"] = deadTime
@@ -2187,7 +2190,8 @@ Note
     
 
     def __init__(self, parent):
-        self.parent = parent    
+        self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""      
 
 
     def setRowParams(self, row: int, timeRange: int, matchCount: int, inverse: bool, useChans:typing.List[int], passChans:typing.List[int]):
@@ -2255,7 +2259,7 @@ Example
             pc |= pow(2, i)
 
         self.parent.dll.setRowEventFilter.restype = ct.c_bool
-        return self.parent.dll.setRowEventFilter(row, timeRange, matchCount, inverse, uc, pc)
+        return self.parent.dll.setRowEventFilter(self.ID, row, timeRange, matchCount, inverse, uc, pc)
 
 
     def enableRow(self, row: int, enable: bool):
@@ -2287,7 +2291,7 @@ Example
     
         """
         self.parent.dll.enableRowEventFilter.restype = ct.c_bool
-        return self.parent.dll.enableRowEventFilter(row, enable)
+        return self.parent.dll.enableRowEventFilter(self.ID, row, enable)
 
 
     def setMainParams(self, timeRange: int, matchCount: int, inverse: bool):
@@ -2337,7 +2341,7 @@ Example
     
         """
         self.parent.dll.setMainEventFilterParams.restype = ct.c_bool
-        return self.parent.dll.setMainEventFilterParams(timeRange, matchCount, inverse)
+        return self.parent.dll.setMainEventFilterParams(self.ID, timeRange, matchCount, inverse)
 
 
     def setMainChannels(self, row: int, useChans:typing.List[int], passChans:typing.List[int]):
@@ -2393,7 +2397,7 @@ Example
             pc |= pow(2, i)
         
         self.parent.dll.setMainEventFilterChannels.restype = ct.c_bool
-        return self.parent.dll.setMainEventFilterChannels(row, uc, pc)
+        return self.parent.dll.setMainEventFilterChannels(self.ID, row, uc, pc)
 
 
     def enableMain(self, enable: typing.Optional[bool] = True):
@@ -2430,7 +2434,7 @@ Example
     
         """
         self.parent.dll.enableMainEventFilter.restype = ct.c_bool
-        return self.parent.dll.enableMainEventFilter(enable)
+        return self.parent.dll.enableMainEventFilter(self.ID, enable)
         #     self.parent.deviceConfig["SyncDiv"] = syncDiv
         # return ok
     
@@ -2467,7 +2471,7 @@ Example
     
         """
         self.parent.dll.setFilterTestMode.restype = ct.c_bool
-        return self.parent.dll.setFilterTestMode(testMode)
+        return self.parent.dll.setFilterTestMode(self.ID, testMode)
         #     self.parent.deviceConfig["SyncDiv"] = syncDiv
         # return ok
     
@@ -2503,7 +2507,7 @@ Example
         """
         syncRate =  ct.pointer(ct.c_int(0))
         countRates = ct.ARRAY(ct.c_int, 64)()
-        if ok:= self.parent.dll.getRowFilteredRates(syncRate, countRates):
+        if ok:= self.parent.dll.getRowFilteredRates(self.ID, syncRate, countRates):
             a = np.array(countRates)
             a = np.resize(a, self.parent.deviceConfig["NumChans"])
             a = np.insert(a, 0, syncRate.contents.value)
@@ -2540,7 +2544,7 @@ Example
         """
         syncRate =  ct.pointer(ct.c_int(0))
         countRates = ct.ARRAY(ct.c_int, 64)()
-        if ok:= self.parent.dll.getMainFilteredRates(syncRate, countRates):
+        if ok:= self.parent.dll.getMainFilteredRates(self.ID, syncRate, countRates):
             a = np.array(countRates)
             a = np.resize(a, self.parent.deviceConfig["NumChans"])
             a = np.insert(a, 0, syncRate.contents.value)
@@ -2567,6 +2571,7 @@ See:
 
     def __init__(self, parent):
         self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""
         self.mac = ()
         """The MAC address of the WR device"""
         self.initScript = ()
@@ -2606,7 +2611,7 @@ Example
     
         """
         mac = (ct.c_char * 18)()
-        ok =  self.parent.dll.WRabbitGetMAC(mac)
+        ok =  self.parent.dll.WRabbitGetMAC(self.ID, mac)
         self.mac = str(mac, "utf-8").replace('\x00','')
         return ok
     
@@ -2635,7 +2640,7 @@ Example
     sn.whiteRabbit.setMac("01-02-03-04-05-06")
         """
         SBuf = mac.encode('utf-8')
-        ok = self.parent.dll.WRabbitSetMAC(SBuf)
+        ok = self.parent.dll.WRabbitSetMAC(self.ID, SBuf)
         ok &= self.getMAC()
         return ok
 
@@ -2670,7 +2675,7 @@ Example
         dTxs = (ct.c_int * 4)()
         dRxs = (ct.c_int * 4)()
         alphas = (ct.c_int * 4)()
-        ok =  self.parent.dll.WRabbitGetSFPData(names, dTxs, dRxs, alphas)
+        ok =  self.parent.dll.WRabbitGetSFPData(self.ID, names, dTxs, dRxs, alphas)
         try:
             self.SFPnames = list(filter(None,str(names, "utf-8").replace('\x00','\n').splitlines()))
         except UnicodeDecodeError as e:
@@ -2705,7 +2710,7 @@ Example
     
         """
         script = (ct.c_char * 256)()
-        ok =  self.parent.dll.WRabbitGetInitScript(script)
+        ok =  self.parent.dll.WRabbitGetInitScript(self.ID, script)
         self.initScript = str(script, "utf-8").replace('\x00','')
         return ok
     
@@ -2740,7 +2745,7 @@ Example
         ok = self.getInitScript()
         if script != self.initScript:
             SBuf = script.encode('utf-8')
-            ok = self.parent.dll.WRabbitSetInitScript(SBuf)
+            ok = self.parent.dll.WRabbitSetInitScript(self.ID, SBuf)
             ok &= self.getInitScript()
         return ok
 
@@ -2785,7 +2790,7 @@ Example
         """
         script = (ct.c_char * 256)()
         self.parent.dll.WRabbitSetMode.restype = ct.c_bool
-        return self.parent.dll.WRabbitSetMode(bootFromScript, reinitWithMode, mode.value)
+        return self.parent.dll.WRabbitSetMode(self.ID, bootFromScript, reinitWithMode, mode.value)
     
     def getTime(self,):
         """
@@ -2811,7 +2816,7 @@ Example
         """
         time = ct.c_uint64(0)
         subSec16ns = ct.c_uint32(0)
-        ok = self.parent.dll.WRabbitGetTime(ct.byref(time), ct.byref(subSec16ns))
+        ok = self.parent.dll.WRabbitGetTime(self.ID, ct.byref(time), ct.byref(subSec16ns))
         return datetime.fromtimestamp(time.value + subSec16ns.value * 16e-9, tz=timezone.utc)
 
     def setTime(self, time: datetime):
@@ -2842,7 +2847,7 @@ Example
         """
         t = ct.c_uint64(round(time.replace(tzinfo=timezone.utc).timestamp()))
         self.parent.dll.WRabbitSetTime.restype = ct.c_bool
-        return self.parent.dll.WRabbitSetTime(t)
+        return self.parent.dll.WRabbitSetTime(self.ID, t)
     
     def initLink(self, onOff: bool):
         """
@@ -2870,7 +2875,7 @@ Example
     sn.whiteRabbit.initLink(True)
         """
         self.parent.dll.WRabbitInitLink.restype = ct.c_bool
-        return self.parent.dll.WRabbitInitLink(onOff)
+        return self.parent.dll.WRabbitInitLink(self.ID, onOff)
     
     def getStatus(self,):
         """
@@ -2904,7 +2909,7 @@ Example
         """
         status = ct.c_uint32(0)
         time.sleep(1)
-        ok = self.parent.dll.WRabbitGetStatus(ct.byref(status))
+        ok = self.parent.dll.WRabbitGetStatus(self.ID, ct.byref(status))
         return status.value
     
     def getTermOutput(self, VT100: typing.Optional[bool] = False):
@@ -2945,7 +2950,7 @@ Example
         sOld = ""
         
         for i in range(20):
-            if self.parent.dll.WRabbitGetTermOutput(termOut):
+            if self.parent.dll.WRabbitGetTermOutput(self.ID, termOut):
                 temp = str(termOut, "utf-8")
                 pos = temp.find("\x1b[01;34mWR PTP Core Sync Monitor")
                 if(pos >= 0):
@@ -2959,7 +2964,7 @@ Example
                 
         i = 0
         while True:
-            if self.parent.dll.WRabbitGetTermOutput(termOut):
+            if self.parent.dll.WRabbitGetTermOutput(self.ID, termOut):
                 if VT100:
                     temp = str(termOut, "utf-8").replace('\x00','')
                     if(len(temp) > 0 and temp != sOld and s.find(temp) < 0):
@@ -3026,6 +3031,7 @@ There are special functions to decode the :obj:`.MeasMode.T2`and :obj:`.MeasMode
 
     def __init__(self, parent):
         self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""
         self.data = ct.ARRAY(ct.c_uint32, 0)()
         self.finished = ct.pointer(ct.c_bool(False))
         self.idx = ct.pointer(ct.c_uint64(0))
@@ -3095,7 +3101,7 @@ Example
             self.parent.logPrint( Color.Red + "measurement is not supported for Raw class in MeasMode:", name)
             return False
         self.parent.dll.rawMeasure.restype = ct.c_bool
-        return self.parent.dll.rawMeasure(acqTime, waitFinished, savePTU, ct.byref(self.data), self.idx, ct.c_uint64(size), self.finished)
+        return self.parent.dll.rawMeasure(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.data), self.idx, ct.c_uint64(size), self.finished)
     
 
     def startBlock(self, acqTime: typing.Optional[int] = 1000, size: typing.Optional[int] = 134217728, savePTU: typing.Optional[bool] = False):
@@ -3153,7 +3159,7 @@ Example
             self.parent.logPrint( Color.Red + "startBlock is not supported for Raw class in MeasMode:", name)
             return False
         self.parent.dll.rawStartBlock.restype = ct.c_bool
-        return self.parent.dll.rawStartBlock(acqTime, savePTU, ct.byref(self.storeData), ct.c_uint64(size), self.finished)
+        return self.parent.dll.rawStartBlock(self.ID, acqTime, savePTU, ct.byref(self.storeData), ct.c_uint64(size), self.finished)
     
 
     def getBlock(self):
@@ -3191,7 +3197,7 @@ Example
             self.parent.logPrint( Color.Red + "startBlock is not supported for Raw class in MeasMode:", name)
             self.idx.contents.value = 0
         else:
-            self.parent.dll.rawGetBlock(ct.byref(self.data), size)
+            self.parent.dll.rawGetBlock(self.ID, ct.byref(self.data), size)
             self.idx.contents.value = size.contents.value
         return self.getData()
     
@@ -3324,7 +3330,7 @@ Returns
     None
     
         """
-        self.parent._stopMeasure()
+        self.parent._stopMeasure(self.ID)
     
 
     def isSpecial(self, data: int) :
@@ -3553,6 +3559,7 @@ There are special functions to decode the channel information:
 
     def __init__(self, parent):
         self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""   
         self.times = ct.ARRAY(ct.c_uint64, 0)()
         self.channels = ct.ARRAY(ct.c_uint8, 0)()
         self.idx = ct.pointer(ct.c_uint64(0))
@@ -3619,7 +3626,7 @@ Example
             self.parent.logPrint( Color.Red + "measurement is not supported for Unfold class in MeasMode:", name)
             return False
         self.parent.dll.ufMeasure.restype = ct.c_bool
-        return self.parent.dll.ufMeasure(acqTime, waitFinished, savePTU, ct.byref(self.times), ct.byref(self.channels), self.idx, ct.c_uint64(size), self.finished)
+        return self.parent.dll.ufMeasure(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.times), ct.byref(self.channels), self.idx, ct.c_uint64(size), self.finished)
     
 
     def startBlock(self, acqTime: int= 1000, size: int = 134217728, savePTU: typing.Optional[bool] = False):
@@ -3683,7 +3690,7 @@ Example
             self.parent.logPrint( Color.Red + "startBlock is not supported for Unfold class in MeasMode:", name)
             return False
         self.parent.dll.ufStartBlock.restype = ct.c_bool
-        return self.parent.dll.ufStartBlock(acqTime, savePTU, ct.byref(self.storeTimes), ct.byref(self.storeChannels), ct.c_uint64(size), self.finished)
+        return self.parent.dll.ufStartBlock(self.ID, acqTime, savePTU, ct.byref(self.storeTimes), ct.byref(self.storeChannels), ct.c_uint64(size), self.finished)
     
 
     def getBlock(self):
@@ -3724,7 +3731,7 @@ Example
             self.parent.logPrint( Color.Red + "startBlock is not supported for Unfold class in MeasMode:", name)
             self.idx.contents.value = 0
         else:
-            self.parent.dll.ufGetBlock(ct.byref(self.times), ct.byref(self.channels), size)
+            self.parent.dll.ufGetBlock(self.ID, ct.byref(self.times), ct.byref(self.channels), size)
             self.idx.contents.value = size.contents.value
         return self.getData()
     
@@ -3927,7 +3934,7 @@ Returns
     None
     
         """
-        self.parent._stopMeasure()
+        self.parent._stopMeasure(self.ID)
     
 
     def getTimesByChannel(self, channel: int, size: typing.Optional[int] = None):
@@ -4146,11 +4153,11 @@ to use the :obj:`.MeasMode.T2` instead.
 
     def __init__(self, parent):
         self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""   
         self.data = ct.ARRAY(ct.c_uint32, 0)()
         self.numBins = 0
         self.T2binWidth = 0
         self.bins = np.array(range(self.numBins), dtype='i8')
-        
         self.finished = ct.pointer(ct.c_bool(False))
         
 
@@ -4189,8 +4196,8 @@ Example
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
             name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
             self.parent.logPrint( Color.Red + "setRefChannel is not supported in MeasMode:", name)
-        self.parent.dll.setHistoT2RefChan.argtypes = [ct.c_uint8]
-        self.parent.dll.setHistoT2RefChan(channel)
+        self.parent.dll.setHistoT2RefChan.argtypes = [ct.c_wchar_p, ct.c_uint8]
+        self.parent.dll.setHistoT2RefChan(self.ID, channel)
         
     def setNumBins(self, numBins: typing.Optional[int] = 10000) :
         """
@@ -4227,9 +4234,11 @@ Example
         if(self.parent.deviceConfig["MeasMode"] != MeasMode.T2.value):
             name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
             self.parent.logPrint( Color.Red + "setNumBins is not supported in MeasMode:", name)
-        self.parent.dll.setHistoT2NumBins.argtypes = [ct.c_uint64]
+            return False
+        self.numBins = numBins
+        self.parent.dll.setHistoT2NumBins.argtypes = [ct.c_wchar_p, ct.c_uint64]
         self.parent.dll.setHistoT2NumBins.restype = ct.c_bool
-        if ok:= self.parent.dll.setHistoT2NumBins(numBins):
+        if ok:= self.parent.dll.setHistoT2NumBins(self.ID, self.numBins):
                 self.parent.getDeviceConfig()
         return ok
 
@@ -4270,13 +4279,13 @@ Example
             name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
             self.parent.logPrint( Color.Red + "setBinWidth is not supported in MeasMode:", name)
         self.T2binWidth = binWidth
-        self.parent.dll.setHistoT2BinWidth.argtypes = [ct.c_uint64]
-        self.parent.dll.setHistoT2BinWidth(binWidth)
+        self.parent.dll.setHistoT2BinWidth.argtypes = [ct.c_wchar_p, ct.c_uint64]
+        self.parent.dll.setHistoT2BinWidth(self.ID, binWidth)
 
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = True, savePTU: typing.Optional[bool] = False):
         """
-With this function a measurement and creation of a histogram us initiated, which ist stored 
+With this function a measurement and creation of a histogram us initiated, which is stored 
 into RAM and/or disc. If `waitFinished` is set `True` the call will be blocked until the measurement
 is completed. If `waitFinished` is set to `False` (default) you can get updates on the fly,
 and you can access the execution status with the :meth:`isFinished` function.
@@ -4286,20 +4295,12 @@ Note
 ----
     If you want to write the data to disc only, set the size to zero.
 
-Warning
--------
-    If the colleted data exceeds the buffer size a warning will be added to the log: 
-    'WRN UfStore buffer overrun - clearing!' and the internal buffer will be cleared. This
-    means that this part of data is lost! To prevent this, you should reduce the count rate.
-    
 Parameters
 ----------
     acqTime: int (default: 1000 ms)
         | 0: means the measurement will run until :meth:`stopMeasure`
         | acquisition time [ms]
         | will be ignored if device is a FileDevice
-    size: int number of records (default: 128 million records = 1GB)
-        memory size for the data array
     waitFinished: bool (default: True)
         True: block execution until finished (will be False on acqTime = 0)
     savePTU: bool (default: False)
@@ -4322,11 +4323,12 @@ Example
     data, bins = sn.histogram.getData()
     
         """
-        self.numBins = self.parent.deviceConfig["NumBins"]
         if self.T2binWidth == 0:
             self.T2binWidth = self.parent.deviceConfig["BaseResolution"]
-        numChans = self.parent.getNumAllChannels()
-        self.data = ct.ARRAY(ct.c_uint32, numChans * self.numBins)(0)
+        if self.numBins == 0:
+            self.numBins = self.parent.deviceConfig["NumBins"]
+        self.numChans = self.parent.dll.getNumAllChans(self.ID)
+        self.data = ct.ARRAY(ct.c_uint32, self.numChans * self.numBins)(0)
         
         self.bins = np.array(range(self.numBins), dtype='i8')
         if (self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
@@ -4337,8 +4339,7 @@ Example
             self.bins = np.multiply(self.bins, self.parent.deviceConfig["Resolution"])
             
         self.parent.dll.getHistogram.restype = ct.c_bool
-        return self.parent.dll.getHistogram(acqTime, waitFinished, savePTU, ct.byref(self.data), self.finished)
-    
+        return self.parent.dll.getHistogram(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.data), self.finished)
 
     def getData(self):
         """
@@ -4378,9 +4379,7 @@ Example
             break
     
         """
-        self.numBins = self.parent.deviceConfig["NumBins"]
-        numChans = self.parent.getNumAllChannels()
-        dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(numChans, self.numBins),
+        dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(self.numChans, self.numBins),
             strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))
         return dataOut, self.bins
     
@@ -4400,7 +4399,7 @@ Returns
     None
     
         """
-        self.parent._stopMeasure()
+        self.parent._stopMeasure(self.ID)
     
         
     def clearMeasure(self):
@@ -4418,7 +4417,7 @@ Returns
     None
     
         """
-        self.parent._clearMeasure()
+        self.parent._clearMeasure(self.ID)
     
 
     def isFinished(self):
@@ -4461,7 +4460,436 @@ Example
         """
         return self.finished.contents.value
 
+class Histogram2D():
+    """
+This measurement class provides you with 2 dimensional histogram of time differences between a reference channel
+and a X- and a Y-channel. 
+The :obj:`.MeasMode.T3` always calculate the differences between the sync and other channels. However, in :obj:`.MeasMode.T2` you
+can change the reference channel. The :obj:`.MeasMode.Histogram` is not supported by this class.
 
+.. image:: _static/Histogram2d.png
+    :width: 600px
+    :class: only-light
+    
+.. image:: _static/Histogram2d_dark.png
+    :width: 600px
+    :class: only-dark
+    
+:figure-caption:`This figure shows the generation of a 2D-Histogram measurement.`
+    """
+    
+
+    def __init__(self, parent):
+        self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""   
+        self.data = ct.ARRAY(ct.c_uint32, 0)()
+        self.refChannel = 0
+        self.channelX = 0
+        self.channelY = 0
+        self.binWidthX = 0
+        self.binWidthY = 0
+        self.numBinsX = 0
+        self.numBinsY = 0
+        self.totMode = False
+        self.timewalkFactor = 0
+        self.finished = ct.pointer(ct.c_bool(False))
+        self.diffTimeMax = (1 << 64) - 1
+        self.diffTimeMin = 0
+        self.correctionX = 0
+        self.correctionY = 0
+        self.timewalkCorrectionFactor = 0
+
+
+    def setHisto2dParams(self, refChannel: typing.Optional[int] = 0, channelX: typing.Optional[int] = 1, channelY: typing.Optional[int] = 2,
+                         offsetX: typing.Optional[int] = 0, offsetY: typing.Optional[int] = 0,
+                         binWidthX: typing.Optional[int] = None, binWidthY: typing.Optional[int] = None,
+                         numBinsX: typing.Optional[int] = 100, numBinsY: typing.Optional[int] = 100) :
+        """
+Configure parameters for a 2D diffTime histogram built from *paired* events on two channels.
+
+Pairing rule
+    Histogramming is performed in repeated "reference windows":
+    - A new window starts when an event on the **reference channel** occurs.
+    - Within that window, the **first** event on `channelX` and the **first** event on `channelY` are taken as a pair.
+    - Once both have been found, exactly **one** histogram increment is produced and the window is closed (additional events in the same window are ignored).
+
+Reference channel behavior
+    - :obj:`.MeasMode.T3`: The reference channel is fixed to **SYNC**. `refChannel` is ignored.
+    - :obj:`.MeasMode.T2`: The reference channel can be selected via `refChannel`.
+
+Binning
+    For each accepted pair, diffTimes are mapped to histogram bins:
+    x_bin = (diffTimeX - offsetX) / binWidthX
+    y_bin = (diffTimeY - offsetY) / binWidthY
+    and accumulated into a 2D array of shape (numBinsY, numBinsX).
+    
+Parameters
+----------
+    refChannel : int (default: 0 sync channel)
+        Reference channel (0 is sync channel, 1 is channel 1.. ) 
+        used for pairing in :obj:`.MeasMode.T2`. 
+        Ignored in :obj:`.MeasMode.T3` where SYNC is the fixed reference.
+    channelX : int
+        Input channel mapped to the X axis (horizontal) of the histogram.
+    channelY : int, optional
+        Input channel mapped to the Y axis (vertical) of the histogram.
+    offsetX : int, optional
+        Offset applied to diffTimeX before binning (same unit as diffTime in ps).
+    offsetY : int, optional
+        Offset applied to diffTimeY before binning (same unit as diffTime in ps).
+    binWidthX : int | None, optional
+        Bin width for the X axis (same unit as diffTime in ps).
+        If None, BaseResolution in :obj:`.MeasMode.T2` | Resolution in :obj:`.MeasMode.T3` is used.
+    binWidthY : int | None, optional
+        Bin width for the Y axis (same unit as diffTime in ps). 
+        If None, BaseResolution in :obj:`.MeasMode.T2` | Resolution in :obj:`.MeasMode.T3` is used.
+    numBinsX : int, optional
+        Number of bins along the X axis.
+    numBinsY : int, optional
+        Number of bins along the Y axis.
+
+Returns
+-------
+    None
+
+Example
+-------
+::
+
+    # Creates a 2D-Histogram in :obj:`.MeasMode.T3` from 0ps up to 100ns in 100ps bins
+    # This is useful to find the sweet spot
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T3)
+    sn.histogram2d.setHisto2dParams(refChannel=0, channelX=1, channelY=2, offsetX=0, offsetY=0, 
+                         binWidthX=100, binWidthY=100, numBinsX=1000, numBinsY=1000)
+    sn.histogram2d.measure(acqTime=1000, waitFinished=True, savePTU=False)
+    data = sn.histogram2d.getData()
+            ...
+
+        """
+        
+        if binWidthX is None:
+            if self.parent.deviceConfig["MeasMode"] == MeasMode.T2.value:
+                binWidthX = int(self.parent.deviceConfig["BaseResolution"])
+            elif self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value:
+                binWidthX = int(self.parent.deviceConfig["Resolution"])
+        if binWidthX < self.parent.deviceConfig["Resolution"]:
+            resolution = self.parent.deviceConfig['Resolution']
+            self.parent.logPrint(Color.Red + f"binWidth {binWidthX}ps can't be less than Resolution ({resolution}ps)")
+            
+        if binWidthY is None:
+            if self.parent.deviceConfig["MeasMode"] == MeasMode.T2.value:
+                binWidthY = int(self.parent.deviceConfig["BaseResolution"])
+            elif self.parent.deviceConfig["MeasMode"] == MeasMode.T3.value:
+                binWidthY = int(self.parent.deviceConfig["Resolution"])
+        if binWidthY < self.parent.deviceConfig["Resolution"]:
+            resolution = self.parent.deviceConfig['Resolution']
+            self.parent.logPrint(Color.Red + f"binWidth {binWidthY}ps can't be less than Resolution ({resolution}ps)")
+        
+        self.refChannel = refChannel
+        self.channelX = channelX
+        self.channelY = channelY
+        self.offsetX = offsetX
+        self.offsetY = offsetY
+        self.binWidthX = binWidthX
+        self.binWidthY = binWidthY
+        self.numBinsX = numBinsX
+        self.numBinsY = numBinsY
+        
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "setHisto2dParams is not supported in MeasMode:", name)
+        self.parent.dll.setHisto2dParams.argtypes = [ct.c_wchar_p, ct.c_uint8, ct.c_uint8, ct.c_uint8, ct.c_uint64, ct.c_uint64, ct.c_uint64, ct.c_uint64, ct.c_uint64, ct.c_uint64,]
+        self.parent.dll.setHisto2dParams(self.ID, refChannel, channelX, channelY, offsetX, offsetY, binWidthX, binWidthY, numBinsX, numBinsY)
+
+
+    def setHisto2dTotMode(self, totMode: typing.Optional[bool] = True, timewalkFactor: typing.Optional[float] = 0):
+        """
+Enable/disable pulse-width (ToT) mode for the 2D histogram.
+
+When totMode is True, the Y value is formed from the difference between the
+trailing-edge timestamp and the leading-edge timestamp of the same event
+(i.e. pulse width / time-over-threshold), instead of using a second arrival
+time relative to the reference channel.
+
+The timewalkFactor applies an optional linear time-walk correction (in ps per ps)
+to compensate systematic shifts of the extracted timestamps caused by pulse-shape
+variations (e.g. detector recovery). Set to 0 to disable.
+
+Parameters
+----------
+    totMode : bool, optional (default: 0 - only after executing this function)
+        Time over Threshold mode
+    timewalkFactor : float, optional (default 0: off)
+        a linear increasing compensation factor 
+
+Returns
+-------
+    None
+
+Example
+-------
+::
+
+    # creates a 2D-Histogram in :obj:`.MeasMode.T3` from 10ns up to 11ns in 1ps bins
+    # suppress late or accidental coincidences below 50ns. 
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T3)
+    sn.histogram2d.setHisto2dParams(refChannel=0, channelX=1, channelY=2, offsetX=10000, offsetY=10000, 
+                         binWidthX=1, binWidthY=1, numBinsX=1000, numBinsY=1000)
+    sn.histogram2d.measure(acqTime=1000, waitFinished=True, savePTU=False)
+    data = sn.histogram2d.getData()
+            ...
+
+        """
+        
+        self.totMode = totMode
+        self.timewalkFactor = timewalkFactor
+        
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "setHisto2dFilter is not supported in MeasMode:", name)
+        self.parent.dll.setHisto2dTotMode.argtypes = [ct.c_wchar_p, ct.c_bool, ct.c_double]
+        self.parent.dll.setHisto2dTotMode(self.ID, bool(totMode), timewalkFactor)
+        
+    def setHisto2dRecoveryTimingCorrection(self, diffTimeMin: typing.Optional[int] = 0, diffTimeMax: typing.Optional[int] = (1 << 64) - 1,
+                                           correctionX: typing.Optional[int] = 0, correctionY: typing.Optional[int] = 0,
+                                           timewalkCorrectionFactor: typing.Optional[float] = 0):
+        """
+Configure timing corrections for 2D histograms to compensate detector recovery artifacts.
+
+    Some detectors (e.g. SNSPDs) can produce delayed or distorted events when they are not
+    fully recovered (baseline-shift). This can appear as shifted/tilted "ghost" clusters in 2D histograms.
+    This function applies per-event timestamp corrections before binning.
+
+Parameters
+----------
+    diffTimeMin : int [ps], optional
+        Lower bound for the accepted time difference window. Only events with a time
+        difference >= diffTimeMin are corrected/used (default: 0).
+
+    diffTimeMax : int [ps], optional
+        Upper bound for the accepted time difference window. Only events with a time
+        difference <= diffTimeMax are corrected/used (default: infinity).
+
+    correctionX : int [ps], optional
+        Constant timing offset added to the X timestamp before histogramming (default: 0).
+
+    correctionY : int [ps], optional
+        Constant timing offset added to the Y timestamp before histogramming (default: 0).
+
+    timewalkCorrectionFactor : float, optional
+        Linear time-walk correction factor applied as a function of pulse-shape proxy
+        (e.g. pulse width / edge difference). Use 0 to disable (default: 0).
+
+Notes
+-----
+    - `diffTimeMin` and `diffTimeMax` are interpreted in the same units as diffTime
+        (typically picoseconds, depending on device/mode).
+    - If `diffTimeMin > diffTimeMax`, the filter window is empty and no pairs will pass.
+    - Only meaningful in :obj:`.MeasMode.T2` and :obj:`.MeasMode.T3`.
+
+Returns
+-------
+    None
+
+Example
+-------
+::
+
+    # creates a 2D-Histogram in :obj:`.MeasMode.T3` from 10ns up to 11ns in 1ps bins
+    # suppress late or accidental coincidences below 50ns. 
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T3)
+    sn.histogram2d.setHisto2dParams(refChannel=0, channelX=1, channelY=2, offsetX=10000, offsetY=10000, 
+                         binWidthX=1, binWidthY=1, numBinsX=1000, numBinsY=1000)
+    # activate ToT mode and     
+    sn.histogram2d.setHisto2dTotMode(totMode=True, timewalkFactor=0.7)
+    sn.histogram2d.setHisto2dRecoveryTimingCorrection(diffTimeMin=50000, correctionX=-33, correctionY=250, timewalkCorrectionFactor=-0.2)
+    sn.histogram2d.measure(acqTime=0, waitFinished=True, savePTU=False)
+    
+    data = sn.histogram2d.getData()
+            ...
+
+        """
+        
+        self.diffTimeMin = diffTimeMin
+        self.diffTimeMax = diffTimeMax
+        self.correctionX = correctionX
+        self.correctionY = correctionY
+        self.timewalkCorrectionFactor = timewalkCorrectionFactor
+        
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "setHisto2dFilter is not supported in MeasMode:", name)
+        self.parent.dll.setHisto2dRecoveryTimingCorrection.argtypes = [ct.c_wchar_p, ct.c_uint64, ct.c_uint64, ct.c_uint64, ct.c_uint64, ct.c_double]
+        self.parent.dll.setHisto2dRecoveryTimingCorrection(self.ID, int(diffTimeMin), int(diffTimeMax), int(correctionX), int(correctionY), timewalkCorrectionFactor)
+
+
+    def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = True, savePTU: typing.Optional[bool] = False):
+        """
+With this function a measurement and creation of a 2D-Histogram us initiated, which is stored 
+into RAM and/or disc. If `waitFinished` is set `True` the call will be blocked until the measurement
+is completed. If `waitFinished` is set to `False` (default) you can get updates on the fly,
+and you can access the execution status with the :meth:`isFinished` function.
+If you wish to obtain updates on the fly the data can be accessed with :meth:`getData`.
+
+Note
+----
+    If you want to write the data to disc only, set the size to zero.
+
+Parameters
+----------
+    acqTime: int (default: 1000 ms)
+        | 0: means the measurement will run until :meth:`stopMeasure`
+        | acquisition time [ms]
+        | will be ignored if device is a FileDevice
+    waitFinished: bool (default: True)
+        True: block execution until finished (will be False on acqTime = 0)
+    savePTU: bool (default: False)
+        Save data to ptu file
+
+Returns
+-------
+    True: operation successful
+    False: operation failed
+
+Example
+-------
+::
+
+    # Creates a 2D-Histogram in :obj:`.MeasMode.T3` from 0ps up to 100ns in 100ps bins
+    # This is useful to find the sweet spot
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T3)
+    sn.histogram2d.setHisto2dParams(refChannel=0, channelX=1, channelY=2, offsetX=0, offsetY=0, 
+                         binWidthX=100, binWidthY=100, numBinsX=1000, numBinsY=1000)
+    sn.histogram2d.measure(acqTime=1000, waitFinished=True, savePTU=False)
+    data = sn.histogram2d.getData()
+            ...
+    
+        """
+        self.data = ct.ARRAY(ct.c_uint32, self.numBinsY * self.numBinsX)(0)
+        
+        if (self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "Histogram2D.measure is not supported in MeasMode:", name)
+            return False
+
+        self.parent.dll.getHistogram.restype = ct.c_bool
+        return self.parent.dll.get2dHistogram(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.data), self.finished)
+    
+
+    def getData(self):
+        """
+This function returns the data of the histogram measurement.
+
+Parameters
+----------
+    None
+            
+Returns
+-------
+    [2DArray]
+
+Example
+-------
+::
+
+    # Creates a 2D-Histogram in :obj:`.MeasMode.T3` from 0ps up to 100ns in 100ps bins
+    # This is useful to find the sweet spot
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T3)
+    sn.histogram2d.setHisto2dParams(refChannel=0, channelX=1, channelY=2, offsetX=0, offsetY=0, 
+                         binWidthX=100, binWidthY=100, numBinsX=1000, numBinsY=1000)
+    sn.histogram2d.measure(acqTime=1000, waitFinished=True, savePTU=False)
+    data = sn.histogram2d.getData()
+        """
+        dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(self.numBinsY, self.numBinsX),
+            strides=(ct.sizeof(self.data._type_) * self.numBinsX, ct.sizeof(self.data._type_)))
+        return dataOut
+    
+
+    def stopMeasure(self):
+        """
+After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.
+
+Parameters
+----------
+    None
+    
+Returns
+-------
+    None
+    
+        """
+        self.parent._stopMeasure(self.ID)
+    
+        
+    def clearMeasure(self):
+        """
+Some measurements calculate their results on large sets of historical data. When conditions have changed,
+the old data may need to be deleted to get an unobstructed view of the new data. This function deletes the internal 
+data without having to restart the measurement.
+
+Parameters
+----------
+    None
+    
+Returns
+-------
+    None
+    
+        """
+        self.parent._clearMeasure(self.ID)
+    
+
+    def isFinished(self):
+        """
+This function reports whether the measurement is finished.
+
+Warning
+-------
+    If the measurement is finished, there might be some data available, which was not retrieved yet. It may be necessary to 
+    call :meth:`getData()` once again after `isFinished` returns `True`.
+    Check out the example of a possible implementation below.
+
+Parameters
+----------
+    None
+
+Returns
+-------
+    True: the measurement is finished
+    False: the measurement is running
+
+Example
+-------
+::
+
+    # runs a while loop until the measurement is finished
+        while sn.histogram.isFinished():
+        data = sn.histogram.getData()
+            ...
+    
+    # break a while loop if the measurement is finished and reads the last data 
+        while True:
+        finished = sn.histogram.isFinished()
+        data = sn.histogram.getData()
+            ...
+            
+        if finished:
+            break
+    
+        """
+        return self.finished.contents.value
 
 class TimeTrace():
     """
@@ -4486,6 +4914,7 @@ Note
 
     def __init__(self, parent):
         self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""   
         self.data = ct.ARRAY(ct.c_uint32, 0)()
         self.t0 = ct.c_uint64(0)
         self.numBins = 10000
@@ -4519,29 +4948,34 @@ Example
     
         """
         self.numBins = numBins
-        self.parent.dll.setTimeTraceNumBins(numBins)
+        self.parent.dll.setTimeTraceNumBins(self.ID, numBins)
         
 
     def setHistorySize(self, historySize: typing.Optional[float] = 1):
         """
-This function sets the length or duration of the recorded data in the time domain in which
-the counts are collected.
+Set the histogram time span (time range) that is binned.
 
-Warning
--------
-    It is possible to set the history size to nanoseconds to see the individual photons.
-    However, because the data is processed in real time this may not be sustainable for live measurements at high count rates.
-    If the data is read from a file it will work at any rate, but processing the file may take
-    longer than it took to record it.
-    
+The history size defines the total time interval covered by the histogram
+(from the first to the last bin). It therefore controls the time resolution
+together with the number of bins.
+
 Note
 ----
-    The bin width can calculated as :math:`binWidth = historySize / numBins`.
+- Bin width is derived from: :math:`binWidth = historySize / numBins`
+- Smaller historySize -> finer time resolution (smaller binWidth), but a shorter time window.
+- Larger historySize -> coarser resolution, but a longer time window.
+
+Performance
+-----------
+Using very small historySize (down to the ns range) can make individual photons
+visible, but increases update rate and CPU load for live processing at high
+count rates. Offline processing from a file works at any rate, but may take
+longer than the acquisition time.
 
 Parameters
 ----------
-    historySize: float [s] (default: 1s)
-        length or duration of the recorded data in the time domain
+historySize : float [s], optional
+    Total time span covered by the histogram (default: 1 s).
 
 Returns
 -------
@@ -4551,13 +4985,22 @@ Example
 -------
 ::
 
-    # sets a history size of 10s
+    # gets real time data with a history size of 10s
+    ...
+    sn.getDevice()
+    sn.initDevice(MeasMode.T2)
+    # 10000 bins
+    sn.timeTrace.setNumBins(10000)
+    # the timetrace now will show the last 10 seconds measured
+    # that means 1 bin has a width of 10s / 10000 = 1ms  
     sn.timeTrace.setHistorySize(10)
+    sn.timeTrace.measure()
+    counts, times = sn.timeTrace.getData()
     
         """
         self.historySize = historySize
-        self.parent.dll.setTimeTraceHistorySize.argtypes = [ct.c_double]
-        self.parent.dll.setTimeTraceHistorySize(historySize)
+        self.parent.dll.setTimeTraceHistorySize.argtypes = [ct.c_wchar_p, ct.c_double]
+        self.parent.dll.setTimeTraceHistorySize(self.ID, historySize)
         
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
@@ -4592,12 +5035,17 @@ Example
     sn.getDevice()
     sn.getFileDevice(r"E:\Data\PicoQuant\HH400-PMT-cw-1MHz.ptu")
     sn.initDevice(MeasMode.T2)
+    # 10000 bins
     sn.timeTrace.setNumBins(10000)
+    # the timetrace now will show the last 10 seconds measured
+    # that means 1 bin has a width of 10s / 10000 = 1ms  
     sn.timeTrace.setHistorySize(10)
+    sn.timeTrace.measure()
+    counts, times = sn.timeTrace.getData()
     
         """
-        numChans = self.parent.getNumAllChannels()
-        self.data = ct.ARRAY(ct.c_uint32, numChans * self.numBins)(0)
+        self.numChans = self.parent.dll.getNumAllChans(self.ID)
+        self.data = ct.ARRAY(ct.c_uint32, self.numChans * self.numBins)(0)
         
         if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
             name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
@@ -4605,7 +5053,7 @@ Example
             return False
         
         self.parent.dll.getTimeTrace.restype = ct.c_bool
-        return self.parent.dll.getTimeTrace(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.t0), self.finished)
+        return self.parent.dll.getTimeTrace(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.t0), self.finished)
     
 
     def getData(self, normalized: typing.Optional[bool] = True):
@@ -4630,13 +5078,14 @@ Example
 -------
 ::
 
-    # plots a time trace from a file
     ...
     sn = snAPI()
     sn.getDevice()
-    sn.getFileDevice(r"E:\Data\PicoQuant\CW_Shelved.ptu")
+    # 10000 bins
     sn.timeTrace.setNumBins(10000)
-    sn.timeTrace.setHistorySize(255)
+    # the timetrace now will show the last 10 seconds measured
+    # that means 1 bin has a width of 10s / 10000 = 1ms  
+    sn.timeTrace.setHistorySize(10)
     sn.timeTrace.measure()
     counts, times = sn.timeTrace.getData()
     plt.clf()
@@ -4653,8 +5102,8 @@ Example
     
         """
         
-        numChans = self.parent.getNumAllChannels()
-        dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(numChans, self.numBins),
+        self.numChans = self.parent.dll.getNumAllChans(self.ID)
+        dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(self.numChans, self.numBins),
             strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))
         if normalized:
             dataOut = np.multiply(dataOut, self.numBins/self.historySize)
@@ -4723,7 +5172,7 @@ Returns
     None
     
         """
-        self.parent._stopMeasure()
+        self.parent._stopMeasure(self.ID)
         
         
     def clearMeasure(self):
@@ -4741,8 +5190,7 @@ Returns
     None
     
         """
-        self.parent._clearMeasure()
-
+        self.parent._clearMeasure(self.ID)
 
 
 class Correlation():
@@ -4767,6 +5215,7 @@ multi-tau algorithm uses pseudo-logarithmically increasing bin widths.
 
     def __init__(self, parent):
         self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""
         self.data = np.array(range(0), dtype='double')
         self.bins = np.array(range(0), dtype='double')
         self.startChannel = 1
@@ -4847,8 +5296,8 @@ Example
         self.isFcs = False
         self.normalization = normalization
         
-        self.parent.dll.setG2Params.argtypes = [ct.c_int, ct.c_int, ct.c_double, ct.c_double, ct.c_bool]
-        self.parent.dll.setG2Params(startChannel, stopChannel, windowSize, binWidth, normalization)
+        self.parent.dll.setG2Params.argtypes = [ct.c_wchar_p, ct.c_int, ct.c_int, ct.c_double, ct.c_double, ct.c_bool]
+        self.parent.dll.setG2Params(self.ID, startChannel, stopChannel, windowSize, binWidth, normalization)
     
 
     def setFCSParameters(self, startChannel: int, stopChannel: int, startTime: typing.Optional[float] = 1e6, stopTime: typing.Optional[float] = 1e12, numBins: typing.Optional[int] = 30):
@@ -4902,8 +5351,8 @@ Example
 
         pNumTaus = ct.pointer(ct.c_int(0))
         
-        self.parent.dll.setFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_double, ct.c_double, ct.c_int]
-        self.parent.dll.setFCSParams(startChannel, stopChannel, pNumTaus, startTime, stopTime, numBins)
+        self.parent.dll.setFCSParams.argtypes = [ct.c_wchar_p, ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_double, ct.c_double, ct.c_int]
+        self.parent.dll.setFCSParams(self.ID, startChannel, stopChannel, pNumTaus, startTime, stopTime, numBins)
         self.numTaus = pNumTaus.contents.value
 
     def setFFCSParameters(self, startChannel: int, stopChannel: int, startTime: typing.Optional[float] = 1e6, stopTime: typing.Optional[float] = 1e12, numBins: typing.Optional[int] = 30):
@@ -4962,8 +5411,8 @@ Example
 
         pNumTaus = ct.pointer(ct.c_int(0))
         
-        self.parent.dll.setFFCSParams.argtypes = [ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_double, ct.c_double, ct.c_int]
-        self.parent.dll.setFFCSParams(startChannel, stopChannel, pNumTaus, startTime, stopTime, numBins)
+        self.parent.dll.setFFCSParams.argtypes = [ct.c_wchar_p, ct.c_int, ct.c_int, ct.POINTER(ct.c_int), ct.c_double, ct.c_double, ct.c_int]
+        self.parent.dll.setFFCSParams(self.ID, startChannel, stopChannel, pNumTaus, startTime, stopTime, numBins)
         self.numTaus = pNumTaus.contents.value
 
     def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = False, savePTU: typing.Optional[bool] = False):
@@ -5025,7 +5474,7 @@ Example
 
         self.bins = ct.ARRAY(ct.c_double, self.numBins)(0) 
         self.parent.dll.getCorrelation.restype = ct.c_bool
-        return self.parent.dll.getCorrelation(acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.bins), self.finished)
+        return self.parent.dll.getCorrelation(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.bins), self.finished)
 
 
     def getG2Data(self):
@@ -5150,7 +5599,7 @@ Returns
     None
     
         """
-        self.parent._stopMeasure()
+        self.parent._stopMeasure(self.ID)
     
 
     def clearMeasure(self):
@@ -5168,7 +5617,7 @@ Returns
     None
     
         """
-        self.parent._clearMeasure()
+        self.parent._clearMeasure(self.ID)
 
 
     def isFinished(self):
@@ -5210,6 +5659,127 @@ Example
     
         """
         return self.finished.contents.value
+
+
+
+class ExportStream():
+    """This is the `Raw` measurement class.
+
+can be used to export data channels to other unfolded (time-tagged) data streams. To do this, the Manipulator :meth:`importStream` must be used for the other data stream.  
+
+Note
+----
+    This is working only in :obj:`.MeasMode.T2` and is not supported in :obj:`.MeasMode.Histogram` and :obj:`.MeasMode.T3`.
+    
+    """
+
+    def __init__(self, parent):
+        self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""
+        self.finished = ct.pointer(ct.c_bool(False))
+        
+
+    def measure(self, acqTime: typing.Optional[int] = 1000, waitFinished: typing.Optional[bool] = True, savePTU: typing.Optional[bool] = False):
+        """
+With this function a simple measurement of `Unfold` data records into RAM (and disc) is provided. Normally you don't need to call this function, because the measurement of
+the exporting device will automatically start when the :meth:`importStream` function of the Manipulator :meth:`ImportStream` is used with the remoteStartStop parameter set to `True`.
+However, if you want to start the measurement of the exporting device manually, you can use this function. If `waitFinished` is set `True` the call will block until the measurement is completed.
+If `waitFinished` is set `False` (default) you can get updates on the fly, and you can access the execution status with the :meth:`isFinished` function.
+
+Warning
+-------
+If a `Unfold Buffer overrun - clearing!` warning or `Unfold Buffer full - waiting!` info means, that data can't be stored
+in the allocated memory `size`. Increase the memory `size`!
+
+Parameters
+----------
+    acqTime: int (default: 1000 ms)
+        | 0: means the measurement will run until :meth:`stopMeasure`
+        | acquisition time [ms]
+        | will be ignored if device is a FileDevice
+    waitFinished: bool (default: True)
+        True: block execution until finished (will be False on acqTime = 0)
+    savePTU: bool (default: False)
+        Save data to ptu file
+
+Returns
+-------
+    True: operation successful
+    False: operation failed
+
+Example
+-------
+
+    | :octicon:`mark-github` `Demo_WR_2Harps_1_stream.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_2Harps_1_stream.py>`_
+    | :octicon:`mark-github` `Demo_2Harps_1_stream_RefIn_RefOut.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_2Harps_1_stream_RefIn_RefOut.py>`_
+    
+        """
+        if(self.parent.deviceConfig["MeasMode"] == MeasMode.Histogram.value):
+            name = MeasMode(self.parent.deviceConfig["MeasMode"]).name
+            self.parent.logPrint( Color.Red + "measurement is not supported for ExportStream class in MeasMode:", name)
+            return False
+        self.parent.dll.exportStreamMeasure.restype = ct.c_bool
+        return self.parent.dll.exportStreamMeasure(self.ID, acqTime, waitFinished, savePTU, self.finished)
+
+    def isFinished(self):
+        """
+This function tells you if the measurement is finished.
+
+Warning
+-------
+    If the measurement is finished, there might be some data available, which was not retrieved yet. It may be necessary to 
+    call :meth:`getData()` or :meth:`getBlock()` once again after `isFinished` returns `True`.
+    Check out the example of a possible implementation below.
+
+Parameters
+----------
+    None
+
+Returns
+-------
+    True: the measurement is finished
+    False: the measurement is running
+
+Example
+-------
+::
+
+    # runs a while loop until the measurement is finished (wrong)
+        while not sn.raw.isFinished():
+        data = sn.raw.getData()
+        if len(data) > 0:
+            ...
+    
+    # break a while loop if the measurement is finished and reads the last data 
+        while True:
+        finished = sn.raw.isFinished()
+        data = sn.raw.getData()
+        if len(data) > 0:
+            ...
+            
+        if finished:
+            break
+    
+        """
+        return self.finished.contents.value
+        
+
+    def stopMeasure(self):
+        """
+After a measurement is started it will normally be left running until the defined acquisition
+time has elapsed. However, sometimes it may be necessary to stop a measurement manually with
+this function.
+
+Parameters
+----------
+    None
+    
+Returns
+-------
+    None
+    
+        """
+        self.parent._stopMeasure(self.ID)
 
 
 
@@ -5295,6 +5865,7 @@ Example
 
     def __init__(self, parent):
         self.parent = parent
+        self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""
         self.config = []
 
     def getConfig(self):
@@ -5327,7 +5898,7 @@ Example
     
         """
         conf = (ct.c_char * 65535)()
-        ok = self.parent.dll.getManisConfig(conf)
+        ok = self.parent.dll.getManisConfig(self.ID, conf)
         conf = str(conf, "utf-8").replace('\x00','')
         if ok:
             self.config = json.loads(conf)
@@ -5346,7 +5917,7 @@ Warning
 
         """
     
-        self.parent.dll.clearManis()
+        self.parent.dll.clearManis(self.ID)
         self.getConfig()
 
     def coincidence(self, chans: typing.List[int], windowTime: typing.Optional[float] = 1000, mode: typing.Optional[CoincidenceMode] = CoincidenceMode.CountAll, time: typing.Optional[CoincidenceTime] = CoincidenceTime.Last, keepChannels: typing.Optional[bool] = True):
@@ -5426,12 +5997,79 @@ Example
         channels = (ct.c_int * length)()
         for i in range(length):
             channels[i] = chans[i]
-        self.parent.dll.addMCoincidence.argtypes = [ct.c_void_p, ct.c_int, ct.c_double, ct.c_int, ct.c_int, ct.c_bool]
-        chanOut = self.parent.dll.addMCoincidence(ct.pointer(channels), length, windowTime, mode.value, time.value, keepChannels)
+        self.parent.dll.addMCoincidence.argtypes = [ct.c_wchar_p, ct.c_void_p, ct.c_int, ct.c_double, ct.c_int, ct.c_int, ct.c_bool]
+        chanOut = self.parent.dll.addMCoincidence(self.ID, ct.pointer(channels), length, windowTime, mode.value, time.value, keepChannels)
         self.getConfig()
         return chanOut
     
     
+    def coincidences(self, groups: typing.List[typing.List[int]], windowTime: typing.Optional[float] = 1000, mode: typing.Optional[CoincidenceMode] = CoincidenceMode.CountAll, time: typing.Optional[CoincidenceTime] = CoincidenceTime.Last, keepChannels: typing.Optional[bool] = True):
+        r"""
+This creates multiple coincidence manipulators at once - one per channel group.
+Each group runs in its own thread for maximum performance on multi-core systems.
+
+Use this manipulator whenever you need to detect coincidences between several
+channel pairs or groups simultaneously — for example in Bell state measurements,
+multi-photon experiments, or quantum key distribution, where all pairwise
+correlations must be recorded in a single pass over the data stream.
+Each virtual coincidence channel is added to the stream and can be used in
+downstream manipulators or measurement classes just like a physical channel.
+
+.. image:: _static/Coincidences.png
+    :width: 600px
+    :class: only-light
+    
+.. image:: _static/Coincidences_dark.png
+    :width: 600px
+    :class: only-dark
+    
+
+:figure-caption:`This figure shows the principle of the Coincidences.`
+
+Parameters
+----------
+    groups: List[List[int]]
+        list of channel groups, e.g. [[1,2], [1,3], [2,3]]
+    windowTime: float
+        window size [ps]
+    mode: CoincidenceMode (default: CoincidenceMode.CountAll)
+        coincidence counting mode
+    time: CoincidenceTime (default: CoincidenceTime.Last)
+        timestamp mode
+    keepChannels: bool (default: True)
+        | True: the coincidence channels are integrated in the data stream as additional channels
+        | False: only the coincidence channels are in the data stream
+
+Returns
+-------
+    List[int]:
+        list of channel indices, one per group
+
+Example
+-------
+::
+
+    # detect all pairwise coincidences of channels 1, 2, 3 within 1 ns
+
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T2)
+
+    ci = sn.manipulators.coincidences([[1,2], [1,3], [2,3]], 1000)
+
+    # ci[0] = coincidence index for {1,2}
+    # ci[1] = coincidence index for {1,3}
+    # ci[2] = coincidence index for {2,3}
+
+See:
+    | :octicon:`mark-github` `Demo_BellState.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_BellState.py>`_
+    | :octicon:`mark-github` `Demo_BosonSampling.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_BosonSampling.py>`_
+    | :octicon:`mark-github` `Demo_GHZState.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_GHZState.py>`_
+    | :octicon:`mark-github` `Demo_QKD.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_QKD.py>`_
+    | :octicon:`mark-github` `Demo_CoincidenceTimestamps.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_CoincidenceTimestamps.py>`_
+ 
+        """
+
     def merge(self, chans: typing.List[int], keepChannels: typing.Optional[bool] = True):
         """
 This manipulator combines the data steam of the specified channels. You only have to define
@@ -5480,7 +6118,7 @@ Example
         channels = (ct.c_int * length)()
         for i in range(length):
             channels[i] = chans[i]
-        chanOut = self.parent.dll.addMMerge(ct.pointer(channels), length, keepChannels)
+        chanOut = self.parent.dll.addMMerge(self.ID, ct.pointer(channels), length, keepChannels)
         self.getConfig()
         return chanOut
     
@@ -5557,8 +6195,8 @@ Example
     
         """
 
-        self.parent.dll.addMDelay.argtypes = [ct.c_int, ct.c_double, ct.c_bool]
-        chanOut = self.parent.dll.addMDelay(channel, delayTime, keepSourceChannel)
+        self.parent.dll.addMDelay.argtypes = [ct.c_wchar_p, ct.c_int, ct.c_double, ct.c_bool]
+        chanOut = self.parent.dll.addMDelay(self.ID, channel, delayTime, keepSourceChannel)
         self.getConfig()
         return chanOut
 
@@ -5569,6 +6207,15 @@ Only events whose timetags fall within this range will pass through.
 
 This is useful when you want to analyze only a specific segment of a measurement or exclude irrelevant data.  
 
+.. image:: _static/06_Merge.png
+    :width: 600px
+    :class: only-light
+    
+.. image:: _static/06_Merge_dark.png
+    :width: 600px
+    :class: only-dark
+    
+:figure-caption:`This figure shows the principles of the Sub-Stream operator.`
 
 Note
 ----
@@ -5623,8 +6270,8 @@ Example
         """
         startT = ct.c_uint64(round(startTime * 1e12))
         stopT = ct.c_uint64(round(stopTime * 1e12))
-        self.parent.dll.addMSubStream.argtypes = [ct.c_uint64, ct.c_uint64]
-        self.parent.dll.addMSubStream(startT, stopT)
+        self.parent.dll.addMSubStream.argtypes = [ct.c_wchar_p, ct.c_uint64, ct.c_uint64]
+        self.parent.dll.addMSubStream(self.ID, startT, stopT)
         self.getConfig()
 
 
@@ -5675,7 +6322,7 @@ Parameters
 
 Returns
 -------
-    int: 
+    List[int]: 
         the channel indices of the gated channels
 
 Example
@@ -5718,7 +6365,7 @@ Example
         channels = (ct.c_int * length)()
         for i in range(length):
             channels[i] = gateChans[i]
-        hChan = self.parent.dll.addMHerald(herald, ct.pointer(channels), len(channels), delayTime, gateTime, inverted, keepChannels)
+        hChan = self.parent.dll.addMHerald(self.ID, herald, ct.pointer(channels), len(channels), delayTime, gateTime, inverted, keepChannels)
         self.getConfig()
         return list(range(hChan, hChan + len(channels))) if keepChannels else gateChans
 
@@ -5780,8 +6427,8 @@ Example
 
         """
 
-        self.parent.dll.addMCountRate.argtypes = [ct.c_double]
-        index = self.parent.dll.addMCountRate(windowTime)
+        self.parent.dll.addMCountRate.argtypes = [ct.c_wchar_p, ct.c_double]
+        index = self.parent.dll.addMCountRate(self.ID, windowTime)
         self.getConfig()
         return index
     
@@ -5809,10 +6456,63 @@ Example
     CRs = sn.manipulators.GetCountrates(0)
     
         """
-        numChans = self.parent.getNumAllChannels()
+        numChans = self.parent.dll.getNumAllChans(self.ID)
         countRates = ct.ARRAY(ct.c_int, numChans)()
-        ok = self.parent.dll.getMCountRates(manipulatorIndex, countRates)
+        ok = self.parent.dll.getMCountRates(self.ID, manipulatorIndex, countRates)
         # dataOut = np.lib.stride_tricks.as_strided(countRates, shape=(numChans),
         #     strides=(ct.sizeof(countRates._type_) * numChans))
         self.getConfig()
         return np.lib.stride_tricks.as_strided(countRates)
+    
+    def importStream(self, deviceName: typing.Optional[str] = "", chans: typing.List[int] = None, remoteStartStop: typing.Optional[bool] = True, delayTime: int = 0):
+        """
+The manipulator brings data channels from another device's data stream into the current measurement. This enables synchronized multi-device acquisition and cross-device correlations.  
+To import data, the selected device must use the :class:`ExportStream` measurement class. The Import manipulator can also automatically configure the source device to ensure correct synchronization.  
+Both import and export must run in one instance of snAPI.  
+
+### 🧠 How It Works
+The Import manipulator listens to a chosen device that is operating in Export mode. It receives one or more of its channels and inserts them into the current data stream.
+Imported channels behave like native hardware channels and can be used by all subsequent manipulators.  
+To import data from another device connected to the same PC, you must open it in the same instance of snAPI.  
+
+You can configure:  
+
+- Which device to import from
+- Whether the importer should remotely start and stop the other device
+- Which channels from the other device should be included
+- An optional Delay Time to align timestamps   
+
+See:
+    | :octicon:`mark-github` `Demo_WR_2Harps_1_stream.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_2Harps_1_stream.py>`_
+    | :octicon:`mark-github` `Demo_2Harps_1_stream_RefIn_RefOut.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_2Harps_1_stream_RefIn_RefOut.py>`_
+    
+Parameters
+----------
+    deviceName: float (default: 100ms)
+        window size [ps]
+    chans: List[int]
+        channel indices to be imported from the other device
+    delayTime: int (default: 0ps)
+        time offset to align the imported channels with the current data stream [ps]
+    
+Returns
+-------
+    List[int]: 
+        the channel indices of the imported channels
+
+Example
+-------
+::
+
+    # import channels from slave into master manipulator
+    # and enable the starting and stopping of the measurement via the master device (remoteStartStop=True)
+    importChans = sn.manipulators.importStream(slave, [0,1,2], remoteStartStop=True)
+        """
+        length = len(chans)
+        channels = (ct.c_int * length)()
+        for i in range(length):
+            channels[i] = chans[i]
+        self.parent.dll.addMImportStream.argtypes = [ct.c_wchar_p, ct.c_wchar_p, ct.c_bool, ct.c_void_p, ct.c_int, ct.c_int]
+        iChan = self.parent.dll.addMImportStream(self.ID, deviceName, remoteStartStop, ct.pointer(channels), len(channels), delayTime)
+        self.getConfig()
+        return list(range(iChan, iChan + len(channels)))

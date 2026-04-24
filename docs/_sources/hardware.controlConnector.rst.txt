@@ -154,7 +154,7 @@ Set :class:`snAPI.Constants.RefSource` to :obj:`RefSource.Extn_GPS_PPS<snAPI.Con
 Hardware triggered measurements
 """""""""""""""""""""""""""""""
 
-`Pins 19 and 20` can be used to implement hardware triggered measurements. Therefore ou have to set :meth:`Device.setMeasControl<snAPI.Main.Device.setMeasControl>`
+`Pins 19 and 20` can be used to implement hardware triggered measurements. Therefore you have to set :meth:`Device.setMeasControl<snAPI.Main.Device.setMeasControl>`
 to :obj:`MeasControl.C1Gated<snAPI.Constants.MeasControl.C1Gated>`, :obj:`MeasControl.C1StartCtcStop<snAPI.Constants.MeasControl.C1StartCtcStop>` or :obj:`MeasControl.C1StartC2Stop<snAPI.Constants.MeasControl.C1StartC2Stop>`.
 
 See: 
@@ -271,7 +271,7 @@ not necessary to use an additional pixel clock.
 Hardware triggered measurements
 """""""""""""""""""""""""""""""
 
-`Pin 13 and 15` can be used to implement hardware triggered measurements. Therefore ou have to set :meth:`Device.setMeasControl<snAPI.Main.Device.setMeasControl>`
+`Pin 13 and 15` can be used to implement hardware triggered measurements. Therefore you have to set :meth:`Device.setMeasControl<snAPI.Main.Device.setMeasControl>`
 to :obj:`MeasControl.C1Gated<snAPI.Constants.MeasControl.C1Gated>`, :obj:`MeasControl.C1StartCtcStop<snAPI.Constants.MeasControl.C1StartCtcStop>` or :obj:`MeasControl.C1StartC2Stop<snAPI.Constants.MeasControl.C1StartC2Stop>`.
 
 See 

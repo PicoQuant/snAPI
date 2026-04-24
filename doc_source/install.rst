@@ -45,13 +45,13 @@ Install:
 
 ::
 
-    pip install snapi
+    pip install snAPI
 
 Upgrade:
 
 ::
 
-    pip install --upgrade snapi
+    pip install --upgrade snAPI
 
 Dependencies
 ------------
