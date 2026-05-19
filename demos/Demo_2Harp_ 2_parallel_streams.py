@@ -4,6 +4,27 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
+# Two synchronized TCSPC devices — parallel histogram streams
+# =============================================================
+# This demo demonstrates parallel histogram acquisition with two synchronized
+# PicoQuant TCSPC devices in a master-slave configuration.
+#
+# Setup:
+# The master device provides the timing reference and controls the measurement
+# start. Its 10 MHz reference output is connected to the external reference
+# input of the slave device. The master's measurement-active signal is
+# additionally connected to the slave control input C1.
+#
+# The slave is configured to use the external 10 MHz reference and waits for the
+# measurement-active gate from the master before acquiring data. This allows both
+# devices to run synchronized measurements while keeping their data streams
+# separate.
+#
+# During acquisition, histograms from the master and slave are read independently
+# and plotted together. This is useful for multi-device measurements that require
+# synchronized acquisition across two TCSPC units while preserving separate
+# histogram streams for each device.
+
 if(__name__ == "__main__"):
     
     master = "1000509"
