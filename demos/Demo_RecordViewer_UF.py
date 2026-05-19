@@ -1,5 +1,30 @@
 from snAPI.Main import *
 
+# Viewing unfolded photon records from a time tagging device
+# ==========================================================
+# This demo demonstrates how to access unfolded photon records recorded with a
+# PicoQuant time tagging device or loaded from a PTU file.
+#
+# The script initializes the device in T3 mode, loads an ini configuration file,
+# and starts an unfolded-data measurement. In contrast to raw records, unfolded
+# records are already converted into channel numbers and physical event times,
+# making them easier to inspect and use for custom analysis.
+#
+# Setup:
+# The amount of unfolded data that can be recorded is limited by the buffer size
+# passed to `sn.unfold.measure`. In this example, a 1 GB buffer is allocated. The
+# measurement can be performed on a connected device or, by using
+# `getFileDevice`, on an existing PTU file.
+#
+# After the measurement, the script reads the unfolded event times and channel
+# numbers with `sn.unfold.getData`. For T3 data, it prints the channel number,
+# sync counter, micro time, and absolute event time. For T2 data, it prints the
+# channel number and absolute event time.
+#
+# This is useful for inspecting individual photon events in a time-calibrated
+# form before applying higher-level analysis such as histograms, correlations,
+# coincidence filtering, or other custom post-processing workflows.
+
 if(__name__ == "__main__"):
 
     start = 0
