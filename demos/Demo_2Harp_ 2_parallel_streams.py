@@ -4,10 +4,10 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# Two synchronized TCSPC devices — parallel histogram streams
+# Two synchronized time tagging devices — parallel histogram streams
 # =============================================================
 # This demo demonstrates parallel histogram acquisition with two synchronized
-# PicoQuant TCSPC devices in a master-slave configuration.
+# PicoQuant time tagging devices in a master-slave configuration.
 #
 # Setup:
 # The master device provides the timing reference and controls the measurement
@@ -22,7 +22,7 @@ print("Switched to:",matplotlib.get_backend())
 #
 # During acquisition, histograms from the master and slave are read independently
 # and plotted together. This is useful for multi-device measurements that require
-# synchronized acquisition across two TCSPC units while preserving separate
+# synchronized acquisition across two time tagging units while preserving separate
 # histogram streams for each device.
 
 if(__name__ == "__main__"):
