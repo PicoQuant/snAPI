@@ -4,6 +4,27 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
+# Two synchronized TCSPC devices — combined histogram stream
+# ==========================================================
+# This demo demonstrates how photon events from two synchronized PicoQuant
+# time tagging devices can be combined into a single histogram stream.
+#
+# Setup:
+# The master device provides the timing reference and controls the measurement
+# start. Its 10 MHz reference output is connected to the external reference
+# input of the slave device. The master's measurement-active signal is
+# additionally connected to the slave control input C1.
+#
+# The slave is configured to use the external 10 MHz reference and waits for the
+# measurement-active gate from the master before acquiring data. Selected slave
+# input channels are then imported into the master's data stream using a snAPI
+# stream manipulator.
+#
+# The resulting histogram contains both the master's own channels and the
+# imported slave channels on a common time axis. This is useful for multi-device
+# measurements that require synchronized acquisition across two TCSPC units while
+# processing the combined photon stream as one measurement.
+
 if(__name__ == "__main__"):
     
     master = "1000509"
