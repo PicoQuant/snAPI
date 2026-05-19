@@ -22,7 +22,7 @@ print("Switched to:",matplotlib.get_backend())
 #
 # The resulting histogram contains both the master's own channels and the
 # imported slave channels on a common time axis. This is useful for multi-device
-# measurements that require synchronized acquisition across two TCSPC units while
+# measurements that require synchronized acquisition across two time tagging units while
 # processing the combined photon stream as one measurement.
 
 if(__name__ == "__main__"):
