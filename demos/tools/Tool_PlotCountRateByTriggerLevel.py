@@ -8,6 +8,32 @@ import matplotlib.pyplot as plt
 matplotlib.use('TkAgg',force=True)
 print("Switched to:",matplotlib.get_backend())
 
+# Count rate scan by trigger level
+# ======================================
+# This tool helps determine suitable trigger or discriminator levels for a
+# PicoQuant time tagging device by measuring the count rate while sweeping the
+# trigger level.
+#
+# The script initializes the device, loads an ini configuration file, and then
+# scans the trigger level over a defined voltage range. For each trigger level,
+# the same setting is applied to the sync input and all detector channels, using
+# either edge triggering or CFD triggering depending on the loaded device
+# configuration.
+#
+# Setup:
+# The device configuration is loaded from an ini file. The trigger-level scan
+# range is defined directly in the script by the start, stop, and step values of
+# the loop. These values should be adapted to the signal levels and trigger mode
+# used in the measurement setup.
+#
+# During the scan, the script reads the count rates for the sync input and all
+# detector channels with `getCountRates`, prints the values, and plots the count
+# rate as a function of the trigger level.
+#
+# This is useful for finding a trigger level that separates the signal from
+# noise, checking signal amplitudes, optimizing detector channel settings, and
+# preparing a stable configuration before running a measurement.
+
 if(__name__ == "__main__"):
 
     sn = snAPI()
