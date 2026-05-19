@@ -6,6 +6,32 @@ print("Switched to:",matplotlib.get_backend())
 from threading import Timer
 import time
 
+# Live-refresh histogram from photon arrival times
+# ================================================
+# This demo demonstrates how a histogram measurement can be acquired and
+# refreshed during acquisition from photon events recorded with a PicoQuant time
+# tagging device.
+#
+# The script initializes the device, loads an ini configuration file, and
+# configures a histogram measurement with a selected reference channel, bin
+# width, and number of bins. Photon arrival times are accumulated relative to the
+# reference channel and displayed as time-resolved histograms for the sync input
+# and all enabled detector channels.
+#
+# Setup:
+# The device configuration is loaded from an ini file. The histogram parameters
+# define the reference channel, the temporal resolution of the histogram bins,
+# and the total histogram range.
+#
+# During acquisition, the script repeatedly reads the current histogram data and
+# plots the result on a logarithmic count scale. After each refresh, the
+# accumulated measurement data are cleared so that the plot shows only the newly
+# acquired data for the latest update interval.
+#
+# This is useful for monitoring photon arrival-time distributions in real time,
+# checking timing alignment between channels, optimizing measurement settings,
+# and observing changes in the signal during an ongoing experiment.
+
 if(__name__ == "__main__"):
 
     sn = snAPI()
