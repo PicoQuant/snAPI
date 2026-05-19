@@ -4,7 +4,7 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# Two synchronized TCSPC devices — combined histogram stream
+# Two synchronized time tagging devices — combined histogram stream
 # ==========================================================
 # This demo demonstrates how photon events from two synchronized PicoQuant
 # time tagging devices can be combined into a single histogram stream.
