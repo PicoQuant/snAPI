@@ -10,7 +10,39 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec      
 from matplotlib.widgets import Button      
 matplotlib.use('TkAgg', force=True)      
-print("Switched to:", matplotlib.get_backend())      
+print("Switched to:", matplotlib.get_backend())
+
+# Threshold scan with count rate and timing-quality metrics
+# =========================================================
+# This tool helps determine suitable trigger or discriminator levels for a
+# PicoQuant time tagging device by measuring both the count rate and timing
+# response while sweeping the trigger threshold.
+#
+# The script initializes the device, loads an ini configuration file, and scans
+# the trigger level over a defined voltage range. For each trigger level, the
+# same setting is applied to all detector channels, using either level triggering
+# or CFD triggering depending on the loaded device configuration.
+#
+# Setup:
+# The device configuration is loaded from an ini file. The trigger-level scan
+# range is defined directly in the script by the start, stop, and step values.
+# The channel to analyze, histogram bin width, number of bins, and RMS evaluation
+# window can also be adjusted in the script.
+#
+# At each trigger level, the tool acquires a histogram relative to the sync
+# input. From the selected detector channel, it calculates the count rate, the
+# full width at half maximum (FWHM), the center of gravity of the histogram peak,
+# and the RMS deviation around the peak.
+#
+# During the scan, the script displays a 2D histogram heatmap showing how the
+# timing distribution changes with trigger threshold. In parallel, it plots the
+# count rate, FWHM, center of gravity, and RMS deviation as functions of the
+# trigger level.
+#
+# This is useful for finding a trigger threshold that provides a good compromise
+# between signal rate and timing performance, checking threshold-dependent timing
+# shifts, optimizing detector channel settings, and preparing a stable
+# configuration before running a measurement.
 
 Channel = 2  # Channel to analyze (0: Sync, 1: Chan1, 2: Chan2, etc.)
 Start = -80  # mV, start of trigger threshold range
