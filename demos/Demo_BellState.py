@@ -4,23 +4,30 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# Bell State Measurement
-# ======================
-# This demo demonstrates a Bell state measurement using two entangled photon pairs.
+# Bell state measurement with heralded coincidence detection
+# ==========================================================
+# This demo demonstrates how snAPI can be used to monitor coincidence patterns
+# for identifying Bell states from entangled photon-pair events.
 #
 # Setup:
-#   Photon pair A -> Beam Splitter -> SNSPD 1 (Ch1), SNSPD 2 (Ch2)
-#   Photon pair B -> Beam Splitter -> SNSPD 3 (Ch3), SNSPD 4 (Ch4)
+# A pulsed photon source generates photon pairs that are analyzed in a Bell-state
+# measurement setup. The sync channel, Ch0, is used as the pump laser trigger and
+# acts as the herald signal. Four single-photon detectors are connected to
+# Ch1..Ch4 and record the possible output combinations of the measurement setup.
 #
-# The sync channel (Ch0) acts as the pump laser trigger (herald).
-# A herald filter gates the detector channels to the relevant time window
-# after the pump pulse.
+# The herald filter gates the detector channels to the relevant time window after
+# each pump pulse. This suppresses events outside the expected photon-arrival
+# window and creates heralded detector channels for the four outputs.
 #
-# Coincidence patterns identify Bell states:
-#   {1,3} or {2,4} -> |Psi+>
-#   {1,4} or {2,3} -> |Psi->
+# The script then forms selected two-fold coincidences between the heralded
+# detector channels. Coincidences between Ch1/Ch3 and Ch2/Ch4 are assigned to the
+# |Psi+> state, while coincidences between Ch1/Ch4 and Ch2/Ch3 are assigned to
+# the |Psi-> state.
 #
-# The ratio of these coincidence rates reveals the quality of the entanglement source.
+# During acquisition, the coincidence rates for these four channel combinations
+# are displayed as time traces. Their relative rates can be used to evaluate the
+# Bell-state measurement and to monitor the quality and stability of the
+# entangled-photon source.
 
 if(__name__ == "__main__"):
     sn = snAPI()

@@ -4,6 +4,29 @@ import click
 from pathlib import Path
 import pandas as pd
 
+# g(2) correlation from a PTU file
+# ================================
+# This demo demonstrates how to calculate a second-order correlation, g(2), from
+# photon events stored in a PTU file.
+#
+# The script opens the PTU file as a snAPI file device and configures a g(2)
+# correlation between two selected detector channels. The correlation module then
+# calculates the coincidence rate as a function of the time delay tau between
+# photon events on the two channels.
+#
+# Setup:
+# The PTU file is passed as a command-line argument. The correlation channels,
+# correlation window, and bin size can be selected with command-line options.
+# This makes it possible to reuse the same script for different files and
+# channel combinations without editing the source code.
+#
+# After the correlation has finished, the script retrieves the g(2) data and
+# corresponding lag times. The result is plotted and saved as PDF and PNG, and
+# the numerical data are exported as CSV, Excel, and JSON files.
+#
+# This is useful for offline analysis of previously recorded photon streams, for
+# example when characterizing photon statistics, checking antibunching or
+# bunching behavior, or comparing g(2) results from different measurements.
 
 @click.command()
 @click.argument('filename',type=click.Path(exists=True), metavar='FILENAME.ptu')
