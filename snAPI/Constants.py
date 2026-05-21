@@ -139,7 +139,7 @@ actually trigger start and stop is given by the values supplied to the parameter
     """
 Supported devices [MH150/160 | HH500]
 
-White Rabbit master to slave
+White Rabbit master to slave (The master device starts and stops the measurement of the slave device via the White Rabbit network)
     
     """
     
@@ -147,7 +147,7 @@ White Rabbit master to slave
     """
 Supported devices [MH150/160 | HH500]
 
-White Rabbit slave to master
+White Rabbit slave to master (The slave device starts and stops the measurement of the master device via the White Rabbit network)
     
     """
     
@@ -453,6 +453,34 @@ based on the error between two clocks.
     IsNew = 0x80000000				
     """status updated since last check"""
     
+class SequenceMode(Enum):
+    """
+The PTU-File-Header contains numerous tags that describe the measurement configuration. These can be used for further analysis.
+For example, to use the PTU file with SymPhoTime 64 for FLIM analysis, the mandatory parameter `Measurement_SubMode` must be set to `Image`.
+Set this option with :meth:`snAPI.setMeasSubMode<snAPI.Main.snAPI.setMeasSubMode>`.
+    """
+
+    Off = 0
+    """
+**Default**
+
+    This is the default value and applies to all measurements that are not location-specific.
+
+    """
+    
+    Timer = 1
+    """
+**Point**
+
+    Use this to indicate that the measurement refers to a single location.
+    """
+    Counts = 2
+    """
+**Line**
+
+    Use this to indicate that the measurement is being performed using line scanning.
+    """
+
 class MeasSubMode(Enum):
     """
 The PTU-File-Header contains numerous tags that describe the measurement configuration. These can be used for further analysis.
@@ -486,7 +514,7 @@ Set this option with :meth:`snAPI.setMeasSubMode<snAPI.Main.snAPI.setMeasSubMode
 **Image**
 
     Use this to indicate that the measurement is being performed using image scanning.
-    To analyze the data with `SymPhoTime64 <https://www.picoquant.com/products/category/software/symphotime-64-fluorescence-lifetime-imaging-and-correlation-software>`_
+    To analyze the data with `SymPhoTime64 <https://www.picoquant.com/products/software/symphotime-64/>`_
     you have to set a lot of tags using the :meth:`snAPI.addIntTag<snAPI.Main.snAPI.addIntTag>`.
     See also the :octicon:`mark-github` `Demo_Imaging_PTU.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_Imaging_PTU.py>`_
     """

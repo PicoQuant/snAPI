@@ -619,6 +619,32 @@ Returns
     
     """
         self.dll.closeDevice(allDevices)
+        
+    def addBoolTag(self, name:str, value: bool, idx:typing.Optional[int] = -1):
+        """
+    This adds a boolean tag to the PTU-Header.
+    
+Parameters
+----------
+    name: str
+        name of the tag
+    value: bool
+        True | False
+        
+Returns
+-------
+    None
+    
+Example
+-------
+::
+    
+    # sets the scan pattern
+    sn.addBoolTag("ImgHdr_BiDirect", False)
+    
+        """
+        SBuf = name.encode('utf-8')
+        return self.dll.addBoolTag(SBuf, value, idx)
 
     def setMeasurementSubMode(self, subMode:typing.Optional[MeasSubMode] = MeasSubMode.Default):
         """
@@ -2563,6 +2589,7 @@ See:
     | :octicon:`mark-github` `Demo_WR_Configure_Slave.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_Configure_Slave.py>`_
     | :octicon:`mark-github` `Demo_WR_TimeTrace_Master.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Master.py>`_
     | :octicon:`mark-github` `Demo_WR_TimeTrace_Slave.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Slave.py>`_
+    | :octicon:`mark-github` `Demo_WR_2Harps_1_stream.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_2Harps_1_stream.py>`_
 
     | :fa:`file-pdf` `White Rabbit Specification v2.0 <https://white-rabbit.web.cern.ch/documents/WhiteRabbitSpec.v2.0.pdf>`_
     
@@ -3024,7 +3051,7 @@ There are special functions to decode the :obj:`.MeasMode.T2`and :obj:`.MeasMode
 
 .. seealso ::
     | To fully understand the TTTR format please read the MultiHarp manual and/or
-    | :fa:`file-pdf` `Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences <https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf>`_
+    | `How PicoQuant Measures Time <https://www.picoquant.com/science/how-picoquant-measures-time/>`_
     | :ref:`TCSPC specific record formats <TCSPC specific record formats>`
 
     """
@@ -3552,7 +3579,8 @@ There are special functions to decode the channel information:
 
 .. seealso ::
     | To fully understand the TTTR format read
-    | :fa:`file-pdf` `Time Tagged Time-Resolved Fluorescence Data Collection in Life Sciences <https://www.picoquant.com/images/uploads/page/files/14528/technote_tttr.pdf>`_
+    | `How PicoQuant Measures Time <https://www.picoquant.com/science/how-picoquant-measures-time/>`_
+    | :ref:`TCSPC specific record formats <TCSPC specific record formats>`
 
     """
         
@@ -4159,6 +4187,7 @@ to use the :obj:`.MeasMode.T2` instead.
         self.T2binWidth = 0
         self.bins = np.array(range(self.numBins), dtype='i8')
         self.finished = ct.pointer(ct.c_bool(False))
+        self.wait4newData = False
         
 
     def setRefChannel(self, channel: typing.Optional[int] = 0) :
@@ -4341,6 +4370,57 @@ Example
         self.parent.dll.getHistogram.restype = ct.c_bool
         return self.parent.dll.getHistogram(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.data), self.finished)
 
+    def setSequenceMode(self, sequenceMode:typing.Optional[SequenceMode] = SequenceMode.Off, wait4newData: typing.Optional[bool] = True, param: typing.Optional[float] = 0):
+        """
+Configures the sequence mode for windowed measurements.
+
+In sequence mode the acquisition is split into consecutive windows. Each call to
+:meth:`getData` returns one window. The mode determines how windows are triggered:
+
+- :attr:`~snAPI.Constants.SequenceMode.Off` — no windowing, normal acquisition
+- :attr:`~snAPI.Constants.SequenceMode.Timer` — fixed-duration windows (``param`` seconds)
+- :attr:`~snAPI.Constants.SequenceMode.Counts` — fixed-counts-per-bins windows (``param`` counts)
+
+Parameters
+----------
+    sequenceMode: :class:`snAPI.Constants.SequenceMode`
+        Windowing trigger mode. Default: `SequenceMode.Off`
+    wait4newData: bool
+        Controls how :meth:`getData` synchronizes with incoming windows.
+
+        `True` (default) — :meth:`getData` blocks until the next window is ready.
+        Windows are delivered in order, so no data is lost. However, if your
+        processing loop is slower than the window rate, an internal buffer grows
+        and the captured data falls increasingly behind real time.
+        Recommended for file devices, where reading speed is unconstrained and
+        every window must be captured.
+
+        `False` — non-blocking: :meth:`getData` returns the most recent
+        completed window immediately. The loop stays in sync with real time but
+        may skip windows when processing cannot keep up.
+    param: float
+        Window size: duration in seconds for `Timer` mode,
+        photon count for `Counts` mode. Ignored for `Off`.
+
+Returns
+-------
+    None
+
+Example
+-------
+::
+
+    # acquire 100 ms histogram windows over 10 seconds
+    sn.histogram.setSequenceMode(sequenceMode=SequenceMode.Timer, param=0.1)
+    sn.histogram.measure(acqTime=10000, waitFinished=False)
+    while not sn.histogram.isFinished():
+        data, bins = sn.histogram.getData()
+
+        """
+        self.wait4newData = wait4newData
+        self.parent.dll.setSequenceMode.argtypes = [ct.c_int, ct.c_bool, ct.c_double]
+        self.parent.dll.setSequenceMode(sequenceMode.value, wait4newData, param)
+
     def getData(self):
         """
 This function returns the data of the histogram measurement.
@@ -4379,9 +4459,20 @@ Example
             break
     
         """
-        dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(self.numChans, self.numBins),
+        data = np.lib.stride_tricks.as_strided(self.data, shape=(self.numChans, self.numBins),
             strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))
-        return dataOut, self.bins
+        
+        if self.wait4newData:
+            if self.parent.dll.waitNewData(self.ID):
+                dataOut = np.copy(data)
+                binsOut = np.copy(self.bins)
+                self.parent.dll.gotNewData(self.ID)
+                return dataOut, binsOut
+            else:
+                return [], []
+        
+        else:
+            return data, self.bins
     
 
     def stopMeasure(self):
@@ -4493,6 +4584,7 @@ can change the reference channel. The :obj:`.MeasMode.Histogram` is not supporte
         self.totMode = False
         self.timewalkFactor = 0
         self.finished = ct.pointer(ct.c_bool(False))
+        self.wait4newData = False
         self.diffTimeMax = (1 << 64) - 1
         self.diffTimeMin = 0
         self.correctionX = 0
@@ -4782,7 +4874,57 @@ Example
 
         self.parent.dll.getHistogram.restype = ct.c_bool
         return self.parent.dll.get2dHistogram(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.data), self.finished)
-    
+
+    def setSequenceMode(self, sequenceMode:typing.Optional[SequenceMode] = SequenceMode.Off, wait4newData: typing.Optional[bool] = True, param: typing.Optional[float] = 0):
+        """
+Configures the sequence mode for windowed measurements.
+
+In sequence mode the acquisition is split into consecutive windows. Each call to
+:meth:`getData` returns one window. The mode determines how windows are triggered:
+
+- :attr:`~snAPI.Constants.SequenceMode.Off` — no windowing, normal acquisition
+- :attr:`~snAPI.Constants.SequenceMode.Timer` — fixed-duration windows (``param`` seconds)
+- :attr:`~snAPI.Constants.SequenceMode.Counts` — fixed-counts-per-pixel windows (``param`` photons)
+
+Parameters
+----------
+    sequenceMode: :class:`snAPI.Constants.SequenceMode`
+        Windowing trigger mode. Default: `SequenceMode.Off`
+    wait4newData: bool
+        Controls how :meth:`getData` synchronizes with incoming windows.
+
+        `True` (default) — :meth:`getData` blocks until the next window is ready.
+        Windows are delivered in order, so no data is lost. However, if your
+        processing loop is slower than the window rate, an internal buffer grows
+        and the captured data falls increasingly behind real time.
+        Recommended for file devices, where reading speed is unconstrained and
+        every window must be captured.
+
+        `False` — non-blocking: :meth:`getData` returns the most recent
+        completed window immediately. The loop stays in sync with real time but
+        may skip windows when processing cannot keep up.
+    param: float
+        Window size: duration in seconds for `Timer` mode,
+        photon count for `Counts` mode. Ignored for `Off`.
+
+Returns
+-------
+    None
+
+Example
+-------
+::
+
+    # acquire 100 ms 2D histogram windows over 10 seconds
+    sn.histogram2D.setSequenceMode(sequenceMode=SequenceMode.Timer, param=0.1)
+    sn.histogram2D.measure(acqTime=10000, waitFinished=False)
+    while not sn.histogram2D.isFinished():
+        data = sn.histogram2D.getData()
+
+        """
+        self.wait4newData = wait4newData
+        self.parent.dll.setSequenceMode.argtypes = [ct.c_int, ct.c_bool, ct.c_double]
+        self.parent.dll.setSequenceMode(sequenceMode.value, wait4newData, param)
 
     def getData(self):
         """
@@ -4791,7 +4933,7 @@ This function returns the data of the histogram measurement.
 Parameters
 ----------
     None
-            
+
 Returns
 -------
     [2DArray]
@@ -4810,9 +4952,20 @@ Example
     sn.histogram2d.measure(acqTime=1000, waitFinished=True, savePTU=False)
     data = sn.histogram2d.getData()
         """
-        dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(self.numBinsY, self.numBinsX),
+        data = np.lib.stride_tricks.as_strided(self.data, shape=(self.numBinsY, self.numBinsX),
             strides=(ct.sizeof(self.data._type_) * self.numBinsX, ct.sizeof(self.data._type_)))
-        return dataOut
+        
+        if self.parent.wait4newData:
+            if self.parent.dll.waitNewData(self.ID):
+                dataOut = np.copy(data)
+                binsOut = np.copy(self.bins)
+                self.parent.dll.gotNewData(self.ID)
+                return dataOut, binsOut
+            else:
+                return [], []
+        
+        else:
+            return data
     
 
     def stopMeasure(self):
@@ -4920,6 +5073,7 @@ Note
         self.numBins = 10000
         self.historySize = 10
         self.finished = ct.pointer(ct.c_bool(False))
+        self.wait4newData = False
         
 
     def setNumBins(self, numBins: typing.Optional[int] = 10000):
@@ -5054,7 +5208,57 @@ Example
         
         self.parent.dll.getTimeTrace.restype = ct.c_bool
         return self.parent.dll.getTimeTrace(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.t0), self.finished)
-    
+
+    def setSequenceMode(self, sequenceMode:typing.Optional[SequenceMode] = SequenceMode.Off, wait4newData: typing.Optional[bool] = True, param: typing.Optional[float] = 0):
+        """
+Configures the sequence mode for windowed measurements.
+
+In sequence mode the acquisition is split into consecutive windows. Each call to
+:meth:`getData` returns one window. The mode determines how windows are triggered:
+
+- :attr:`~snAPI.Constants.SequenceMode.Off` — no windowing, normal acquisition
+- :attr:`~snAPI.Constants.SequenceMode.Timer` — fixed-duration windows (``param`` seconds)
+- :attr:`~snAPI.Constants.SequenceMode.Counts` — fixed-counts windows (``param`` photons)
+
+Parameters
+----------
+    sequenceMode: :class:`snAPI.Constants.SequenceMode`
+        Windowing trigger mode. Default: `SequenceMode.Off`
+    wait4newData: bool
+        Controls how :meth:`getData` synchronizes with incoming windows.
+
+        `True` (default) — :meth:`getData` blocks until the next window is ready.
+        Windows are delivered in order, so no data is lost. However, if your
+        processing loop is slower than the window rate, an internal buffer grows
+        and the captured data falls increasingly behind real time.
+        Recommended for file devices, where reading speed is unconstrained and
+        every window must be captured.
+
+        `False` — non-blocking: :meth:`getData` returns the most recent
+        completed window immediately. The loop stays in sync with real time but
+        may skip windows when processing cannot keep up.
+    param: float
+        Window size: duration in seconds for `Timer` mode,
+        photon count for `Counts` mode. Ignored for `Off`.
+
+Returns
+-------
+    None
+
+Example
+-------
+::
+
+    # acquire 100 ms timetrace windows over 10 seconds
+    sn.timeTrace.setSequenceMode(sequenceMode=SequenceMode.Timer, param=0.1)
+    sn.timeTrace.measure(acqTime=10000, waitFinished=False)
+    while not sn.timeTrace.isFinished():
+        data, times = sn.timeTrace.getData()
+
+        """
+        self.wait4newData = wait4newData
+        self.parent.dll.setSequenceMode.argtypes = [ct.c_int, ct.c_bool, ct.c_double]
+        self.parent.dll.setSequenceMode(sequenceMode.value, wait4newData, param)
 
     def getData(self, normalized: typing.Optional[bool] = True):
         r"""
@@ -5103,18 +5307,30 @@ Example
         """
         
         self.numChans = self.parent.dll.getNumAllChans(self.ID)
-        dataOut = np.lib.stride_tricks.as_strided(self.data, shape=(self.numChans, self.numBins),
+        data = np.lib.stride_tricks.as_strided(self.data, shape=(self.numChans, self.numBins),
             strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))
-        if normalized:
-            dataOut = np.multiply(dataOut, self.numBins/self.historySize)
-        
-        t0 = (self.t0.value / self.numBins * self.historySize) - self.historySize
-        times = range(self.numBins)
-        times = np.multiply(times, self.historySize/self.numBins )
-        times = np.add(times, t0 )
 
-        return dataOut,times
-    
+        if self.wait4newData:
+            if self.parent.dll.waitNewData(self.ID):
+                # read data and t0 AFTER the DLL has filled the buffer
+                dataOut = np.array(data)
+                if normalized:
+                    dataOut = np.multiply(dataOut, self.numBins/self.historySize)
+                t0 = (self.t0.value / self.numBins * self.historySize) - self.historySize
+                timesOut = np.arange(self.numBins) * (self.historySize / self.numBins) + t0
+                self.parent.dll.gotNewData(self.ID)
+                return dataOut, timesOut
+            else:
+                return [], []
+
+        else:
+            dataOut = np.array(data)
+            if normalized:
+                dataOut = np.multiply(dataOut, self.numBins/self.historySize)
+            t0 = (self.t0.value / self.numBins * self.historySize) - self.historySize
+            timesOut = np.arange(self.numBins) * (self.historySize / self.numBins) + t0
+            return dataOut, timesOut
+
     
     def isFinished(self):
         """
@@ -5227,6 +5443,7 @@ multi-tau algorithm uses pseudo-logarithmically increasing bin widths.
         self.numBins = 30
         self.isFcs = False
         self.finished = ct.pointer(ct.c_bool(False))
+        self.wait4newData = False
         self.normalization = True
         
 
@@ -5476,6 +5693,56 @@ Example
         self.parent.dll.getCorrelation.restype = ct.c_bool
         return self.parent.dll.getCorrelation(self.ID, acqTime, waitFinished, savePTU, ct.byref(self.data), ct.byref(self.bins), self.finished)
 
+    def setSequenceMode(self, sequenceMode:typing.Optional[SequenceMode] = SequenceMode.Off, wait4newData: typing.Optional[bool] = True, param: typing.Optional[float] = 0):
+        """
+Configures the sequence mode for windowed measurements.
+
+In sequence mode the acquisition is split into consecutive windows. Each call to
+:meth:`getData` returns one window. The mode determines how windows are triggered:
+
+- :attr:`~snAPI.Constants.SequenceMode.Off` — no windowing, normal acquisition
+- :attr:`~snAPI.Constants.SequenceMode.Timer` — fixed-duration windows (``param`` seconds)
+- :attr:`~snAPI.Constants.SequenceMode.Counts` — fixed-counts windows (``param`` photons) set normalization to False to count coincidences instead of calculating the correlation function in setG2Parameters
+
+Parameters
+----------
+    sequenceMode: :class:`snAPI.Constants.SequenceMode`
+        Windowing trigger mode. Default: `SequenceMode.Off`
+    wait4newData: bool
+        Controls how :meth:`getData` synchronizes with incoming windows.
+
+        `True` (default) — :meth:`getData` blocks until the next window is ready.
+        Windows are delivered in order, so no data is lost. However, if your
+        processing loop is slower than the window rate, an internal buffer grows
+        and the captured data falls increasingly behind real time.
+        Recommended for file devices, where reading speed is unconstrained and
+        every window must be captured.
+
+        `False` — non-blocking: :meth:`getData` returns the most recent
+        completed window immediately. The loop stays in sync with real time but
+        may skip windows when processing cannot keep up.
+    param: float
+        Window size: duration in seconds for `Timer` mode,
+        photon count for `Counts` mode. Ignored for `Off`.
+
+Returns
+-------
+    None
+
+Example
+-------
+::
+
+    # acquire 100 ms correlation windows over 10 seconds
+    sn.correlation.setSequenceMode(sequenceMode=SequenceMode.Timer, param=0.1)
+    sn.correlation.measure(acqTime=10000, waitFinished=False)
+    while not sn.correlation.isFinished():
+        data, bins = sn.correlation.getG2Data()
+
+        """
+        self.wait4newData = wait4newData
+        self.parent.dll.setSequenceMode.argtypes = [ct.c_int, ct.c_bool, ct.c_double]
+        self.parent.dll.setSequenceMode(sequenceMode.value, wait4newData, param)
 
     def getG2Data(self):
         r"""
@@ -5527,7 +5794,17 @@ Example
             self.parent.logPrint( Color.Red + "measurement is not supported for Correlation class in MeasMode:", name)
             return [],[]
         
-        return np.lib.stride_tricks.as_strided(self.data), np.lib.stride_tricks.as_strided(self.bins)
+        if self.wait4newData:
+            if self.parent.dll.waitNewData(self.ID):
+                dataOut = np.copy(self.data)
+                binsOut = np.copy(self.bins)
+                self.parent.dll.gotNewData(self.ID)
+                return dataOut, binsOut
+            else:
+                return [], []
+        
+        else:
+            return np.lib.stride_tricks.as_strided(self.data), np.lib.stride_tricks.as_strided(self.bins)
 
 
     def getFCSData(self):
@@ -5580,6 +5857,14 @@ Example
     plt.show(block=True)    
     
         """
+        if self.wait4newData:
+            if self.parent.dll.waitNewData(self.ID):
+                dataOut = np.copy(self.data).reshape(3, self.numBins)[:, :-1]
+                binsOut = np.copy(self.bins)[:-1]
+                self.parent.dll.gotNewData(self.ID)
+                return dataOut, binsOut
+            else:
+                return [], []
         return np.lib.stride_tricks.as_strided(self.data, shape=(3, self.numBins),
             strides=(ct.sizeof(self.data._type_) * self.numBins, ct.sizeof(self.data._type_)))[:, :-1], np.lib.stride_tricks.as_strided(self.bins) [:-1]
 
@@ -6516,3 +6801,4 @@ Example
         iChan = self.parent.dll.addMImportStream(self.ID, deviceName, remoteStartStop, ct.pointer(channels), len(channels), delayTime)
         self.getConfig()
         return list(range(iChan, iChan + len(channels)))
+

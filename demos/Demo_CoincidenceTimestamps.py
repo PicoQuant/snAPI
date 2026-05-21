@@ -6,10 +6,10 @@ if(__name__ == "__main__"):
     length = 10
     
     sn = snAPI()
-    #sn.getDevice()
+    sn.getDevice()
     
     # offline processing:
-    sn.getFileDevice(r"mnt\d\Data\PicoQuant\Test2.ptu")
+    #sn.getFileDevice(r"mnt\d\Data\PicoQuant\Test2.ptu")
     sn.initDevice(MeasMode.T3)
     
     # set the trigger level

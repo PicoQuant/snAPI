@@ -10,7 +10,8 @@ if(__name__ == "__main__"):
     sn = snAPI()
     sn.getDeviceIDs()
     #sn.getFileDevice(r"\mnt\d\Data\PicoQuant\OpenCLTest\Atto655+Cy5_diff_FCS+FLCS_Conv.ptu")
-    sn.getDevice()
+    sn.getFileDevice(r"D:\Data\PicoQuant\OpenCLTest\Atto655+Cy5_diff_FCS+FLCS_Conv.ptu")
+    #sn.getDevice()
     sn.initDevice(MeasMode.T3)
     
     # set the configuration for your device type

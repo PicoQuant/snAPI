@@ -20,15 +20,20 @@ if(__name__ == "__main__"):
     sn.setLogLevel(LogLevel.Api, True)
     sn.setLogLevel(LogLevel.Device, True)
     
+    sn.histogram.setSequenceMode(sequenceMode=SequenceMode.Timer, wait4newData=True, param = 1) # 1s
+    #sn.histogram.setSequenceMode(sequenceMode=SequenceMode.Counts, wait4newData=True, param = 5000000) # 5M counts
     # change histogram parameter in T2 mode
     sn.histogram.setRefChannel(0)
     sn.histogram.setBinWidth(100)
-    sn.histogram.setNumBins(10000)
-    sn.histogram.measure(acqTime=10000, waitFinished=False, savePTU=True)
+    sn.histogram.setNumBins(2000)
+    sn.histogram.measure(acqTime=10000, waitFinished=False, savePTU=False)
     
     while True:
-        finished = sn.histogram.isFinished()
+        if sn.histogram.isFinished():
+            break
         data, bins = sn.histogram.getData()
+        if(len(data) == 0):
+            break
         
         # 1s refresh time
         plt.pause(.1)
@@ -42,11 +47,5 @@ if(__name__ == "__main__"):
         plt.ylabel('Counts')
         plt.legend()
         plt.title("Histogram")
-        
-        if finished:
-            break
-    
-        # clear measure data
-        sn.histogram.clearMeasure()
     
     plt.show(block=True)

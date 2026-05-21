@@ -26,6 +26,6 @@ Introduction
 | measurement classes can be sequentially combined with data manipulators (e.g. coincidence,
 | herald, merge, delay) to provide maximum flexibility in analysis.
 
-| snAPI is free to use and compatible with PicoQuant `TimeHarp 260 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/timeharp-260-tcspc-and-mcs-board-with-pcie-interface>`_ (drivers optional),
-| `MultiHarp 160 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/multiharp-160>`_, `MultiHarp 150 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/multiharp-150-high-throughput-multichannel-event-timer-tcspc-unit>`_, `HydraHarp 400 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/hydraharp-400-multichannel-picosecond-event-timer-tcspc-module>`_ and `PicoHarp 330 <https://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/picoharp_330_precise_and_versatile_event_timer_and_tcspc_unit>`_.
+| snAPI is free to use and compatible with PicoQuant `TimeHarp 260 <https://www.picoquant.com/products/time-tagging-tcspc-electronics/timeharp-260/>`_ (drivers optional),
+| `MultiHarp 160 <https://www.picoquant.com/products/time-tagging-tcspc-electronics/multiharp-160/>`_, `MultiHarp 150 <https://www.picoquant.com/products/time-tagging-tcspc-electronics/multiharp-150/>`_, `HydraHarp 400 <https://www.picoquant.com/news/hydraharp-400-discontinued/>`_ and `PicoHarp 330 <https://www.picoquant.com/products/time-tagging-tcspc-electronics/picoharp-330/>`_.
 | To get started users just need a PicoQuant TCSPC device, its Library/DLL, Python, and snAPI.

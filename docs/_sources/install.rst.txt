@@ -57,11 +57,12 @@ Dependencies
 ------------
 
 1. Download and install the software for the product you need:
-    - https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp_Release_v4.0.0.0.zip
-    - https://www.picoquant.com/dl_software/HydraHarp400/HydraHarp400_SW_and_DLL_v3_0_0_4.zip
-    - https://www.picoquant.com/dl_software/TimeHarp260/TimeHarp260_SW_and_DLL_V3_2.zip
-    - https://www.picoquant.com/dl_software/PicoHarp330/PicoHarp330_SW_and_DLL_v2_0.zip
-    - or look at https://www.picoquant.com/downloads
+    - https://downloads.picoquant.com/software/MultiHarp150/MultiHarp_Release_v4.0.0.0.zip
+    - https://downloads.picoquant.com/software/HydraHarp400/HydraHarp400_SW_and_DLL_v3_0_0_4.zip
+    - https://downloads.picoquant.com/software/TimeHarp260/TimeHarp260_SW_and_DLL_V3_2.zip
+    - https://downloads.picoquant.com/software/PicoHarp330/PicoHarp330_SW_and_DLL_v2_0.zip
+    - https://downloads.picoquant.com/software/HydraHarp500/Hydraharp_500_Release_v1.0.0.0.zip
+    - or look at https://www.picoquant.com/downloads/
 
 2. Start the Harp Software and check if the device is working.
 
