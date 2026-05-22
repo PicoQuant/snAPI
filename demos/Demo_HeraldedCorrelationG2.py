@@ -5,31 +5,6 @@ from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 import time
 
-# Heralded g(2) correlation with time-gated detector events
-# ==========================================================
-# This demo demonstrates how a herald signal can be used to select detector
-# events before calculating a second-order correlation, g(2).
-#
-# The script records photon events with a PicoQuant time tagging device and
-# defines a time gate after the herald channel. Only events from the selected
-# detector channels that occur within this gate are passed on as time-gated
-# channels.
-#
-# Setup:
-# The device is initialized in T2 mode and configured from an ini file. The sync
-# input is used as the herald channel, while two detector channels are selected
-# for the gated g(2) analysis. A gate start time and gate width define the time
-# window in which detector events are accepted after each herald event.
-#
-# Count rates are measured both before and after the herald filter, allowing the
-# effect of the time gate to be monitored during acquisition.
-#
-# The g(2) correlation is then calculated from the two heralded detector
-# channels. This is useful for experiments where only photons associated with a
-# herald event should contribute to the correlation, for example heralded
-# single-photon sources, photon-pair experiments, and conditional photon
-# statistics measurements.
-
 if(__name__ == "__main__"):
 
     sn = snAPI()

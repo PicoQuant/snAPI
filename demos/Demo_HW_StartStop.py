@@ -4,29 +4,6 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# Hardware-triggered start and stop of a time trace measurement
-# =============================================================
-# This demo demonstrates how a time trace measurement can be started and stopped
-# by external hardware trigger signals on a PicoQuant time tagging device.
-#
-# The script initializes the device in T2 mode, loads an ini configuration file,
-# and configures the measurement control so that a trigger signal on C1 starts
-# the acquisition and a trigger signal on C2 stops it.
-#
-# Setup:
-# Connect the external start trigger to control input C1 and the external stop
-# trigger to control input C2. After the measurement has been armed in software,
-# the acquisition begins when the selected edge is detected on C1 and ends when
-# the selected edge is detected on C2.
-#
-# During acquisition, the script repeatedly reads the time trace data and plots
-# the count rates of the sync input and all enabled detector channels.
-#
-# This is useful for measurements where both the beginning and the end of the
-# acquisition are defined by external hardware, for example event-based
-# experiments, triggered measurement windows, or synchronization with an external
-# control sequence.
-
 if(__name__ == "__main__"):
 
     sn = snAPI()

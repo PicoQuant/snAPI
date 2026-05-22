@@ -4,30 +4,7 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# White Rabbit time trace — slave unit
-# ====================================
-# This demo demonstrates how to prepare and monitor a time trace on the slave
-# unit of a White Rabbit synchronized pair of PicoQuant time tagging devices.
-#
-# The slave is initialized in T2 mode with `RefSource.Wr_Slave_Harp` and uses
-# `MeasControl.WrMaster2Slave`. After the measurement is armed, the slave waits
-# for the synchronized start command from the master unit.
-#
-# Setup:
-# The White Rabbit master and slave must already be configured and connected.
-# This slave time trace demo should be started before the corresponding master
-# time trace demo. The slave is initialized, configured from an ini file, and
-# prepared for time trace acquisition.
-#
-# Once the master starts the measurement, the slave begins acquiring data
-# synchronously over the White Rabbit link. The photon stream from the slave can
-# optionally be saved to a PTU file while the time trace is displayed.
-#
-# During acquisition, the script repeatedly reads and plots the count rates of
-# the sync input and all enabled detector channels of the slave unit. This is
-# useful for monitoring the slave-side signals in a synchronized White Rabbit
-# measurement and confirming that the slave follows the master-controlled
-# acquisition.
+# This demo starts the data acquisition at the slave and should be executed first.
 
 if(__name__ == "__main__"):
 

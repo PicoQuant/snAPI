@@ -5,29 +5,6 @@ from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 import time
 
-# Second-order correlation measurement with two detector channels
-# ===============================================================
-# This demo demonstrates how a second-order correlation measurement, g(2), can
-# be acquired and plotted from photon events recorded with a time tagging device
-# or from a PTU file.
-#
-# The script configures two detector channels for correlation analysis and starts
-# a g(2) measurement. The correlation module calculates the coincidence rate as a
-# function of the time delay tau between photon events on the two channels.
-#
-# Setup:
-# The device is initialized in T3 mode and configured from an ini file. If needed,
-# input channel offsets can be adjusted so that the correlation feature is
-# centered at tau = 0. The g(2) parameters define the detector channels, the
-# correlation window, the bin width, and the start time used for the analysis.
-#
-# During acquisition, the script repeatedly reads the correlation data and plots
-# the resulting g(2)(tau) curve.
-#
-# This is useful for experiments that analyze photon statistics and temporal
-# correlations, for example antibunching or bunching measurements, single-photon
-# source characterization, and timing checks between two detector channels.
-
 if(__name__ == "__main__"):
 
     sn = snAPI()

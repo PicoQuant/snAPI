@@ -4,28 +4,6 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# Hardware-gated time trace measurement
-# =====================================
-# This demo demonstrates how a time trace measurement can be controlled by an
-# external gate signal on a PicoQuant time tagging device.
-#
-# The script initializes the device in T2 mode, loads an ini configuration file,
-# and configures the measurement control so that the signal level on control
-# input C1 gates the acquisition.
-#
-# Setup:
-# Connect the external gate signal to control input C1. A low-to-high transition
-# starts the measurement, and the measurement remains active while the gate
-# signal is high. When the signal on C1 goes low again, the acquisition is
-# paused or stopped according to the selected hardware control mode.
-#
-# During acquisition, the script repeatedly reads the time trace data and plots
-# the count rates of the sync input and all enabled detector channels.
-#
-# This is useful for experiments where photon events should only be recorded
-# during defined time windows, for example during externally controlled
-# illumination periods, sample excitation intervals, or repeated experimental
-# cycles.
 
 if(__name__ == "__main__"):
 

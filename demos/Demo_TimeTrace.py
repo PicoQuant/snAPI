@@ -4,29 +4,6 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# Time trace measurement from a time tagging device
-# =================================================
-# This demo demonstrates how to acquire and display a time trace from photon
-# events recorded with a PicoQuant time tagging device.
-#
-# The script initializes the device in T3 mode and configures the time trace
-# module with a selected number of time bins and history size. The time trace
-# accumulates the count rates of the sync input and all enabled detector channels
-# as a function of measurement time.
-#
-# Setup:
-# The device can be configured from an ini file or by setting trigger parameters
-# directly in the script. The time trace parameters define how many time bins are
-# displayed and how much history is kept during acquisition.
-#
-# During acquisition, the script repeatedly reads the current time trace data and
-# plots the count rates on a logarithmic scale. The photon stream can optionally
-# be saved as a PTU file while the time trace is being displayed.
-#
-# This is useful for monitoring detector signals in real time, checking count
-# rates before or during a measurement, optimizing optical alignment, and
-# verifying that all channels receive the expected signal levels.
-
 if(__name__ == "__main__"):
 
     sn = snAPI()

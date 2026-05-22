@@ -4,32 +4,6 @@ import matplotlib
 matplotlib.use("TkAgg", force=True)
 from matplotlib import pyplot as plt
 
-# PTU recording with image metadata
-# =================================
-# This demo demonstrates how to record photon events from a PicoQuant time
-# tagging device into a PTU file and add image-related metadata to the file
-# header.
-#
-# The script initializes the device in T2 mode, loads an ini configuration file,
-# and enables PTU file logging. Marker inputs are configured to indicate the
-# structure of an image scan, such as line start, line stop, and frame change.
-#
-# Setup:
-# The measurement is set to image submode with `setMeasurementSubMode`. The image
-# header tags define how the photon stream should be interpreted as an image,
-# including the scan dimension, pixel dwell time, image size, pixel resolution,
-# and scan position. Optional tags can be added for scanner type, scan direction,
-# bidirectional scanning, or sinusoidal scan correction.
-#
-# During acquisition, the photon stream is saved to `out.ptu` while a time trace
-# is displayed to monitor the count rates on the sync input and detector
-# channels.
-#
-# This is useful for creating PTU files that contain both the recorded photon
-# events and the metadata required for image-based analysis, for example in
-# FLIM, scanning microscopy, or other experiments where marker signals define
-# the spatial structure of the measurement.
-
 if __name__ == "__main__":
 
     sn = snAPI()

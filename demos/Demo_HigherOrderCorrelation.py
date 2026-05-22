@@ -5,32 +5,28 @@ from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 import time
 
-# Higher-order correlation — conditioned g(2) as a slice of g(3)
-# ==============================================================
-# This demo demonstrates how snAPI can be used to measure a higher-order
-# correlation by conditioning a g(2) measurement on a two-photon coincidence.
+# Conditioned g(2) — a 1D slice of g(3)
+# ========================================
+# This demo measures a conditioned g(2): the probability of detecting a photon
+# on Ch3 at delay tau, given that Ch1 and Ch2 fired simultaneously (tau1 ~ 0).
 #
-# The script creates a virtual coincidence channel from detector channels Ch1
-# and Ch2. This channel fires when photons are detected on both channels within
-# the selected coincidence window. The virtual coincidence channel is then
-# correlated with a third detector channel, Ch3, using the built-in g(2)
-# correlator.
+# This is NOT the full g(3)(tau1, tau2), which is a 2D correlation function.
+# It is the 1D slice g(3)(0, tau) — useful for verifying photon number
+# statistics and multi-photon emission properties.
 #
 # Setup:
-# A light source is split onto three single-photon detectors connected to
-# Ch1..Ch3. For pulsed sources, the sync channel Ch0 can be used as a herald
-# signal to gate the detector channels to the expected photon-arrival window. For
-# continuous-wave sources, the detector channels can be used directly.
+#   A light source is split onto 3 SNSPDs via beam splitters:
+#     SNSPD 1 (Ch1)
+#     SNSPD 2 (Ch2)
+#     SNSPD 3 (Ch3)
 #
-# The resulting correlation corresponds to a one-dimensional slice of the
-# third-order correlation function, g(3)(0, tau). It gives the probability of
-# detecting a photon on Ch3 at delay tau, conditioned on a coincidence between
-# Ch1 and Ch2 at tau1 approximately equal to zero.
+# Approach:
+#   1. Build a coincidence of Ch1 and Ch2 -> virtual channel ci_12
+#   2. Correlate ci_12 with Ch3 using the built-in g(2) correlator
+#   This yields g(3)(0, tau) — conditioned on a 2-fold coincidence at tau1 ~ 0.
 #
-# During acquisition, the script repeatedly reads and plots this conditioned
-# g(2) curve. This is useful for studying multi-photon emission, photon-number
-# statistics, and higher-order correlations without calculating the full
-# two-dimensional g(3)(tau1, tau2) map.
+# The herald filter is used if the source is pulsed (sync on Ch0).
+# For CW sources, the herald can be omitted.
 
 if(__name__ == "__main__"):
     sn = snAPI()

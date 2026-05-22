@@ -4,30 +4,6 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# Time trace measurement with coincidence channels
-# ================================================
-# This demo demonstrates how virtual coincidence channels can be added to a time
-# trace measurement with snAPI.
-#
-# The script initializes a PicoQuant time tagging device in T2 mode and creates
-# coincidence channels from two detector channels, Ch1 and Ch2. Photon events on
-# these channels are tested against the selected coincidence window, and matching
-# events are counted in additional virtual channels.
-#
-# Setup:
-# The device configuration is loaded from an ini file. Two coincidence
-# manipulators are created with different counting modes: `CountAll` counts all
-# coincidence combinations within the selected window, while `CountOnce` counts
-# only one coincidence event per matching group.
-#
-# During acquisition, the script reads the time trace data and plots the count
-# rates of the sync input, the original detector channels, and the generated
-# coincidence channels together.
-#
-# This is useful for monitoring coincidence rates in real time, comparing raw
-# detector count rates with coincidence signals, and checking coincidence-window
-# settings during experiments involving correlated photon events.
-
 if(__name__ == "__main__"):
 
     sn = snAPI()

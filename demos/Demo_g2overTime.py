@@ -9,21 +9,23 @@ if(__name__ == "__main__"):
 
     sn = snAPI()
     sn.getDevice()
-    #sn.getFileDevice(r"D:\Data\PicoQuant\Chattanooga_MH150_3channel_FiberSpool.ptu")
-    sn.initDevice()
+    sn.getFileDevice(r"D:\Data\PicoQuant\Chattanooga_MH150_3channel_FiberSpool.ptu")
+    #sn.initDevice()
     signal = 1
     idler = 2
     g2Data = None
     g2Bins = None
-    windowSize = 0.5 # seconds
-    fileSize = 60 # seconds
+    startTime = 59.5 # seconds
+    stopTime = 60 # seconds
+    windowSize = 0.001 # seconds
     delay = 49405000 # ps
     
-    windows = np.arange(0, fileSize, windowSize)
+    windows = np.arange(startTime, stopTime, windowSize)
+    sn.manipulators.subStream(startTime, stopTime)
     delayedCh1 = sn.manipulators.delay(signal, delay)
-    sn.correlation.setG2Parameters(delayedCh1, idler, 10000, 5, False)
+    sn.correlation.setG2Parameters(delayedCh1, idler, 1000, 50, False)
     sn.correlation.setSequenceMode(sequenceMode=SequenceMode.Timer, wait4newData=True, param = windowSize)
-    sn.correlation.measure(acqTime = fileSize*1000)
+    sn.correlation.measure(acqTime = stopTime * 1000)
     i = 0
     
     while True:        
@@ -36,8 +38,9 @@ if(__name__ == "__main__"):
             g2Data = np.zeros((len(windows), len(data)))
             g2Bins  = np.copy( bins + delay * 1e-12 )
 
-        if i < len(windows):
-            g2Data[i, :] = data
+        if i < len(windows) and len(data) > 0:
+            if windows[i] > startTime:
+                g2Data[i, :] = data
             i += 1
         else:
             break

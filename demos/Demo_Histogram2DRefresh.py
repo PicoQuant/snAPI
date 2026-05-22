@@ -6,34 +6,6 @@ print("Switched to:",matplotlib.get_backend())
 from threading import Timer
 import time
 
-# Live-refresh 2D histogram from photon timing differences
-# ========================================================
-# This demo demonstrates how a two-dimensional histogram can be calculated and
-# refreshed during acquisition from photon events recorded with a PicoQuant time
-# tagging device or from a PTU file.
-#
-# The script configures a 2D histogram using one reference channel and two
-# detector channels. For each reference event, the arrival-time differences to
-# the selected X and Y channels are accumulated in a two-dimensional histogram.
-#
-# Setup:
-# The 2D histogram parameters define the reference channel, the X and Y detector
-# channels, the timing offsets, bin widths, and number of bins for both axes.
-# The demo can be configured for either a wide-field or a standard timing window.
-#
-# Optional corrections such as time-over-threshold mode, time-walk correction,
-# and recovery timing correction can be enabled to compensate detector- or
-# signal-dependent timing effects before the data are histogrammed.
-#
-# During acquisition, the script repeatedly reads the current 2D histogram and
-# displays it with both linear and logarithmic color scaling. After each refresh,
-# the accumulated measurement data are cleared so that the plot shows only the
-# newly acquired data for the latest update interval.
-#
-# This is useful for monitoring time-resolved two-channel patterns in real time,
-# optimizing detector timing, and visualizing changing photon-arrival
-# distributions during a measurement.
-
 if(__name__ == "__main__"):
 
     sn = snAPI()

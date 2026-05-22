@@ -1,32 +1,5 @@
 from snAPI.Main import *
 
-# Coincidence timestamps from an unfolded photon stream
-# =====================================================
-# This demo demonstrates how coincidence events can be generated from photon
-# events recorded with a time tagging device or from a PTU file, and how their
-# time tags can be accessed directly.
-#
-# The script creates a virtual coincidence channel from two detector channels,
-# Ch1 and Ch2. Photon events on these channels are tested against the selected
-# coincidence window, and matching events are written to a new coincidence
-# channel in the unfolded data stream.
-#
-# Setup:
-# The input channels used to form the coincidence are selected in the list
-# `chans`. The coincidence window defines the maximum allowed time difference
-# between the events. With `keepChannels=True`, the original photon events remain
-# in the stream in addition to the generated coincidence events. Setting
-# `keepChannels=False` keeps only the coincidence events.
-#
-# During acquisition, the script reads blocks from the unfolded stream and prints
-# the channel number together with the corresponding time tag. It then filters
-# the unfolded data by the virtual coincidence channel index and prints the time
-# tags of the detected coincidence events.
-#
-# This is useful for applications where the timing of coincidence events is
-# required directly, for example for event filtering, coincidence-triggered
-# analysis, or custom post-processing workflows based on photon time tags.
-
 if(__name__ == "__main__"):
 
     start = 0

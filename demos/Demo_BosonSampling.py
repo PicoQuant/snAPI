@@ -4,29 +4,19 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
  
-# Boson sampling with heralded coincidence detection
-# ==================================================
-# This demo demonstrates how snAPI can be used to monitor coincidence events in
-# a boson sampling experiment.
+# Boson Sampling
+# ==============
+# This demo demonstrates coincidence detection for a boson sampling experiment.
 #
 # Setup:
-# A pulsed photon source injects single photons into a linear optical network.
-# The sync channel, Ch0, is used as the pump laser trigger and acts as the herald
-# signal. Four output ports of the optical network are monitored by single-photon
-# detectors connected to Ch1..Ch4.
+#   A pulsed photon source injects single photons into a linear optical network.
+#   The sync channel (Ch0) serves as the pump laser trigger (herald).
+#   4 output ports are monitored by SNSPDs (Ch1..Ch4).
 #
-# The herald filter gates the detector channels to the relevant time window after
-# each pump pulse. This suppresses events outside the expected photon-arrival
-# window and creates heralded detector channels for the four output ports.
-#
-# The script then forms all pairwise, three-fold, and four-fold coincidences
-# between the heralded output channels. During acquisition, these coincidence
-# rates are displayed as time traces, allowing the occupied output-port
-# combinations of the optical network to be monitored in real time.
-#
-# This is useful for boson sampling and related linear-optics experiments where
-# the photon-number distribution across several output modes is inferred from
-# multi-channel coincidence patterns.
+# The herald filter gates all detector channels to the relevant time window
+# after the pump pulse. All pairwise and higher-order coincidences between
+# the heralded output channels are recorded to identify which output
+# combinations are occupied.
  
 if(__name__ == "__main__"):
  

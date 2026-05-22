@@ -4,26 +4,6 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# Hardware-triggered start of a time trace measurement
-# ====================================================
-# This demo demonstrates how a time trace measurement can be prepared in snAPI
-# and started by an external hardware trigger on a PicoQuant time tagging device.
-#
-# The script initializes the device in T2 mode, loads an ini configuration file,
-# and configures the measurement control so that a trigger signal on control
-# input C1 starts the measurement.
-#
-# Setup:
-# Connect the external start trigger to control input C1. After the measurement
-# has been armed in software, the time trace acquisition starts when the trigger
-# is detected on C1 and then runs for the selected acquisition time.
-#
-# During acquisition, the script repeatedly reads the time trace data and plots
-# the count rates of the sync input and all enabled detector channels.
-#
-# This is useful for measurements where the acquisition should be synchronized
-# to an external event, for example a laser trigger, experiment sequence, or
-# external control system.
 
 if(__name__ == "__main__"):
 

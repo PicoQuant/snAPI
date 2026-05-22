@@ -7,29 +7,6 @@ import time
 
 # Full g(3)(tau1, tau2) — 2D Third-Order Correlation
 # =====================================================
-# This demo demonstrates how a third-order correlation map can be obtained from
-# photon events recorded with a time tagging device or from a PTU file.
-#
-# The script scans the relative delay tau1 between two detector channels, Ch1
-# and Ch2. For each tau1 value, one of the channels is delayed with a snAPI
-# manipulator so that photon pairs within the selected coincidence window form a
-# virtual coincidence channel ci_12.
-#
-# This virtual coincidence channel is then correlated with a third detector
-# channel, Ch3, using a standard g(2) correlation. Repeating this procedure for
-# all tau1 values builds up a two-dimensional data set with tau1 on one axis and
-# tau2, the delay between ci_12 and Ch3, on the other axis.
-#
-# The resulting coincidence-conditioned g(2) map is equivalent to a
-# g(3)(tau1, tau2) measurement. It is useful for studying three-photon
-# correlations, photon-pair-conditioned emission, and other experiments where
-# the timing relation between two photons is used as a condition for analyzing
-# correlations with a third photon.
-#
-#
-# tau1 scan and shear correction
-# ------------------------------
-#
 # tau1Values directly represents the physical τ1 = t_Ch2 − t_Ch1.
 # Shear correction is applied per step.
 #

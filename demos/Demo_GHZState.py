@@ -5,32 +5,24 @@ from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 import time
  
-# GHZ state verification with heralded multi-photon coincidences
-# ==============================================================
-# This demo demonstrates how snAPI can be used to monitor multi-photon
-# coincidence patterns for experiments involving Greenberger-Horne-Zeilinger
-# (GHZ) entangled states.
+# GHZ State Generation and Verification
+# =======================================
+# This demo demonstrates multi-photon coincidence detection for heralding
+# and verifying Greenberger-Horne-Zeilinger (GHZ) entangled states.
 #
 # Setup:
-# A pulsed photon source generates the photons used for the GHZ-state experiment.
-# The sync channel, Ch0, is used as the pump laser trigger and acts as the herald
-# signal. Three single-photon detectors are connected to Ch1..Ch3 and record the
-# photons associated with the three GHZ modes A, B, and C.
+#   A pulsed pump laser generates photon pairs via SPDC.
+#   The sync channel (Ch0) provides the pump trigger (herald).
+#   3 detectors measure the output photons:
+#     SNSPD 1 (Ch1) - Photon A
+#     SNSPD 2 (Ch2) - Photon B
+#     SNSPD 3 (Ch3) - Photon C
 #
-# The herald filter gates the detector channels to the relevant time window after
-# each pump pulse. This suppresses events outside the expected photon-arrival
-# window and creates heralded detector channels for the three output modes.
+# A 3-fold coincidence {Ch1, Ch2, Ch3} after the herald gate signals
+# a successful GHZ state generation event.
 #
-# The script then forms the pairwise coincidences {A,B}, {A,C}, and {B,C}, as
-# well as the three-fold coincidence {A,B,C}. The pairwise coincidences are used
-# to monitor the two-photon contributions and estimate accidental coincidences,
-# while the three-fold coincidence indicates events in which all three photons
-# are detected within the selected coincidence window.
-#
-# During acquisition, the pairwise and three-fold coincidence rates are displayed
-# as time traces. This is useful for GHZ-state generation and verification
-# experiments, where the stability and relative rates of multi-photon
-# coincidence events are used to evaluate the measurement.
+# Additional pairwise coincidences are monitored to verify that the 3-fold
+# rate is consistent with the pairwise rates (accidental coincidence estimation).
  
 if(__name__ == "__main__"):
  
