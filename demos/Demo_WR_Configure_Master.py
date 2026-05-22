@@ -1,8 +1,36 @@
 from snAPI.Main import *
 import time
 
-
-# This demo is only for configuring the master. It may be better to use the official Harp Software for this,
+# White Rabbit master configuration
+# =================================
+# This demo demonstrates how to configure a PicoQuant time tagging device as the
+# master unit in a White Rabbit setup.
+#
+# The script initializes the selected device, assigns a unique MAC address, reads
+# and prints the SFP calibration data, and writes a White Rabbit master init
+# script to the device EEPROM. After rebooting or restarting, the unit can then
+# automatically start with the configured White Rabbit master settings.
+#
+# Setup:
+# The master and slave units must be connected directly with a White Rabbit fiber
+# link. This configuration script is intended to be run together with the
+# corresponding slave configuration script. Each device must receive a unique MAC
+# address; in this example, the MAC address is chosen to reflect the device ID.
+#
+# After writing the init script, the device is initialized as
+# `RefSource.Wr_Master_Harp`. The script then polls the White Rabbit status until
+# the master is locked, calibrated, and running in master mode.
+#
+# Finally, the script sets the White Rabbit time to the current UTC time and
+# prints the terminal output and current WR time. This configuration usually only
+# needs to be performed once; after the White Rabbit setup is working, the
+# measurement demos can be used directly.
+#
+#
+# Disclaimer
+# ---------------------------------
+#
+# This demo is only for configuring the master. It may be better to use the Operational Software for this,
 # as it provides a more convenient implementation of the terminal output.
 # It is also recommended not to reconfigure the Harp every time you take measurement. Only Do it once. Once the
 # White Rabbit is configured and working, use only the measurement demos.

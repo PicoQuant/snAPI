@@ -4,31 +4,40 @@ matplotlib.use('TkAgg',force=True)
 from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 
-# Quantum Key Distribution (BB84)
-# ================================
-# This demo demonstrates a BB84-style QKD receiver using herald-gated detectors.
+# Quantum key distribution — BB84 receiver monitoring
+# ===================================================
+# This demo demonstrates how snAPI can be used to monitor heralded detector
+# events in a BB84-style quantum key distribution receiver.
 #
 # Setup:
-#   Alice sends heralded single photons. The herald signal arrives on Ch0 (sync).
-#   A passive basis choice (50/50 beam splitter) routes photons to one of two
-#   polarizing beam splitters (PBS):
+# Alice sends heralded single photons to Bob's receiver. The sync channel, Ch0,
+# is used as Alice's herald signal. A passive basis choice, for example a 50/50
+# beam splitter, routes each photon to one of two measurement bases.
 #
-#   Basis X (rectilinear):
-#     PBS1 -> SNSPD 1 (Ch1, H polarization) = Bit 0
-#     PBS1 -> SNSPD 2 (Ch2, V polarization) = Bit 1
+# In the X basis, the photon is analyzed by a polarizing beam splitter with
+# detectors for horizontal and vertical polarization:
+#   Ch1: H polarization -> Bit 0
+#   Ch2: V polarization -> Bit 1
 #
-#   Basis Z (diagonal):
-#     PBS2 -> SNSPD 3 (Ch3, D polarization) = Bit 0
-#     PBS2 -> SNSPD 4 (Ch4, A polarization) = Bit 1
+# In the Z basis, the photon is analyzed by a second polarizing beam splitter
+# with detectors for diagonal and anti-diagonal polarization:
+#   Ch3: D polarization -> Bit 0
+#   Ch4: A polarization -> Bit 1
 #
-# The herald filter gates all detectors to the time window after Alice's pulse.
-# A heralded click on any detector already represents a coincidence between
-# Alice's source and Bob's measurement -- no additional coincidence is needed
-# for key generation.
+# The herald filter gates all four detector channels to the expected
+# photon-arrival window after Alice's herald pulse. Each heralded detector event
+# represents a valid raw key event for the corresponding basis and bit value, so
+# no additional coincidence calculation is required for key generation.
 #
-# Multi-detector coincidences are monitored as error indicators:
-#   - Same-basis double clicks (H+V or D+A): multi-photon events
-#   - Cross-basis clicks (e.g. H+D): optical crosstalk or alignment issues
+# The script also forms selected multi-detector coincidences as error monitors.
+# Same-basis double clicks, such as H+V or D+A, indicate multi-photon events or
+# dark-count overlap. Cross-basis coincidences, such as H+D or V+A, can indicate
+# optical crosstalk, imperfect alignment, or other unwanted correlations.
+#
+# During acquisition, the raw key rates for H, V, D, and A are displayed together
+# with the monitored error-coincidence rates. This is useful for checking the
+# stability of a BB84 receiver, balancing the detector channels, and identifying
+# error contributions during QKD experiments.
 
 if(__name__ == "__main__"):
     sn = snAPI()
