@@ -11,7 +11,19 @@ pip install snAPI[rag]
 
 ## Quick Start
 
-### Option 1: MCP Server (Claude Code, Cursor, Copilot, ...)
+### Step 1: Build the index
+
+The index is not included in the repository and must be built locally before first use (~2-5 minutes):
+
+```bash
+python -m snAPI.rag index
+```
+
+This only needs to be done once. Re-run after updating snAPI to pick up new documentation.
+
+### Step 2: Start the server or use the Python API
+
+**Option 1: MCP Server (Claude Code, Cursor, Copilot, ...)**
 
 If you opened this repository in Claude Code or Cursor, the server is already
 configured via `.mcp.json`. Start it with:
@@ -28,7 +40,7 @@ python -m snAPI.rag install
 
 Then restart your AI tool.
 
-### Option 2: Python API (custom pipelines)
+**Option 2: Python API (custom pipelines)**
 
 ```python
 from snAPI.rag import SnAPIRag
@@ -36,20 +48,6 @@ from snAPI.rag import SnAPIRag
 rag = SnAPIRag()
 context = rag.query_as_context("how do I measure g(2) with two detectors?")
 # Inject `context` into your LLM prompt
-```
-
-## Build / Download the Index
-
-The index is pre-built for each snAPI release. Download it with:
-
-```bash
-python -m snAPI.rag index --download
-```
-
-Or build locally (~2-5 minutes):
-
-```bash
-python -m snAPI.rag index
 ```
 
 ## Embedding Model
