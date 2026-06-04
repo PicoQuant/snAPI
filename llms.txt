@@ -12,14 +12,14 @@ snAPI (Snappy New API) is a Python wrapper for PicoQuant Time-Correlated Single 
 
 | Device | Abbrev | Interface | Notes |
 |--------|--------|-----------|-------|
-| MultiHarp 150 | MH150 | PCIe/USB | High-throughput multichannel event timer |
-| MultiHarp 160 | MH160 | PCIe/USB | Successor to MH150 |
-| HydraHarp 400 | HH400 | PCIe/USB | Multichannel picosecond event timer |
-| HydraHarp 500 | HH500 | PCIe/USB | Next-gen HydraHarp |
+| MultiHarp 150 | MH150 | PCIe / USB 3.0 | High-throughput multichannel event timer |
+| MultiHarp 160 | MH160 | PCIe / USB 3.0 | Successor to MH150 |
+| HydraHarp 400 | HH400 | USB 2.0 | Multichannel picosecond event timer (discontinued Nov 2025) |
+| HydraHarp 500 | HH500 | PCIe / USB 3.0 | Next-gen HydraHarp |
 | PicoHarp 330 | PH330 | USB | Precise event timer |
-| TimeHarp 260 | TH260 | PCI | TCSPC/MCS board — only device with classic PCI bus (not PCIe); drivers optional |
+| TimeHarp 260 | TH260 | PCIe | TCSPC/MCS board — PCIe card (no USB); drivers optional |
 
-Note: TH260 is the only Harp with a classic PCI interface. All other devices use PCIe and/or USB.
+Note: TH260 is the only Harp without USB — it is a PCIe plug-in card. HH400 uses USB 2.0; all other USB-capable devices use USB 3.0.
 
 Not all features are available on all devices. Each `Constants.py` entry lists supported devices as `[MH150/160 | HH400 | HH500 | TH260 | PH330]`.
 
