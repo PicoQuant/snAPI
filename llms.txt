@@ -1,0 +1,670 @@
+# snAPI — PicoQuant TCSPC Python API
+
+> AI-readable reference for snAPI. For full docs: https://picoquant.github.io/snAPI/
+> GitHub: https://github.com/PicoQuant/snAPI
+> Install: `pip install snAPI`
+
+snAPI (Snappy New API) is a Python wrapper for PicoQuant Time-Correlated Single Photon Counting (TCSPC) instruments. It bridges C++ speed with Python flexibility, enabling real-time photon stream analysis at 80+ mega-tags/second.
+
+---
+
+## Supported Hardware
+
+| Device | Abbrev | Interface | Notes |
+|--------|--------|-----------|-------|
+| MultiHarp 150 | MH150 | PCIe/USB | High-throughput multichannel event timer |
+| MultiHarp 160 | MH160 | PCIe/USB | Successor to MH150 |
+| HydraHarp 400 | HH400 | PCIe | Multichannel picosecond event timer |
+| HydraHarp 500 | HH500 | PCIe/USB | Next-gen HydraHarp |
+| PicoHarp 330 | PH330 | USB | Precise event timer |
+| TimeHarp 260 | TH260 | PCIe | TCSPC/MCS board (drivers optional) |
+
+Not all features are available on all devices. Each `Constants.py` entry lists supported devices as `[MH150/160 | HH400 | HH500 | TH260 | PH330]`.
+
+---
+
+## Measurement Modes
+
+snAPI supports three measurement modes, set via `initDevice(measMode)`.
+
+### Histogram Mode (`MeasMode.Histogram = 0`)
+
+Hardware histogramming — time differences between sync and input channels are computed **on-device** and accumulated in hardware histograms. No raw data stream is transmitted to the host.
+
+- Higher achievable count rates than software-based histogramming
+- No PTU file output possible (raw stream not transmitted)
+- Use with `sn.histogram` measurement class
+- `Histogram2D`, `ExportStream`, `importStream` are NOT supported in this mode
+
+```python
+sn.initDevice(MeasMode.Histogram)
+sn.histogram.setRefChannel(0)
+sn.histogram.measure(acqTime=1000, waitFinished=True)
+data, bins = sn.histogram.getData()
+```
+
+### TTTR Modes — Time-Tagged Time-Resolved
+
+T2 and T3 are both **TTTR modes**: each detected photon event is individually time-tagged and streamed to the host PC. This enables flexible post-processing, real-time analysis, and PTU file recording.
+
+**T2 mode** (`MeasMode.T2 = 2`): Absolute timestamp per photon. No periodic sync required — sync input can serve as additional detector channel. Used for: g(2)/HBT experiments, coincidence counting, FCS, quantum optics.
+
+Record format (32-bit): `[channel (6 bit) | timetag (25 bit) | special (1 bit)]`
+
+**T3 mode** (`MeasMode.T3 = 3`): Each event recorded as (nSync, dTime) — sync counter + time relative to last sync pulse. Optimized for high sync rates (e.g. pulsed lasers). Used for: TCSPC histograms, FLIM, fluorescence lifetime, FCS at high rep rates.
+
+Record format (32-bit): `[channel (6 bit) | dtime (15 bit) | nsync (10 bit) | special (1 bit)]`
+
+Note: `sn.unfold` converts T3 records to absolute times automatically.
+
+---
+
+## Quick Start
+
+```python
+from snAPI.Main import *
+
+sn = snAPI()
+sn.getDevice()                        # connect to first available device
+sn.initDevice(MeasMode.T2)           # set measurement mode
+sn.loadIniConfig("config/MH.ini")    # load hardware config
+
+# Simple histogram
+sn.histogram.setRefChannel(0)
+sn.histogram.setBinWidth(100)         # ps
+sn.histogram.setNumBins(1000)
+sn.histogram.measure(acqTime=1000, waitFinished=True)
+data, bins = sn.histogram.getData()  # data[0]=sync, data[1..N]=channels
+
+sn.exitAPI()
+```
+
+---
+
+## Architecture — Device ID and Multi-Device Operation
+
+### How measurement classes bind to a device
+
+Every measurement class (`Histogram`, `Histogram2D`, `Raw`, `Unfold`, `TimeTrace`,
+`Correlation`, `ExportStream`) stores a device ID (`self.ID`) at instantiation time:
+
+```python
+self.ID = "ID" in self.parent.deviceConfig and self.parent.deviceConfig["ID"] or ""
+```
+
+- **`self.ID = ""`** (empty string): the DLL uses its internally tracked *current device* —
+  whichever was most recently set by `getDevice()`. This is the value held by the default
+  instances (`sn.histogram`, `sn.histogram2d`, etc.) created inside `snAPI.__init__`, because
+  no device is active yet at that point.
+- **`self.ID = "1000509"`** (serial number): the DLL addresses that specific device directly,
+  regardless of which device was last set with `getDevice()`.
+
+### Creating device-bound instances (multi-device / parallel streams)
+
+To run two devices simultaneously without switching `getDevice()` between calls, create
+explicit class instances right after `getDevice()` and `initDevice()`:
+
+```python
+sn = snAPI()
+
+sn.getDevice(master)                  # DLL current = master
+sn.initDevice(MeasMode.T2)
+histoMaster = Histogram(sn)           # self.ID = master serial — permanently bound
+histoMaster.setRefChannel(0)
+histoMaster.setBinWidth(1)
+histoMaster.setNumBins(20000)
+
+sn.getDevice(slave)                   # DLL current = slave
+sn.initDevice(MeasMode.T2, RefSource.External_10MHZ)
+sn.device.setMeasControl(MeasControl.C1Gated, 1, 0)
+histoSlave = Histogram(sn)            # self.ID = slave serial — permanently bound
+histoSlave.setRefChannel(0)
+histoSlave.setBinWidth(5)
+histoSlave.setNumBins(4000)
+
+# Parallel operation — no getDevice() needed between calls:
+histoSlave.measure(waitFinished=False)
+time.sleep(0.01)                      # let slave thread start before master fires
+sn.getDevice(master)
+histoMaster.measure(acqTime=10000, waitFinished=False)
+
+while not histoSlave.isFinished():
+    dataMaster, binsMaster = histoMaster.getData()   # addresses master directly
+    dataSlave,  binsSlave  = histoSlave.getData()    # addresses slave directly
+```
+
+See: `Demo_2Harp_ 2_parallel_streams.py`
+
+### `getDevice()` and device switching
+
+```python
+sn.getDevice()              # first available device
+sn.getDevice("1000509")     # by serial number
+sn.getDevice(0)             # by index
+```
+
+`getDevice()` sets the DLL-internal current device and updates `sn.deviceConfig`.
+After calling it, `sn.device`, `sn.manipulators`, and all default measurement instances
+(`sn.histogram`, `sn.histogram2d`, etc. with `ID=""`) operate on that device.
+Explicitly bound instances (created via `Histogram(sn)` etc.) are unaffected.
+
+### Multi-device via ExportStream + importStream
+
+For streaming channels from one device into another's data stream:
+
+```python
+sn = snAPI()
+
+sn.getDevice(master)
+sn.initDevice(MeasMode.T2, RefSource.Wr_Master_Harp)
+sn.device.setMeasControl(MeasControl.WrMaster2Slave)
+sn.histogram.setRefChannel(0)
+# Import slave channels into master stream (remoteStartStop=True: master controls slave)
+importChans = sn.manipulators.importStream(slave, [0, 1, 2], remoteStartStop=True)
+
+sn.getDevice(slave)
+sn.initDevice(MeasMode.T2, RefSource.Wr_Slave_Harp)
+sn.device.setMeasControl(MeasControl.WrMaster2Slave)
+
+sn.getDevice(master)
+sn.histogram.measure(acqTime=0, waitFinished=False)
+# sn.histogram.getData() now returns data for master channels + imported slave channels
+```
+
+See: `Demo_WR_2Harps_1_stream.py`, `Demo_2Harps_1_stream_RefIn_RefOut.py`
+
+---
+
+## Thread Architecture
+
+Each manipulator runs in its own C thread (GIL released). The C DLL writes into
+pre-allocated ctypes buffers. Python reads via `np.lib.stride_tricks.as_strided`
+zero-copy views — no lock needed because the DLL only writes buffer contents,
+never resizes. Data is only final after `isFinished()` returns `True`.
+
+---
+
+## API Reference
+
+### `snAPI` (main class)
+
+```python
+sn = snAPI(systemIni=None)
+```
+
+| Method | Description |
+|--------|-------------|
+| `getDeviceIDs()` | List connected devices |
+| `getDevice(*dev)` | Connect to device (default: first found) |
+| `getFileDevice(path)` | Open PTU file as virtual device |
+| `initDevice(measMode, refSrc)` | Initialize with T2/T3/Histogram mode |
+| `closeDevice(allDevices=True)` | Close connection |
+| `loadIniConfig(path)` | Load .ini hardware config |
+| `setIniConfig(text)` | Set config from string |
+| `getDeviceConfig()` | Refresh and return deviceConfig dict |
+| `setLogLevel(logLevel, onOff)` | Enable/disable logging |
+| `exitAPI()` | Release device and DLL |
+
+Default measurement instances on `sn`:
+`sn.device`, `sn.filter`, `sn.raw`, `sn.unfold`, `sn.histogram`, `sn.histogram2d`,
+`sn.timeTrace`, `sn.correlation`, `sn.manipulators`
+
+All default instances use `ID=""` (current device). To bind to a specific device,
+instantiate directly after `getDevice()`: `myHisto = Histogram(sn)`.
+
+---
+
+### `sn.device` — Hardware Configuration
+
+`getCountRates()`, `getSyncPeriod()`, `getNumAllChannels()` were moved from the top-level
+`snAPI` class into `Device` in v1.2.1.
+
+| Method | Key Parameters | Description |
+|--------|---------------|-------------|
+| `getCountRates()` | — | Returns `[sync_rate, ch1_rate, ..., chN_rate]` (cps); hardware gate = 100 ms |
+| `getSyncPeriod()` | — | Sync period in ps; only valid during running measurement |
+| `getNumAllChannels()` | — | Total channel count (HW channels + manipulator channels + sync) |
+| `setSyncDiv(syncDiv=1)` | 1,2,4,8,16 | Sync input divider |
+| `setSyncEdgeTrig(trigLvl=-50, trigEdge=1)` | mV, 0/1 | Sync edge trigger |
+| `setSyncCFD(discrLvl=50, zeroXLvl=20)` | mV | Sync CFD thresholds |
+| `setSyncChannelOffset(offset=0)` | ps | Sync timing offset |
+| `setSyncDeadTime(deadTime=800)` | ps | Sync dead time |
+| `setInputEdgeTrig(channel=-1, trigLvl=-50, trigEdge=1)` | ch, mV, 0/1 | Channel edge trigger (-1=all) |
+| `setInputCFD(channel=-1, discrLvl=50, zeroXLvl=20)` | ch, mV | Channel CFD |
+| `setInputChannelOffset(channel=-1, chanOffs=0)` | ch, ps | Channel timing offset |
+| `setInputChannelEnable(channel=-1, chanEna=1)` | ch, 0/1 | Enable/disable channel |
+| `setInputDeadTime(channel=-1, deadTime=800)` | ch, ps | Channel dead time |
+| `setBinning(binning=0)` | 0..n | Histogram binning factor |
+| `setHistoLength(lengthCode=6)` | 0..6 | Histogram length code |
+| `setMeasControl(measControl, startEdge=0, stopEdge=0)` | MeasControl enum | Trigger control mode |
+
+---
+
+### `sn.raw` — Raw Photon Stream
+
+Access packed 32-bit photon records (T2/T3 format).
+
+```python
+sn.raw.measure(acqTime=1000, size=134217728, waitFinished=True, savePTU=False)
+data = sn.raw.getData()          # numpy array of packed uint32 records
+
+# Decode records (T2 mode)
+for record in data:
+    if not sn.raw.isSpecial(record):
+        t  = sn.raw.timeTag_T2(record)   # absolute time in resolution units
+        ch = sn.raw.channel(record)       # channel index
+```
+
+| Method | Description |
+|--------|-------------|
+| `measure(acqTime, size, waitFinished, savePTU)` | Blocking or async measurement |
+| `startBlock(acqTime, size, savePTU)` | Start block-wise streaming |
+| `getBlock()` | Get next data block |
+| `getData(numRead=None)` | Get numpy array of records |
+| `isFinished()` | True when acquisition complete |
+| `stopMeasure()` | Stop running measurement |
+| `isSpecial(record)` | True for overflow/marker records |
+| `timeTag_T2(record)` | Extract time tag (T2) |
+| `nSync_T3(record)` | Extract sync counter (T3) |
+| `dTime_T3(record)` | Extract differential time (T3) |
+| `channel(record)` | Extract channel index |
+| `isMarker(record)` | True if external marker |
+| `markers(record)` | Bitmask of active markers |
+
+---
+
+### `sn.unfold` — Absolute Time Stream
+
+Like `raw`, but with T3 records unfolded to absolute times (ps).
+
+```python
+sn.unfold.measure(acqTime=1000)
+times    = sn.unfold.getTimes()
+channels = sn.unfold.getChannels(numRead)
+times_ch1 = sn.unfold.getTimesByChannel(channel=1)
+```
+
+| Method | Description |
+|--------|-------------|
+| `measure(acqTime, size, waitFinished, savePTU)` | Start measurement |
+| `getData(numRead=None)` | Raw packed records |
+| `getTimes(numRead=None)` | Absolute timestamps as numpy array |
+| `getChannels(numRead)` | Channel indices as numpy array |
+| `getTimesByChannel(channel, size=None)` | Times filtered by channel |
+| `isFinished()` | Acquisition complete? |
+
+---
+
+### `sn.histogram` — TCSPC Histogram
+
+```python
+sn.histogram.setRefChannel(0)       # sync/reference channel (T2 only)
+sn.histogram.setBinWidth(100)       # bin width in ps (None = device minimum)
+sn.histogram.setNumBins(10000)
+sn.histogram.measure(acqTime=1000, waitFinished=True)
+data, bins = sn.histogram.getData() # data[ch][bin], bins in ps
+```
+
+Note: In T3 mode, refChannel is fixed to sync and cannot be changed.
+Note: In MeasMode.Histogram, binning is done in hardware; T2/T3 use software binning.
+
+| Method | Description |
+|--------|-------------|
+| `setRefChannel(channel=0)` | Set reference (sync) channel — T2 only |
+| `setNumBins(numBins=10000)` | Number of histogram bins |
+| `setBinWidth(binWidth=None)` | Bin width in ps (None = BaseResolution) |
+| `measure(acqTime, waitFinished, savePTU)` | Run histogram |
+| `getData()` | Returns `(data[ch][bin], bins_ps)` |
+| `isFinished()` | Done? |
+| `clearMeasure()` | Reset histogram without stopping |
+| `stopMeasure()` | Stop running measurement |
+
+---
+
+### `sn.histogram2d` — 2D Histogram (v1.2.1)
+
+Builds a 2D histogram of time differences between a reference channel and two signal
+channels (X and Y). Supports ToT (time-over-threshold / pulse-width) mode and detector
+recovery timing correction for SNSPD artifacts.
+
+Not supported in `MeasMode.Histogram`. Only T2 and T3.
+
+```python
+sn.histogram2d.setHisto2dParams(
+    refChannel=0,     # reference (0=sync); ignored in T3 (sync is always ref)
+    channelX=1,
+    channelY=2,
+    offsetX=0,        # ps — shift X axis origin
+    offsetY=0,        # ps — shift Y axis origin
+    binWidthX=100,    # ps (None = device BaseResolution)
+    binWidthY=100,
+    numBinsX=1000,
+    numBinsY=1000,
+)
+sn.histogram2d.measure(acqTime=1000, waitFinished=True)
+data = sn.histogram2d.getData()   # numpy array shape (numBinsY, numBinsX), dtype uint32
+```
+
+**Pairing rule**: A reference event opens a window. The first event on channelX and first
+on channelY within that window form a pair → one histogram increment. Additional events
+in the same window are ignored.
+
+#### ToT mode (pulse-width / time-over-threshold)
+
+```python
+sn.histogram2d.setHisto2dTotMode(
+    totMode=True,
+    timewalkFactor=0.7,   # linear time-walk correction (ps/ps); 0 = disabled
+)
+```
+
+In ToT mode, the Y axis encodes pulse width (trailing edge − leading edge timestamp)
+instead of a second arrival time. Compensates systematic shifts caused by detector
+recovery or pulse-shape variations.
+
+#### Detector recovery timing correction (SNSPD bias-shift artifacts)
+
+```python
+sn.histogram2d.setHisto2dRecoveryTimingCorrection(
+    diffTimeMin=50000,          # ps — discard pairs with diffTime < this
+    diffTimeMax=(1<<64)-1,      # ps — discard pairs with diffTime > this
+    correctionX=-33,            # ps — constant offset added to X timestamp
+    correctionY=250,            # ps — constant offset added to Y timestamp
+    timewalkCorrectionFactor=-0.2,  # linear time-walk factor; 0 = disabled
+)
+```
+
+Use this to suppress ghost clusters caused by SNSPD baseline-shift (detector not fully
+recovered). `diffTimeMin`/`Max` gates the accepted event pairs; `correctionX`/`Y` applies
+fixed offsets; `timewalkCorrectionFactor` applies a linear correction proportional to pulse
+width proxy.
+
+| Method | Description |
+|--------|-------------|
+| `setHisto2dParams(...)` | Configure axes, bins, offsets |
+| `setHisto2dTotMode(totMode, timewalkFactor)` | Enable ToT / pulse-width mode |
+| `setHisto2dRecoveryTimingCorrection(...)` | SNSPD recovery artifact correction |
+| `measure(acqTime, waitFinished, savePTU)` | Run measurement |
+| `getData()` | Returns 2D numpy array `(numBinsY, numBinsX)` |
+| `isFinished()` | Done? |
+| `clearMeasure()` | Reset without stopping |
+| `stopMeasure()` | Stop |
+
+---
+
+### `sn.timeTrace` — Count Rate vs. Time
+
+```python
+sn.timeTrace.setNumBins(10000)
+sn.timeTrace.setHistorySize(1.0)    # seconds of history
+sn.timeTrace.measure(acqTime=10000, waitFinished=False)
+
+while not sn.timeTrace.isFinished():
+    data, bins = sn.timeTrace.getData(normalized=True)  # kcps
+    time.sleep(0.1)
+```
+
+| Method | Description |
+|--------|-------------|
+| `setNumBins(numBins=10000)` | Time bins |
+| `setHistorySize(historySize=1.0)` | Display window in seconds |
+| `measure(acqTime, waitFinished, savePTU)` | Start acquisition |
+| `getData(normalized=True)` | Returns `(data[ch][bin], bins_s)`; normalized=True → kcps |
+| `isFinished()` | Done? |
+| `clearMeasure()` | Reset |
+
+---
+
+### `sn.correlation` — g(2) / FCS / FFCS
+
+```python
+# g(2) — photon antibunching, entanglement verification
+sn.correlation.setG2Parameters(startChannel=1, stopChannel=2,
+                                windowSize=500000,   # ps total window
+                                binWidth=250,         # ps per bin
+                                normalization=True)
+sn.correlation.measure(acqTime=0)                    # 0 = run until stopped
+
+while True:
+    data, bins = sn.correlation.getG2Data()  # g(2)(tau), tau in seconds
+    time.sleep(0.3)
+
+# FCS — fluorescence correlation spectroscopy
+sn.correlation.setFCSParameters(1, 2,
+    startTime=1e6, stopTime=1e12, numBins=30)        # times in ps, log scale
+sn.correlation.measure(acqTime=2000, waitFinished=True)
+data, bins = sn.correlation.getFCSData()             # data[0]=AA, [1]=AB, [2]=BB
+```
+
+| Method | Description |
+|--------|-------------|
+| `setG2Parameters(start, stop, windowSize, binWidth, normalization)` | Configure g(2) |
+| `setFCSParameters(start, stop, startTime, stopTime, numBins)` | Configure FCS |
+| `setFFCSParameters(start, stop, startTime, stopTime, numBins)` | Configure filtered FCS |
+| `measure(acqTime, waitFinished, savePTU)` | Start measurement |
+| `getG2Data()` | Returns `(g2_array, tau_bins_s)` |
+| `getFCSData()` | Returns `(data[AA/AB/BB], bins_s)` |
+| `isFinished()` | Done? |
+| `clearMeasure()` | Reset |
+
+---
+
+### `sn.exportStream` / `ExportStream` — Multi-Device Export (v1.2.1)
+
+Prepares a device to export its unfolded photon stream so another device can import it
+via `importStream()`. Only T2 mode — not supported in T3 or Histogram mode.
+
+Normally you do not need to call `exportStream.measure()` directly: when
+`importStream(..., remoteStartStop=True)` is used on the master, it starts and stops
+the export device automatically.
+
+```python
+# On export device (slave):
+sn.getDevice(slave)
+sn.initDevice(MeasMode.T2)
+# sn.exportStream is available but measure() is usually triggered by master
+```
+
+| Method | Description |
+|--------|-------------|
+| `measure(acqTime, waitFinished, savePTU)` | Start export measurement (manual) |
+| `isFinished()` | Done? |
+| `stopMeasure()` | Stop |
+
+---
+
+### `sn.manipulators` — Stream Processing Pipeline
+
+Manipulators process the photon stream before measurement classes receive data.
+Each runs in its own C thread (GIL released). Multiple manipulators chain sequentially.
+
+```python
+# Coincidence detection: photons on ch1 AND ch2 within 1 ns
+ci = sn.manipulators.coincidence([1, 2], windowTime=1000)
+
+# Multiple coincidence groups (one thread per group)
+ci = sn.manipulators.coincidences([[1,2],[3,4]], windowTime=500)
+
+# Heralded g(2): gate on herald channel, then measure signal channels
+sn.manipulators.herald(herald=0, gateChans=[1,2],
+                       delayTime=0, gateTime=1000, inverted=False)
+
+# Import channels from another device into current stream
+importChans = sn.manipulators.importStream(
+    deviceName=slave,         # serial number of the export device
+    chans=[0, 1, 2],          # which channels to import
+    remoteStartStop=True,     # master controls slave start/stop
+    delayTime=0,              # ps — align imported timestamps
+)
+
+# Merge channels into one virtual channel
+sn.manipulators.merge([1, 2])
+
+# Add time delay to a channel
+sn.manipulators.delay(channel=1, delayTime=1588)   # ps
+
+# Process only data within a time window (PTU file only, not real-time)
+sn.manipulators.subStream(startTime=70, stopTime=360000)  # seconds
+
+# Count rates from manipulator output
+sn.manipulators.countrate(windowTime=1e11)
+rates = sn.manipulators.getCountrates(manipulatorIndex=0)
+
+sn.manipulators.clearAll()   # remove all manipulators
+```
+
+| Manipulator | Parameters | Description |
+|-------------|-----------|-------------|
+| `coincidence(chans, windowTime, mode, time, keepChannels)` | list, ps, CoincidenceMode, CoincidenceTime, bool | AND logic on N channels, single thread |
+| `coincidences(groups, windowTime, mode, time, keepChannels)` | list of lists | Python wrapper: calls `coincidence()` per group; one C thread per group |
+| `herald(herald, gateChans, delayTime, gateTime, inverted, keepChannels)` | ch, list, ps, ps, bool | Heralded gate filter — more powerful than Swabian GatedChannel |
+| `merge(chans, keepChannels)` | list | OR logic, combine streams |
+| `delay(channel, delayTime, keepSourceChannel)` | ch, ps | Timing offset |
+| `subStream(startTime, stopTime)` | s, s | Time-window slice (PTU files only) |
+| `countrate(windowTime)` | ps | Count rate measurement in stream |
+| `importStream(deviceName, chans, remoteStartStop, delayTime)` | str, list, bool, ps | Import channels from ExportStream device |
+
+**`coincidences()` note**: This is a pure Python wrapper —
+`return [self.coincidence(g, ...) for g in groups]`. There is no dedicated C function.
+The advantage over calling `coincidence()` in a loop is a cleaner API and guaranteed
+sequential registration of all groups.
+
+**`keepChannels` behavior**:
+- `True` (default): virtual coincidence/merged channel is *added* to the stream alongside original channels
+- `False`: only the virtual channel remains; original channels are removed from the stream
+
+**`CoincidenceMode`**:
+- `CountAll` (default): count every overlap event
+- `CountFirst`: count only the first event in each coincidence window
+- `CountOnce`: count once per window regardless of how many events arrive
+
+**`CoincidenceTime`**:
+- `Last` (default): timestamp of the latest event in the group
+- `First`: timestamp of the earliest event
+- `Average`: mean of all timestamps (requires internal ring buffer, higher CPU cost)
+
+---
+
+### `sn.filter` — Hardware Event Filter
+
+Hardware-level filter (runs on device, before data reaches host).
+
+```python
+sn.filter.setMainParams(timeRange=1000, matchCount=2, inverse=False)
+sn.filter.setMainChannels(row=0, useChans=[1,2], passChans=[1,2])
+sn.filter.enableMain(True)
+```
+
+---
+
+### `sn.whiteRabbit` — White Rabbit Synchronization
+
+Sub-nanosecond timing synchronization across distributed setups via fiber.
+
+```python
+sn.whiteRabbit.setMode(mode=WRmode.Master)
+sn.whiteRabbit.initLink(onOff=True)
+status = sn.whiteRabbit.getStatus()
+```
+
+---
+
+## Key Enums (from `snAPI.Constants`)
+
+```python
+MeasMode.Histogram, MeasMode.T2, MeasMode.T3
+LogLevel.DataFile, LogLevel.Debug, LogLevel.Api
+TrigMode.Edge, TrigMode.CFD
+MeasControl.SingleShotCTC, MeasControl.C1Gated, MeasControl.C1StartCTC
+MeasControl.WrMaster2Slave                        # White Rabbit multi-device
+CoincidenceMode.CountAll, CoincidenceMode.CountFirst, CoincidenceMode.CountOnce
+CoincidenceTime.First, CoincidenceTime.Last, CoincidenceTime.Average
+RefSource.Internal, RefSource.External_10MHZ
+RefSource.Wr_Master_Harp, RefSource.Wr_Slave_Harp # White Rabbit ref sources
+WRmode.Off, WRmode.Master, WRmode.Slave, WRmode.GrandMaster
+```
+
+---
+
+## Data Access Pattern
+
+`getData()` returns zero-copy numpy views via `np.lib.stride_tricks.as_strided` into C DLL
+buffers. No lock needed — C DLL writes buffer contents (never resizes), Python only reads.
+Data is only final after `isFinished()` returns `True`.
+
+`Histogram2D.getData()` returns a 2D array with shape `(numBinsY, numBinsX)`, dtype `uint32`.
+
+---
+
+## Configuration Files (.ini)
+
+Device-specific configs in `demos/config/`:
+- `MH.ini` — MultiHarp
+- `HH.ini` / `HH500.ini` — HydraHarp
+- `PH.ini` — PicoHarp
+- `TH.ini` — TimeHarp
+
+Load with `sn.loadIniConfig("config/MH.ini")` or set inline with `sn.setIniConfig(text)`.
+
+---
+
+## Demo Catalog
+
+All demos in `demos/` directory. Run from the `demos/` folder.
+
+| Demo | Mode | Description |
+|------|------|-------------|
+| `Demo_HW_Start.py` | T2/T3 | Basic device start, count rates display |
+| `Demo_HW_StartStop.py` | T2 | Start/stop triggered measurement |
+| `Demo_HW_StartGated.py` | T2 | Gated (C1-controlled) measurement |
+| `Demo_GetCountrates.py` | T2 | Read and display channel count rates |
+| `Demo_DeviceConfig.py` | — | Read and print full device configuration |
+| `Demo_HistogramSimple.py` | T2 | TCSPC histogram, plot all channels |
+| `Demo_HistogramRefresh.py` | T2 | Live-updating histogram |
+| `Demo_Histogram2DRefresh.py` | T2/T3 | Live-updating 2D histogram (v1.2.1) |
+| `Demo_TimeTrace.py` | T2 | Count rate vs. time (live) |
+| `Demo_TimeTrace_Coincidence.py` | T2 | Time trace after coincidence filter |
+| `Demo_CorrelationG2.py` | T2 | g(2)(τ) — photon antibunching / HBT experiment |
+| `Demo_CorrelationFCS.py` | T3 | FCS — diffusion/binding kinetics in solution |
+| `Demo_CoincidenceTimestamps.py` | T2 | Record raw coincidence timestamps |
+| `Demo_HeraldedCorrelationG2.py` | T2 | g(2) with herald (triggered single photon source) |
+| `Demo_CoincidenceConditionedG2.py` | T2 | Full 2D g(3)(τ1,τ2) via coincidence-conditioned delay sweep |
+| `Demo_BellState.py` | T2 | Bell state measurement — quantum entanglement verification |
+| `Demo_GHZState.py` | T2 | GHZ state — 3-photon entanglement |
+| `Demo_BosonSampling.py` | T2 | Boson sampling experiment |
+| `Demo_HigherOrderCorrelation.py` | T2 | Higher-order photon correlations via coincidences() |
+| `Demo_QKD.py` | T2 | Quantum Key Distribution timing analysis |
+| `Demo_RecordViewer_Raw.py` | T2/T3 | Decode and print raw photon records |
+| `Demo_RecordViewer_UF.py` | T3 | View unfolded (absolute time) records |
+| `Demo_Imaging_PTU.py` | T3 | FLIM imaging from PTU file |
+| `Demo_WR_Configure_Master.py` | — | Configure White Rabbit master node |
+| `Demo_WR_Configure_Slave.py` | — | Configure White Rabbit slave node |
+| `Demo_WR_TimeTrace_Master.py` | T2 | Time trace on WR master |
+| `Demo_WR_TimeTrace_Slave.py` | T2 | Time trace on WR slave |
+| `Demo_WR_2Harps_1_stream.py` | T2 | Two devices, one merged stream via WR sync |
+| `Demo_2Harps_1_stream_RefIn_RefOut.py` | T2 | Two devices merged via 10 MHz ref + C1 gate |
+| `Demo_2Harp_ 2_parallel_streams.py` | T2 | Two devices as independent bound instances |
+
+---
+
+## Physics Background
+
+**TCSPC**: Time-Correlated Single Photon Counting. Measures arrival time of individual photons relative to a pulsed laser sync. Builds fluorescence decay histograms.
+
+**g(2)(τ)**: Second-order photon correlation. g(2)(0) < 1 → antibunching (single photon source). g(2)(0) = 0 → ideal single photon. Measured via Hanbury Brown-Twiss (HBT) setup with two detectors.
+
+**g(3)(τ1,τ2)**: Third-order correlation. Measured via coincidence-conditioned delay sweep: fix τ2 per step, vary τ1. Requires shear correction: when τ1 ≠ 0, delay one channel and apply `np.roll` correction. See `Demo_CoincidenceConditionedG2.py`.
+
+**FCS**: Fluorescence Correlation Spectroscopy. Analyzes fluctuations in fluorescence signal to extract diffusion coefficients, molecular concentrations, binding kinetics.
+
+**Coincidence**: Detection of two or more photons within a time window (windowTime). Used in quantum optics to identify entangled photon pairs.
+
+**Herald**: A trigger photon that opens a gate window for detecting subsequent photons. Used in heralded single photon sources and quantum state preparation. snAPI's `herald()` manipulator supports multiple gate channels, invertible logic, and delay — more capable than Swabian's `GatedChannel`.
+
+**White Rabbit**: IEEE 1588-based fiber synchronization protocol providing sub-nanosecond timing accuracy across distributed detector networks.
+
+**T2 vs T3**: In T2, each photon gets an absolute timestamp. In T3, timestamps are relative to the most recent sync pulse (nSync × syncPeriod + dTime), enabling TCSPC histogramming at high repetition rates.
+
+**ToT (Time-over-Threshold)**: Pulse width measurement. The difference between trailing-edge and leading-edge timestamp of the same event. Used in `Histogram2D` ToT mode to characterize SNSPD recovery and apply timewalk correction for 1 ps-level accuracy.
+
+**PNR (Photon Number Resolving)**: Distinguishing 0/1/2/N photons via detector characteristics. snAPI + UniHarp is the only known real-time PNR implementation in the literature (as of 2026). Key papers: Schapeler 2310.12471 (PCA), Kuijf 2511.13475 (MDP, FPGA-suitable).

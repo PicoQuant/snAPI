@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "snapi": {
+      "command": "python",
+      "args": ["-m", "snAPI.rag", "serve"],
+      "description": "snAPI documentation and API reference RAG"
+    }
+  }
+}
