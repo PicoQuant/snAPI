@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=59.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "snapi"
+version = "1.2.4"
+description = "Python wrapper for PicoQuant's snAPI"
+readme = { file = "README.md", content-type = "text/markdown" }
+license = { file = "LICENSE" }
+authors = [{ name = "PicoQuant", email = "support@picoquant.com" }]
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.16"]
+
+[project.optional-dependencies]
+rag = [
+    "llama-index-core>=0.10",
+    "llama-index-embeddings-huggingface>=0.2",
+    "sentence-transformers>=3.0",
+    "mcp>=1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["snAPI*"]
+
+[project.scripts]
+snapi-rag = "snAPI.rag.__main__:main"

@@ -1,0 +1,36 @@
+name: Rebuild RAG Index
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install snAPI with RAG extras
+        run: pip install -e ".[rag]"
+
+      - name: Build index
+        run: python -m snAPI.rag index
+        env:
+          SNAPI_RAG_EMBEDDING: "local:BAAI/bge-small-en-v1.5"
+
+      - name: Package index
+        run: |
+          cd snAPI/rag
+          zip -r ../../snapi-rag-index.zip index/
+
+      - name: Upload index to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: snapi-rag-index.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
