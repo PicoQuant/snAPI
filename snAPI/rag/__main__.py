@@ -40,7 +40,8 @@ def cmd_serve(args):
     cfg = RagConfig()
     if args.port:
         cfg.mcp_port = args.port
-    print(f"Starting snAPI MCP server on port {cfg.mcp_port}...")
+    import sys
+    print(f"Starting snAPI MCP server on port {cfg.mcp_port}...", file=sys.stderr)
     run_server(cfg)
 
 
