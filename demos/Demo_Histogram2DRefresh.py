@@ -6,33 +6,33 @@ print("Switched to:",matplotlib.get_backend())
 from threading import Timer
 import time
 
-# Live-refresh 2D histogram from photon timing differences
-# ========================================================
-# This demo demonstrates how a two-dimensional histogram can be calculated and
-# refreshed during acquisition from photon events recorded with a PicoQuant time
-# tagging device or from a PTU file.
+# Live-refresh PNR 2D histogram
+# ==============================
+# This demo shows how to combine the PNR (Photon Number Resolving) manipulator
+# with a 2D histogram for real-time monitoring of single-photon detector timing
+# characteristics. It works with a PicoQuant time-tagging device or a PTU file.
 #
-# The script configures a 2D histogram using one reference channel and two
-# detector channels. For each reference event, the arrival-time differences to
-# the selected X and Y channels are accumulated in a two-dimensional histogram.
+# Processing pipeline:
+# 1. The pnr manipulator receives raw photon events from a reference channel
+#    and two detector channels (rising and falling edge of the same detector).
+#    It applies time-over-threshold (ToT) mode to reconstruct photon pulse widths,
+#    corrects for time-walk using a configurable factor, and suppresses events
+#    that arrive while the detector is still in its recovery window (diffMin/diffMax
+#    define the valid SYNC-to-last-SYNC gap in ps — events outside this range are
+#    discarded). The manipulator outputs two corrected virtual channels.
 #
-# Setup:
-# The 2D histogram parameters define the reference channel, the X and Y detector
-# channels, the timing offsets, bin widths, and number of bins for both axes.
-# The demo can be configured for either a wide-field or a standard timing window.
+# 2. The histogram2D accumulates the arrival-time differences from the reference
+#    channel to each of the two pnr output channels into a 2D matrix. Axis offsets,
+#    bin widths and bin counts are configured via setHisto2dParams. The wideField
+#    flag switches between a coarse overview window and a fine-resolution window
+#    around the signal peak.
 #
-# Optional corrections such as time-over-threshold mode, time-walk correction,
-# and recovery timing correction can be enabled to compensate detector- or
-# signal-dependent timing effects before the data are histogrammed.
+# During acquisition the script repeatedly reads the current 2D histogram, updates
+# both linear and logarithmic color-scaled plots, then clears the accumulated data
+# so each refresh interval shows only freshly acquired events.
 #
-# During acquisition, the script repeatedly reads the current 2D histogram and
-# displays it with both linear and logarithmic color scaling. After each refresh,
-# the accumulated measurement data are cleared so that the plot shows only the
-# newly acquired data for the latest update interval.
-#
-# This is useful for monitoring time-resolved two-channel patterns in real time,
-# optimizing detector timing, and visualizing changing photon-arrival
-# distributions during a measurement.
+# This is useful for optimizing detector bias, threshold, and timing alignment in
+# PNR detector characterization setups.
 
 if(__name__ == "__main__"):
 
@@ -50,18 +50,16 @@ if(__name__ == "__main__"):
     sn.setLogLevel(LogLevel.Api, True)
     sn.setLogLevel(LogLevel.Device, True)
     
-    wideField = True
+    cPNR = sn.manipulators.pnr(channelRef=0, channelX=1, channelY=2, diffMin = 0, diffMax = 50000, xCorr=-3, yCorr=255, timewalkFactor=0.13, toT=True)
+    wideField = False
     if wideField:
-        sn.histogram2d.setHisto2dParams(refChannel=0, channelX=1, channelY=2, offsetX=4000, offsetY=5500, 
-                                    binWidthX=1, binWidthY=1, numBinsX=1000, numBinsY=1000)
-    else:
-        sn.histogram2d.setHisto2dParams(refChannel=0, channelX=1, channelY=2, offsetX=0, offsetY=0, 
+        sn.histogram2d.setHisto2dParams(refChannel=0, channelX=cPNR, channelY=cPNR+1, offsetX=0, offsetY=0, 
                                     binWidthX=10, binWidthY=10, numBinsX=1000, numBinsY=1000)
-    # activate ToT mode and     
-    sn.histogram2d.setHisto2dTotMode(totMode=True, timewalkFactor=0.7)
-    sn.histogram2d.setHisto2dRecoveryTimingCorrection(diffTimeMin=50000, correctionX=-33, correctionY=250, timewalkCorrectionFactor=-0.2)
+    else:
+        sn.histogram2d.setHisto2dParams(refChannel=0, channelX=cPNR, channelY=cPNR+1, offsetX=4000, offsetY=1500, 
+                                    binWidthX=1, binWidthY=1, numBinsX=1000, numBinsY=1000)
+
     sn.histogram2d.measure(acqTime=0, waitFinished=True, savePTU=False)
-    
     data = sn.histogram2d.getData()
 
     # prepare plot
