@@ -2807,20 +2807,52 @@ contains the sync rate and the rates of the input channels.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">snAPI.Main.</span></span><span class="sig-name descname"><span class="pre">WhiteRabbit</span></span><a class="headerlink" href="#snAPI.Main.WhiteRabbit" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>White Rabbit is a time synchronization technology based on the Precision Time Protocol (PTP).
-It is used to synchronize clocks between different entities on an Ethernet network.</p>
-<dl>
-<dt>See:</dt><dd><div class="line-block">
+It is used to synchronize clocks across multiple devices on an Ethernet network to sub-nanosecond
+precision, allowing truly synchronous multi-device TCSPC measurements.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<p>A crucial prerequisite is that the boot script stored on the Harp’s EEPROM is correct and
+executable — this can be verified using the legacy Harp software. Once confirmed, the
+legacy software is no longer required. When a Harp is initialized with the option to derive
+its clock from the WR network (see <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Master_Harp" title="snAPI.Constants.RefSource.Wr_Master_Harp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Harp</span></code></a> and
+<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Slave_Harp" title="snAPI.Constants.RefSource.Wr_Slave_Harp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Harp</span></code></a>), it boots using this script, acquires its clock signal from
+the WR network, and operates in synchronization from the start. Safran nodes (switches) function
+transparently with respect to the Harp devices during this process.</p>
+</section>
+<section id="master-slave-setup">
+<h2>Master / Slave Setup<a class="headerlink" href="#master-slave-setup" title="Link to this heading">#</a></h2>
+<p>We recommend configuring one device as the <strong>Master</strong> and all others as <strong>Slaves</strong>:</p>
+<ul class="simple">
+<li><p>Initialize the Master with <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Master_Harp" title="snAPI.Constants.RefSource.Wr_Master_Harp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RefSource.Wr_Master_Harp</span></code></a></p></li>
+<li><p>Initialize each Slave with <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.RefSource.Wr_Slave_Harp" title="snAPI.Constants.RefSource.Wr_Slave_Harp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RefSource.Wr_Slave_Harp</span></code></a></p></li>
+</ul>
+<p>To ensure that measurements start and stop synchronously, the Master transmits a start signal
+to the Slaves via the WR network. For this, <a class="reference internal" href="#snAPI.Main.Device.setMeasControl" title="snAPI.Main.Device.setMeasControl"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Device.setMeasControl()</span></code></a> must be set to
+<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasControl.WrMaster2Slave" title="snAPI.Constants.MeasControl.WrMaster2Slave"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasControl.WrMaster2Slave</span></code></a> on all devices.</p>
+<p><strong>Start sequence:</strong> always start the measurement on the Slaves first. They will enter an
+internal standby mode and only begin recording once the Master starts its measurement and
+transmits the start signal. From that point on, the measurement proceeds synchronously. A minimal
+timing offset remains between devices, which can be removed retrospectively.</p>
+</section>
+<section id="synchronous-file-playback">
+<h2>Synchronous File Playback<a class="headerlink" href="#synchronous-file-playback" title="Link to this heading">#</a></h2>
+<p>Recorded PTU files from multiple devices can also be loaded and replayed synchronously at a later
+stage. Use the <a class="reference internal" href="#snAPI.Main.ExportStream" title="snAPI.Main.ExportStream"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExportStream</span></code></a> measurement class together with the
+<a class="reference internal" href="#snAPI.Main.Manipulators.importStream" title="snAPI.Main.Manipulators.importStream"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Manipulators.importStream()</span></code></a> manipulator to insert the events from a Slave unit into the
+Master’s data stream in the correct chronological order. This allows you to correlate channels
+from different devices — for example to compute a g(2) across two Harps.</p>
+</section>
+<section id="demo-scripts">
+<h2>Demo Scripts<a class="headerlink" href="#demo-scripts" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><div class="line-block">
 <div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_Configure_Master.py">Demo_WR_Configure_Master.py</a></div>
 <div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_Configure_Slave.py">Demo_WR_Configure_Slave.py</a></div>
 <div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Master.py">Demo_WR_TimeTrace_Master.py</a></div>
 <div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Slave.py">Demo_WR_TimeTrace_Slave.py</a></div>
 <div class="line"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-mark-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> <a class="reference external" href="https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_2Harps_1_stream.py">Demo_WR_2Harps_1_stream.py</a></div>
 </div>
-<div class="line-block">
-<div class="line"><span class="fa fa-file-pdf"></span> <a class="reference external" href="https://white-rabbit.web.cern.ch/documents/WhiteRabbitSpec.v2.0.pdf">White Rabbit Specification v2.0</a></div>
-</div>
-</dd>
-</dl>
+</div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="snAPI.Main.WhiteRabbit.mac">
 <span class="sig-name descname"><span class="pre">mac</span></span><a class="headerlink" href="#snAPI.Main.WhiteRabbit.mac" title="Link to this definition">#</a></dt>
@@ -3204,6 +3236,7 @@ There is currently no way of injecting commands to the WR core console prompt.</
 </div>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 <dl class="py class">
@@ -4373,25 +4406,25 @@ If you wish to obtain updates on the fly the data can be accessed with <a class=
 <ul class="simple">
 <li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Off" title="snAPI.Constants.SequenceMode.Off"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Off</span></code></a> — no windowing, normal acquisition</p></li>
 <li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Timer" title="snAPI.Constants.SequenceMode.Timer"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Timer</span></code></a> — fixed-duration windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> seconds)</p></li>
-<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Counts" title="snAPI.Constants.SequenceMode.Counts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Counts</span></code></a> — fixed-count windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> photons)</p></li>
+<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Counts" title="snAPI.Constants.SequenceMode.Counts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Counts</span></code></a> — fixed-counts-per-bins windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> counts)</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sequenceMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode" title="snAPI.Constants.SequenceMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.SequenceMode</span></code></a>) – Windowing trigger mode. Default: <code class="docutils literal notranslate"><span class="pre">SequenceMode.Off</span></code></p></li>
+<li><p><strong>sequenceMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode" title="snAPI.Constants.SequenceMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.SequenceMode</span></code></a>) – Windowing trigger mode. Default: <cite>SequenceMode.Off</cite></p></li>
 <li><p><strong>wait4newData</strong> (<em>bool</em>) – <p>Controls how <a class="reference internal" href="#snAPI.Main.Histogram.getData" title="snAPI.Main.Histogram.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> synchronizes with incoming windows.</p>
-<p><code class="docutils literal notranslate"><span class="pre">True</span></code> (default) — <a class="reference internal" href="#snAPI.Main.Histogram.getData" title="snAPI.Main.Histogram.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> blocks until the next window is ready.
+<p><cite>True</cite> (default) — <a class="reference internal" href="#snAPI.Main.Histogram.getData" title="snAPI.Main.Histogram.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> blocks until the next window is ready.
 Windows are delivered in order, so no data is lost. However, if your
 processing loop is slower than the window rate, an internal buffer grows
 and the captured data falls increasingly behind real time.
 Recommended for file devices, where reading speed is unconstrained and
 every window must be captured.</p>
-<p><code class="docutils literal notranslate"><span class="pre">False</span></code> — non-blocking: <a class="reference internal" href="#snAPI.Main.Histogram.getData" title="snAPI.Main.Histogram.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> returns the most recent
+<p><cite>False</cite> — non-blocking: <a class="reference internal" href="#snAPI.Main.Histogram.getData" title="snAPI.Main.Histogram.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> returns the most recent
 completed window immediately. The loop stays in sync with real time but
 may skip windows when processing cannot keep up.</p>
 </p></li>
-<li><p><strong>param</strong> (<em>float</em>) – Window size: duration in seconds for <code class="docutils literal notranslate"><span class="pre">Timer</span></code> mode,
-photon count for <code class="docutils literal notranslate"><span class="pre">Counts</span></code> mode. Ignored for <code class="docutils literal notranslate"><span class="pre">Off</span></code>.</p></li>
+<li><p><strong>param</strong> (<em>float</em>) – Window size: duration in seconds for <cite>Timer</cite> mode,
+photon count for <cite>Counts</cite> mode. Ignored for <cite>Off</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -4755,25 +4788,25 @@ If you wish to obtain updates on the fly the data can be accessed with <a class=
 <ul class="simple">
 <li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Off" title="snAPI.Constants.SequenceMode.Off"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Off</span></code></a> — no windowing, normal acquisition</p></li>
 <li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Timer" title="snAPI.Constants.SequenceMode.Timer"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Timer</span></code></a> — fixed-duration windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> seconds)</p></li>
-<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Counts" title="snAPI.Constants.SequenceMode.Counts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Counts</span></code></a> — fixed-count windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> photons)</p></li>
+<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Counts" title="snAPI.Constants.SequenceMode.Counts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Counts</span></code></a> — fixed-counts-per-pixel windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> photons)</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sequenceMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode" title="snAPI.Constants.SequenceMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.SequenceMode</span></code></a>) – Windowing trigger mode. Default: <code class="docutils literal notranslate"><span class="pre">SequenceMode.Off</span></code></p></li>
+<li><p><strong>sequenceMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode" title="snAPI.Constants.SequenceMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.SequenceMode</span></code></a>) – Windowing trigger mode. Default: <cite>SequenceMode.Off</cite></p></li>
 <li><p><strong>wait4newData</strong> (<em>bool</em>) – <p>Controls how <a class="reference internal" href="#snAPI.Main.Histogram2D.getData" title="snAPI.Main.Histogram2D.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> synchronizes with incoming windows.</p>
-<p><code class="docutils literal notranslate"><span class="pre">True</span></code> (default) — <a class="reference internal" href="#snAPI.Main.Histogram2D.getData" title="snAPI.Main.Histogram2D.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> blocks until the next window is ready.
+<p><cite>True</cite> (default) — <a class="reference internal" href="#snAPI.Main.Histogram2D.getData" title="snAPI.Main.Histogram2D.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> blocks until the next window is ready.
 Windows are delivered in order, so no data is lost. However, if your
 processing loop is slower than the window rate, an internal buffer grows
 and the captured data falls increasingly behind real time.
 Recommended for file devices, where reading speed is unconstrained and
 every window must be captured.</p>
-<p><code class="docutils literal notranslate"><span class="pre">False</span></code> — non-blocking: <a class="reference internal" href="#snAPI.Main.Histogram2D.getData" title="snAPI.Main.Histogram2D.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> returns the most recent
+<p><cite>False</cite> — non-blocking: <a class="reference internal" href="#snAPI.Main.Histogram2D.getData" title="snAPI.Main.Histogram2D.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> returns the most recent
 completed window immediately. The loop stays in sync with real time but
 may skip windows when processing cannot keep up.</p>
 </p></li>
-<li><p><strong>param</strong> (<em>float</em>) – Window size: duration in seconds for <code class="docutils literal notranslate"><span class="pre">Timer</span></code> mode,
-photon count for <code class="docutils literal notranslate"><span class="pre">Counts</span></code> mode. Ignored for <code class="docutils literal notranslate"><span class="pre">Off</span></code>.</p></li>
+<li><p><strong>param</strong> (<em>float</em>) – Window size: duration in seconds for <cite>Timer</cite> mode,
+photon count for <cite>Counts</cite> mode. Ignored for <cite>Off</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -5025,25 +5058,25 @@ with <a class="reference internal" href="#snAPI.Main.TimeTrace.getData" title="s
 <ul class="simple">
 <li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Off" title="snAPI.Constants.SequenceMode.Off"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Off</span></code></a> — no windowing, normal acquisition</p></li>
 <li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Timer" title="snAPI.Constants.SequenceMode.Timer"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Timer</span></code></a> — fixed-duration windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> seconds)</p></li>
-<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Counts" title="snAPI.Constants.SequenceMode.Counts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Counts</span></code></a> — fixed-count windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> photons)</p></li>
+<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Counts" title="snAPI.Constants.SequenceMode.Counts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Counts</span></code></a> — fixed-counts windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> photons)</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sequenceMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode" title="snAPI.Constants.SequenceMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.SequenceMode</span></code></a>) – Windowing trigger mode. Default: <code class="docutils literal notranslate"><span class="pre">SequenceMode.Off</span></code></p></li>
+<li><p><strong>sequenceMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode" title="snAPI.Constants.SequenceMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.SequenceMode</span></code></a>) – Windowing trigger mode. Default: <cite>SequenceMode.Off</cite></p></li>
 <li><p><strong>wait4newData</strong> (<em>bool</em>) – <p>Controls how <a class="reference internal" href="#snAPI.Main.TimeTrace.getData" title="snAPI.Main.TimeTrace.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> synchronizes with incoming windows.</p>
-<p><code class="docutils literal notranslate"><span class="pre">True</span></code> (default) — <a class="reference internal" href="#snAPI.Main.TimeTrace.getData" title="snAPI.Main.TimeTrace.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> blocks until the next window is ready.
+<p><cite>True</cite> (default) — <a class="reference internal" href="#snAPI.Main.TimeTrace.getData" title="snAPI.Main.TimeTrace.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> blocks until the next window is ready.
 Windows are delivered in order, so no data is lost. However, if your
 processing loop is slower than the window rate, an internal buffer grows
 and the captured data falls increasingly behind real time.
 Recommended for file devices, where reading speed is unconstrained and
 every window must be captured.</p>
-<p><code class="docutils literal notranslate"><span class="pre">False</span></code> — non-blocking: <a class="reference internal" href="#snAPI.Main.TimeTrace.getData" title="snAPI.Main.TimeTrace.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> returns the most recent
+<p><cite>False</cite> — non-blocking: <a class="reference internal" href="#snAPI.Main.TimeTrace.getData" title="snAPI.Main.TimeTrace.getData"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code></a> returns the most recent
 completed window immediately. The loop stays in sync with real time but
 may skip windows when processing cannot keep up.</p>
 </p></li>
-<li><p><strong>param</strong> (<em>float</em>) – Window size: duration in seconds for <code class="docutils literal notranslate"><span class="pre">Timer</span></code> mode,
-photon count for <code class="docutils literal notranslate"><span class="pre">Counts</span></code> mode. Ignored for <code class="docutils literal notranslate"><span class="pre">Off</span></code>.</p></li>
+<li><p><strong>param</strong> (<em>float</em>) – Window size: duration in seconds for <cite>Timer</cite> mode,
+photon count for <cite>Counts</cite> mode. Ignored for <cite>Off</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -5345,25 +5378,25 @@ The data can be accessed with <code class="xref py py-meth docutils literal notr
 <ul class="simple">
 <li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Off" title="snAPI.Constants.SequenceMode.Off"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Off</span></code></a> — no windowing, normal acquisition</p></li>
 <li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Timer" title="snAPI.Constants.SequenceMode.Timer"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Timer</span></code></a> — fixed-duration windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> seconds)</p></li>
-<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Counts" title="snAPI.Constants.SequenceMode.Counts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Counts</span></code></a> — fixed-count windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> photons)</p></li>
+<li><p><a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode.Counts" title="snAPI.Constants.SequenceMode.Counts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Counts</span></code></a> — fixed-counts windows (<code class="docutils literal notranslate"><span class="pre">param</span></code> photons) set normalization to False to count coincidences instead of calculating the correlation function in setG2Parameters</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sequenceMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode" title="snAPI.Constants.SequenceMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.SequenceMode</span></code></a>) – Windowing trigger mode. Default: <code class="docutils literal notranslate"><span class="pre">SequenceMode.Off</span></code></p></li>
+<li><p><strong>sequenceMode</strong> (<a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.SequenceMode" title="snAPI.Constants.SequenceMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">snAPI.Constants.SequenceMode</span></code></a>) – Windowing trigger mode. Default: <cite>SequenceMode.Off</cite></p></li>
 <li><p><strong>wait4newData</strong> (<em>bool</em>) – <p>Controls how <code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code> synchronizes with incoming windows.</p>
-<p><code class="docutils literal notranslate"><span class="pre">True</span></code> (default) — <code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code> blocks until the next window is ready.
+<p><cite>True</cite> (default) — <code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code> blocks until the next window is ready.
 Windows are delivered in order, so no data is lost. However, if your
 processing loop is slower than the window rate, an internal buffer grows
 and the captured data falls increasingly behind real time.
 Recommended for file devices, where reading speed is unconstrained and
 every window must be captured.</p>
-<p><code class="docutils literal notranslate"><span class="pre">False</span></code> — non-blocking: <code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code> returns the most recent
+<p><cite>False</cite> — non-blocking: <code class="xref py py-meth docutils literal notranslate"><span class="pre">getData()</span></code> returns the most recent
 completed window immediately. The loop stays in sync with real time but
 may skip windows when processing cannot keep up.</p>
 </p></li>
-<li><p><strong>param</strong> (<em>float</em>) – Window size: duration in seconds for <code class="docutils literal notranslate"><span class="pre">Timer</span></code> mode,
-photon count for <code class="docutils literal notranslate"><span class="pre">Counts</span></code> mode. Ignored for <code class="docutils literal notranslate"><span class="pre">Off</span></code>.</p></li>
+<li><p><strong>param</strong> (<em>float</em>) – Window size: duration in seconds for <cite>Timer</cite> mode,
+photon count for <cite>Counts</cite> mode. Ignored for <cite>Off</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -6300,6 +6333,112 @@ To import data from another device connected to the same PC, you must open it in
 </div>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="snAPI.Main.Manipulators.pnr">
+<span class="sig-name descname"><span class="pre">pnr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channelRef</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channelX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channelY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffMin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffMax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xCorr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yCorr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timewalkFactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timewalkCorrFactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">toT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepSourceChannel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#snAPI.Main.Manipulators.pnr" title="Link to this definition">#</a></dt>
+<dd><p>This manipulator prepares timing data for photon-number-resolving (<strong>PNR</strong>) analysis.
+It contains the PNR-specific transformations that were previously part of the
+<a class="reference internal" href="#snAPI.Main.Histogram2D" title="snAPI.Main.Histogram2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram2D</span></code></a> measurement class and is typically used together with it.</p>
+<p>The manipulator selects a reference channel, an X channel, and a Y channel, then
+computes timing differences relative to the reference:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dX</span> <span class="o">=</span> <span class="n">tX</span> <span class="o">-</span> <span class="n">tRef</span>
+<span class="n">dY</span> <span class="o">=</span> <span class="n">tY</span> <span class="o">-</span> <span class="n">tRef</span>
+</pre></div>
+</div>
+<p>When <strong>Time over Threshold</strong> (<code class="xref py py-attr docutils literal notranslate"><span class="pre">toT</span></code>) is enabled, the Y value is transformed into
+the pulse duration (time between the two channel edges):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dY_ToT</span> <span class="o">=</span> <span class="n">dY</span> <span class="o">-</span> <span class="n">dX</span>  <span class="o">=</span>  <span class="n">tY</span> <span class="o">-</span> <span class="n">tX</span>
+</pre></div>
+</div>
+<p>This unfolds diagonal cluster structures into horizontal bands, making it easier to
+separate <strong>1-photon</strong>, <strong>2-photon</strong>, and <strong>3+ photon</strong> states in the <a class="reference internal" href="#snAPI.Main.Histogram2D" title="snAPI.Main.Histogram2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram2D</span></code></a> view.</p>
+<p>On top of the main correction, a <strong>recovery timing correction</strong> can be applied to
+events that are still within the detector’s recovery time. The recovery gap is measured
+as the time between the <strong>current event’s SYNC</strong> and the <strong>SYNC of the last preceding
+photon event</strong>. If that gap is small — i.e. it falls inside the window
+[<code class="xref py py-attr docutils literal notranslate"><span class="pre">diffMin</span></code> … <code class="xref py py-attr docutils literal notranslate"><span class="pre">diffMax</span></code>] — the detector has not fully recovered, the event
+timing is distorted, and the correction is applied. Constant offsets (<code class="xref py py-attr docutils literal notranslate"><span class="pre">xCorr</span></code>,
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">yCorr</span></code>) and a separate linear time-walk factor (<code class="xref py py-attr docutils literal notranslate"><span class="pre">timewalkCorrFactor</span></code>) are
+used to compensate the distortion.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don’t need the original channels anymore set <cite>keepSourceChannel</cite> to False.
+This will reduce the data stream and therefore the processor load and memory consumption.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channelRef</strong> (<em>int</em>) – Reference channel used as the timing origin.
+In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T2" title="snAPI.Constants.MeasMode.T2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T2</span></code></a> this channel can be freely selected.
+In <a class="reference internal" href="snAPI.Constants.html#snAPI.Constants.MeasMode.T3" title="snAPI.Constants.MeasMode.T3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeasMode.T3</span></code></a> the SYNC channel is always used as reference.</p></li>
+<li><p><strong>channelX</strong> (<em>int</em>) – Channel mapped to the X axis — typically the leading edge of the pulse.</p></li>
+<li><p><strong>channelY</strong> (<em>int</em>) – Channel mapped to the Y axis — typically the trailing edge of the pulse.
+Without ToT the Y value is referenced to <cite>channelRef</cite>.
+With ToT enabled it becomes the time difference between Y and X (pulse width).</p></li>
+<li><p><strong>diffMin</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em><em>, </em><em>optional</em><em> (</em><em>default: 0 ps</em><em>)</em>) – Lower bound of the recovery gap window [ps].
+The gap is measured from the current event’s SYNC back to the SYNC of the
+last preceding photon event. Events with a gap &gt;= <cite>diffMin</cite> and &lt;= <cite>diffMax</cite>
+are considered inside the detector’s recovery time and receive the correction.</p></li>
+<li><p><strong>diffMax</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em><em>, </em><em>optional</em><em> (</em><em>default: 0 ps = no correction</em><em>)</em>) – Upper bound of the recovery gap window [ps].
+Set this to the detector’s recovery time (e.g. 50 000 ps for 50 ns).
+Events with a gap &gt; <cite>diffMax</cite> are considered fully recovered and are left unchanged.</p></li>
+<li><p><strong>xCorr</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em><em>, </em><em>optional</em><em> (</em><em>default: 0</em><em>)</em>) – Constant timing offset added to the X value of events inside the correction window.
+Use this to shift recovery-affected clusters back into alignment on the X axis.</p></li>
+<li><p><strong>yCorr</strong> (<em>int</em><em> [</em><em>ps</em><em>]</em><em>, </em><em>optional</em><em> (</em><em>default: 0</em><em>)</em>) – Constant timing offset added to the Y value of events inside the correction window.
+Use this to shift recovery-affected clusters back into alignment on the Y axis.</p></li>
+<li><p><strong>timewalkFactor</strong> (<em>float</em><em> [</em><em>ps/ps</em><em>]</em><em>, </em><em>optional</em><em> (</em><em>default: 0.0</em><em>)</em>) – Linear time-walk correction factor applied to the <strong>main</strong> data distribution.
+Tuning this value shears the cluster structure so that photon-number bands
+become flatter and easier to separate. Set to 0 to disable.</p></li>
+<li><p><strong>timewalkCorrFactor</strong> (<em>float</em><em> [</em><em>ps/ps</em><em>]</em><em>, </em><em>optional</em><em> (</em><em>default: 0.0</em><em>)</em>) – Separate linear time-walk correction factor applied only to events inside the
+recovery correction window [<code class="xref py py-attr docutils literal notranslate"><span class="pre">diffMin</span></code> … <code class="xref py py-attr docutils literal notranslate"><span class="pre">diffMax</span></code>].
+This lets recovery-distorted pulses be straightened independently from the
+main distribution. Set to 0 to disable.</p></li>
+<li><p><strong>toT</strong> (<em>bool</em><em>, </em><em>optional</em><em> (</em><em>default: True</em><em>)</em>) – Enable <strong>Time over Threshold</strong> mode.
+When True, the Y axis shows the pulse width (tY − tX) instead of the raw
+timing difference to the reference. Use this when X and Y represent the
+leading and trailing edges of the same pulse.</p></li>
+<li><p><strong>keepSourceChannel</strong> (<em>bool</em><em>, </em><em>optional</em><em> (</em><em>default: True</em><em>)</em>) – <div class="line-block">
+<div class="line">True: the PNR output channel is added to the data stream as an additional channel.</div>
+<div class="line">False: the source channels are removed from the stream (reduces data volume).</div>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The channel index of the PNR output that can be passed to <a class="reference internal" href="#snAPI.Main.Histogram2D" title="snAPI.Main.Histogram2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">Histogram2D</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># PNR measurement in T2 mode:</span>
+<span class="c1"># channel 0 = reference, channel 1 = leading edge, channel 2 = trailing edge</span>
+<span class="c1"># Display pulse-width vs. timing-difference to identify photon-number states.</span>
+<span class="n">sn</span> <span class="o">=</span> <span class="n">snAPI</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">initDevice</span><span class="p">(</span><span class="n">MeasMode</span><span class="o">.</span><span class="n">T2</span><span class="p">)</span>
+
+<span class="n">pnrChan</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">manipulators</span><span class="o">.</span><span class="n">pnr</span><span class="p">(</span>
+    <span class="n">channelRef</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channelX</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">channelY</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">diffMin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">diffMax</span><span class="o">=</span><span class="mi">500000</span><span class="p">,</span>
+    <span class="n">xCorr</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">yCorr</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">timewalkFactor</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">timewalkCorrFactor</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">toT</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">keepSourceChannel</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">setHisto2dParams</span><span class="p">(</span>
+    <span class="n">refChannel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channelX</span><span class="o">=</span><span class="n">pnrChan</span><span class="p">,</span> <span class="n">channelY</span><span class="o">=</span><span class="n">pnrChan</span><span class="p">,</span>
+    <span class="n">offsetX</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offsetY</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">binWidthX</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">binWidthY</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">numBinsX</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">numBinsY</span><span class="o">=</span><span class="mi">1000</span>
+<span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -6556,6 +6695,7 @@ To import data from another device connected to the same PC, you must open it in
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.countrate"><code class="docutils literal notranslate"><span class="pre">Manipulators.countrate()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.getCountrates"><code class="docutils literal notranslate"><span class="pre">Manipulators.getCountrates()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.importStream"><code class="docutils literal notranslate"><span class="pre">Manipulators.importStream()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#snAPI.Main.Manipulators.pnr"><code class="docutils literal notranslate"><span class="pre">Manipulators.pnr()</span></code></a></li>
 </ul>
 </li>
 </ul>

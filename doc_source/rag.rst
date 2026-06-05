@@ -21,27 +21,21 @@ No API key is required.
 Building the Index
 ------------------
 
-Before first use, build the local vector index::
+The pre-built index is included in the repository. To rebuild after updating snAPI::
 
     python -m snAPI.rag index
 
 This takes approximately 2–5 minutes and downloads the embedding model (~130 MB) on first run.
 The index is stored in ``snAPI/rag/index/`` and persists across sessions.
 
-For subsequent releases, a pre-built index is available as a GitHub Release asset::
-
-    python -m snAPI.rag index --download
-
 Usage
 -----
 
 MCP Server (Claude Code, Cursor, Copilot, ...)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you opened this repository in Claude Code or Cursor, the MCP server is already
-configured via ``.mcp.json`` in the repository root. Start it with::
-
-    python -m snAPI.rag serve
+configured via ``.mcp.json`` in the repository root.
 
 For other AI tools, run the auto-installer::
 
@@ -49,6 +43,70 @@ For other AI tools, run the auto-installer::
 
 Then restart your AI tool. The installer detects Claude Code, Cursor, and VS Code
 automatically and writes the configuration to the correct location.
+
+The MCP server uses **stdio** transport — it does not open a network port.
+The connected AI tool starts the server process automatically.
+
+Manual Configuration
+^^^^^^^^^^^^^^^^^^^^
+
+If the installer doesn't cover your setup, add this to your tool's MCP config:
+
+.. code-block:: json
+
+    {
+      "mcpServers": {
+        "snapi": {
+          "command": "python",
+          "args": ["-m", "snAPI.rag", "serve"]
+        }
+      }
+    }
+
+Config file locations:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Tool
+     - Config Path
+   * - Claude Code CLI
+     - ``~/.claude/settings.json``
+   * - Claude Desktop (Windows)
+     - ``%APPDATA%\Claude\claude_desktop_config.json``
+   * - Claude Desktop (macOS)
+     - ``~/Library/Application Support/Claude/claude_desktop_config.json``
+   * - VS Code (Claude extension)
+     - ``.claude.json`` in the project root
+   * - Cursor
+     - ``~/.cursor/mcp.json``
+   * - VS Code (Copilot)
+     - ``~/.vscode/mcp.json``
+
+Windows: Cache Path Issue
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On Windows, ``llama_index`` may use a separate cache directory that causes model
+loading failures. If you see a ``FileNotFoundError`` for
+``config_sentence_transformers.json``, add an ``env`` block to the MCP config:
+
+.. code-block:: json
+
+    {
+      "mcpServers": {
+        "snapi": {
+          "command": "python",
+          "args": ["-m", "snAPI.rag", "serve"],
+          "env": {
+            "LLAMA_INDEX_CACHE_DIR": "C:\\Users\\<username>\\.cache\\huggingface\\hub"
+          }
+        }
+      }
+    }
+
+MCP Tools
+^^^^^^^^^
 
 The MCP server exposes two tools to the connected AI:
 
@@ -107,10 +165,8 @@ CLI Reference
     python -m snAPI.rag <command> [options]
 
     Commands:
-      index     Build or download the RAG index
-                  --download   Download pre-built index from GitHub Release
-      serve     Start the MCP server
-                  --port INT   Override default port (3333)
+      index     Build the RAG index
+      serve     Start the MCP server (stdio transport)
       install   Register the MCP server in your AI tool automatically
 
 What Gets Indexed

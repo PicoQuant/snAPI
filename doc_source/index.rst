@@ -19,6 +19,7 @@ Welcome to snAPI's documentation!
    tttr data format
    PQTag_Dictionary
    PQTag_Types
+   rag
 
 Indices and tables
 ==================

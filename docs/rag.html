@@ -1,0 +1,794 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AI-Assisted Scripting (RAG) &#8212; snAPI  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=8a448e45"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'rag';</script>
+    <link rel="icon" href="_static/favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="PQ Tag Types" href="PQTag_Types.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo-light.png" class="logo__image only-light" alt=""/>
+    <img src="_static/logo-dark.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="introduction.html">
+    Introduction
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="snAPI.html">
+    snAPI package
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+    TTTR Record Format
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="PQTag_Dictionary.html">
+    PQ Tag Dictionary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="PQTag_Types.html">
+    PQ Tag Types
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="#">
+    AI-Assisted Scripting (RAG)
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://PicoQuant.com">
+    PicoQuant
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="introduction.html">
+    Introduction
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="snAPI.html">
+    snAPI package
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="hardware.html">
+    Hardware
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tttr%20data%20format.html">
+    TTTR Record Format
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="PQTag_Dictionary.html">
+    PQ Tag Dictionary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="PQTag_Types.html">
+    PQ Tag Types
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    AI-Assisted Scripting (RAG)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://PicoQuant.com">
+    PicoQuant
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+    <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Quick Links</p>
+    <ul class="indices-link">
+          <li class="toctree-l1">
+            <a class="reference internal" href="snAPI.Constants.html">Constants</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="snAPI.Main.html">Main</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="snAPI.Utils.html">Utils</a>
+          </li>
+    </ul>
+  </nav></div>
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">AI-Assisted Scripting (RAG)</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ai-assisted-scripting-rag">
+<h1>AI-Assisted Scripting (RAG)<a class="headerlink" href="#ai-assisted-scripting-rag" title="Link to this heading">#</a></h1>
+<p>snAPI includes a built-in RAG (Retrieval-Augmented Generation) module that allows
+any AI tool — Claude, Copilot, Cursor, ChatGPT, or your own pipeline — to query
+the snAPI documentation, API reference, and demo scripts to help write measurement code.</p>
+<p>The module indexes the full snAPI source: all classes and methods from <code class="docutils literal notranslate"><span class="pre">Main.py</span></code>,
+enums from <code class="docutils literal notranslate"><span class="pre">Constants.py</span></code>, all demo scripts, and the RST documentation pages.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>Install snAPI with the RAG dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">snAPI</span><span class="p">[</span><span class="n">rag</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The default embedding model (<code class="docutils literal notranslate"><span class="pre">BAAI/bge-small-en-v1.5</span></code>) runs locally.
+No API key is required.</p>
+</section>
+<section id="building-the-index">
+<h2>Building the Index<a class="headerlink" href="#building-the-index" title="Link to this heading">#</a></h2>
+<p>The pre-built index is included in the repository. To rebuild after updating snAPI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">snAPI</span><span class="o">.</span><span class="n">rag</span> <span class="n">index</span>
+</pre></div>
+</div>
+<p>This takes approximately 2–5 minutes and downloads the embedding model (~130 MB) on first run.
+The index is stored in <code class="docutils literal notranslate"><span class="pre">snAPI/rag/index/</span></code> and persists across sessions.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<section id="mcp-server-claude-code-cursor-copilot">
+<h3>MCP Server (Claude Code, Cursor, Copilot, …)<a class="headerlink" href="#mcp-server-claude-code-cursor-copilot" title="Link to this heading">#</a></h3>
+<p>If you opened this repository in Claude Code or Cursor, the MCP server is already
+configured via <code class="docutils literal notranslate"><span class="pre">.mcp.json</span></code> in the repository root.</p>
+<p>For other AI tools, run the auto-installer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">snAPI</span><span class="o">.</span><span class="n">rag</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>Then restart your AI tool. The installer detects Claude Code, Cursor, and VS Code
+automatically and writes the configuration to the correct location.</p>
+<p>The MCP server uses <strong>stdio</strong> transport — it does not open a network port.
+The connected AI tool starts the server process automatically.</p>
+<section id="manual-configuration">
+<h4>Manual Configuration<a class="headerlink" href="#manual-configuration" title="Link to this heading">#</a></h4>
+<p>If the installer doesn’t cover your setup, add this to your tool’s MCP config:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;snapi&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;snAPI.rag&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;serve&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Config file locations:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Config Path</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Claude Code CLI</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">~/.claude/settings.json</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Claude Desktop (Windows)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">%APPDATA%\Claude\claude_desktop_config.json</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Claude Desktop (macOS)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Support/Claude/claude_desktop_config.json</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>VS Code (Claude extension)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.claude.json</span></code> in the project root</p></td>
+</tr>
+<tr class="row-even"><td><p>Cursor</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">~/.cursor/mcp.json</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>VS Code (Copilot)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">~/.vscode/mcp.json</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="windows-cache-path-issue">
+<h4>Windows: Cache Path Issue<a class="headerlink" href="#windows-cache-path-issue" title="Link to this heading">#</a></h4>
+<p>On Windows, <code class="docutils literal notranslate"><span class="pre">llama_index</span></code> may use a separate cache directory that causes model
+loading failures. If you see a <code class="docutils literal notranslate"><span class="pre">FileNotFoundError</span></code> for
+<code class="docutils literal notranslate"><span class="pre">config_sentence_transformers.json</span></code>, add an <code class="docutils literal notranslate"><span class="pre">env</span></code> block to the MCP config:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;snapi&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;snAPI.rag&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;serve&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;LLAMA_INDEX_CACHE_DIR&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:\\Users\\&lt;username&gt;\\.cache\\huggingface\\hub&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="mcp-tools">
+<h4>MCP Tools<a class="headerlink" href="#mcp-tools" title="Link to this heading">#</a></h4>
+<p>The MCP server exposes two tools to the connected AI:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">snapi_query</span></code> — natural language search over all snAPI sources</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">snapi_lookup</span></code> — direct lookup by class or method name (e.g. <code class="docutils literal notranslate"><span class="pre">Manipulators.coincidence</span></code>)</p></li>
+</ul>
+</section>
+</section>
+<section id="python-api-custom-pipelines">
+<h3>Python API (custom pipelines)<a class="headerlink" href="#python-api-custom-pipelines" title="Link to this heading">#</a></h3>
+<p>For integration into your own AI pipeline:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">snAPI.rag</span><span class="w"> </span><span class="kn">import</span> <span class="n">SnAPIRag</span>
+
+<span class="n">rag</span> <span class="o">=</span> <span class="n">SnAPIRag</span><span class="p">()</span>
+
+<span class="c1"># Natural language query — returns formatted context string</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">rag</span><span class="o">.</span><span class="n">query_as_context</span><span class="p">(</span><span class="s2">&quot;how do I measure g(2) with two detectors?&quot;</span><span class="p">)</span>
+
+<span class="c1"># Direct method lookup</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">rag</span><span class="o">.</span><span class="n">query_as_context</span><span class="p">(</span><span class="s2">&quot;Manipulators.coincidence&quot;</span><span class="p">)</span>
+
+<span class="c1"># Low-level — returns list of result dicts with text, score, metadata</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">rag</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;coincidence windowTime parameter&quot;</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Inject the returned context string into your LLM prompt. The RAG module returns
+relevant source excerpts; your LLM generates the final answer.</p>
+<p>Module-level shortcut:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">snAPI.rag</span><span class="w"> </span><span class="kn">import</span> <span class="n">query</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">query</span><span class="p">(</span><span class="s2">&quot;how do I set up a histogram measurement?&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="embedding-model-configuration">
+<h2>Embedding Model Configuration<a class="headerlink" href="#embedding-model-configuration" title="Link to this heading">#</a></h2>
+<p>The embedding model is configured via environment variable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default — local, no API key required</span>
+<span class="n">export</span> <span class="n">SNAPI_RAG_EMBEDDING</span><span class="o">=</span><span class="s2">&quot;local:BAAI/bge-small-en-v1.5&quot;</span>
+
+<span class="c1"># OpenAI</span>
+<span class="n">export</span> <span class="n">SNAPI_RAG_EMBEDDING</span><span class="o">=</span><span class="s2">&quot;openai:text-embedding-3-small&quot;</span>
+
+<span class="c1"># Ollama (local server)</span>
+<span class="n">export</span> <span class="n">SNAPI_RAG_EMBEDDING</span><span class="o">=</span><span class="s2">&quot;ollama:nomic-embed-text&quot;</span>
+</pre></div>
+</div>
+<p>The same model must be used for both building the index and querying.
+If you change the model, rebuild the index with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">snAPI.rag</span> <span class="pre">index</span></code>.</p>
+</section>
+<section id="cli-reference">
+<h2>CLI Reference<a class="headerlink" href="#cli-reference" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>python -m snAPI.rag &lt;command&gt; [options]
+
+Commands:
+  index     Build the RAG index
+  serve     Start the MCP server (stdio transport)
+  install   Register the MCP server in your AI tool automatically
+</pre></div>
+</div>
+</section>
+<section id="what-gets-indexed">
+<h2>What Gets Indexed<a class="headerlink" href="#what-gets-indexed" title="Link to this heading">#</a></h2>
+<p>The RAG index covers all snAPI sources:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>Coverage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">snAPI/Main.py</span></code></p></td>
+<td><p>Every public method as a complete chunk (signature + docstring + example)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">snAPI/Constants.py</span></code></p></td>
+<td><p>Every enum class with all values and descriptions</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">demos/</span></code></p></td>
+<td><p>Every demo script with auto-generated feature summary</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">doc_source/*.rst</span></code></p></td>
+<td><p>All documentation pages, split by section</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">docs/_images/</span></code></p></td>
+<td><p>Hardware diagrams and timing figures with RST captions</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Method chunks are never split at token boundaries. Each chunk always contains
+a complete method — signature, parameter descriptions, and example code —
+so retrieved context is always immediately usable.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="PQTag_Types.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PQ Tag Types</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-index">Building the Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcp-server-claude-code-cursor-copilot">MCP Server (Claude Code, Cursor, Copilot, …)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-configuration">Manual Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-cache-path-issue">Windows: Cache Path Issue</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mcp-tools">MCP Tools</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api-custom-pipelines">Python API (custom pipelines)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-model-configuration">Embedding Model Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-reference">CLI Reference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-gets-indexed">What Gets Indexed</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, PicoQuant.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

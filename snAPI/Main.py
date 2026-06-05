@@ -2582,17 +2582,55 @@ Example
 class WhiteRabbit():
     """
 White Rabbit is a time synchronization technology based on the Precision Time Protocol (PTP).
-It is used to synchronize clocks between different entities on an Ethernet network.
+It is used to synchronize clocks across multiple devices on an Ethernet network to sub-nanosecond
+precision, allowing truly synchronous multi-device TCSPC measurements.
 
-See:
+Prerequisites
+-------------
+A crucial prerequisite is that the boot script stored on the Harp's EEPROM is correct and
+executable — this can be verified using the legacy Harp software. Once confirmed, the
+legacy software is no longer required. When a Harp is initialized with the option to derive
+its clock from the WR network (see :obj:`.RefSource.Wr_Master_Harp` and
+:obj:`.RefSource.Wr_Slave_Harp`), it boots using this script, acquires its clock signal from
+the WR network, and operates in synchronization from the start. Safran nodes (switches) function
+transparently with respect to the Harp devices during this process.
+
+Master / Slave Setup
+--------------------
+We recommend configuring one device as the **Master** and all others as **Slaves**:
+
+- Initialize the Master with :obj:`.RefSource.Wr_Master_Harp`
+- Initialize each Slave with :obj:`.RefSource.Wr_Slave_Harp`
+
+To ensure that measurements start and stop synchronously, the Master transmits a start signal
+to the Slaves via the WR network. For this, :meth:`.Device.setMeasControl` must be set to
+:obj:`.MeasControl.WrMaster2Slave` on all devices.
+
+**Start sequence:** always start the measurement on the Slaves first. They will enter an
+internal standby mode and only begin recording once the Master starts its measurement and
+transmits the start signal. From that point on, the measurement proceeds synchronously. A minimal
+timing offset remains between devices, which can be removed retrospectively.
+
+Synchronous File Playback
+-------------------------
+Recorded PTU files from multiple devices can also be loaded and replayed synchronously at a later
+stage. Use the :class:`.ExportStream` measurement class together with the
+:meth:`.Manipulators.importStream` manipulator to insert the events from a Slave unit into the
+Master's data stream in the correct chronological order. This allows you to correlate channels
+from different devices — for example to compute a g(2) across two Harps.
+
+Demo Scripts
+------------
     | :octicon:`mark-github` `Demo_WR_Configure_Master.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_Configure_Master.py>`_
     | :octicon:`mark-github` `Demo_WR_Configure_Slave.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_Configure_Slave.py>`_
     | :octicon:`mark-github` `Demo_WR_TimeTrace_Master.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Master.py>`_
     | :octicon:`mark-github` `Demo_WR_TimeTrace_Slave.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_TimeTrace_Slave.py>`_
     | :octicon:`mark-github` `Demo_WR_2Harps_1_stream.py <https://github.com/PicoQuant/snAPI/blob/main/demos/Demo_WR_2Harps_1_stream.py>`_
 
+See also
+--------
     | :fa:`file-pdf` `White Rabbit Specification v2.0 <https://white-rabbit.web.cern.ch/documents/WhiteRabbitSpec.v2.0.pdf>`_
-    
+
     """
     
 
@@ -4955,7 +4993,7 @@ Example
         data = np.lib.stride_tricks.as_strided(self.data, shape=(self.numBinsY, self.numBinsX),
             strides=(ct.sizeof(self.data._type_) * self.numBinsX, ct.sizeof(self.data._type_)))
         
-        if self.parent.wait4newData:
+        if self.wait4newData:
             if self.parent.dll.waitNewData(self.ID):
                 dataOut = np.copy(data)
                 binsOut = np.copy(self.bins)
@@ -6802,3 +6840,124 @@ Example
         self.getConfig()
         return list(range(iChan, iChan + len(channels)))
 
+    def pnr(self, channelRef: int, channelX: int, channelY: int, diffMin: typing.Optional[int] = 0, diffMax: typing.Optional[int] = 0,
+            xCorr: typing.Optional[int] = 0, yCorr: typing.Optional[int] = 0, 
+            timewalkFactor: typing.Optional[float] = 0.0, timewalkCorrFactor: typing.Optional[float] = 0.0,
+            toT: typing.Optional[bool] = True, keepSourceChannel: typing.Optional[bool] = True):
+        """
+This manipulator prepares timing data for photon-number-resolving (**PNR**) analysis.
+It contains the PNR-specific transformations that were previously part of the
+:class:`.Histogram2D` measurement class and is typically used together with it.
+
+The manipulator selects a reference channel, an X channel, and a Y channel, then
+computes timing differences relative to the reference::
+
+    dX = tX - tRef
+    dY = tY - tRef
+
+When **Time over Threshold** (:attr:`toT`) is enabled, the Y value is transformed into
+the pulse duration (time between the two channel edges)::
+
+    dY_ToT = dY - dX  =  tY - tX
+
+This unfolds diagonal cluster structures into horizontal bands, making it easier to
+separate **1-photon**, **2-photon**, and **3+ photon** states in the :class:`.Histogram2D` view.
+
+On top of the main correction, a **recovery timing correction** can be applied to
+events that are still within the detector's recovery time. The recovery gap is measured
+as the time between the **current event's SYNC** and the **SYNC of the last preceding
+photon event**. If that gap is small — i.e. it falls inside the window
+[:attr:`diffMin` … :attr:`diffMax`] — the detector has not fully recovered, the event
+timing is distorted, and the correction is applied. Constant offsets (:attr:`xCorr`,
+:attr:`yCorr`) and a separate linear time-walk factor (:attr:`timewalkCorrFactor`) are
+used to compensate the distortion.
+
+Note
+----
+    If you don't need the original channels anymore set `keepSourceChannel` to False.
+    This will reduce the data stream and therefore the processor load and memory consumption.
+
+Parameters
+----------
+    channelRef : int
+        Reference channel used as the timing origin.
+        In :obj:`.MeasMode.T2` this channel can be freely selected.
+        In :obj:`.MeasMode.T3` the SYNC channel is always used as reference.
+    channelX : int
+        Channel mapped to the X axis — typically the leading edge of the pulse.
+    channelY : int
+        Channel mapped to the Y axis — typically the trailing edge of the pulse.
+        Without ToT the Y value is referenced to `channelRef`.
+        With ToT enabled it becomes the time difference between Y and X (pulse width).
+    diffMin : int [ps], optional (default: 0 ps)
+        Lower bound of the recovery gap window [ps].
+        The gap is measured from the current event's SYNC back to the SYNC of the
+        last preceding photon event. Events with a gap >= `diffMin` and <= `diffMax`
+        are considered inside the detector's recovery time and receive the correction.
+    diffMax : int [ps], optional (default: 0 ps = no correction)
+        Upper bound of the recovery gap window [ps].
+        Set this to the detector's recovery time (e.g. 50 000 ps for 50 ns).
+        Events with a gap > `diffMax` are considered fully recovered and are left unchanged.
+    xCorr : int [ps], optional (default: 0)
+        Constant timing offset added to the X value of events inside the correction window.
+        Use this to shift recovery-affected clusters back into alignment on the X axis.
+    yCorr : int [ps], optional (default: 0)
+        Constant timing offset added to the Y value of events inside the correction window.
+        Use this to shift recovery-affected clusters back into alignment on the Y axis.
+    timewalkFactor : float [ps/ps], optional (default: 0.0)
+        Linear time-walk correction factor applied to the **main** data distribution.
+        Tuning this value shears the cluster structure so that photon-number bands
+        become flatter and easier to separate. Set to 0 to disable.
+    timewalkCorrFactor : float [ps/ps], optional (default: 0.0)
+        Separate linear time-walk correction factor applied only to events inside the
+        recovery correction window [:attr:`diffMin` … :attr:`diffMax`].
+        This lets recovery-distorted pulses be straightened independently from the
+        main distribution. Set to 0 to disable.
+    toT : bool, optional (default: True)
+        Enable **Time over Threshold** mode.
+        When True, the Y axis shows the pulse width (tY − tX) instead of the raw
+        timing difference to the reference. Use this when X and Y represent the
+        leading and trailing edges of the same pulse.
+    keepSourceChannel : bool, optional (default: True)
+        | True: the PNR output channel is added to the data stream as an additional channel.
+        | False: the source channels are removed from the stream (reduces data volume).
+
+Returns
+-------
+    int:
+        The channel index of the PNR output that can be passed to :class:`.Histogram2D`.
+
+Example
+-------
+::
+
+    # PNR measurement in T2 mode:
+    # channel 0 = reference, channel 1 = leading edge, channel 2 = trailing edge
+    # Display pulse-width vs. timing-difference to identify photon-number states.
+    sn = snAPI()
+    sn.getDevice()
+    sn.initDevice(MeasMode.T2)
+
+    pnrChan = sn.manipulators.pnr(
+        channelRef=0, channelX=1, channelY=2,
+        diffMin=0, diffMax=500000,
+        xCorr=0, yCorr=0,
+        timewalkFactor=0.0, timewalkCorrFactor=0.0,
+        toT=True, keepSourceChannel=False
+    )
+
+    sn.histogram2D.setHisto2dParams(
+        refChannel=0, channelX=pnrChan, channelY=pnrChan,
+        offsetX=0, offsetY=0,
+        binWidthX=100, binWidthY=100,
+        numBinsX=1000, numBinsY=1000
+    )
+    sn.histogram2D.measure(acqTime=5000, waitFinished=True, savePTU=False)
+    data = sn.histogram2D.getData()
+
+        """
+
+        self.parent.dll.addMPNR.argtypes = [ct.c_wchar_p, ct.c_int, ct.c_int, ct.c_int, ct.c_int, ct.c_int, ct.c_int, ct.c_int, ct.c_double, ct.c_double, ct.c_bool, ct.c_bool]
+        chanOut = self.parent.dll.addMPNR(self.ID, channelRef, channelX, channelY, diffMin, diffMax, xCorr, yCorr, timewalkFactor, timewalkCorrFactor, toT, keepSourceChannel)
+        self.getConfig()
+        return chanOut
