@@ -67,7 +67,10 @@ def create_mcp_app(rag: SnAPIRag) -> Server:
 
 
 def run_server(cfg: RagConfig):
-    rag = SnAPIRag(config=cfg)
+    import contextlib
+    import sys
+    with contextlib.redirect_stdout(sys.stderr):
+        rag = SnAPIRag(config=cfg)
     app = create_mcp_app(rag)
 
     async def _run():
