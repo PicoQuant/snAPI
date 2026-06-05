@@ -5,6 +5,34 @@ from matplotlib import pyplot as plt
 print("Switched to:",matplotlib.get_backend())
 import time
 
+# Sequence-mode g(2) correlation over measurement time
+# ====================================================
+# This demo demonstrates how sequence mode can be used to acquire a gapless
+# series of second-order correlation measurements, g(2), from photon events
+# recorded with a PicoQuant time tagging device or from a PTU file.
+#
+# The script configures a g(2) correlation between a signal channel and an idler
+# channel. A fixed delay is applied to the signal channel with a snAPI
+# manipulator so that the correlation feature is shifted into the selected
+# correlation window.
+#
+# Setup:
+# The signal and idler detector channels, correlation window, bin width,
+# acquisition time, and sequence duration are defined in the script. The sequence
+# duration determines the length of each consecutive correlation measurement in
+# the gapless measurement sequence.
+#
+# The correlation module is run in sequence mode. Instead of repeatedly starting
+# and stopping separate measurements, snAPI divides the acquisition into
+# consecutive time slices and returns one g(2) curve for each slice.
+#
+# During acquisition, the script displays the sequence as a 2D plot with
+# correlation delay tau on one axis and measurement time on the other. This is
+# useful for observing changes in photon correlations over time without gaps
+# between the individual correlation measurements, for example when monitoring
+# source stability, alignment drift, blinking, or other time-dependent changes in
+# a photon-pair or single-photon experiment.
+
 if(__name__ == "__main__"):
 
     sn = snAPI()
