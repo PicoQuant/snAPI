@@ -6947,7 +6947,7 @@ Example
     )
 
     sn.histogram2D.setHisto2dParams(
-        refChannel=0, channelX=pnrChan, channelY=pnrChan,
+        refChannel=0, channelX=pnrChan, channelY=pnrChan + 1,
         offsetX=0, offsetY=0,
         binWidthX=100, binWidthY=100,
         numBinsX=1000, numBinsY=1000
