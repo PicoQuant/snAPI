@@ -4815,10 +4815,10 @@ photon count for <cite>Counts</cite> mode. Ignored for <cite>Off</cite>.</p></li
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># acquire 100 ms 2D histogram windows over 10 seconds</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">setSequenceMode</span><span class="p">(</span><span class="n">sequenceMode</span><span class="o">=</span><span class="n">SequenceMode</span><span class="o">.</span><span class="n">Timer</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">while</span> <span class="ow">not</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">isFinished</span><span class="p">():</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">setSequenceMode</span><span class="p">(</span><span class="n">sequenceMode</span><span class="o">=</span><span class="n">SequenceMode</span><span class="o">.</span><span class="n">Timer</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">isFinished</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -6427,14 +6427,14 @@ leading and trailing edges of the same pulse.</p></li>
     <span class="n">toT</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">keepSourceChannel</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span>
 
-<span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">setHisto2dParams</span><span class="p">(</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">setHisto2dParams</span><span class="p">(</span>
     <span class="n">refChannel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channelX</span><span class="o">=</span><span class="n">pnrChan</span><span class="p">,</span> <span class="n">channelY</span><span class="o">=</span><span class="n">pnrChan + 1</span><span class="p">,</span>
     <span class="n">offsetX</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offsetY</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">binWidthX</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">binWidthY</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
     <span class="n">numBinsX</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">numBinsY</span><span class="o">=</span><span class="mi">1000</span>
 <span class="p">)</span>
-<span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2D</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
+<span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">acqTime</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">waitFinished</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savePTU</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sn</span><span class="o">.</span><span class="n">histogram2d</span><span class="o">.</span><span class="n">getData</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
