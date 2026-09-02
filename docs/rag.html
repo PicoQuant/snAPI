@@ -478,16 +478,25 @@ the snAPI documentation, API reference, and demo scripts to help write measureme
 enums from <code class="docutils literal notranslate"><span class="pre">Constants.py</span></code>, all demo scripts, and the RST documentation pages.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
-<p>Install snAPI with the RAG dependencies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">snAPI</span><span class="p">[</span><span class="n">rag</span><span class="p">]</span>
+<p>The RAG module lives only in the GitHub repository — it is not part of the
+<code class="docutils literal notranslate"><span class="pre">snapi</span></code> package published on PyPI. Therefore, get the code from GitHub and install from that checkout:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">PicoQuant</span><span class="o">/</span><span class="n">snAPI</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">snAPI</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span><span class="p">[</span><span class="n">rag</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>(No git? Use “Code → Download ZIP” on the <a class="reference external" href="https://github.com/PicoQuant/snAPI">GitHub repository</a> and extract it, then run the
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[rag]</span></code> command from inside the extracted folder.)</p>
+<p>This installs the RAG dependencies (<code class="docutils literal notranslate"><span class="pre">llama-index</span></code>, <code class="docutils literal notranslate"><span class="pre">sentence-transformers</span></code>,
+<code class="docutils literal notranslate"><span class="pre">mcp</span></code>) and, because it’s an editable install pointed at your checkout,
+makes <code class="docutils literal notranslate"><span class="pre">snAPI.rag</span></code> importable — the checkout is now your <code class="docutils literal notranslate"><span class="pre">/path/to/snAPI</span></code>
+referenced throughout the rest of this page.</p>
 <p>The default embedding model (<code class="docutils literal notranslate"><span class="pre">BAAI/bge-small-en-v1.5</span></code>) runs locally.
 No API key is required.</p>
 </section>
 <section id="building-the-index">
 <h2>Building the Index<a class="headerlink" href="#building-the-index" title="Link to this heading">#</a></h2>
-<p>The pre-built index is included in the repository. To rebuild after updating snAPI:</p>
+<p>The pre-built index is included in the repository checkout. To rebuild after updating snAPI:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">snAPI</span><span class="o">.</span><span class="n">rag</span> <span class="n">index</span>
 </pre></div>
 </div>
@@ -510,12 +519,16 @@ automatically and writes the configuration to the correct location.</p>
 The connected AI tool starts the server process automatically.</p>
 <section id="manual-configuration">
 <h4>Manual Configuration<a class="headerlink" href="#manual-configuration" title="Link to this heading">#</a></h4>
-<p>If the installer doesn’t cover your setup, add this to your tool’s MCP config:</p>
+<p>If the installer doesn’t cover your setup, add this to your tool’s MCP config.
+Set <code class="docutils literal notranslate"><span class="pre">cwd</span></code> to the repository checkout from the Installation step above, so
+the server can find the <code class="docutils literal notranslate"><span class="pre">snAPI.rag</span></code> module:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;snapi&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;snAPI.rag&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;serve&quot;</span><span class="p">]</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;snAPI.rag&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;serve&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/snAPI&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;PYTHONPATH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/snAPI&quot;</span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -565,7 +578,9 @@ loading failures. If you see a <code class="docutils literal notranslate"><span 
 <span class="w">    </span><span class="nt">&quot;snapi&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;snAPI.rag&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;serve&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:\\path\\to\\snAPI&quot;</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;PYTHONPATH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:\\path\\to\\snAPI&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;LLAMA_INDEX_CACHE_DIR&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C:\\Users\\&lt;username&gt;\\.cache\\huggingface\\hub&quot;</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
