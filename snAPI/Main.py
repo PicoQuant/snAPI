@@ -1147,7 +1147,7 @@ Example
         """
         syncRate =  ct.pointer(ct.c_int(0))
         countRates = ct.ARRAY(ct.c_int, 64)()
-        ok = self.parent.dll.getCountRates(self.ID, syncRate, countRates)
+        ok = self.parent.dll.getCountRates(syncRate, countRates)
         a = np.array(countRates)
         if self.numChans == -1:
             self.parent.getDeviceConfig()
